@@ -14,15 +14,28 @@ export async function getCardProgress(userId: string, cardId: string): Promise<C
   return data ? mapCardProgressRow(data as CardProgressRow) : null;
 }
 
-export async function getDueCardProgress(userId: string): Promise<CardProgress[]> {
+export async function getCardProgressForCards(
+  userId: string,
+  cardIds: string[],
+): Promise<CardProgress[]> {
+  if (cardIds.length === 0) return [];
   const { data, error } = await supabase
     .from('card_progress')
     .select('*')
     .eq('user_id', userId)
-    .lte('due', new Date().toISOString())
-    .order('due');
+    .in('card_id', cardIds);
   if (error) throw error;
   return (data as CardProgressRow[]).map(mapCardProgressRow);
+}
+
+export async function getLearnedCardCount(userId: string): Promise<number> {
+  const { count, error } = await supabase
+    .from('card_progress')
+    .select('id', { count: 'exact', head: true })
+    .eq('user_id', userId)
+    .gt('reps', 0);
+  if (error) throw error;
+  return count ?? 0;
 }
 
 export async function upsertCardProgress(
@@ -55,4 +68,23 @@ export async function insertReviewLog(log: Omit<ReviewLog, 'id'>): Promise<void>
   };
   const { error } = await supabase.from('review_logs').insert(row);
   if (error) throw error;
+}
+
+export async function getTotalReviewCount(userId: string): Promise<number> {
+  const { count, error } = await supabase
+    .from('review_logs')
+    .select('id', { count: 'exact', head: true })
+    .eq('user_id', userId);
+  if (error) throw error;
+  return count ?? 0;
+}
+
+export async function getReviewLogDates(userId: string): Promise<string[]> {
+  const { data, error } = await supabase
+    .from('review_logs')
+    .select('reviewed_at')
+    .eq('user_id', userId)
+    .order('reviewed_at', { ascending: false });
+  if (error) throw error;
+  return (data as { reviewed_at: string }[]).map((row) => row.reviewed_at);
 }

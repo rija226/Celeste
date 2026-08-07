@@ -3,7 +3,24 @@
     "title": "Početna"
   },
   "stats": {
-    "title": "Statistika"
+    "title": "Statistika",
+    "totalReviews": "Ukupno ponavljanja: {{count}}",
+    "learnedCards": "Naučene kartice: {{count}}",
+    "streak": "Niz: {{count}} dana"
+  },
+  "deck": {
+    "cardCount": "{{count}} kartica",
+    "dueCount": "{{count}} za ponoviti danas",
+    "start": "Počni učenje"
+  },
+  "study": {
+    "reveal": "Prikaži odgovor",
+    "again": "Ponovo",
+    "hard": "Teško",
+    "good": "Dobro",
+    "easy": "Lako",
+    "done": "Gotovo za danas!",
+    "empty": "Nema kartica za ponoviti sada."
   },
   "common": {
     "switchLanguage": "English"

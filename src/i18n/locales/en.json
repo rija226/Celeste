@@ -3,7 +3,24 @@
     "title": "Home"
   },
   "stats": {
-    "title": "Stats"
+    "title": "Stats",
+    "totalReviews": "Total reviews: {{count}}",
+    "learnedCards": "Cards learned: {{count}}",
+    "streak": "Streak: {{count}} days"
+  },
+  "deck": {
+    "cardCount": "{{count}} cards",
+    "dueCount": "{{count}} due today",
+    "start": "Start studying"
+  },
+  "study": {
+    "reveal": "Show answer",
+    "again": "Again",
+    "hard": "Hard",
+    "good": "Good",
+    "easy": "Easy",
+    "done": "All done for today!",
+    "empty": "No cards due right now."
   },
   "common": {
     "switchLanguage": "Hrvatski"
