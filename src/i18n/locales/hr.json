@@ -2,6 +2,10 @@
   "home": {
     "title": "Početna"
   },
+  "settings": {
+    "title": "Podešavanja",
+    "language": "Jezik"
+  },
   "stats": {
     "title": "Statistika",
     "totalReviews": "Ukupno ponavljanja: {{count}}",

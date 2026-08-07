@@ -2,24 +2,36 @@ import { useEffect, useState } from 'react';
 import { Stack } from 'expo-router';
 import { TamaguiProvider } from 'tamagui';
 
+import { SpaceBackdrop } from '@/components/SpaceBackdrop';
 import { ensureSession } from '@/db';
 import { initI18n } from '@/i18n';
+import { palette } from '@/theme/palette';
 import { tamaguiConfig } from '@/theme/tamagui.config';
+import { useAppFonts } from '@/theme/fonts';
 
 export default function RootLayout() {
-  const [ready, setReady] = useState(false);
+  const fontsLoaded = useAppFonts();
+  const [dataReady, setDataReady] = useState(false);
 
   useEffect(() => {
-    Promise.all([initI18n(), ensureSession()]).then(() => setReady(true));
+    Promise.all([initI18n(), ensureSession()]).then(() => setDataReady(true));
   }, []);
 
-  if (!ready) {
+  if (!fontsLoaded || !dataReady) {
     return null;
   }
 
   return (
     <TamaguiProvider config={tamaguiConfig} defaultTheme="dark">
-      <Stack screenOptions={{ headerShown: false }} />
+      <SpaceBackdrop />
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: { backgroundColor: 'transparent' },
+          headerStyle: { backgroundColor: palette.nebulaDeep },
+          headerTintColor: palette.starlight,
+        }}
+      />
     </TamaguiProvider>
   );
 }

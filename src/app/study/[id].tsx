@@ -3,6 +3,7 @@ import { Stack, useLocalSearchParams } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { Button, H3, Paragraph, Spinner, XStack, YStack } from 'tamagui';
 
+import { GlassCard } from '@/components/GlassCard';
 import {
   ensureSession,
   getCardProgress,
@@ -63,7 +64,7 @@ export default function StudyScreen() {
   }
 
   return (
-    <YStack f={1} bg="$background" p="$4" jc="space-between">
+    <YStack f={1} p="$4" jc="space-between">
       <Stack.Screen options={{ headerShown: true, title: '' }} />
 
       {error && <Paragraph color="$red10">{error}</Paragraph>}
@@ -76,7 +77,7 @@ export default function StudyScreen() {
 
       {currentCard && (
         <>
-          <YStack f={1} ai="center" jc="center" gap="$4" onPress={flip}>
+          <GlassCard f={1} ai="center" jc="center" gap="$4" pressStyle={{ opacity: 0.9 }} onPress={flip}>
             <H3 textAlign="center">
               {isFlipped ? pickLocalized(currentCard.back, i18n.language) : pickLocalized(currentCard.front, i18n.language)}
             </H3>
@@ -85,7 +86,7 @@ export default function StudyScreen() {
                 {pickLocalized(currentCard.explanation, i18n.language)}
               </Paragraph>
             )}
-          </YStack>
+          </GlassCard>
 
           {!isFlipped ? (
             <Button theme="blue" onPress={flip}>
