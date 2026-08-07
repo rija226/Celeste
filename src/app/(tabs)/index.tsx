@@ -1,9 +1,9 @@
-import { Text, View } from 'react-native';
+import { H2, YStack } from 'tamagui';
 
 export default function HomeScreen() {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home</Text>
-    </View>
+    <YStack f={1} ai="center" jc="center" bg="$background">
+      <H2 color="$color">Home</H2>
+    </YStack>
   );
 }
