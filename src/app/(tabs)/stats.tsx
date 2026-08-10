@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Paragraph, Spinner, YStack } from 'tamagui';
 
 import { GlassCard } from '@/components/GlassCard';
+import { ScreenBackdrop } from '@/components/ScreenBackdrop';
 import { ensureSession, getLearnedCardCount, getReviewLogDates, getTotalReviewCount } from '@/db';
 import { computeStreak } from '@/lib/stats';
 
@@ -34,28 +35,30 @@ export default function StatsScreen() {
   }, []);
 
   return (
-    <YStack f={1} gap="$3" pt="$8" px="$4">
-      {error && <Paragraph color="$red10">{error}</Paragraph>}
-      {!stats && !error && <Spinner size="large" />}
-      {stats && (
-        <>
-          <GlassCard>
-            <Paragraph fontFamily="$heading" fontSize="$7" color="$blue10">
-              {t('stats.totalReviews', { count: stats.totalReviews })}
-            </Paragraph>
-          </GlassCard>
-          <GlassCard>
-            <Paragraph fontFamily="$heading" fontSize="$7" color="$green10">
-              {t('stats.learnedCards', { count: stats.learnedCards })}
-            </Paragraph>
-          </GlassCard>
-          <GlassCard>
-            <Paragraph fontFamily="$heading" fontSize="$7" color="$color">
-              {t('stats.streak', { count: stats.streak })}
-            </Paragraph>
-          </GlassCard>
-        </>
-      )}
-    </YStack>
+    <ScreenBackdrop>
+      <YStack f={1} gap="$3" pt="$8" px="$4">
+        {error && <Paragraph color="$red10">{error}</Paragraph>}
+        {!stats && !error && <Spinner size="large" />}
+        {stats && (
+          <>
+            <GlassCard>
+              <Paragraph fontFamily="$heading" fontSize="$7" color="$blue10">
+                {t('stats.totalReviews', { count: stats.totalReviews })}
+              </Paragraph>
+            </GlassCard>
+            <GlassCard>
+              <Paragraph fontFamily="$heading" fontSize="$7" color="$green10">
+                {t('stats.learnedCards', { count: stats.learnedCards })}
+              </Paragraph>
+            </GlassCard>
+            <GlassCard>
+              <Paragraph fontFamily="$heading" fontSize="$7" color="$color">
+                {t('stats.streak', { count: stats.streak })}
+              </Paragraph>
+            </GlassCard>
+          </>
+        )}
+      </YStack>
+    </ScreenBackdrop>
   );
 }

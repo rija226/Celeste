@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Paragraph, Spinner, YStack } from 'tamagui';
 
 import { GlassCard } from '@/components/GlassCard';
+import { ScreenBackdrop } from '@/components/ScreenBackdrop';
 import { ensureSession, getCardProgressForCards, getCardsForDeck, getDeck } from '@/db';
 import { pickLocalized } from '@/lib/localized';
 import type { Card, Deck } from '@/types/models';
@@ -44,28 +45,30 @@ export default function DeckScreen() {
   }, [id]);
 
   return (
-    <YStack f={1} pt="$8" px="$4" gap="$4">
-      <Stack.Screen options={{ headerShown: true, title: deck ? pickLocalized(deck.name, i18n.language) : '' }} />
+    <ScreenBackdrop>
+      <YStack f={1} pt="$8" px="$4" gap="$4">
+        <Stack.Screen options={{ headerShown: true, title: deck ? pickLocalized(deck.name, i18n.language) : '' }} />
 
-      {error && <Paragraph color="$red10">{error}</Paragraph>}
-      {!deck && !error && <Spinner size="large" />}
+        {error && <Paragraph color="$red10">{error}</Paragraph>}
+        {!deck && !error && <Spinner size="large" />}
 
-      {deck && (
-        <>
-          <GlassCard gap="$2">
-            <Paragraph color="$color11">{pickLocalized(deck.description, i18n.language)}</Paragraph>
-            <Paragraph fontFamily="$heading" fontSize="$5" color="$color">
-              {t('deck.cardCount', { count: cards?.length ?? 0 })}
-            </Paragraph>
-            <Paragraph fontFamily="$heading" fontSize="$5" color="$blue10">
-              {t('deck.dueCount', { count: dueCount })}
-            </Paragraph>
-          </GlassCard>
-          <Button size="$5" theme="blue" disabled={dueCount === 0} onPress={() => router.push(`/study/${id}`)}>
-            {t('deck.start')}
-          </Button>
-        </>
-      )}
-    </YStack>
+        {deck && (
+          <>
+            <GlassCard gap="$2">
+              <Paragraph color="$color11">{pickLocalized(deck.description, i18n.language)}</Paragraph>
+              <Paragraph fontFamily="$heading" fontSize="$5" color="$color">
+                {t('deck.cardCount', { count: cards?.length ?? 0 })}
+              </Paragraph>
+              <Paragraph fontFamily="$heading" fontSize="$5" color="$blue10">
+                {t('deck.dueCount', { count: dueCount })}
+              </Paragraph>
+            </GlassCard>
+            <Button size="$5" theme="blue" disabled={dueCount === 0} onPress={() => router.push(`/study/${id}`)}>
+              {t('deck.start')}
+            </Button>
+          </>
+        )}
+      </YStack>
+    </ScreenBackdrop>
   );
 }

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, H3, Paragraph, Spinner, XStack, YStack } from 'tamagui';
 
 import { GlassCard } from '@/components/GlassCard';
+import { ScreenBackdrop } from '@/components/ScreenBackdrop';
 import {
   ensureSession,
   getCardProgress,
@@ -64,52 +65,56 @@ export default function StudyScreen() {
   }
 
   return (
-    <YStack f={1} p="$4" jc="space-between">
-      <Stack.Screen options={{ headerShown: true, title: '' }} />
+    <ScreenBackdrop>
+      <YStack f={1} p="$4" jc="space-between">
+        <Stack.Screen options={{ headerShown: true, title: '' }} />
 
-      {error && <Paragraph color="$red10">{error}</Paragraph>}
-      {loading && <Spinner size="large" />}
-      {!loading && !error && !currentCard && (
-        <YStack f={1} ai="center" jc="center">
-          <Paragraph fontSize="$6">{queue.length === 0 ? t('study.empty') : t('study.done')}</Paragraph>
-        </YStack>
-      )}
+        {error && <Paragraph color="$red10">{error}</Paragraph>}
+        {loading && <Spinner size="large" />}
+        {!loading && !error && !currentCard && (
+          <YStack f={1} ai="center" jc="center">
+            <Paragraph fontSize="$6">{queue.length === 0 ? t('study.empty') : t('study.done')}</Paragraph>
+          </YStack>
+        )}
 
-      {currentCard && (
-        <>
-          <GlassCard f={1} ai="center" jc="center" gap="$4" pressStyle={{ opacity: 0.9 }} onPress={flip}>
-            <H3 textAlign="center">
-              {isFlipped ? pickLocalized(currentCard.back, i18n.language) : pickLocalized(currentCard.front, i18n.language)}
-            </H3>
-            {isFlipped && currentCard.explanation && (
-              <Paragraph color="$color11" textAlign="center">
-                {pickLocalized(currentCard.explanation, i18n.language)}
-              </Paragraph>
+        {currentCard && (
+          <>
+            <GlassCard f={1} ai="center" jc="center" gap="$4" pressStyle={{ opacity: 0.9 }} onPress={flip}>
+              <H3 textAlign="center">
+                {isFlipped
+                  ? pickLocalized(currentCard.back, i18n.language)
+                  : pickLocalized(currentCard.front, i18n.language)}
+              </H3>
+              {isFlipped && currentCard.explanation && (
+                <Paragraph color="$color11" textAlign="center">
+                  {pickLocalized(currentCard.explanation, i18n.language)}
+                </Paragraph>
+              )}
+            </GlassCard>
+
+            {!isFlipped ? (
+              <Button theme="blue" onPress={flip}>
+                {t('study.reveal')}
+              </Button>
+            ) : (
+              <XStack gap="$2">
+                <Button f={1} theme="red" onPress={() => handleRate(Rating.Again)}>
+                  {t('study.again')}
+                </Button>
+                <Button f={1} onPress={() => handleRate(Rating.Hard)}>
+                  {t('study.hard')}
+                </Button>
+                <Button f={1} theme="blue" onPress={() => handleRate(Rating.Good)}>
+                  {t('study.good')}
+                </Button>
+                <Button f={1} theme="green" onPress={() => handleRate(Rating.Easy)}>
+                  {t('study.easy')}
+                </Button>
+              </XStack>
             )}
-          </GlassCard>
-
-          {!isFlipped ? (
-            <Button theme="blue" onPress={flip}>
-              {t('study.reveal')}
-            </Button>
-          ) : (
-            <XStack gap="$2">
-              <Button f={1} theme="red" onPress={() => handleRate(Rating.Again)}>
-                {t('study.again')}
-              </Button>
-              <Button f={1} onPress={() => handleRate(Rating.Hard)}>
-                {t('study.hard')}
-              </Button>
-              <Button f={1} theme="blue" onPress={() => handleRate(Rating.Good)}>
-                {t('study.good')}
-              </Button>
-              <Button f={1} theme="green" onPress={() => handleRate(Rating.Easy)}>
-                {t('study.easy')}
-              </Button>
-            </XStack>
-          )}
-        </>
-      )}
-    </YStack>
+          </>
+        )}
+      </YStack>
+    </ScreenBackdrop>
   );
 }
