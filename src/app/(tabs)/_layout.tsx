@@ -40,6 +40,15 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
+        name="tonight"
+        options={{
+          title: t('tonight.title'),
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? 'telescope' : 'telescope-outline'} size={22} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="stats"
         options={{
           title: t('stats.title'),

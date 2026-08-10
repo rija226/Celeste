@@ -1,4 +1,4 @@
-import { Body, Equator, Horizon, Illumination, Observer, SearchRiseSet } from 'astronomy-engine';
+import { Body, Equator, Horizon, Illumination, MoonPhase, Observer, SearchRiseSet } from 'astronomy-engine';
 
 export type SkyBodyKey = 'moon' | 'mercury' | 'venus' | 'mars' | 'jupiter' | 'saturn';
 
@@ -27,8 +27,43 @@ export type TonightSky = {
   sunrise: Date | null;
   sunset: Date | null;
   moonPhaseFraction: number;
+  moonPhaseAngle: number;
   bodies: SkyBodyInfo[];
 };
+
+export type MoonPhaseName =
+  | 'newMoon'
+  | 'waxingCrescent'
+  | 'firstQuarter'
+  | 'waxingGibbous'
+  | 'fullMoon'
+  | 'waningGibbous'
+  | 'lastQuarter'
+  | 'waningCrescent';
+
+// MoonPhase() vraca 0-360 (razlika eklipticke duzine Mjesec-Sunce), 8 jednakih
+// isjecaka od 45 stepeni, centriranih na svaku od 4 glavne mijene.
+export function getMoonPhaseName(angle: number): MoonPhaseName {
+  const names: MoonPhaseName[] = [
+    'newMoon',
+    'waxingCrescent',
+    'firstQuarter',
+    'waxingGibbous',
+    'fullMoon',
+    'waningGibbous',
+    'lastQuarter',
+    'waningCrescent',
+  ];
+  const index = Math.round(angle / 45) % 8;
+  return names[index];
+}
+
+const COMPASS_POINTS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'] as const;
+
+export function azimuthToCompass(azimuth: number): (typeof COMPASS_POINTS)[number] {
+  const index = Math.round(azimuth / 45) % 8;
+  return COMPASS_POINTS[index];
+}
 
 function computeBodyInfo(key: SkyBodyKey, observer: Observer, date: Date): SkyBodyInfo {
   const body = BODY_BY_KEY[key];
@@ -56,6 +91,7 @@ export function getTonightSky(latitude: number, longitude: number, date: Date = 
     sunrise: SearchRiseSet(Body.Sun, observer, +1, date, 1)?.date ?? null,
     sunset: SearchRiseSet(Body.Sun, observer, -1, date, 1)?.date ?? null,
     moonPhaseFraction: Illumination(Body.Moon, date).phase_fraction,
+    moonPhaseAngle: MoonPhase(date),
     bodies: SKY_BODY_KEYS.map((key) => computeBodyInfo(key, observer, date)),
   };
 }

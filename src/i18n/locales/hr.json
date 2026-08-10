@@ -20,6 +20,35 @@
     "dailyScore": "{{correct}}/{{total}} tačno",
     "dailyComeBack": "Vrati se sutra za novi izazov."
   },
+  "tonight": {
+    "title": "Večeras",
+    "permissionMessage": "Treba nam tvoja lokacija da prikažemo šta je vidljivo na nebu večeras.",
+    "enableLocation": "Uključi lokaciju",
+    "sunset": "Zalazak sunca {{time}}",
+    "sunrise": "Izlazak sunca {{time}}",
+    "illuminated": "{{percent}}% osvijetljeno",
+    "visible": "Vidljivo sada · {{direction}}, {{altitude}}°",
+    "notVisible": "Trenutno nije vidljivo",
+    "rises": "Izlazi {{time}}",
+    "sets": "Zalazi {{time}}",
+    "moonPhase": {
+      "newMoon": "Mladi Mjesec",
+      "waxingCrescent": "Mlađak",
+      "firstQuarter": "Prva četvrt",
+      "waxingGibbous": "Rastuća mjesečina",
+      "fullMoon": "Pun Mjesec",
+      "waningGibbous": "Opadajuća mjesečina",
+      "lastQuarter": "Zadnja četvrt",
+      "waningCrescent": "Star Mjesec"
+    },
+    "bodies": {
+      "mercury": "Merkur",
+      "venus": "Venera",
+      "mars": "Mars",
+      "jupiter": "Jupiter",
+      "saturn": "Saturn"
+    }
+  },
   "settings": {
     "title": "Podešavanja",
     "language": "Jezik",

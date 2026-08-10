@@ -20,6 +20,35 @@
     "dailyScore": "{{correct}}/{{total}} correct",
     "dailyComeBack": "Come back tomorrow for a new one."
   },
+  "tonight": {
+    "title": "Tonight",
+    "permissionMessage": "We need your location to show what's visible in tonight's sky.",
+    "enableLocation": "Enable location",
+    "sunset": "Sunset {{time}}",
+    "sunrise": "Sunrise {{time}}",
+    "illuminated": "{{percent}}% illuminated",
+    "visible": "Visible now · {{direction}}, {{altitude}}°",
+    "notVisible": "Not visible right now",
+    "rises": "Rises {{time}}",
+    "sets": "Sets {{time}}",
+    "moonPhase": {
+      "newMoon": "New Moon",
+      "waxingCrescent": "Waxing Crescent",
+      "firstQuarter": "First Quarter",
+      "waxingGibbous": "Waxing Gibbous",
+      "fullMoon": "Full Moon",
+      "waningGibbous": "Waning Gibbous",
+      "lastQuarter": "Last Quarter",
+      "waningCrescent": "Waning Crescent"
+    },
+    "bodies": {
+      "mercury": "Mercury",
+      "venus": "Venus",
+      "mars": "Mars",
+      "jupiter": "Jupiter",
+      "saturn": "Saturn"
+    }
+  },
   "settings": {
     "title": "Settings",
     "language": "Language",
