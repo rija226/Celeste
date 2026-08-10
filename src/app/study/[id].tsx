@@ -3,7 +3,7 @@ import { Stack, useLocalSearchParams } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { Button, H3, Paragraph, Spinner, XStack, YStack } from 'tamagui';
 
-import { GlassCard } from '@/components/GlassCard';
+import { FlipCard } from '@/components/FlipCard';
 import { ScreenBackdrop } from '@/components/ScreenBackdrop';
 import {
   ensureSession,
@@ -79,18 +79,23 @@ export default function StudyScreen() {
 
         {currentCard && (
           <>
-            <GlassCard f={1} ai="center" jc="center" gap="$4" pressStyle={{ opacity: 0.9 }} onPress={flip}>
-              <H3 textAlign="center">
-                {isFlipped
-                  ? pickLocalized(currentCard.back, i18n.language)
-                  : pickLocalized(currentCard.front, i18n.language)}
-              </H3>
-              {isFlipped && currentCard.explanation && (
-                <Paragraph color="$color11" textAlign="center">
-                  {pickLocalized(currentCard.explanation, i18n.language)}
-                </Paragraph>
-              )}
-            </GlassCard>
+            <YStack f={1}>
+              <FlipCard
+                flipped={isFlipped}
+                onPress={flip}
+                front={<H3 textAlign="center">{pickLocalized(currentCard.front, i18n.language)}</H3>}
+                back={
+                  <>
+                    <H3 textAlign="center">{pickLocalized(currentCard.back, i18n.language)}</H3>
+                    {currentCard.explanation && (
+                      <Paragraph color="$color11" textAlign="center">
+                        {pickLocalized(currentCard.explanation, i18n.language)}
+                      </Paragraph>
+                    )}
+                  </>
+                }
+              />
+            </YStack>
 
             {!isFlipped ? (
               <Button theme="blue" onPress={flip}>
