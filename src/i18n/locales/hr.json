@@ -36,6 +36,7 @@
     "title": "Statistika",
     "totalReviews": "Ukupno ponavljanja: {{count}}",
     "learnedCards": "Naučene kartice: {{count}}",
+    "quizPoints": "Poeni iz kviza: {{count}}",
     "streak": "Niz: {{count}} dana"
   },
   "deck": {

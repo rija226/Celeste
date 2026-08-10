@@ -36,6 +36,7 @@
     "title": "Stats",
     "totalReviews": "Total reviews: {{count}}",
     "learnedCards": "Cards learned: {{count}}",
+    "quizPoints": "Quiz points: {{count}}",
     "streak": "Streak: {{count}} days"
   },
   "deck": {

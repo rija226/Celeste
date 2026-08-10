@@ -4,7 +4,7 @@ import { Button, H2, Paragraph, Spinner, XStack, YStack } from 'tamagui';
 
 import { QuizQuestionCard } from '@/components/QuizQuestionCard';
 import { ScreenBackdrop } from '@/components/ScreenBackdrop';
-import { getConstellations } from '@/db';
+import { ensureSession, getConstellations, insertQuizResult } from '@/db';
 import {
   buildDailyQuestions,
   getDailyChallengeResult,
@@ -25,6 +25,7 @@ export default function QuizScreen() {
   const [mode, setMode] = useState<Mode>('practice');
   const [pool, setPool] = useState<Constellation[] | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
 
   const [difficulty, setDifficulty] = useState<QuizDifficulty>('easy');
   const [practiceRound, setPracticeRound] = useState(0);
@@ -37,6 +38,7 @@ export default function QuizScreen() {
   const [dailyCorrect, setDailyCorrect] = useState(0);
 
   useEffect(() => {
+    ensureSession().then(setUserId);
     getConstellations()
       .then(setPool)
       .catch((e: Error) => setError(e.message));
@@ -62,15 +64,27 @@ export default function QuizScreen() {
     setPracticeSelectedId(null);
   }
 
-  function handlePracticeSelect(option: Constellation) {
+  async function handlePracticeSelect(option: Constellation) {
     if (!practiceQuestion || practiceSelectedId) return;
     setPracticeSelectedId(option.id);
     const isCorrect = option.id === practiceQuestion.answer.id;
+    const points = isCorrect ? POINTS_BY_DIFFICULTY[difficulty] : 0;
     setPracticeScore((s) => ({
       correct: s.correct + (isCorrect ? 1 : 0),
       total: s.total + 1,
-      points: s.points + (isCorrect ? POINTS_BY_DIFFICULTY[difficulty] : 0),
+      points: s.points + points,
     }));
+    if (userId) {
+      await insertQuizResult({
+        userId,
+        constellationId: practiceQuestion.answer.id,
+        mode: 'practice',
+        difficulty,
+        isCorrect,
+        points,
+        answeredAt: new Date().toISOString(),
+      });
+    }
   }
 
   function handlePracticeNext() {
@@ -78,12 +92,24 @@ export default function QuizScreen() {
     setPracticeRound((r) => r + 1);
   }
 
-  function handleDailySelect(option: Constellation) {
+  async function handleDailySelect(option: Constellation) {
     const question = dailyQuestions?.[dailyIndex];
     if (!question || dailySelectedId) return;
     setDailySelectedId(option.id);
-    if (option.id === question.answer.id) {
+    const isCorrect = option.id === question.answer.id;
+    if (isCorrect) {
       setDailyCorrect((c) => c + 1);
+    }
+    if (userId) {
+      await insertQuizResult({
+        userId,
+        constellationId: question.answer.id,
+        mode: 'daily',
+        difficulty: question.answer.difficulty,
+        isCorrect,
+        points: isCorrect ? POINTS_BY_DIFFICULTY[question.answer.difficulty] : 0,
+        answeredAt: new Date().toISOString(),
+      });
     }
   }
 

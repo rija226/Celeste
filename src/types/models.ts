@@ -67,3 +67,16 @@ export type Constellation = {
   stars: ConstellationStar[];
   lines: ConstellationLine[];
 };
+
+export type QuizMode = 'practice' | 'daily';
+
+export type QuizResult = {
+  id: string;
+  userId: string;
+  constellationId: string;
+  mode: QuizMode;
+  difficulty: QuizDifficulty;
+  isCorrect: boolean;
+  points: number;
+  answeredAt: string;
+};

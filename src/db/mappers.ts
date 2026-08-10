@@ -8,6 +8,8 @@ import type {
   Deck,
   LocalizedText,
   QuizDifficulty,
+  QuizMode,
+  QuizResult,
   ReviewLog,
 } from '@/types/models';
 
@@ -134,5 +136,29 @@ export function mapConstellationRow(row: ConstellationRow): Constellation {
     difficulty: row.difficulty,
     stars: row.stars,
     lines: row.lines,
+  };
+}
+
+export type QuizResultRow = {
+  id: string;
+  user_id: string;
+  constellation_id: string;
+  mode: QuizMode;
+  difficulty: QuizDifficulty;
+  is_correct: boolean;
+  points: number;
+  answered_at: string;
+};
+
+export function mapQuizResultRow(row: QuizResultRow): QuizResult {
+  return {
+    id: row.id,
+    userId: row.user_id,
+    constellationId: row.constellation_id,
+    mode: row.mode,
+    difficulty: row.difficulty,
+    isCorrect: row.is_correct,
+    points: row.points,
+    answeredAt: row.answered_at,
   };
 }

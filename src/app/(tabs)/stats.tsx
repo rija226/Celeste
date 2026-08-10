@@ -4,12 +4,20 @@ import { Paragraph, Spinner, YStack } from 'tamagui';
 
 import { GlassCard } from '@/components/GlassCard';
 import { ScreenBackdrop } from '@/components/ScreenBackdrop';
-import { ensureSession, getLearnedCardCount, getReviewLogDates, getTotalReviewCount } from '@/db';
+import {
+  ensureSession,
+  getLearnedCardCount,
+  getQuizPoints,
+  getQuizResultDates,
+  getReviewLogDates,
+  getTotalReviewCount,
+} from '@/db';
 import { computeStreak } from '@/lib/stats';
 
 type Stats = {
   totalReviews: number;
   learnedCards: number;
+  quizPoints: number;
   streak: number;
 };
 
@@ -22,12 +30,20 @@ export default function StatsScreen() {
     (async () => {
       try {
         const userId = await ensureSession();
-        const [totalReviews, learnedCards, reviewDates] = await Promise.all([
+        const [totalReviews, learnedCards, quizPoints, reviewDates, quizDates] = await Promise.all([
           getTotalReviewCount(userId),
           getLearnedCardCount(userId),
+          getQuizPoints(userId),
           getReviewLogDates(userId),
+          getQuizResultDates(userId),
         ]);
-        setStats({ totalReviews, learnedCards, streak: computeStreak(reviewDates) });
+        // Jedinstven "niz" -- flashcards i kviz obje racunaju kao aktivnost dana.
+        setStats({
+          totalReviews,
+          learnedCards,
+          quizPoints,
+          streak: computeStreak([...reviewDates, ...quizDates]),
+        });
       } catch (e) {
         setError((e as Error).message);
       }
@@ -49,6 +65,11 @@ export default function StatsScreen() {
             <GlassCard>
               <Paragraph fontFamily="$heading" fontSize="$7" color="$green10">
                 {t('stats.learnedCards', { count: stats.learnedCards })}
+              </Paragraph>
+            </GlassCard>
+            <GlassCard>
+              <Paragraph fontFamily="$heading" fontSize="$7" color="$purple10">
+                {t('stats.quizPoints', { count: stats.quizPoints })}
               </Paragraph>
             </GlassCard>
             <GlassCard>

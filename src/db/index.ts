@@ -11,4 +11,5 @@ export {
   insertReviewLog,
   upsertCardProgress,
 } from './progress';
+export { getQuizPoints, getQuizResultDates, insertQuizResult } from './quizResults';
 export { supabase } from './supabase';
