@@ -66,7 +66,24 @@
     "dailyReminder": "Dnevni podsjetnik za učenje",
     "dailyReminderTime": "Svaki dan u 19:00",
     "dailyReminderWebNote": "Dostupno na mobilnim uređajima",
-    "dailyReminderDeniedNote": "Dozvola za notifikacije je odbijena — uključi je u sistemskim podešavanjima"
+    "dailyReminderDeniedNote": "Dozvola za notifikacije je odbijena — uključi je u sistemskim podešavanjima",
+    "account": {
+      "title": "Nalog",
+      "guestLabel": "Koristiš gost-nalog — tvoj napredak je sačuvan samo na ovom uređaju.",
+      "email": "Email",
+      "password": "Lozinka",
+      "confirmPassword": "Potvrdi lozinku",
+      "submitCreate": "Napravi nalog",
+      "submitLogin": "Prijavi se",
+      "switchToLogin": "Već imaš nalog? Prijavi se",
+      "switchToCreate": "Trebaš nalog? Napravi ga",
+      "loginWarning": "Prijava prebacuje na napredak tog naloga — tvoj trenutni gost-napredak se neće prenijeti.",
+      "confirmEmailSent": "Potvrdni email poslan na {{email}} — klikni link da završiš pravljenje naloga.",
+      "passwordMismatch": "Lozinke se ne poklapaju",
+      "passwordTooShort": "Lozinka mora imati bar 6 znakova",
+      "signedInAs": "Prijavljen/a kao {{email}}",
+      "signOut": "Odjavi se"
+    }
   },
   "notifications": {
     "reminderTitle": "Vrijeme je za učenje!",

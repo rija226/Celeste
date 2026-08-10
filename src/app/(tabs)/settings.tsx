@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Platform } from 'react-native';
+import { Platform, ScrollView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Button, H2, Paragraph, XStack, YStack } from 'tamagui';
 
+import { AccountSection } from '@/components/AccountSection';
 import { ScreenBackdrop } from '@/components/ScreenBackdrop';
 import { Toggle } from '@/components/Toggle';
 import { changeLanguage } from '@/i18n';
@@ -28,47 +29,51 @@ export default function SettingsScreen() {
 
   return (
     <ScreenBackdrop>
-      <YStack f={1} pt="$8" px="$4" gap="$4">
-        <H2 color="$color">{t('settings.title')}</H2>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <YStack f={1} pt="$8" px="$4" pb="$8" gap="$4">
+          <H2 color="$color">{t('settings.title')}</H2>
 
-        <YStack gap="$2">
-          <Paragraph color="$color11">{t('settings.language')}</Paragraph>
-          <XStack gap="$2">
-            <Button
-              f={1}
-              theme={i18n.language === 'en' ? 'blue' : undefined}
-              onPress={() => changeLanguage('en')}>
-              English
-            </Button>
-            <Button
-              f={1}
-              theme={i18n.language === 'hr' ? 'blue' : undefined}
-              onPress={() => changeLanguage('hr')}>
-              Hrvatski
-            </Button>
-          </XStack>
-        </YStack>
+          <YStack gap="$2">
+            <Paragraph color="$color11">{t('settings.language')}</Paragraph>
+            <XStack gap="$2">
+              <Button
+                f={1}
+                theme={i18n.language === 'en' ? 'blue' : undefined}
+                onPress={() => changeLanguage('en')}>
+                English
+              </Button>
+              <Button
+                f={1}
+                theme={i18n.language === 'hr' ? 'blue' : undefined}
+                onPress={() => changeLanguage('hr')}>
+                Hrvatski
+              </Button>
+            </XStack>
+          </YStack>
 
-        <YStack gap="$2">
-          <XStack ai="center" jc="space-between">
-            <Paragraph color="$color11">{t('settings.dailyReminder')}</Paragraph>
-            <Toggle value={reminderEnabled} disabled={Platform.OS === 'web'} onValueChange={handleToggleReminder} />
-          </XStack>
-          {Platform.OS === 'web' ? (
-            <Paragraph fontSize="$2" color="$color11">
-              {t('settings.dailyReminderWebNote')}
-            </Paragraph>
-          ) : reminderEnabled ? (
-            <Paragraph fontSize="$2" color="$color11">
-              {t('settings.dailyReminderTime')}
-            </Paragraph>
-          ) : permissionDenied ? (
-            <Paragraph fontSize="$2" color="$red10">
-              {t('settings.dailyReminderDeniedNote')}
-            </Paragraph>
-          ) : null}
+          <YStack gap="$2">
+            <XStack ai="center" jc="space-between">
+              <Paragraph color="$color11">{t('settings.dailyReminder')}</Paragraph>
+              <Toggle value={reminderEnabled} disabled={Platform.OS === 'web'} onValueChange={handleToggleReminder} />
+            </XStack>
+            {Platform.OS === 'web' ? (
+              <Paragraph fontSize="$2" color="$color11">
+                {t('settings.dailyReminderWebNote')}
+              </Paragraph>
+            ) : reminderEnabled ? (
+              <Paragraph fontSize="$2" color="$color11">
+                {t('settings.dailyReminderTime')}
+              </Paragraph>
+            ) : permissionDenied ? (
+              <Paragraph fontSize="$2" color="$red10">
+                {t('settings.dailyReminderDeniedNote')}
+              </Paragraph>
+            ) : null}
+          </YStack>
+
+          <AccountSection />
         </YStack>
-      </YStack>
+      </ScrollView>
     </ScreenBackdrop>
   );
 }

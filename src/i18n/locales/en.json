@@ -66,7 +66,24 @@
     "dailyReminder": "Daily study reminder",
     "dailyReminderTime": "Every day at 19:00",
     "dailyReminderWebNote": "Available on mobile devices",
-    "dailyReminderDeniedNote": "Notification permission was denied — enable it in system settings"
+    "dailyReminderDeniedNote": "Notification permission was denied — enable it in system settings",
+    "account": {
+      "title": "Account",
+      "guestLabel": "You're using a guest account — your progress is saved on this device only.",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "submitCreate": "Create account",
+      "submitLogin": "Log in",
+      "switchToLogin": "Already have an account? Log in",
+      "switchToCreate": "Need an account? Create one",
+      "loginWarning": "Logging in switches to that account's progress — your current guest progress won't transfer.",
+      "confirmEmailSent": "Confirmation email sent to {{email}} — click the link to finish creating your account.",
+      "passwordMismatch": "Passwords don't match",
+      "passwordTooShort": "Password must be at least 6 characters",
+      "signedInAs": "Signed in as {{email}}",
+      "signOut": "Sign out"
+    }
   },
   "notifications": {
     "reminderTitle": "Time to study!",

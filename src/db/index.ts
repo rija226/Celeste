@@ -1,4 +1,11 @@
-export { ensureSession } from './auth';
+export {
+  ensureSession,
+  getCurrentAuthUser,
+  signInWithEmail,
+  signOut,
+  upgradeAnonymousAccount,
+  type AuthUser,
+} from './auth';
 export { getCardBySlug, getCardsBySlugs, getCardsForDeck } from './cards';
 export { getConstellations } from './constellations';
 export { getDeck, getDecks } from './decks';

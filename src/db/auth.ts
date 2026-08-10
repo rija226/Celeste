@@ -18,3 +18,36 @@ export async function ensureSession(): Promise<string> {
   }
   return data.session.user.id;
 }
+
+export type AuthUser = {
+  id: string;
+  email: string | null;
+  isAnonymous: boolean;
+};
+
+export async function getCurrentAuthUser(): Promise<AuthUser | null> {
+  const { data } = await supabase.auth.getSession();
+  const user = data.session?.user;
+  if (!user) return null;
+  return { id: user.id, email: user.email ?? null, isAnonymous: user.is_anonymous ?? false };
+}
+
+// Nadogradnja anonimnog naloga na pravi -- ISTI user_id, sav dosadasnji
+// progress ostaje netaknut. "Confirm email" je ukljucen na projektu, pa
+// nalog ostaje anoniman dok korisnik ne klikne link u potvrdnom emailu.
+export async function upgradeAnonymousAccount(email: string, password: string): Promise<void> {
+  const { error } = await supabase.auth.updateUser({ email, password });
+  if (error) throw error;
+}
+
+// Prijava na POSTOJECI nalog -- ovo MIJENJA sesiju na taj nalog i napusta
+// trenutni anonimni identitet (i njegov progress) ako je postojao. Poziv na
+// UI nivou treba jasno upozoriti korisnika na ovo prije prijave.
+export async function signInWithEmail(email: string, password: string): Promise<void> {
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error) throw error;
+}
+
+export async function signOut(): Promise<void> {
+  await supabase.auth.signOut();
+}
