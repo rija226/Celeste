@@ -1,0 +1,225 @@
+{
+  "constellations": [
+    {
+      "slug": "ursa-major",
+      "difficulty": "easy",
+      "name": { "en": "Ursa Major", "hr": "Veliki medvjed" },
+      "facts": {
+        "en": "Home to the Big Dipper, one of the most recognizable star patterns in the night sky. Follow its outer two bowl stars to find the North Star.",
+        "hr": "Dom Velikih kola, jednog od najprepoznatljivijih zvjezdanih oblika na nebu. Prati vanjske dvije zvijezde posude da nađeš Sjevernjaču."
+      },
+      "stars": [
+        { "x": 75, "y": 15 },
+        { "x": 72, "y": 32 },
+        { "x": 55, "y": 38 },
+        { "x": 52, "y": 22 },
+        { "x": 35, "y": 18 },
+        { "x": 18, "y": 12 },
+        { "x": 5, "y": 8 }
+      ],
+      "lines": [[0, 1], [1, 2], [2, 3], [3, 0], [3, 4], [4, 5], [5, 6]]
+    },
+    {
+      "slug": "orion",
+      "difficulty": "easy",
+      "name": { "en": "Orion", "hr": "Orion" },
+      "facts": {
+        "en": "One of the easiest constellations to spot thanks to its three-star belt. Contains Betelgeuse, a red supergiant so huge it could swallow the orbit of Jupiter.",
+        "hr": "Jedno od najlakših sazviježđa za pronaći zahvaljujući pojasu od tri zvijezde. Sadrži Betelgeuse, crvenog superdiva toliko ogromnog da bi progutao orbitu Jupitera."
+      },
+      "stars": [
+        { "x": 30, "y": 10 },
+        { "x": 70, "y": 8 },
+        { "x": 40, "y": 45 },
+        { "x": 50, "y": 45 },
+        { "x": 60, "y": 45 },
+        { "x": 25, "y": 90 },
+        { "x": 68, "y": 88 }
+      ],
+      "lines": [[0, 2], [1, 4], [2, 3], [3, 4], [2, 5], [4, 6], [0, 1]]
+    },
+    {
+      "slug": "cassiopeia",
+      "difficulty": "easy",
+      "name": { "en": "Cassiopeia", "hr": "Kasiopeja" },
+      "facts": {
+        "en": "Named after a vain queen in Greek mythology, this W-shaped constellation is visible year-round from most of the Northern Hemisphere.",
+        "hr": "Nazvano po taštoj kraljici iz grčke mitologije, ovo sazviježđe u obliku slova W vidljivo je tokom cijele godine sa većine sjeverne hemisfere."
+      },
+      "stars": [
+        { "x": 10, "y": 50 },
+        { "x": 30, "y": 20 },
+        { "x": 50, "y": 55 },
+        { "x": 70, "y": 15 },
+        { "x": 90, "y": 45 }
+      ],
+      "lines": [[0, 1], [1, 2], [2, 3], [3, 4]]
+    },
+    {
+      "slug": "ursa-minor",
+      "difficulty": "medium",
+      "name": { "en": "Ursa Minor", "hr": "Mali medvjed" },
+      "facts": {
+        "en": "The Little Dipper's handle ends at Polaris, the North Star, which barely moves in the sky as Earth rotates beneath it.",
+        "hr": "Drška Malih kola završava kod Sjevernjače, zvijezde koja se jedva pomjera na nebu dok se Zemlja okreće ispod nje."
+      },
+      "stars": [
+        { "x": 10, "y": 10 },
+        { "x": 25, "y": 20 },
+        { "x": 38, "y": 30 },
+        { "x": 55, "y": 35 },
+        { "x": 70, "y": 25 },
+        { "x": 75, "y": 45 },
+        { "x": 58, "y": 50 }
+      ],
+      "lines": [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 3]]
+    },
+    {
+      "slug": "scorpius",
+      "difficulty": "medium",
+      "name": { "en": "Scorpius", "hr": "Škorpija" },
+      "facts": {
+        "en": "One of the few constellations that actually looks like its name — a curving tail ending in a stinger. Its heart is the red giant Antares.",
+        "hr": "Jedno od rijetkih sazviježđa koje stvarno liči na svoje ime — zakrivljeni rep koji završava žaokom. Njegovo srce je crveni div Antares."
+      },
+      "stars": [
+        { "x": 10, "y": 20 },
+        { "x": 25, "y": 25 },
+        { "x": 40, "y": 30 },
+        { "x": 50, "y": 45 },
+        { "x": 58, "y": 60 },
+        { "x": 62, "y": 75 },
+        { "x": 58, "y": 88 }
+      ],
+      "lines": [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6]]
+    },
+    {
+      "slug": "leo",
+      "difficulty": "medium",
+      "name": { "en": "Leo", "hr": "Lav" },
+      "facts": {
+        "en": "A backwards question mark of stars forms the lion's mane, with bright Regulus marking its heart.",
+        "hr": "Zvijezde u obliku obrnutog upitnika formiraju lavlju grivu, a sjajni Regulus označava njegovo srce."
+      },
+      "stars": [
+        { "x": 20, "y": 70 },
+        { "x": 22, "y": 50 },
+        { "x": 30, "y": 30 },
+        { "x": 45, "y": 20 },
+        { "x": 55, "y": 25 },
+        { "x": 70, "y": 65 },
+        { "x": 55, "y": 75 }
+      ],
+      "lines": [[0, 1], [1, 2], [2, 3], [3, 4], [0, 6], [6, 5]]
+    },
+    {
+      "slug": "cygnus",
+      "difficulty": "easy",
+      "name": { "en": "Cygnus", "hr": "Labud" },
+      "facts": {
+        "en": "Also called the Northern Cross, this swan flies along the Milky Way with its tail marked by the bright star Deneb.",
+        "hr": "Poznato i kao Sjeverni krst, ovaj labud leti duž Mliječnog puta, a njegov rep obilježava sjajna zvijezda Deneb."
+      },
+      "stars": [
+        { "x": 50, "y": 10 },
+        { "x": 50, "y": 35 },
+        { "x": 50, "y": 60 },
+        { "x": 50, "y": 85 },
+        { "x": 20, "y": 55 },
+        { "x": 80, "y": 55 }
+      ],
+      "lines": [[0, 1], [1, 2], [2, 3], [4, 2], [2, 5]]
+    },
+    {
+      "slug": "taurus",
+      "difficulty": "medium",
+      "name": { "en": "Taurus", "hr": "Bik" },
+      "facts": {
+        "en": "The bull's V-shaped face is the Hyades star cluster, with fiery Aldebaran glowing as its eye.",
+        "hr": "Bikovo lice u obliku slova V je zvjezdano jato Hijade, a vatreni Aldebaran sija kao njegovo oko."
+      },
+      "stars": [
+        { "x": 50, "y": 60 },
+        { "x": 30, "y": 50 },
+        { "x": 65, "y": 50 },
+        { "x": 15, "y": 10 },
+        { "x": 85, "y": 15 }
+      ],
+      "lines": [[1, 0], [0, 2], [1, 3], [2, 4]]
+    },
+    {
+      "slug": "gemini",
+      "difficulty": "medium",
+      "name": { "en": "Gemini", "hr": "Blizanci" },
+      "facts": {
+        "en": "Twin stars Castor and Pollux mark the heads of the celestial twins, standing side by side in the winter sky.",
+        "hr": "Zvijezde blizanke Kastor i Poluks obilježavaju glave nebeskih blizanaca, koji stoje jedan pored drugog na zimskom nebu."
+      },
+      "stars": [
+        { "x": 30, "y": 10 },
+        { "x": 30, "y": 30 },
+        { "x": 30, "y": 55 },
+        { "x": 35, "y": 80 },
+        { "x": 60, "y": 15 },
+        { "x": 58, "y": 35 },
+        { "x": 55, "y": 60 },
+        { "x": 60, "y": 85 }
+      ],
+      "lines": [[0, 1], [1, 2], [2, 3], [4, 5], [5, 6], [6, 7], [0, 4]]
+    },
+    {
+      "slug": "sagittarius",
+      "difficulty": "hard",
+      "name": { "en": "Sagittarius", "hr": "Strijelac" },
+      "facts": {
+        "en": "Its brightest stars form a shape known as the Teapot, pointing toward the center of our own Milky Way galaxy.",
+        "hr": "Njegove najsjajnije zvijezde formiraju oblik poznat kao Čajnik, koji pokazuje prema centru naše galaksije Mliječni put."
+      },
+      "stars": [
+        { "x": 20, "y": 30 },
+        { "x": 35, "y": 20 },
+        { "x": 50, "y": 25 },
+        { "x": 60, "y": 40 },
+        { "x": 55, "y": 55 },
+        { "x": 35, "y": 60 },
+        { "x": 20, "y": 50 },
+        { "x": 25, "y": 35 }
+      ],
+      "lines": [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 0]]
+    },
+    {
+      "slug": "lyra",
+      "difficulty": "easy",
+      "name": { "en": "Lyra", "hr": "Lira" },
+      "facts": {
+        "en": "A small but bright constellation holding Vega, one of the brightest stars in the entire night sky.",
+        "hr": "Malo ali sjajno sazviježđe koje sadrži Vegu, jednu od najsjajnijih zvijezda na cijelom noćnom nebu."
+      },
+      "stars": [
+        { "x": 50, "y": 10 },
+        { "x": 35, "y": 35 },
+        { "x": 40, "y": 60 },
+        { "x": 60, "y": 60 },
+        { "x": 65, "y": 35 }
+      ],
+      "lines": [[0, 1], [0, 4], [1, 2], [2, 3], [3, 4]]
+    },
+    {
+      "slug": "aquila",
+      "difficulty": "hard",
+      "name": { "en": "Aquila", "hr": "Orao" },
+      "facts": {
+        "en": "This eagle carries Altair, a star spinning so fast it bulges at its equator instead of staying perfectly round.",
+        "hr": "Ovaj orao nosi Altair, zvijezdu koja se okreće toliko brzo da se izboči na ekvatoru umjesto da ostane savršeno okrugla."
+      },
+      "stars": [
+        { "x": 50, "y": 15 },
+        { "x": 50, "y": 45 },
+        { "x": 20, "y": 55 },
+        { "x": 80, "y": 55 },
+        { "x": 50, "y": 85 }
+      ],
+      "lines": [[0, 1], [1, 4], [2, 1], [1, 3]]
+    }
+  ]
+}

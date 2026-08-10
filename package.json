@@ -51,7 +51,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "expo lint",
-    "import-seed": "node --env-file=.env scripts/import-seed.js"
+    "import-seed": "node --env-file=.env scripts/import-seed.js",
+    "import-constellations": "node --env-file=.env scripts/import-constellations.js"
   },
   "private": true
 }
