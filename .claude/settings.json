@@ -1,4 +1,11 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(git commit -q -m ' *)",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/astronomy-engine/package.json'\\).version\\)\")",
+      "Bash(node -e ' *)"
+    ]
+  },
   "enabledPlugins": {
     "expo@claude-plugins-official": true
   }
