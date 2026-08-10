@@ -31,6 +31,7 @@
     "notVisible": "Not visible right now",
     "rises": "Rises {{time}}",
     "sets": "Sets {{time}}",
+    "funFact": "Fun fact",
     "moonPhase": {
       "newMoon": "New Moon",
       "waxingCrescent": "Waxing Crescent",

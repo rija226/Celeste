@@ -3,11 +3,22 @@ import { useTranslation } from 'react-i18next';
 import { Button, H2, Paragraph, Spinner, YStack } from 'tamagui';
 
 import { GlassCard } from '@/components/GlassCard';
+import { LinkedFact } from '@/components/LinkedFact';
 import { ScreenBackdrop } from '@/components/ScreenBackdrop';
-import { azimuthToCompass, getMoonPhaseName, getTonightSky, type SkyBodyInfo, type TonightSky } from '@/lib/astronomy';
+import { getActiveShowers, getNextShower, type MeteorShower } from '@/data/meteorShowers';
+import { SKY_BODY_CARD_SLUG } from '@/data/skyObjectCards';
+import { getCardsBySlugs } from '@/db';
+import {
+  azimuthToCompass,
+  getMoonPhaseName,
+  getTonightSky,
+  type SkyBodyInfo,
+  type SkyBodyKey,
+  type TonightSky,
+} from '@/lib/astronomy';
 import { getCurrentCoordinates, type Coordinates } from '@/lib/location';
 import { pickLocalized } from '@/lib/localized';
-import { getActiveShowers, getNextShower, type MeteorShower } from '@/data/meteorShowers';
+import type { Card } from '@/types/models';
 
 function formatTime(date: Date | null): string {
   if (!date) return '—';
@@ -29,6 +40,7 @@ export default function TonightScreen() {
   const { t } = useTranslation();
   const [coords, setCoords] = useState<Coordinates | null | undefined>(undefined);
   const [sky, setSky] = useState<TonightSky | null>(null);
+  const [linkedCards, setLinkedCards] = useState<Partial<Record<SkyBodyKey, Card>>>({});
 
   async function loadLocation() {
     setCoords(undefined);
@@ -38,6 +50,20 @@ export default function TonightScreen() {
       setSky(getTonightSky(result.latitude, result.longitude));
     }
   }
+
+  useEffect(() => {
+    (async () => {
+      const entries = Object.entries(SKY_BODY_CARD_SLUG) as [SkyBodyKey, string][];
+      const cards = await getCardsBySlugs(entries.map(([, slug]) => slug));
+      const cardsBySlug = new Map(cards.map((card) => [card.slug, card]));
+      const bySkyBody: Partial<Record<SkyBodyKey, Card>> = {};
+      for (const [key, slug] of entries) {
+        const card = cardsBySlug.get(slug);
+        if (card) bySkyBody[key] = card;
+      }
+      setLinkedCards(bySkyBody);
+    })();
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -79,12 +105,13 @@ export default function TonightScreen() {
               <Paragraph color="$color11">
                 {t('tonight.illuminated', { percent: Math.round(sky.moonPhaseFraction * 100) })}
               </Paragraph>
+              {linkedCards.moon && <LinkedFact card={linkedCards.moon} />}
             </GlassCard>
 
             {sky.bodies
               .filter((body) => body.key !== 'moon')
               .map((body) => (
-                <PlanetCard key={body.key} body={body} />
+                <PlanetCard key={body.key} body={body} linkedCard={linkedCards[body.key]} />
               ))}
           </>
         )}
@@ -93,7 +120,7 @@ export default function TonightScreen() {
   );
 }
 
-function PlanetCard({ body }: { body: SkyBodyInfo }) {
+function PlanetCard({ body, linkedCard }: { body: SkyBodyInfo; linkedCard: Card | undefined }) {
   const { t } = useTranslation();
   return (
     <GlassCard gap="$1">
@@ -109,6 +136,7 @@ function PlanetCard({ body }: { body: SkyBodyInfo }) {
       )}
       {body.riseTime && <Paragraph color="$color11">{t('tonight.rises', { time: formatTime(body.riseTime) })}</Paragraph>}
       {body.setTime && <Paragraph color="$color11">{t('tonight.sets', { time: formatTime(body.setTime) })}</Paragraph>}
+      {linkedCard && <LinkedFact card={linkedCard} />}
     </GlassCard>
   );
 }

@@ -18,6 +18,7 @@ export type Deck = {
 
 export type Card = {
   id: string;
+  slug: string | null;
   deckId: string;
   style: CardStyle;
   front: LocalizedText;

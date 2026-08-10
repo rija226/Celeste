@@ -1,6 +1,7 @@
 // Uvozi deck JSON (format: { deck, cards }) u Supabase preko REST API-ja,
 // koristeci service_role kljuc (zaobilazi RLS -- samo za lokalno pokretanje).
-// Idempotentno: preskace kartice ako deck vec ima uvezene kartice.
+// Idempotentno: upsert kartica po slug-u (card.id iz seed JSON-a), sigurno
+// za ponovno pokretanje.
 //
 // Pokretanje: node --env-file=.env scripts/import-seed.js [putanja-do-json]
 
@@ -41,14 +42,9 @@ async function upsertDeck(deck) {
   return row.id;
 }
 
-async function countCardsForDeck(deckId) {
-  const res = await fetch(`${REST_URL}/cards?deck_id=eq.${deckId}&select=id`, { headers: HEADERS });
-  if (!res.ok) throw new Error(`Card count failed (${res.status}): ${await res.text()}`);
-  return (await res.json()).length;
-}
-
-async function insertCards(deckId, cards) {
+async function upsertCards(deckId, cards) {
   const rows = cards.map((card) => ({
+    slug: card.id,
     deck_id: deckId,
     style: card.style,
     front: card.front,
@@ -57,12 +53,12 @@ async function insertCards(deckId, cards) {
     image_url: card.media?.image ?? null,
     audio_url: card.media?.audio ?? null,
   }));
-  const res = await fetch(`${REST_URL}/cards`, {
+  const res = await fetch(`${REST_URL}/cards?on_conflict=slug`, {
     method: 'POST',
-    headers: { ...HEADERS, Prefer: 'return=minimal' },
+    headers: { ...HEADERS, Prefer: 'resolution=merge-duplicates,return=minimal' },
     body: JSON.stringify(rows),
   });
-  if (!res.ok) throw new Error(`Card insert failed (${res.status}): ${await res.text()}`);
+  if (!res.ok) throw new Error(`Card upsert failed (${res.status}): ${await res.text()}`);
   return rows.length;
 }
 
@@ -72,14 +68,8 @@ async function importDeck(filePath) {
   const deckId = await upsertDeck(deck);
   console.log(`OK  deck "${deck.slug}" -> ${deckId}`);
 
-  const existing = await countCardsForDeck(deckId);
-  if (existing > 0) {
-    console.log(`SKIP ${existing} cards already imported for "${deck.slug}"`);
-    return;
-  }
-
-  const inserted = await insertCards(deckId, cards);
-  console.log(`OK  inserted ${inserted} cards`);
+  const upserted = await upsertCards(deckId, cards);
+  console.log(`OK  upserted ${upserted} cards`);
 }
 
 const filePath = process.argv[2] ?? path.join(__dirname, '..', 'deck-space-basics.json');

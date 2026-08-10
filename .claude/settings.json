@@ -6,7 +6,8 @@
       "Bash(node -e ' *)",
       "Bash(taskkill //F //PID 26368)",
       "Bash(grep -v \"tamagui\\\\]\\\\|babel\\\\|node_modules\\\\\\\\\\\\\\\\@babel\\\\|EBADENGINE\\\\|Node.js \\(v20\")",
-      "Bash(npx tsx *)"
+      "Bash(npx tsx *)",
+      "Bash(node --env-file=.env scripts/backfill-card-slugs.js)"
     ]
   },
   "enabledPlugins": {

@@ -26,6 +26,7 @@ export type DeckRow = {
 
 export type CardRow = {
   id: string;
+  slug: string | null;
   deck_id: string;
   style: CardStyle;
   front: LocalizedText;
@@ -77,6 +78,7 @@ export function mapDeckRow(row: DeckRow): Deck {
 export function mapCardRow(row: CardRow): Card {
   return {
     id: row.id,
+    slug: row.slug,
     deckId: row.deck_id,
     style: row.style,
     front: row.front,
