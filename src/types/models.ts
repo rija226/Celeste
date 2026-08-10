@@ -52,3 +52,18 @@ export type ReviewLog = {
   reviewedAt: string;
   elapsedDays: number;
 };
+
+export type QuizDifficulty = 'easy' | 'medium' | 'hard';
+
+export type ConstellationStar = { x: number; y: number };
+export type ConstellationLine = [number, number];
+
+export type Constellation = {
+  id: string;
+  slug: string;
+  name: LocalizedText;
+  facts: LocalizedText;
+  difficulty: QuizDifficulty;
+  stars: ConstellationStar[];
+  lines: ConstellationLine[];
+};

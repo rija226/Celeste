@@ -1,4 +1,15 @@
-import type { Card, CardProgress, CardStyle, Deck, LocalizedText, ReviewLog } from '@/types/models';
+import type {
+  Card,
+  CardProgress,
+  CardStyle,
+  Constellation,
+  ConstellationLine,
+  ConstellationStar,
+  Deck,
+  LocalizedText,
+  QuizDifficulty,
+  ReviewLog,
+} from '@/types/models';
 
 export type DeckRow = {
   id: string;
@@ -101,5 +112,27 @@ export function mapReviewLogRow(row: ReviewLogRow): ReviewLog {
     rating: row.rating,
     reviewedAt: row.reviewed_at,
     elapsedDays: row.elapsed_days,
+  };
+}
+
+export type ConstellationRow = {
+  id: string;
+  slug: string;
+  name: LocalizedText;
+  facts: LocalizedText;
+  difficulty: QuizDifficulty;
+  stars: ConstellationStar[];
+  lines: ConstellationLine[];
+};
+
+export function mapConstellationRow(row: ConstellationRow): Constellation {
+  return {
+    id: row.id,
+    slug: row.slug,
+    name: row.name,
+    facts: row.facts,
+    difficulty: row.difficulty,
+    stars: row.stars,
+    lines: row.lines,
   };
 }

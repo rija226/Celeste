@@ -31,6 +31,15 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
+        name="quiz"
+        options={{
+          title: t('quiz.title'),
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? 'help-circle' : 'help-circle-outline'} size={22} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="stats"
         options={{
           title: t('stats.title'),

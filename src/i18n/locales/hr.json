@@ -2,6 +2,11 @@
   "home": {
     "title": "Početna"
   },
+  "quiz": {
+    "title": "Kviz",
+    "prompt": "Koje je ovo sazviježđe?",
+    "next": "Dalje"
+  },
   "settings": {
     "title": "Podešavanja",
     "language": "Jezik",

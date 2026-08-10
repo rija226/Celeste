@@ -2,6 +2,11 @@
   "home": {
     "title": "Home"
   },
+  "quiz": {
+    "title": "Quiz",
+    "prompt": "Which constellation is this?",
+    "next": "Next"
+  },
   "settings": {
     "title": "Settings",
     "language": "Language",
