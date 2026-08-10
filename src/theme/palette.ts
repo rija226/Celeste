@@ -4,6 +4,7 @@
 export const palette = {
   void: '#06070D',
   nebulaDeep: '#171334',
+  surface: '#2B2560',
   nebula: '#7C6CFF',
   aurora: '#33D6B0',
   comet: '#FF6B5E',
