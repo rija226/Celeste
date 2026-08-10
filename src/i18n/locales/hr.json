@@ -47,6 +47,16 @@
       "mars": "Mars",
       "jupiter": "Jupiter",
       "saturn": "Saturn"
+    },
+    "meteorShowers": {
+      "title": "Meteorski rojevi",
+      "activeNow": "Trenutno aktivan",
+      "peakOn": "Vrhunac {{date}}",
+      "radiant": "Radijant: {{name}}",
+      "nextUp": "Sljedeći",
+      "today": "danas",
+      "inDays_one": "za {{count}} dan",
+      "inDays_other": "za {{count}} dana"
     }
   },
   "settings": {

@@ -6,12 +6,23 @@ import { GlassCard } from '@/components/GlassCard';
 import { ScreenBackdrop } from '@/components/ScreenBackdrop';
 import { azimuthToCompass, getMoonPhaseName, getTonightSky, type SkyBodyInfo, type TonightSky } from '@/lib/astronomy';
 import { getCurrentCoordinates, type Coordinates } from '@/lib/location';
+import { pickLocalized } from '@/lib/localized';
+import { getActiveShowers, getNextShower, type MeteorShower } from '@/data/meteorShowers';
 
 function formatTime(date: Date | null): string {
   if (!date) return '—';
   const hours = String(date.getHours()).padStart(2, '0');
   const minutes = String(date.getMinutes()).padStart(2, '0');
   return `${hours}:${minutes}`;
+}
+
+const EN_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+function formatShowerDate(date: Date, language: string): string {
+  if (language === 'hr') {
+    return `${String(date.getDate()).padStart(2, '0')}.${String(date.getMonth() + 1).padStart(2, '0')}.`;
+  }
+  return `${EN_MONTHS[date.getMonth()]} ${date.getDate()}`;
 }
 
 export default function TonightScreen() {
@@ -38,6 +49,8 @@ export default function TonightScreen() {
     <ScreenBackdrop>
       <YStack f={1} pt="$8" px="$4" gap="$3">
         <H2 color="$color">{t('tonight.title')}</H2>
+
+        <MeteorShowerSection />
 
         {coords === undefined && <Spinner size="large" />}
 
@@ -97,5 +110,60 @@ function PlanetCard({ body }: { body: SkyBodyInfo }) {
       {body.riseTime && <Paragraph color="$color11">{t('tonight.rises', { time: formatTime(body.riseTime) })}</Paragraph>}
       {body.setTime && <Paragraph color="$color11">{t('tonight.sets', { time: formatTime(body.setTime) })}</Paragraph>}
     </GlassCard>
+  );
+}
+
+function MeteorShowerSection() {
+  const { t } = useTranslation();
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const active = getActiveShowers(now);
+  const next = getNextShower(now);
+  const nextIsAlreadyActive = next ? active.some((shower) => shower.slug === next.shower.slug) : false;
+
+  return (
+    <GlassCard gap="$2">
+      <Paragraph fontFamily="$heading" fontSize="$5" color="$color">
+        {t('tonight.meteorShowers.title')}
+      </Paragraph>
+
+      {active.map((shower) => (
+        <ShowerRow
+          key={shower.slug}
+          shower={shower}
+          peakDate={new Date(today.getFullYear(), shower.peak.month - 1, shower.peak.day)}
+          label={t('tonight.meteorShowers.activeNow')}
+        />
+      ))}
+
+      {next && !nextIsAlreadyActive && (
+        <ShowerRow
+          shower={next.shower}
+          peakDate={next.peakDate}
+          label={(() => {
+            const daysUntil = Math.round((next.peakDate.getTime() - today.getTime()) / 86400000);
+            return daysUntil <= 0
+              ? t('tonight.meteorShowers.today')
+              : `${t('tonight.meteorShowers.nextUp')} · ${t('tonight.meteorShowers.inDays', { count: daysUntil })}`;
+          })()}
+        />
+      )}
+    </GlassCard>
+  );
+}
+
+function ShowerRow({ shower, peakDate, label }: { shower: MeteorShower; peakDate: Date; label: string }) {
+  const { t, i18n } = useTranslation();
+  return (
+    <YStack gap="$0.5">
+      <Paragraph color="$blue10" fontWeight="600">
+        {pickLocalized(shower.name, i18n.language)} · {label}
+      </Paragraph>
+      <Paragraph color="$color11" fontSize="$2">
+        {t('tonight.meteorShowers.peakOn', { date: formatShowerDate(peakDate, i18n.language) })}
+        {' · '}
+        {t('tonight.meteorShowers.radiant', { name: pickLocalized(shower.radiant, i18n.language) })}
+      </Paragraph>
+    </YStack>
   );
 }

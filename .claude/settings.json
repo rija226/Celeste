@@ -5,7 +5,8 @@
       "Bash(node -e \"console.log\\(require\\('./node_modules/astronomy-engine/package.json'\\).version\\)\")",
       "Bash(node -e ' *)",
       "Bash(taskkill //F //PID 26368)",
-      "Bash(grep -v \"tamagui\\\\]\\\\|babel\\\\|node_modules\\\\\\\\\\\\\\\\@babel\\\\|EBADENGINE\\\\|Node.js \\(v20\")"
+      "Bash(grep -v \"tamagui\\\\]\\\\|babel\\\\|node_modules\\\\\\\\\\\\\\\\@babel\\\\|EBADENGINE\\\\|Node.js \\(v20\")",
+      "Bash(npx tsx *)"
     ]
   },
   "enabledPlugins": {

@@ -47,6 +47,16 @@
       "mars": "Mars",
       "jupiter": "Jupiter",
       "saturn": "Saturn"
+    },
+    "meteorShowers": {
+      "title": "Meteor Showers",
+      "activeNow": "Active now",
+      "peakOn": "Peak {{date}}",
+      "radiant": "Radiant: {{name}}",
+      "nextUp": "Next up",
+      "today": "today",
+      "inDays_one": "in {{count}} day",
+      "inDays_other": "in {{count}} days"
     }
   },
   "settings": {
