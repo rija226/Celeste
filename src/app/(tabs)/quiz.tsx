@@ -1,119 +1,198 @@
-import { useEffect, useState } from 'react';
-import { Pressable } from 'react-native';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, H2, Paragraph, Spinner, YStack } from 'tamagui';
+import { Button, H2, Paragraph, Spinner, XStack, YStack } from 'tamagui';
 
-import { ConstellationView } from '@/components/ConstellationView';
-import { GlassCard } from '@/components/GlassCard';
+import { QuizQuestionCard } from '@/components/QuizQuestionCard';
 import { ScreenBackdrop } from '@/components/ScreenBackdrop';
 import { getConstellations } from '@/db';
+import {
+  buildDailyQuestions,
+  getDailyChallengeResult,
+  saveDailyChallengeResult,
+  todayDateKey,
+  type DailyChallengeResult,
+} from '@/lib/dailyChallenge';
 import { pickLocalized } from '@/lib/localized';
-import { palette } from '@/theme/palette';
-import type { Constellation } from '@/types/models';
+import { pickQuestion, POINTS_BY_DIFFICULTY } from '@/lib/quiz';
+import type { Constellation, QuizDifficulty } from '@/types/models';
 
-function shuffle<T>(items: T[]): T[] {
-  const copy = [...items];
-  for (let i = copy.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j], copy[i]];
-  }
-  return copy;
-}
+type Mode = 'practice' | 'daily';
 
-type Question = { answer: Constellation; options: Constellation[] };
-
-function pickQuestion(pool: Constellation[]): Question {
-  const [answer, ...rest] = shuffle(pool);
-  const wrongOptions = shuffle(rest).slice(0, 3);
-  return { answer, options: shuffle([answer, ...wrongOptions]) };
-}
+const DIFFICULTY_TIERS: QuizDifficulty[] = ['easy', 'medium', 'hard'];
 
 export default function QuizScreen() {
   const { t, i18n } = useTranslation();
+  const [mode, setMode] = useState<Mode>('practice');
   const [pool, setPool] = useState<Constellation[] | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [question, setQuestion] = useState<Question | null>(null);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [score, setScore] = useState({ correct: 0, total: 0 });
+
+  const [difficulty, setDifficulty] = useState<QuizDifficulty>('easy');
+  const [practiceRound, setPracticeRound] = useState(0);
+  const [practiceSelectedId, setPracticeSelectedId] = useState<string | null>(null);
+  const [practiceScore, setPracticeScore] = useState({ correct: 0, total: 0, points: 0 });
+
+  const [dailyResult, setDailyResult] = useState<DailyChallengeResult | null | undefined>(undefined);
+  const [dailyIndex, setDailyIndex] = useState(0);
+  const [dailySelectedId, setDailySelectedId] = useState<string | null>(null);
+  const [dailyCorrect, setDailyCorrect] = useState(0);
 
   useEffect(() => {
     getConstellations()
-      .then((data) => {
-        setPool(data);
-        setQuestion(pickQuestion(data));
-      })
+      .then(setPool)
       .catch((e: Error) => setError(e.message));
+    getDailyChallengeResult().then(setDailyResult);
   }, []);
 
-  function handleSelect(option: Constellation) {
-    if (!question || selectedId) return;
-    setSelectedId(option.id);
-    const isCorrect = option.id === question.answer.id;
-    setScore((s) => ({ correct: s.correct + (isCorrect ? 1 : 0), total: s.total + 1 }));
+  const practiceQuestion = useMemo(() => {
+    if (!pool) return null;
+    const tierPool = pool.filter((c) => c.difficulty === difficulty);
+    return pickQuestion(tierPool);
+    // practiceRound je namjerno u zavisnostima -- svaki klik na "Dalje" mora
+    // izvuci NOVO nasumicno pitanje, ne isto (pickQuestion nije cist).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pool, difficulty, practiceRound]);
+
+  const dailyQuestions = useMemo(() => {
+    if (!pool || dailyResult !== null) return null;
+    return buildDailyQuestions(pool, todayDateKey());
+  }, [pool, dailyResult]);
+
+  function selectDifficulty(tier: QuizDifficulty) {
+    setDifficulty(tier);
+    setPracticeSelectedId(null);
   }
 
-  function handleNext() {
-    if (!pool) return;
-    setSelectedId(null);
-    setQuestion(pickQuestion(pool));
+  function handlePracticeSelect(option: Constellation) {
+    if (!practiceQuestion || practiceSelectedId) return;
+    setPracticeSelectedId(option.id);
+    const isCorrect = option.id === practiceQuestion.answer.id;
+    setPracticeScore((s) => ({
+      correct: s.correct + (isCorrect ? 1 : 0),
+      total: s.total + 1,
+      points: s.points + (isCorrect ? POINTS_BY_DIFFICULTY[difficulty] : 0),
+    }));
+  }
+
+  function handlePracticeNext() {
+    setPracticeSelectedId(null);
+    setPracticeRound((r) => r + 1);
+  }
+
+  function handleDailySelect(option: Constellation) {
+    const question = dailyQuestions?.[dailyIndex];
+    if (!question || dailySelectedId) return;
+    setDailySelectedId(option.id);
+    if (option.id === question.answer.id) {
+      setDailyCorrect((c) => c + 1);
+    }
+  }
+
+  async function handleDailyNext() {
+    if (!dailyQuestions) return;
+    const isLast = dailyIndex === dailyQuestions.length - 1;
+    if (isLast) {
+      await saveDailyChallengeResult(dailyCorrect, dailyQuestions.length);
+      setDailyResult({ dateKey: todayDateKey(), correct: dailyCorrect, total: dailyQuestions.length });
+    } else {
+      setDailyIndex((i) => i + 1);
+      setDailySelectedId(null);
+    }
   }
 
   return (
     <ScreenBackdrop>
       <YStack f={1} pt="$8" px="$4" gap="$4">
-        <YStack fd="row" ai="center" jc="space-between">
-          <H2 color="$color">{t('quiz.title')}</H2>
-          {pool && (
-            <Paragraph fontFamily="$heading" fontSize="$6" color="$blue10">
-              {score.correct}/{score.total}
-            </Paragraph>
-          )}
-        </YStack>
+        <H2 color="$color">{t('quiz.title')}</H2>
+
+        <XStack gap="$2">
+          <Button f={1} theme={mode === 'practice' ? 'blue' : undefined} onPress={() => setMode('practice')}>
+            {t('quiz.practice')}
+          </Button>
+          <Button f={1} theme={mode === 'daily' ? 'blue' : undefined} onPress={() => setMode('daily')}>
+            {t('quiz.dailyChallenge')}
+          </Button>
+        </XStack>
 
         {error && <Paragraph color="$red10">{error}</Paragraph>}
-        {!question && !error && <Spinner size="large" />}
+        {!pool && !error && <Spinner size="large" />}
 
-        {question && (
+        {pool && mode === 'practice' && (
           <>
-            <Paragraph color="$color11">{t('quiz.prompt')}</Paragraph>
-
-            <GlassCard ai="center" jc="center" py="$5">
-              <ConstellationView stars={question.answer.stars} lines={question.answer.lines} />
-            </GlassCard>
-
-            <YStack gap="$2">
-              {question.options.map((option) => {
-                const isSelected = selectedId === option.id;
-                const isCorrectOption = option.id === question.answer.id;
-                const showResult = selectedId !== null;
-
-                let color: string = palette.nebula;
-                if (showResult && isCorrectOption) color = palette.aurora;
-                else if (showResult && isSelected) color = palette.comet;
-
-                return (
-                  <Pressable key={option.id} disabled={selectedId !== null} onPress={() => handleSelect(option)}>
-                    <YStack
-                      borderWidth={1}
-                      borderColor={color}
-                      backgroundColor={`${color}26`}
-                      borderRadius="$6"
-                      p="$3">
-                      <Paragraph color={color} fontWeight="600">
-                        {pickLocalized(option.name, i18n.language)}
-                      </Paragraph>
-                    </YStack>
-                  </Pressable>
-                );
-              })}
-            </YStack>
-
-            {selectedId && (
-              <>
-                <Paragraph color="$color11">{pickLocalized(question.answer.facts, i18n.language)}</Paragraph>
-                <Button theme="blue" onPress={handleNext}>
-                  {t('quiz.next')}
+            <XStack gap="$2">
+              {DIFFICULTY_TIERS.map((tier) => (
+                <Button
+                  key={tier}
+                  f={1}
+                  size="$3"
+                  theme={difficulty === tier ? 'blue' : undefined}
+                  onPress={() => selectDifficulty(tier)}>
+                  {t(`quiz.difficulty.${tier}`)}
                 </Button>
+              ))}
+            </XStack>
+
+            <Paragraph fontFamily="$heading" color="$blue10">
+              {t('quiz.points', { count: practiceScore.points })} · {practiceScore.correct}/{practiceScore.total}
+            </Paragraph>
+
+            {practiceQuestion && (
+              <>
+                <Paragraph color="$color11">{t('quiz.prompt')}</Paragraph>
+                <QuizQuestionCard
+                  question={practiceQuestion}
+                  selectedId={practiceSelectedId}
+                  onSelect={handlePracticeSelect}
+                />
+                {practiceSelectedId && (
+                  <>
+                    <Paragraph color="$color11">
+                      {pickLocalized(practiceQuestion.answer.facts, i18n.language)}
+                    </Paragraph>
+                    <Button theme="blue" onPress={handlePracticeNext}>
+                      {t('quiz.next')}
+                    </Button>
+                  </>
+                )}
+              </>
+            )}
+          </>
+        )}
+
+        {pool && mode === 'daily' && (
+          <>
+            {dailyResult === undefined && <Spinner size="large" />}
+
+            {dailyResult && (
+              <YStack ai="center" gap="$2" py="$6">
+                <Paragraph fontFamily="$heading" fontSize="$8" color="$blue10">
+                  {t('quiz.dailyScore', { correct: dailyResult.correct, total: dailyResult.total })}
+                </Paragraph>
+                <Paragraph color="$color11">{t('quiz.dailyDone')}</Paragraph>
+                <Paragraph color="$color11">{t('quiz.dailyComeBack')}</Paragraph>
+              </YStack>
+            )}
+
+            {dailyResult === null && dailyQuestions && (
+              <>
+                <Paragraph fontFamily="$heading" color="$blue10">
+                  {t('quiz.dailyProgress', { current: dailyIndex + 1, total: dailyQuestions.length })}
+                </Paragraph>
+                <Paragraph color="$color11">{t('quiz.prompt')}</Paragraph>
+                <QuizQuestionCard
+                  question={dailyQuestions[dailyIndex]}
+                  selectedId={dailySelectedId}
+                  onSelect={handleDailySelect}
+                />
+                {dailySelectedId && (
+                  <>
+                    <Paragraph color="$color11">
+                      {pickLocalized(dailyQuestions[dailyIndex].answer.facts, i18n.language)}
+                    </Paragraph>
+                    <Button theme="blue" onPress={handleDailyNext}>
+                      {dailyIndex === dailyQuestions.length - 1 ? t('quiz.finish') : t('quiz.next')}
+                    </Button>
+                  </>
+                )}
               </>
             )}
           </>

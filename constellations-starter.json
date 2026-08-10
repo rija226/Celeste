@@ -57,7 +57,7 @@
     },
     {
       "slug": "ursa-minor",
-      "difficulty": "medium",
+      "difficulty": "hard",
       "name": { "en": "Ursa Minor", "hr": "Mali medvjed" },
       "facts": {
         "en": "The Little Dipper's handle ends at Polaris, the North Star, which barely moves in the sky as Earth rotates beneath it.",
@@ -149,7 +149,7 @@
     },
     {
       "slug": "gemini",
-      "difficulty": "medium",
+      "difficulty": "hard",
       "name": { "en": "Gemini", "hr": "Blizanci" },
       "facts": {
         "en": "Twin stars Castor and Pollux mark the heads of the celestial twins, standing side by side in the winter sky.",
@@ -169,7 +169,7 @@
     },
     {
       "slug": "sagittarius",
-      "difficulty": "hard",
+      "difficulty": "medium",
       "name": { "en": "Sagittarius", "hr": "Strijelac" },
       "facts": {
         "en": "Its brightest stars form a shape known as the Teapot, pointing toward the center of our own Milky Way galaxy.",
@@ -189,7 +189,7 @@
     },
     {
       "slug": "lyra",
-      "difficulty": "easy",
+      "difficulty": "hard",
       "name": { "en": "Lyra", "hr": "Lira" },
       "facts": {
         "en": "A small but bright constellation holding Vega, one of the brightest stars in the entire night sky.",

@@ -5,7 +5,20 @@
   "quiz": {
     "title": "Kviz",
     "prompt": "Koje je ovo sazviježđe?",
-    "next": "Dalje"
+    "next": "Dalje",
+    "finish": "Završi",
+    "practice": "Vježba",
+    "dailyChallenge": "Dnevni izazov",
+    "difficulty": {
+      "easy": "Lako",
+      "medium": "Srednje",
+      "hard": "Teško"
+    },
+    "points": "{{count}} poena",
+    "dailyProgress": "Pitanje {{current}}/{{total}}",
+    "dailyDone": "Današnji izazov je gotov!",
+    "dailyScore": "{{correct}}/{{total}} tačno",
+    "dailyComeBack": "Vrati se sutra za novi izazov."
   },
   "settings": {
     "title": "Podešavanja",

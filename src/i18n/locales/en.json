@@ -5,7 +5,20 @@
   "quiz": {
     "title": "Quiz",
     "prompt": "Which constellation is this?",
-    "next": "Next"
+    "next": "Next",
+    "finish": "Finish",
+    "practice": "Practice",
+    "dailyChallenge": "Daily Challenge",
+    "difficulty": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    },
+    "points": "{{count}} pts",
+    "dailyProgress": "Question {{current}}/{{total}}",
+    "dailyDone": "Today's challenge is done!",
+    "dailyScore": "{{correct}}/{{total}} correct",
+    "dailyComeBack": "Come back tomorrow for a new one."
   },
   "settings": {
     "title": "Settings",
