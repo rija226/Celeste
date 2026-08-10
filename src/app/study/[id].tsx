@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, H3, Paragraph, Spinner, XStack, YStack } from 'tamagui';
 
 import { FlipCard } from '@/components/FlipCard';
+import { RatingButton } from '@/components/RatingButton';
 import { ScreenBackdrop } from '@/components/ScreenBackdrop';
 import {
   ensureSession,
@@ -16,6 +17,7 @@ import {
 import { pickLocalized } from '@/lib/localized';
 import { Rating, scheduleReview } from '@/srs';
 import { useStudySessionStore } from '@/store/studySession';
+import { palette } from '@/theme/palette';
 
 export default function StudyScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -102,19 +104,31 @@ export default function StudyScreen() {
                 {t('study.reveal')}
               </Button>
             ) : (
-              <XStack gap="$2">
-                <Button f={1} theme="red" onPress={() => handleRate(Rating.Again)}>
-                  {t('study.again')}
-                </Button>
-                <Button f={1} onPress={() => handleRate(Rating.Hard)}>
-                  {t('study.hard')}
-                </Button>
-                <Button f={1} theme="blue" onPress={() => handleRate(Rating.Good)}>
-                  {t('study.good')}
-                </Button>
-                <Button f={1} theme="green" onPress={() => handleRate(Rating.Easy)}>
-                  {t('study.easy')}
-                </Button>
+              <XStack gap="$3">
+                <RatingButton
+                  icon="refresh"
+                  label={t('study.again')}
+                  color={palette.comet}
+                  onPress={() => handleRate(Rating.Again)}
+                />
+                <RatingButton
+                  icon="walk-outline"
+                  label={t('study.hard')}
+                  color={palette.haze}
+                  onPress={() => handleRate(Rating.Hard)}
+                />
+                <RatingButton
+                  icon="checkmark-circle-outline"
+                  label={t('study.good')}
+                  color={palette.nebula}
+                  onPress={() => handleRate(Rating.Good)}
+                />
+                <RatingButton
+                  icon="rocket-outline"
+                  label={t('study.easy')}
+                  color={palette.aurora}
+                  onPress={() => handleRate(Rating.Easy)}
+                />
               </XStack>
             )}
           </>
