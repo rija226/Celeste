@@ -1,11 +1,30 @@
+import { useEffect, useState } from 'react';
+import { Platform } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Button, H2, Paragraph, XStack, YStack } from 'tamagui';
 
 import { ScreenBackdrop } from '@/components/ScreenBackdrop';
+import { Toggle } from '@/components/Toggle';
 import { changeLanguage } from '@/i18n';
+import { isDailyReminderEnabled, setDailyReminderEnabled } from '@/lib/notifications';
 
 export default function SettingsScreen() {
   const { t, i18n } = useTranslation();
+  const [reminderEnabled, setReminderEnabled] = useState(false);
+  const [permissionDenied, setPermissionDenied] = useState(false);
+
+  useEffect(() => {
+    isDailyReminderEnabled().then(setReminderEnabled);
+  }, []);
+
+  async function handleToggleReminder(next: boolean) {
+    const actual = await setDailyReminderEnabled(next, {
+      title: t('notifications.reminderTitle'),
+      body: t('notifications.reminderBody'),
+    });
+    setReminderEnabled(actual);
+    setPermissionDenied(next && !actual && Platform.OS !== 'web');
+  }
 
   return (
     <ScreenBackdrop>
@@ -28,6 +47,26 @@ export default function SettingsScreen() {
               Hrvatski
             </Button>
           </XStack>
+        </YStack>
+
+        <YStack gap="$2">
+          <XStack ai="center" jc="space-between">
+            <Paragraph color="$color11">{t('settings.dailyReminder')}</Paragraph>
+            <Toggle value={reminderEnabled} disabled={Platform.OS === 'web'} onValueChange={handleToggleReminder} />
+          </XStack>
+          {Platform.OS === 'web' ? (
+            <Paragraph fontSize="$2" color="$color11">
+              {t('settings.dailyReminderWebNote')}
+            </Paragraph>
+          ) : reminderEnabled ? (
+            <Paragraph fontSize="$2" color="$color11">
+              {t('settings.dailyReminderTime')}
+            </Paragraph>
+          ) : permissionDenied ? (
+            <Paragraph fontSize="$2" color="$red10">
+              {t('settings.dailyReminderDeniedNote')}
+            </Paragraph>
+          ) : null}
         </YStack>
       </YStack>
     </ScreenBackdrop>

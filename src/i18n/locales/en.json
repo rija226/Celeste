@@ -4,7 +4,15 @@
   },
   "settings": {
     "title": "Settings",
-    "language": "Language"
+    "language": "Language",
+    "dailyReminder": "Daily study reminder",
+    "dailyReminderTime": "Every day at 19:00",
+    "dailyReminderWebNote": "Available on mobile devices",
+    "dailyReminderDeniedNote": "Notification permission was denied — enable it in system settings"
+  },
+  "notifications": {
+    "reminderTitle": "Time to study!",
+    "reminderBody": "Your space cards are waiting — a few minutes a day keeps them fresh."
   },
   "stats": {
     "title": "Stats",

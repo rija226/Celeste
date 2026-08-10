@@ -4,7 +4,15 @@
   },
   "settings": {
     "title": "Podešavanja",
-    "language": "Jezik"
+    "language": "Jezik",
+    "dailyReminder": "Dnevni podsjetnik za učenje",
+    "dailyReminderTime": "Svaki dan u 19:00",
+    "dailyReminderWebNote": "Dostupno na mobilnim uređajima",
+    "dailyReminderDeniedNote": "Dozvola za notifikacije je odbijena — uključi je u sistemskim podešavanjima"
+  },
+  "notifications": {
+    "reminderTitle": "Vrijeme je za učenje!",
+    "reminderBody": "Tvoje svemirske kartice čekaju — par minuta dnevno ih drži svježim."
   },
   "stats": {
     "title": "Statistika",
