@@ -1,0 +1,169 @@
+{
+  "deck": {
+    "id": "outer-planets-005",
+    "slug": "outer-planets",
+    "category": "planets",
+    "level": 5,
+    "xp_required": 14,
+    "emoji": "🪐",
+    "is_premium": false,
+    "name": {
+      "en": "Outer Planets",
+      "hr": "Vanjske planete"
+    },
+    "description": {
+      "en": "The four giant worlds beyond the asteroid belt — Jupiter, Saturn, Uranus and Neptune. Vast, stormy, and ringed with wonder.",
+      "hr": "Cetiri divovska svijeta iza asteroidnog pojasa — Jupiter, Saturn, Uran i Neptun. Ogromni, olujni i optoceni cudima."
+    }
+  },
+  "cards": [
+    {
+      "id": "op-001",
+      "style": "term",
+      "front": { "en": "Gas giant", "hr": "Plinoviti div" },
+      "back": {
+        "en": "A huge planet made mostly of hydrogen and helium, with no solid surface to stand on. Jupiter and Saturn are the classic examples.",
+        "hr": "Ogromna planeta sastavljena uglavnom od vodika i helija, bez cvrste povrsine na koju bi stao. Jupiter i Saturn su klasicni primjeri."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "op-002",
+      "style": "fact",
+      "front": { "en": "How big is Jupiter?", "hr": "Koliki je Jupiter?" },
+      "back": {
+        "en": "The largest planet — all the others could fit inside it twice over. It's so massive it's essentially a failed star.",
+        "hr": "Najveca planeta — sve ostale bi stale u njega dvaput. Toliko je masivan da je u biti neuspjela zvijezda."
+      },
+      "explanation": null,
+      "media": {
+        "image": "jupiter_full_disk",
+        "image_hint": "NASA/Hubble ili Juno snimak Jupitera s Velikom crvenom pjegom. Trazi 'Jupiter' na images.nasa.gov. Javno vlasnistvo.",
+        "audio": null
+      }
+    },
+    {
+      "id": "op-003",
+      "style": "qa",
+      "front": { "en": "What is Jupiter's Great Red Spot?", "hr": "Sta je Jupiterova Velika crvena pjega?" },
+      "back": {
+        "en": "A giant storm bigger than Earth that has raged for at least 350 years. A hurricane that never ends.",
+        "hr": "Divovska oluja veca od Zemlje koja bjesni najmanje 350 godina. Uragan koji nikad ne prestaje."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "op-004",
+      "style": "fact",
+      "front": { "en": "What are Saturn's rings made of?", "hr": "Od cega su Saturnovi prstenovi?" },
+      "back": {
+        "en": "Billions of chunks of ice and rock, from dust grains to house-sized blocks. Wide as they are, they're only about 10 m thick on average.",
+        "hr": "Milijarde komada leda i stijene, od zrna prasine do blokova velicine kuce. Koliko god siroki, u prosjeku su debeli samo oko 10 m."
+      },
+      "explanation": null,
+      "media": {
+        "image": "saturn_rings",
+        "image_hint": "NASA/Cassini snimak Saturna s prstenovima. Trazi 'Saturn Cassini' na images.nasa.gov. Javno vlasnistvo.",
+        "audio": null
+      }
+    },
+    {
+      "id": "op-005",
+      "style": "fact",
+      "front": { "en": "Which planet could float on water?", "hr": "Koja bi planeta plutala na vodi?" },
+      "back": {
+        "en": "Saturn. It's the least dense planet — if there were a bathtub big enough, it would float.",
+        "hr": "Saturn. Najmanje je gusta planeta — kad bi postojala dovoljno velika kada, plutao bi."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "op-006",
+      "style": "qa",
+      "front": { "en": "What is unusual about how Uranus spins?", "hr": "Sta je neobicno u nacinu na koji se Uran okrece?" },
+      "back": {
+        "en": "It rolls on its side, tilted about 98°. Its poles take turns facing the Sun, giving decades-long seasons.",
+        "hr": "Kotrlja se na boku, nagnut oko 98°. Polovi mu se smjenjuju prema Suncu, dajuci godisnja doba duga desetljecima."
+      },
+      "explanation": null,
+      "media": {
+        "image": "uranus_full_disk",
+        "image_hint": "NASA/Voyager 2 ili JWST snimak Urana. Trazi 'Uranus' na images.nasa.gov. Javno vlasnistvo.",
+        "audio": null
+      }
+    },
+    {
+      "id": "op-007",
+      "style": "fact",
+      "front": { "en": "Why is Neptune so blue?", "hr": "Zasto je Neptun tako plav?" },
+      "back": {
+        "en": "Methane in its atmosphere absorbs red light and reflects blue. It's a deep, vivid azure world.",
+        "hr": "Metan u njegovoj atmosferi apsorbuje crvenu svjetlost i reflektuje plavu. Duboki, zivi azurni svijet."
+      },
+      "explanation": null,
+      "media": {
+        "image": "neptune_full_disk",
+        "image_hint": "NASA/Voyager 2 snimak Neptuna. Trazi 'Neptune' na images.nasa.gov. Javno vlasnistvo.",
+        "audio": null
+      }
+    },
+    {
+      "id": "op-008",
+      "style": "fact",
+      "front": { "en": "Where do the fastest winds in the Solar System blow?", "hr": "Gdje pusu najbrzi vjetrovi u Suncevom sistemu?" },
+      "back": {
+        "en": "On Neptune — up to about 2,000 km/h, faster than the speed of sound on Earth. And it's the farthest, coldest planet.",
+        "hr": "Na Neptunu — do oko 2.000 km/h, brze od brzine zvuka na Zemlji. A najdalja je i najhladnija planeta."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "op-009",
+      "style": "qa",
+      "front": { "en": "How many moons does Jupiter have?", "hr": "Koliko mjeseca ima Jupiter?" },
+      "back": {
+        "en": "Nearly 100 confirmed. The four largest — Io, Europa, Ganymede and Callisto — were spotted by Galileo in 1610.",
+        "hr": "Gotovo 100 potvrdjenih. Cetiri najveca — Ija, Europa, Ganimed i Kalisto — Galileo je uocio 1610."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "op-010",
+      "style": "fact",
+      "front": { "en": "Which moon might hide an ocean of liquid water?", "hr": "Koji bi mjesec mogao kriti ocean tekuce vode?" },
+      "back": {
+        "en": "Jupiter's moon Europa. Beneath its icy crust likely lies a global ocean — one of the best places to search for life.",
+        "hr": "Jupiterov mjesec Europa. Ispod ledene kore vjerovatno lezi globalni ocean — jedno od najboljih mjesta za potragu za zivotom."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "op-011",
+      "style": "qa",
+      "front": { "en": "Do the other giants have rings too?", "hr": "Imaju li i drugi divovi prstenove?" },
+      "back": {
+        "en": "Yes — Jupiter, Uranus and Neptune all have faint rings. Saturn's are just by far the brightest and widest.",
+        "hr": "Da — Jupiter, Uran i Neptun svi imaju slabe prstenove. Saturnovi su samo daleko najsjajniji i najsiri."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "op-012",
+      "style": "scale",
+      "front": { "en": "How long is a year on Neptune?", "hr": "Koliko traje godina na Neptunu?" },
+      "back": {
+        "en": "About 165 Earth years. Since its discovery in 1846, Neptune has completed just one full orbit of the Sun (in 2011).",
+        "hr": "Oko 165 zemaljskih godina. Od otkrica 1846., Neptun je zavrsio tek jedan pun krug oko Sunca (2011.)."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    }
+  ]
+}

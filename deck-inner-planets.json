@@ -1,0 +1,158 @@
+{
+  "deck": {
+    "id": "inner-planets-004",
+    "slug": "inner-planets",
+    "category": "planets",
+    "level": 4,
+    "xp_required": 14,
+    "emoji": "🌋",
+    "is_premium": false,
+    "name": {
+      "en": "Inner Planets",
+      "hr": "Unutrasnje planete"
+    },
+    "description": {
+      "en": "The four rocky worlds closest to the Sun — Mercury, Venus, Earth and Mars. Small, dense, and each strange in its own way.",
+      "hr": "Cetiri stjenovita svijeta najbliza Suncu — Merkur, Venera, Zemlja i Mars. Mali, gusti, i svaki cudan na svoj nacin."
+    }
+  },
+  "cards": [
+    {
+      "id": "ip-001",
+      "style": "term",
+      "front": { "en": "Terrestrial planet", "hr": "Terestricka planeta" },
+      "back": {
+        "en": "A rocky planet with a solid surface — Mercury, Venus, Earth and Mars. The name comes from 'terra', Latin for earth.",
+        "hr": "Stjenovita planeta s cvrstom povrsinom — Merkur, Venera, Zemlja i Mars. Ime dolazi od 'terra', latinski za zemlju."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "ip-002",
+      "style": "fact",
+      "front": { "en": "Why does Mercury have such wild temperatures?", "hr": "Zasto Merkur ima tako divlje temperature?" },
+      "back": {
+        "en": "With almost no atmosphere to hold heat, it swings from about 430 °C in daylight to -180 °C at night.",
+        "hr": "Gotovo bez atmosfere da zadrzi toplinu, ide od oko 430 °C danju do -180 °C nocu."
+      },
+      "explanation": null,
+      "media": {
+        "image": "mercury_full_disk",
+        "image_hint": "NASA MESSENGER snimak Merkura, cijeli disk. Trazi 'Mercury' na images.nasa.gov. Javno vlasnistvo.",
+        "audio": null
+      }
+    },
+    {
+      "id": "ip-003",
+      "style": "qa",
+      "front": { "en": "Which planet is the hottest, and why?", "hr": "Koja je planeta najtoplija i zasto?" },
+      "back": {
+        "en": "Venus. Its thick carbon-dioxide atmosphere traps heat in a runaway greenhouse effect — hotter than Mercury despite being farther from the Sun.",
+        "hr": "Venera. Njena gusta atmosfera od ugljen-dioksida zadrzava toplinu u pobjeglom efektu staklenika — toplija od Merkura iako je dalja od Sunca."
+      },
+      "explanation": null,
+      "media": {
+        "image": "venus_full_disk",
+        "image_hint": "NASA/Magellan radarski globus Venere ili UV snimak. Trazi 'Venus globe' na images.nasa.gov. Provjeri licencu (vecina NASA javno vlasnistvo).",
+        "audio": null
+      }
+    },
+    {
+      "id": "ip-004",
+      "style": "fact",
+      "front": { "en": "What's strange about a day on Venus?", "hr": "Sta je cudno kod dana na Veneri?" },
+      "back": {
+        "en": "It's longer than its year, and the Sun rises in the west — Venus spins backwards compared to most planets.",
+        "hr": "Duzi je od njene godine, a Sunce izlazi na zapadu — Venera se okrece unatrag u odnosu na vecinu planeta."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "ip-005",
+      "style": "qa",
+      "front": { "en": "What makes Earth unique among the planets?", "hr": "Sto cini Zemlju jedinstvenom medju planetama?" },
+      "back": {
+        "en": "It's the only known world with liquid water on its surface and life. So far, the only place in the universe we know is inhabited.",
+        "hr": "Jedini poznati svijet s tekucom vodom na povrsini i zivotom. Zasad jedino mjesto u svemiru za koje znamo da je nastanjeno."
+      },
+      "explanation": null,
+      "media": {
+        "image": "earth_blue_marble",
+        "image_hint": "NASA 'Blue Marble' snimak Zemlje. Trazi 'Blue Marble' na images.nasa.gov. Javno vlasnistvo.",
+        "audio": null
+      }
+    },
+    {
+      "id": "ip-006",
+      "style": "fact",
+      "front": { "en": "Why is Mars called the Red Planet?", "hr": "Zasto se Mars zove Crvena planeta?" },
+      "back": {
+        "en": "Its surface is rich in iron that has rusted, coating the planet in reddish dust visible even from Earth.",
+        "hr": "Povrsina mu je bogata zeljezom koje je zahrdalo, prekrivajuci planetu crvenkastom prasinom vidljivom cak sa Zemlje."
+      },
+      "explanation": null,
+      "media": {
+        "image": "mars_full_disk",
+        "image_hint": "NASA/Hubble ili Viking snimak Marsa, cijeli disk. Trazi 'Mars full disk' na images.nasa.gov. Javno vlasnistvo.",
+        "audio": null
+      }
+    },
+    {
+      "id": "ip-007",
+      "style": "fact",
+      "front": { "en": "Where is the tallest volcano in the Solar System?", "hr": "Gdje je najvisi vulkan u Suncevom sistemu?" },
+      "back": {
+        "en": "On Mars — Olympus Mons, about 22 km high and as wide as Poland. Nearly three times taller than Everest.",
+        "hr": "Na Marsu — Olympus Mons, visok oko 22 km i sirok kao Poljska. Gotovo tri puta visi od Everesta."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "ip-008",
+      "style": "qa",
+      "front": { "en": "Does Mars have moons?", "hr": "Ima li Mars mjesece?" },
+      "back": {
+        "en": "Yes, two tiny ones — Phobos and Deimos. They're lumpy and potato-shaped, likely captured asteroids.",
+        "hr": "Da, dva sicusna — Phobos i Deimos. Kvrgavi su i u obliku krompira, vjerovatno zarobljeni asteroidi."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "ip-009",
+      "style": "scale",
+      "front": { "en": "How does Mercury's size compare to Earth?", "hr": "Kolika je velicina Merkura u odnosu na Zemlju?" },
+      "back": {
+        "en": "Mercury is the smallest planet — only about 38% of Earth's diameter, barely bigger than our Moon.",
+        "hr": "Merkur je najmanja planeta — samo oko 38% Zemljinog promjera, jedva veci od naseg Mjeseca."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "ip-010",
+      "style": "fact",
+      "front": { "en": "Could humans ever live on Mars?", "hr": "Bi li ljudi ikad mogli zivjeti na Marsu?" },
+      "back": {
+        "en": "It's the most Earth-like planet, but has thin air, no breathable oxygen and harsh radiation. Any settlers would need sealed habitats.",
+        "hr": "Najslicnija je Zemlji, ali ima rijedak zrak, nema kisika za disanje i jako zracenje. Svaki doseljenik trebao bi zatvorena stanista."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "ip-011",
+      "style": "qa",
+      "front": { "en": "Why does Venus shine so brightly in our sky?", "hr": "Zasto Venera tako sjajno sija na nasem nebu?" },
+      "back": {
+        "en": "Its thick clouds reflect sunlight superbly. After the Moon, Venus is often the brightest object in the night sky — the 'Morning' or 'Evening Star'.",
+        "hr": "Njeni gusti oblaci izvrsno reflektuju suncevu svjetlost. Poslije Mjeseca, Venera je cesto najsjajniji objekt na nocnom nebu — 'Zvijezda Danica' ili 'Vecernjaca'."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    }
+  ]
+}
