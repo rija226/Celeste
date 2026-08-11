@@ -1,11 +1,13 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import { useTranslation } from 'react-i18next';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { palette } from '@/theme/palette';
 
 export default function TabsLayout() {
   const { t } = useTranslation();
+  const insets = useSafeAreaInsets();
 
   return (
     <Tabs
@@ -18,6 +20,9 @@ export default function TabsLayout() {
           backgroundColor: 'rgba(23, 19, 52, 0.92)',
           borderTopColor: palette.nebulaDeep,
           borderTopWidth: 1,
+          height: 58 + insets.bottom,
+          paddingTop: 8,
+          paddingBottom: insets.bottom + 8,
         },
         tabBarLabelStyle: { fontFamily: 'Inter_500Medium', fontSize: 11 },
       }}>
