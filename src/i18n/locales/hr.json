@@ -2,7 +2,8 @@
   "home": {
     "title": "Početna",
     "level": "Nivo {{level}}",
-    "xpProgress": "{{current}}/{{total}} XP"
+    "xpProgress": "{{current}}/{{total}} XP",
+    "pathContinues": "✨ Ostatak kosmosa te čeka ✨"
   },
   "quiz": {
     "title": "Kviz",

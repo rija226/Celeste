@@ -2,7 +2,8 @@
   "home": {
     "title": "Home",
     "level": "Level {{level}}",
-    "xpProgress": "{{current}}/{{total}} XP"
+    "xpProgress": "{{current}}/{{total}} XP",
+    "pathContinues": "✨ More of the cosmos awaits ✨"
   },
   "quiz": {
     "title": "Quiz",
