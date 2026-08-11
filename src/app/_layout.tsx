@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Stack } from 'expo-router';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { TamaguiProvider } from 'tamagui';
 
 import { SpaceBackdrop } from '@/components/SpaceBackdrop';
@@ -22,17 +23,19 @@ export default function RootLayout() {
   }
 
   return (
-    <TamaguiProvider config={tamaguiConfig} defaultTheme="dark">
-      <SpaceBackdrop />
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          animation: 'slide_from_right',
-          contentStyle: { backgroundColor: 'transparent' },
-          headerStyle: { backgroundColor: palette.nebulaDeep },
-          headerTintColor: palette.starlight,
-        }}
-      />
-    </TamaguiProvider>
+    <SafeAreaProvider>
+      <TamaguiProvider config={tamaguiConfig} defaultTheme="dark">
+        <SpaceBackdrop />
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            animation: 'slide_from_right',
+            contentStyle: { backgroundColor: 'transparent' },
+            headerStyle: { backgroundColor: palette.nebulaDeep },
+            headerTintColor: palette.starlight,
+          }}
+        />
+      </TamaguiProvider>
+    </SafeAreaProvider>
   );
 }
