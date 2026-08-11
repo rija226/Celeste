@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { Image } from 'expo-image';
 import { useTranslation } from 'react-i18next';
@@ -19,7 +19,9 @@ import {
 } from '@/db';
 import { pickLocalized } from '@/lib/localized';
 import { Rating, scheduleReview } from '@/srs';
+import { checkAndCelebrateStreak } from '@/lib/streakCelebration';
 import { useStudySessionStore } from '@/store/studySession';
+import { useCelebrationStore } from '@/store/celebration';
 import { palette } from '@/theme/palette';
 import type { Deck } from '@/types/models';
 
@@ -33,6 +35,8 @@ export default function StudyScreen() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [failedImageIds, setFailedImageIds] = useState<Set<string>>(new Set());
+  const hadNewCardsRef = useRef(false);
+  const sessionCelebratedRef = useRef(false);
 
   useEffect(() => {
     (async () => {
@@ -47,6 +51,7 @@ export default function StudyScreen() {
           cards.map((card) => card.id),
         );
         const progressByCardId = new Map(progress.map((p) => [p.cardId, p]));
+        hadNewCardsRef.current = cards.some((card) => !progressByCardId.has(card.id));
         const now = new Date();
         const due = cards.filter((card) => {
           const p = progressByCardId.get(card.id);
@@ -63,6 +68,14 @@ export default function StudyScreen() {
   }, [id, start]);
 
   const currentCard = queue[index];
+
+  useEffect(() => {
+    if (sessionCelebratedRef.current) return;
+    if (loading || !userId || queue.length === 0 || index < queue.length) return;
+    sessionCelebratedRef.current = true;
+    useCelebrationStore.getState().celebrate({ kind: hadNewCardsRef.current ? 'deckComplete' : 'dailyGoal' });
+    checkAndCelebrateStreak(userId);
+  }, [loading, userId, queue.length, index]);
 
   async function handleRate(rating: Rating.Again | Rating.Hard | Rating.Good | Rating.Easy) {
     if (!userId || !currentCard) return;

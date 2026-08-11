@@ -3,6 +3,7 @@ import { Stack } from 'expo-router';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { TamaguiProvider } from 'tamagui';
 
+import { CelebrationToast } from '@/components/CelebrationToast';
 import { SpaceBackdrop } from '@/components/SpaceBackdrop';
 import { WelcomeModal } from '@/components/WelcomeModal';
 import { ensureSession } from '@/db';
@@ -46,6 +47,7 @@ export default function RootLayout() {
             markWelcomeSeen();
           }}
         />
+        <CelebrationToast />
       </TamaguiProvider>
     </SafeAreaProvider>
   );

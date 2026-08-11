@@ -1,4 +1,10 @@
 {
+  "celebration": {
+    "streak_one": "🔥 {{count}} dan zaredom!",
+    "streak_other": "🔥 {{count}} dana zaredom!",
+    "deckComplete": "Deck završen! ⭐",
+    "dailyGoal": "Sve za danas gotovo! ✨"
+  },
   "welcome": {
     "title": "Dobrodošli u Celeste 🪐",
     "body": "Tvoje putovanje kroz kosmos počinje ovdje. Uči o svemiru i astronomiji kroz kartice, testiraj znanje kvizom sazviježđa i pogledaj šta je večeras stvarno vidljivo na nebu — gdje god da si.",

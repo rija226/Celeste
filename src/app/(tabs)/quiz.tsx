@@ -15,6 +15,7 @@ import {
 } from '@/lib/dailyChallenge';
 import { pickLocalized } from '@/lib/localized';
 import { pickQuestion, POINTS_BY_DIFFICULTY } from '@/lib/quiz';
+import { checkAndCelebrateStreak } from '@/lib/streakCelebration';
 import type { Constellation, QuizDifficulty } from '@/types/models';
 
 type Mode = 'practice' | 'daily';
@@ -120,6 +121,7 @@ export default function QuizScreen() {
     if (isLast) {
       await saveDailyChallengeResult(dailyCorrect, dailyQuestions.length);
       setDailyResult({ dateKey: todayDateKey(), correct: dailyCorrect, total: dailyQuestions.length });
+      if (userId) checkAndCelebrateStreak(userId);
     } else {
       setDailyIndex((i) => i + 1);
       setDailySelectedId(null);
