@@ -1,10 +1,13 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import Svg, { Line } from 'react-native-svg';
 import { Paragraph, ScrollView, YStack } from 'tamagui';
 
 import { LevelNode, type LevelNodeState } from '@/components/LevelNode';
+import { RocketFlightLine, RocketFlightSprite, useUnlockFlight } from '@/components/RocketFlight';
+import { getLastUnlockedCount, setLastUnlockedCount } from '@/lib/celebrations';
+import { useReducedMotion } from '@/lib/motion';
 import { palette } from '@/theme/palette';
 import type { Deck } from '@/types/models';
 
@@ -28,11 +31,14 @@ export function LevelPath({ decks, totalXp }: { decks: Deck[]; totalXp: number }
   const { t } = useTranslation();
   const router = useRouter();
   const scrollRef = useRef<React.ElementRef<typeof ScrollView>>(null);
+  const reducedMotion = useReducedMotion();
+  const [flight, setFlight] = useState<{ fromIndex: number; toIndex: number } | null>(null);
 
   const sorted = decks
     .filter((deck) => deck.level !== null)
     .sort((a, b) => (a.level ?? 0) - (b.level ?? 0));
   const currentIndex = sorted.findIndex((deck) => totalXp < deck.xpRequired);
+  const unlockedCount = currentIndex === -1 ? sorted.length : currentIndex + 1;
   const totalHeight = TOP_FADE_HEIGHT + sorted.length * ROW_HEIGHT;
 
   const positions = sorted.map((deck, index) => {
@@ -43,6 +49,25 @@ export function LevelPath({ decks, totalXp }: { decks: Deck[]; totalXp: number }
       y: TOP_FADE_HEIGHT + rowFromTop * ROW_HEIGHT + ROW_HEIGHT / 2,
       state: levelState(index, currentIndex),
     };
+  });
+
+  useEffect(() => {
+    if (sorted.length === 0) return;
+    (async () => {
+      const last = await getLastUnlockedCount();
+      if (last === null) {
+        await setLastUnlockedCount(unlockedCount);
+        return;
+      }
+      if (unlockedCount > last) {
+        setFlight({ fromIndex: last - 1, toIndex: last });
+      }
+    })();
+  }, [sorted.length, unlockedCount]);
+
+  const { progress, flash } = useUnlockFlight(!!flight, reducedMotion, () => {
+    setLastUnlockedCount(unlockedCount);
+    setFlight(null);
   });
 
   return (
@@ -72,6 +97,9 @@ export function LevelPath({ decks, totalXp }: { decks: Deck[]; totalXp: number }
               />
             );
           })}
+          {flight && (
+            <RocketFlightLine from={positions[flight.fromIndex]} to={positions[flight.toIndex]} progress={progress} />
+          )}
         </Svg>
         {positions.map((point) => (
           <LevelNode
@@ -84,6 +112,14 @@ export function LevelPath({ decks, totalXp }: { decks: Deck[]; totalXp: number }
             onPress={() => router.push(`/deck/${point.deck.id}`)}
           />
         ))}
+        {flight && (
+          <RocketFlightSprite
+            from={positions[flight.fromIndex]}
+            to={positions[flight.toIndex]}
+            progress={progress}
+            flash={flash}
+          />
+        )}
       </YStack>
     </ScrollView>
   );
