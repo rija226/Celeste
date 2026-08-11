@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import Svg, { Line } from 'react-native-svg';
@@ -26,6 +27,7 @@ function levelState(index: number, currentIndex: number): LevelNodeState {
 export function LevelPath({ decks, totalXp }: { decks: Deck[]; totalXp: number }) {
   const { t } = useTranslation();
   const router = useRouter();
+  const scrollRef = useRef<React.ElementRef<typeof ScrollView>>(null);
 
   const sorted = decks
     .filter((deck) => deck.level !== null)
@@ -44,7 +46,10 @@ export function LevelPath({ decks, totalXp }: { decks: Deck[]; totalXp: number }
   });
 
   return (
-    <ScrollView contentContainerStyle={{ alignItems: 'center', paddingBottom: 48 }}>
+    <ScrollView
+      ref={scrollRef}
+      onContentSizeChange={() => scrollRef.current?.scrollToEnd({ animated: false })}
+      contentContainerStyle={{ alignItems: 'center', paddingBottom: 48 }}>
       <Paragraph color="$color11" fontSize="$2" mt="$4" mb="$2" opacity={0.6}>
         {t('home.pathContinues')}
       </Paragraph>
