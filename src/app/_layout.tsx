@@ -4,8 +4,10 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { TamaguiProvider } from 'tamagui';
 
 import { SpaceBackdrop } from '@/components/SpaceBackdrop';
+import { WelcomeModal } from '@/components/WelcomeModal';
 import { ensureSession } from '@/db';
 import { initI18n } from '@/i18n';
+import { hasSeenWelcome, markWelcomeSeen } from '@/lib/welcome';
 import { palette } from '@/theme/palette';
 import { tamaguiConfig } from '@/theme/tamagui.config';
 import { useAppFonts } from '@/theme/fonts';
@@ -13,9 +15,11 @@ import { useAppFonts } from '@/theme/fonts';
 export default function RootLayout() {
   const fontsLoaded = useAppFonts();
   const [dataReady, setDataReady] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(false);
 
   useEffect(() => {
     Promise.all([initI18n(), ensureSession()]).then(() => setDataReady(true));
+    hasSeenWelcome().then((seen) => setShowWelcome(!seen));
   }, []);
 
   if (!fontsLoaded || !dataReady) {
@@ -33,6 +37,13 @@ export default function RootLayout() {
             contentStyle: { backgroundColor: 'transparent' },
             headerStyle: { backgroundColor: palette.nebulaDeep },
             headerTintColor: palette.starlight,
+          }}
+        />
+        <WelcomeModal
+          visible={showWelcome}
+          onDismiss={() => {
+            setShowWelcome(false);
+            markWelcomeSeen();
           }}
         />
       </TamaguiProvider>

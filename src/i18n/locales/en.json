@@ -1,4 +1,9 @@
 {
+  "welcome": {
+    "title": "Welcome to Celeste 🪐",
+    "body": "Your journey through the cosmos starts here. Learn space and astronomy through flashcards, test what you know with a constellation quiz, and see what's really visible in tonight's sky — wherever you are.",
+    "cta": "Get started"
+  },
   "home": {
     "title": "Home",
     "level": "Level {{level}}",
