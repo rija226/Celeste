@@ -105,10 +105,17 @@
   },
   "stats": {
     "title": "Statistika",
-    "totalReviews": "Ukupno ponavljanja: {{count}}",
-    "learnedCards": "Naučene kartice: {{count}}",
-    "quizPoints": "Poeni iz kviza: {{count}}",
-    "streak": "Niz: {{count}} dana"
+    "totalReviews": "Ukupno ponavljanja",
+    "learnedCards": "Naučene kartice",
+    "quizPoints": "Poeni iz kviza",
+    "unlockedLevels": "Otključani nivoi",
+    "streakLabel_one": "dan zaredom",
+    "streakLabel_other": "dana zaredom",
+    "streakEmpty": "Počni svoj niz danas!",
+    "activityTitle": "Zadnjih 7 dana",
+    "activityEmpty": "Tvoja aktivnost će se pojaviti ovdje",
+    "activityReviews": "Ponavljanja",
+    "activityQuiz": "Kviz"
   },
   "deck": {
     "cardCount": "{{count}} kartica",

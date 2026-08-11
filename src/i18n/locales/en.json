@@ -105,10 +105,17 @@
   },
   "stats": {
     "title": "Stats",
-    "totalReviews": "Total reviews: {{count}}",
-    "learnedCards": "Cards learned: {{count}}",
-    "quizPoints": "Quiz points: {{count}}",
-    "streak": "Streak: {{count}} days"
+    "totalReviews": "Total reviews",
+    "learnedCards": "Cards learned",
+    "quizPoints": "Quiz points",
+    "unlockedLevels": "Levels unlocked",
+    "streakLabel_one": "day streak",
+    "streakLabel_other": "day streak",
+    "streakEmpty": "Start your streak today!",
+    "activityTitle": "Last 7 days",
+    "activityEmpty": "Your activity will show up here",
+    "activityReviews": "Reviews",
+    "activityQuiz": "Quiz"
   },
   "deck": {
     "cardCount": "{{count}} cards",
