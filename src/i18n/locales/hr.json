@@ -1,6 +1,8 @@
 {
   "home": {
-    "title": "Početna"
+    "title": "Početna",
+    "level": "Nivo {{level}}",
+    "xpProgress": "{{current}}/{{total}} XP"
   },
   "quiz": {
     "title": "Kviz",

@@ -1,6 +1,8 @@
 {
   "home": {
-    "title": "Home"
+    "title": "Home",
+    "level": "Level {{level}}",
+    "xpProgress": "{{current}}/{{total}} XP"
   },
   "quiz": {
     "title": "Quiz",

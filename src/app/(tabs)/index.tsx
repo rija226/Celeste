@@ -4,8 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { H2, Paragraph, Spinner, YStack } from 'tamagui';
 
 import { GlassCard } from '@/components/GlassCard';
+import { LevelBadge } from '@/components/LevelBadge';
 import { ScreenBackdrop } from '@/components/ScreenBackdrop';
-import { getDecks } from '@/db';
+import { ensureSession, getDecks, getQuizPoints, getTotalReviewCount } from '@/db';
+import { levelFromXp, type LevelInfo } from '@/lib/level';
 import { pickLocalized } from '@/lib/localized';
 import type { Deck } from '@/types/models';
 
@@ -13,12 +15,23 @@ export default function HomeScreen() {
   const { t, i18n } = useTranslation();
   const router = useRouter();
   const [decks, setDecks] = useState<Deck[] | null>(null);
+  const [levelInfo, setLevelInfo] = useState<LevelInfo | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     getDecks()
       .then(setDecks)
       .catch((e: Error) => setError(e.message));
+
+    (async () => {
+      try {
+        const userId = await ensureSession();
+        const [totalReviews, quizPoints] = await Promise.all([getTotalReviewCount(userId), getQuizPoints(userId)]);
+        setLevelInfo(levelFromXp(totalReviews + quizPoints));
+      } catch (e) {
+        setError((e as Error).message);
+      }
+    })();
   }, []);
 
   return (
@@ -27,6 +40,9 @@ export default function HomeScreen() {
         <H2 color="$color">{t('home.title')}</H2>
 
         {error && <Paragraph color="$red10">{error}</Paragraph>}
+
+        {levelInfo && <LevelBadge info={levelInfo} />}
+
         {!decks && !error && <Spinner size="large" />}
 
         {decks?.map((deck) => (
