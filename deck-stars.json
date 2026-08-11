@@ -1,0 +1,175 @@
+{
+  "deck": {
+    "id": "stars-006",
+    "slug": "stars",
+    "category": "deep-space",
+    "level": 6,
+    "xp_required": 16,
+    "emoji": "✨",
+    "is_premium": false,
+    "name": {
+      "en": "Stars",
+      "hr": "Zvijezde"
+    },
+    "description": {
+      "en": "The glowing engines of the universe — how stars are born, live, and die, and why they come in so many colors and sizes.",
+      "hr": "Uzareni motori svemira — kako se zvijezde radjaju, zive i umiru, i zasto dolaze u toliko boja i velicina."
+    }
+  },
+  "cards": [
+    {
+      "id": "st-001",
+      "style": "qa",
+      "front": { "en": "What exactly is a star?", "hr": "Sta je zapravo zvijezda?" },
+      "back": {
+        "en": "A giant ball of glowing plasma held together by its own gravity, fusing lighter elements into heavier ones and releasing light and heat.",
+        "hr": "Ogromna kugla uzarene plazme koju drzi vlastita gravitacija, spajajuci lakse elemente u teze i oslobadjajuci svjetlost i toplinu."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "st-002",
+      "style": "term",
+      "front": { "en": "Nebula", "hr": "Maglica" },
+      "back": {
+        "en": "A giant cloud of gas and dust in space. Many are stellar nurseries, where gravity pulls material together to ignite new stars.",
+        "hr": "Ogroman oblak plina i prasine u svemiru. Mnoge su 'rodilista zvijezda', gdje gravitacija spaja materijal da zapali nove zvijezde."
+      },
+      "explanation": null,
+      "media": {
+        "image": "orion_nebula",
+        "image_hint": "NASA/Hubble ili JWST snimak Orionove maglice. Trazi 'Orion Nebula' na images.nasa.gov. Provjeri licencu (Hubble/JWST cesto NASA/ESA — provjeri ESA dio).",
+        "audio": null
+      }
+    },
+    {
+      "id": "st-003",
+      "style": "fact",
+      "front": { "en": "Why do stars have different colors?", "hr": "Zasto zvijezde imaju razlicite boje?" },
+      "back": {
+        "en": "Color reveals temperature. Blue stars are the hottest, red the coolest — the opposite of what taps and faucets taught you.",
+        "hr": "Boja otkriva temperaturu. Plave zvijezde su najtoplije, crvene najhladnije — suprotno od onog sto te naucila slavina."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "st-004",
+      "style": "term",
+      "front": { "en": "Red giant", "hr": "Crveni div" },
+      "back": {
+        "en": "A dying star that has swollen enormously as it runs low on fuel. Our Sun will become one, swallowing the inner planets.",
+        "hr": "Umiruca zvijezda koja se ogromno napuhala kako joj ponestaje goriva. Nase Sunce ce postati crveni div i progutati unutrasnje planete."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "st-005",
+      "style": "fact",
+      "front": { "en": "What is the closest star to our Sun?", "hr": "Koja je najbliza zvijezda nasem Suncu?" },
+      "back": {
+        "en": "Proxima Centauri, about 4.2 light-years away. Even at the speed of light, getting there would take over four years.",
+        "hr": "Proksima Kentauri, oko 4,2 svjetlosne godine daleko. Cak i brzinom svjetlosti, put bi trajao preko cetiri godine."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "st-006",
+      "style": "term",
+      "front": { "en": "Supernova", "hr": "Supernova" },
+      "back": {
+        "en": "The explosive death of a massive star. For a few weeks it can outshine an entire galaxy, forging gold, silver and iron.",
+        "hr": "Eksplozivna smrt masivne zvijezde. Nekoliko sedmica moze zasjeniti cijelu galaksiju, kujuci zlato, srebro i zeljezo."
+      },
+      "explanation": {
+        "en": "The atoms in your body were forged inside stars and scattered by supernovae.",
+        "hr": "Atomi u tvom tijelu iskovani su unutar zvijezda i rasuti supernovama."
+      },
+      "media": {
+        "image": "crab_nebula",
+        "image_hint": "NASA snimak Rakove maglice (Crab Nebula) — ostatak supernove. Trazi 'Crab Nebula' na images.nasa.gov. Provjeri licencu.",
+        "audio": null
+      }
+    },
+    {
+      "id": "st-007",
+      "style": "term",
+      "front": { "en": "Neutron star", "hr": "Neutronska zvijezda" },
+      "back": {
+        "en": "The ultra-dense core left after a supernova. A teaspoon of it would weigh billions of tonnes on Earth.",
+        "hr": "Ultra-gusta jezgra koja ostaje nakon supernove. Kasicica te materije tezila bi milijarde tona na Zemlji."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "st-008",
+      "style": "fact",
+      "front": { "en": "How long do stars live?", "hr": "Koliko dugo zvijezde zive?" },
+      "back": {
+        "en": "From a few million years for giants to trillions for the smallest. Small red dwarfs will outlive the current age of the universe many times over.",
+        "hr": "Od nekoliko miliona godina za divove do biliona za najmanje. Mali crveni patuljci nadzivjet ce sadasnju starost svemira mnogo puta."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "st-009",
+      "style": "scale",
+      "front": { "en": "How big can stars get?", "hr": "Koliko velike zvijezde mogu biti?" },
+      "back": {
+        "en": "The largest known, like Stephenson 2-18, could swallow Saturn's orbit if placed where our Sun is. Our Sun is a speck beside it.",
+        "hr": "Najvece poznate, poput Stephenson 2-18, progutale bi Saturnovu orbitu da su na mjestu naseg Sunca. Nase Sunce je mrvica pored nje."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "st-010",
+      "style": "qa",
+      "front": { "en": "What is a constellation, really?", "hr": "Sta je zapravo sazvijezdje?" },
+      "back": {
+        "en": "A pattern we see from Earth — but the stars in it usually lie at wildly different distances and aren't neighbors at all.",
+        "hr": "Uzorak koji vidimo sa Zemlje — ali zvijezde u njemu obicno leze na jako razlicitim udaljenostima i uopce nisu susjedi."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "st-011",
+      "style": "fact",
+      "front": { "en": "Are we really made of stardust?", "hr": "Jesmo li stvarno napravljeni od zvjezdane prasine?" },
+      "back": {
+        "en": "Yes, literally. Nearly every atom in you heavier than hydrogen was forged inside a star and released when it died.",
+        "hr": "Da, doslovno. Gotovo svaki atom u tebi tezi od vodika iskovan je unutar zvijezde i oslobodjen kad je umrla."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "st-012",
+      "style": "qa",
+      "front": { "en": "What is the brightest star in our night sky?", "hr": "Koja je najsjajnija zvijezda na nasem nocnom nebu?" },
+      "back": {
+        "en": "Sirius, in Canis Major. It looks so bright partly because it's genuinely luminous and partly because it's close — just 8.6 light-years away.",
+        "hr": "Sirijus, u Velikom psu. Izgleda tako sjajno dijelom jer je stvarno svijetao, a dijelom jer je blizu — samo 8,6 svjetlosnih godina daleko."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "st-013",
+      "style": "term",
+      "front": { "en": "White dwarf", "hr": "Bijeli patuljak" },
+      "back": {
+        "en": "The small, dense, slowly cooling core left when a Sun-like star dies. It quietly fades over billions of years.",
+        "hr": "Mala, gusta, polako hladeca jezgra koja ostaje kad umre zvijezda poput Sunca. Tiho blijedi kroz milijarde godina."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    }
+  ]
+}

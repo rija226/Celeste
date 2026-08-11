@@ -1,0 +1,165 @@
+{
+  "deck": {
+    "id": "galaxies-007",
+    "slug": "galaxies",
+    "category": "deep-space",
+    "level": 7,
+    "xp_required": 16,
+    "emoji": "🌌",
+    "is_premium": false,
+    "name": {
+      "en": "Galaxies",
+      "hr": "Galaksije"
+    },
+    "description": {
+      "en": "Islands of billions of stars scattered across the cosmos — including our own Milky Way and the vast web that connects them all.",
+      "hr": "Otoci od milijardi zvijezda razasuti kosmosom — ukljucujuci nas Mlijecni put i ogromnu mrezu koja ih sve povezuje."
+    }
+  },
+  "cards": [
+    {
+      "id": "gx-001",
+      "style": "term",
+      "front": { "en": "Galaxy", "hr": "Galaksija" },
+      "back": {
+        "en": "A vast system of stars, gas, dust and dark matter bound by gravity. They range from millions to trillions of stars.",
+        "hr": "Ogroman sistem zvijezda, plina, prasine i tamne materije povezan gravitacijom. Krecu se od miliona do biliona zvijezda."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "gx-002",
+      "style": "qa",
+      "front": { "en": "What galaxy do we live in?", "hr": "U kojoj galaksiji zivimo?" },
+      "back": {
+        "en": "The Milky Way — a barred spiral holding 100–400 billion stars. On dark nights you can see its band arching overhead.",
+        "hr": "Mlijecni put — spiralna galaksija s precagom, s 100–400 milijardi zvijezda. Za tamnih noci vidis njen pojas kako se luci nad glavom."
+      },
+      "explanation": null,
+      "media": {
+        "image": "milky_way_band",
+        "image_hint": "NASA snimak trake Mlijecnog puta na nebu. Trazi 'Milky Way' na images.nasa.gov. Provjeri licencu.",
+        "audio": null
+      }
+    },
+    {
+      "id": "gx-003",
+      "style": "term",
+      "front": { "en": "Spiral galaxy", "hr": "Spiralna galaksija" },
+      "back": {
+        "en": "A galaxy with graceful arms winding out from a bright center, full of gas and young stars. The Milky Way is one.",
+        "hr": "Galaksija s gracioznim krakovima koji se odmotavaju iz sjajnog sredista, puna plina i mladih zvijezda. Mlijecni put je jedna od njih."
+      },
+      "explanation": null,
+      "media": {
+        "image": "spiral_galaxy",
+        "image_hint": "NASA/Hubble snimak spiralne galaksije (npr. M81 ili Whirlpool/M51). Trazi 'spiral galaxy Hubble' na images.nasa.gov. Provjeri licencu.",
+        "audio": null
+      }
+    },
+    {
+      "id": "gx-004",
+      "style": "fact",
+      "front": { "en": "What is the nearest large galaxy to ours?", "hr": "Koja je najbliza velika galaksija nasoj?" },
+      "back": {
+        "en": "Andromeda, about 2.5 million light-years away — the most distant thing visible to the naked eye.",
+        "hr": "Andromeda, oko 2,5 miliona svjetlosnih godina daleko — najudaljenija stvar vidljiva golim okom."
+      },
+      "explanation": null,
+      "media": {
+        "image": "andromeda_galaxy",
+        "image_hint": "NASA snimak Andromedine galaksije (M31). Trazi 'Andromeda Galaxy' na images.nasa.gov. Provjeri licencu.",
+        "audio": null
+      }
+    },
+    {
+      "id": "gx-005",
+      "style": "fact",
+      "front": { "en": "Will Andromeda ever reach us?", "hr": "Hoce li nas Andromeda ikad dosegnuti?" },
+      "back": {
+        "en": "Yes — it's heading our way and will merge with the Milky Way in about 4.5 billion years, forming a new giant galaxy.",
+        "hr": "Da — krece se prema nama i spojit ce se s Mlijecnim putem za oko 4,5 milijardi godina, stvarajuci novu divovsku galaksiju."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "gx-006",
+      "style": "scale",
+      "front": { "en": "How many galaxies are there?", "hr": "Koliko galaksija postoji?" },
+      "back": {
+        "en": "Estimates run into the hundreds of billions, perhaps up to two trillion. Each one holds countless stars.",
+        "hr": "Procjene idu u stotine milijardi, mozda i do dva biliona. Svaka sadrzi bezbroj zvijezda."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "gx-007",
+      "style": "qa",
+      "front": { "en": "What hides at the center of most galaxies?", "hr": "Sta se krije u sredistu vecine galaksija?" },
+      "back": {
+        "en": "A supermassive black hole. Ours, Sagittarius A*, has the mass of about 4 million Suns.",
+        "hr": "Supermasivna crna rupa. Nasa, Strijelac A*, ima masu oko 4 miliona Sunaca."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "gx-008",
+      "style": "term",
+      "front": { "en": "Elliptical galaxy", "hr": "Elipticna galaksija" },
+      "back": {
+        "en": "A smooth, rounded galaxy of mostly old stars, with little gas to form new ones. Often the giants of the galaxy world.",
+        "hr": "Glatka, zaobljena galaksija uglavnom starih zvijezda, s malo plina za stvaranje novih. Cesto divovi galaktickog svijeta."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "gx-009",
+      "style": "fact",
+      "front": { "en": "How big is the Milky Way?", "hr": "Koliki je Mlijecni put?" },
+      "back": {
+        "en": "About 100,000 light-years across. Traveling at light speed, crossing it would take a thousand centuries.",
+        "hr": "Oko 100.000 svjetlosnih godina u promjeru. Putujuci brzinom svjetlosti, prelazak bi trajao hiljadu stoljeca."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "gx-010",
+      "style": "qa",
+      "front": { "en": "Where is the Sun within the Milky Way?", "hr": "Gdje je Sunce unutar Mlijecnog puta?" },
+      "back": {
+        "en": "In a quiet spot about two-thirds out from the center, on a minor spiral arm. It takes ~225 million years to orbit once.",
+        "hr": "Na mirnom mjestu oko dvije trecine puta od sredista, na manjem spiralnom kraku. Treba mu ~225 miliona godina za jedan krug."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "gx-011",
+      "style": "term",
+      "front": { "en": "Local Group", "hr": "Lokalna grupa" },
+      "back": {
+        "en": "The cluster of galaxies our Milky Way belongs to — dozens of galaxies bound together, dominated by us and Andromeda.",
+        "hr": "Jato galaksija kojem pripada nas Mlijecni put — desetci galaksija povezanih zajedno, kojima dominiramo mi i Andromeda."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "gx-012",
+      "style": "fact",
+      "front": { "en": "When we look at distant galaxies, what are we really seeing?", "hr": "Kad gledamo daleke galaksije, sta zapravo vidimo?" },
+      "back": {
+        "en": "The past. Their light took millions or billions of years to reach us, so we see them as they were long ago — a time machine in the sky.",
+        "hr": "Proslost. Njihovoj svjetlosti trebalo je milione ili milijarde godina da dodje do nas, pa ih vidimo kakve su bile davno — vremeplov na nebu."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    }
+  ]
+}
