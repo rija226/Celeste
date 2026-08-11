@@ -1,0 +1,157 @@
+{
+  "deck": {
+    "id": "cosmology-009",
+    "slug": "cosmology",
+    "category": "deep-space",
+    "level": 9,
+    "xp_required": 20,
+    "emoji": "🔭",
+    "is_premium": false,
+    "name": {
+      "en": "Cosmology",
+      "hr": "Kosmologija"
+    },
+    "description": {
+      "en": "The biggest questions of all — how the universe began, what it's made of, how it grows, and how it might one day end.",
+      "hr": "Najveca pitanja od svih — kako je svemir poceo, od cega je sastavljen, kako raste i kako bi jednog dana mogao zavrsiti."
+    }
+  },
+  "cards": [
+    {
+      "id": "co-001",
+      "style": "term",
+      "front": { "en": "Big Bang", "hr": "Veliki prasak" },
+      "back": {
+        "en": "The event that began our universe about 13.8 billion years ago — not an explosion in space, but the rapid expansion of space itself.",
+        "hr": "Dogadjaj koji je zapoceo nas svemir prije oko 13,8 milijardi godina — ne eksplozija u prostoru, nego naglo sirenje samog prostora."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "co-002",
+      "style": "fact",
+      "front": { "en": "How old is the universe?", "hr": "Koliko je star svemir?" },
+      "back": {
+        "en": "About 13.8 billion years. If that were a single year, all of human history would fit in the last few seconds.",
+        "hr": "Oko 13,8 milijardi godina. Kad bi to bila jedna godina, cijela ljudska historija stala bi u zadnjih nekoliko sekundi."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "co-003",
+      "style": "qa",
+      "front": { "en": "Is the universe still growing?", "hr": "Da li se svemir jos siri?" },
+      "back": {
+        "en": "Yes — and faster over time. Distant galaxies are racing away from us, and the expansion is accelerating.",
+        "hr": "Da — i sve brze s vremenom. Daleke galaksije jure od nas, a sirenje se ubrzava."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "co-004",
+      "style": "term",
+      "front": { "en": "Dark matter", "hr": "Tamna materija" },
+      "back": {
+        "en": "Invisible matter that doesn't emit light but has gravity. It makes up about 27% of the universe — and we still don't know what it is.",
+        "hr": "Nevidljiva materija koja ne emituje svjetlost ali ima gravitaciju. Cini oko 27% svemira — a jos ne znamo sta je."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "co-005",
+      "style": "term",
+      "front": { "en": "Dark energy", "hr": "Tamna energija" },
+      "back": {
+        "en": "A mysterious force pushing the universe to expand ever faster. It's about 68% of everything — yet almost a total mystery.",
+        "hr": "Tajanstvena sila koja gura svemir da se siri sve brze. Cini oko 68% svega — a gotovo potpuna zagonetka."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "co-006",
+      "style": "scale",
+      "front": { "en": "What is ordinary matter's share of the universe?", "hr": "Koliki je udio obicne materije u svemiru?" },
+      "back": {
+        "en": "Everything we can see — stars, planets, people — is only about 5%. The other 95% is dark matter and dark energy.",
+        "hr": "Sve sto mozemo vidjeti — zvijezde, planete, ljudi — je samo oko 5%. Ostalih 95% je tamna materija i tamna energija."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "co-007",
+      "style": "qa",
+      "front": { "en": "What is the cosmic microwave background?", "hr": "Sta je kosmicko mikrovalno pozadinsko zracenje?" },
+      "back": {
+        "en": "The faint afterglow of the Big Bang, still filling all of space. It's the oldest light we can detect — a baby photo of the universe.",
+        "hr": "Slabi sjaj koji je ostao nakon Velikog praska, jos ispunjava sav prostor. Najstarija svjetlost koju mozemo otkriti — bebina slika svemira."
+      },
+      "explanation": null,
+      "media": {
+        "image": "cmb_map",
+        "image_hint": "NASA/WMAP ili ESA/Planck mapa kosmickog mikrovalnog zracenja. Trazi 'cosmic microwave background WMAP' na images.nasa.gov (WMAP je NASA, cisto). Planck je ESA — provjeri.",
+        "audio": null
+      }
+    },
+    {
+      "id": "co-008",
+      "style": "fact",
+      "front": { "en": "What was the universe like at the very beginning?", "hr": "Kakav je svemir bio na samom pocetku?" },
+      "back": {
+        "en": "Unimaginably hot and dense — smaller than an atom, then expanding enormously in a fraction of a second.",
+        "hr": "Nezamislivo vruc i gust — manji od atoma, pa se ogromno prosirio u djelicu sekunde."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "co-009",
+      "style": "qa",
+      "front": { "en": "When did the first stars appear?", "hr": "Kad su se pojavile prve zvijezde?" },
+      "back": {
+        "en": "Roughly 100–200 million years after the Big Bang. Before them, the universe was dark — an era called the 'cosmic dark ages'.",
+        "hr": "Otprilike 100–200 miliona godina nakon Velikog praska. Prije njih, svemir je bio taman — doba zvano 'kosmicko mracno doba'."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "co-010",
+      "style": "qa",
+      "front": { "en": "How might the universe end?", "hr": "Kako bi svemir mogao zavrsiti?" },
+      "back": {
+        "en": "One leading idea is the 'Big Freeze': it keeps expanding and cooling until stars die out and everything fades into cold darkness.",
+        "hr": "Jedna vodeca ideja je 'Veliko smrzavanje': nastavlja se siriti i hladiti dok zvijezde ne izumru i sve utrne u hladnu tamu."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "co-011",
+      "style": "fact",
+      "front": { "en": "Can we see the edge of the universe?", "hr": "Mozemo li vidjeti rub svemira?" },
+      "back": {
+        "en": "We see an 'observable' universe limited by how far light has traveled since the Big Bang. Beyond it, there may be far more we can never see.",
+        "hr": "Vidimo 'vidljivi' svemir ogranicen time koliko je svjetlost preputovala od Velikog praska. Iza njega mozda ima jos mnogo toga sto nikad necemo vidjeti."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "co-012",
+      "style": "qa",
+      "front": { "en": "What came before the Big Bang?", "hr": "Sta je bilo prije Velikog praska?" },
+      "back": {
+        "en": "We don't know — it may be beyond what science can currently answer. Time itself may have begun with the Big Bang.",
+        "hr": "Ne znamo — mozda je izvan onoga sto nauka trenutno moze odgovoriti. Samo vrijeme je mozda pocelo s Velikim praskom."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    }
+  ]
+}

@@ -1,0 +1,160 @@
+{
+  "deck": {
+    "id": "black-holes-008",
+    "slug": "black-holes",
+    "category": "deep-space",
+    "level": 8,
+    "xp_required": 18,
+    "emoji": "🕳️",
+    "is_premium": false,
+    "name": {
+      "en": "Black Holes",
+      "hr": "Crne rupe"
+    },
+    "description": {
+      "en": "The strangest objects in the universe — where gravity wins completely, light cannot escape, and even time behaves in ways that defy imagination.",
+      "hr": "Najcudniji objekti u svemiru — gdje gravitacija potpuno pobjedjuje, svjetlost ne moze pobjeci, a cak se i vrijeme ponasa na nacine koji prkose masti."
+    }
+  },
+  "cards": [
+    {
+      "id": "bh-001",
+      "style": "term",
+      "front": { "en": "Black hole", "hr": "Crna rupa" },
+      "back": {
+        "en": "A region where gravity is so strong that nothing — not even light — can escape once it crosses the edge.",
+        "hr": "Podrucje gdje je gravitacija toliko jaka da nista — ni svjetlost — ne moze pobjeci jednom kad predje rub."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "bh-002",
+      "style": "term",
+      "front": { "en": "Event horizon", "hr": "Horizont dogadjaja" },
+      "back": {
+        "en": "The 'point of no return' around a black hole. Cross it and nothing can bring you back — not even light.",
+        "hr": "'Tacka bez povratka' oko crne rupe. Predji je i nista te ne moze vratiti — cak ni svjetlost."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "bh-003",
+      "style": "qa",
+      "front": { "en": "How do black holes form?", "hr": "Kako nastaju crne rupe?" },
+      "back": {
+        "en": "Most form when a very massive star runs out of fuel and collapses under its own gravity in a supernova.",
+        "hr": "Vecina nastaje kad vrlo masivnoj zvijezdi ponestane goriva i urusi se pod vlastitom gravitacijom u supernovi."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "bh-004",
+      "style": "fact",
+      "front": { "en": "Can we actually see a black hole?", "hr": "Mozemo li stvarno vidjeti crnu rupu?" },
+      "back": {
+        "en": "Not directly — but in 2019 scientists imaged the glowing ring of gas around one, the first 'photo' of a black hole's shadow.",
+        "hr": "Ne direktno — ali 2019. naucnici su snimili uzareni prsten plina oko jedne, prvu 'fotografiju' sjene crne rupe."
+      },
+      "explanation": null,
+      "media": {
+        "image": "black_hole_m87",
+        "image_hint": "Event Horizon Telescope snimak crne rupe u M87 (2019). Trazi 'black hole M87 EHT' — izvor je EHT/NSF, provjeri uslove koristenja (obicno slobodno uz navodjenje). Alternativa: NASA ilustracija crne rupe.",
+        "audio": null
+      }
+    },
+    {
+      "id": "bh-005",
+      "style": "term",
+      "front": { "en": "Supermassive black hole", "hr": "Supermasivna crna rupa" },
+      "back": {
+        "en": "A giant black hole millions to billions of times the Sun's mass, sitting at the heart of most galaxies — including ours.",
+        "hr": "Divovska crna rupa miliona do milijardi puta masivnija od Sunca, u srcu vecine galaksija — ukljucujuci nasu."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "bh-006",
+      "style": "fact",
+      "front": { "en": "What sits at the center of our galaxy?", "hr": "Sta se nalazi u sredistu nase galaksije?" },
+      "back": {
+        "en": "Sagittarius A*, a supermassive black hole about 4 million times the mass of the Sun, 26,000 light-years away.",
+        "hr": "Strijelac A*, supermasivna crna rupa oko 4 miliona puta masivnija od Sunca, 26.000 svjetlosnih godina daleko."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "bh-007",
+      "style": "qa",
+      "front": { "en": "What would happen if you fell into a black hole?", "hr": "Sta bi se desilo da upadnes u crnu rupu?" },
+      "back": {
+        "en": "Gravity would stretch you into a long thin stream — nicknamed 'spaghettification'. Not a pleasant way to go.",
+        "hr": "Gravitacija bi te rastegla u dugu tanku nit — u sali zvano 'spagetifikacija'. Ne bas ugodan kraj."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "bh-008",
+      "style": "fact",
+      "front": { "en": "Do black holes really bend time?", "hr": "Da li crne rupe stvarno savijaju vrijeme?" },
+      "back": {
+        "en": "Yes. Near one, time runs slower relative to far away. Close to the edge, an hour for you could be years for someone distant.",
+        "hr": "Da. Blizu jedne, vrijeme tece sporije nego daleko. Blizu ruba, tvoj sat mogao bi biti godine za nekog udaljenog."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "bh-009",
+      "style": "term",
+      "front": { "en": "Singularity", "hr": "Singularitet" },
+      "back": {
+        "en": "The heart of a black hole, where matter is crushed to an infinitely dense point and known physics breaks down.",
+        "hr": "Srce crne rupe, gdje je materija zdrobljena u beskonacno gustu tacku i poznata fizika prestaje vaziti."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "bh-010",
+      "style": "fact",
+      "front": { "en": "Do black holes last forever?", "hr": "Traju li crne rupe zauvijek?" },
+      "back": {
+        "en": "Probably not. Stephen Hawking showed they slowly leak energy and could evaporate over unimaginably long timescales.",
+        "hr": "Vjerovatno ne. Stephen Hawking je pokazao da polako gube energiju i mogle bi ispariti kroz nezamislivo duge periode."
+      },
+      "explanation": {
+        "en": "This slow leak is called Hawking radiation.",
+        "hr": "To sporo curenje zove se Hawkingovo zracenje."
+      },
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "bh-011",
+      "style": "qa",
+      "front": { "en": "Could a black hole ever swallow the Earth?", "hr": "Bi li crna rupa ikad mogla progutati Zemlju?" },
+      "back": {
+        "en": "There are none close enough to threaten us. The nearest known is over 1,500 light-years away — utterly harmless to Earth.",
+        "hr": "Nijedna nije dovoljno blizu da nam prijeti. Najbliza poznata je preko 1.500 svjetlosnih godina daleko — potpuno bezopasna za Zemlju."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "bh-012",
+      "style": "scale",
+      "front": { "en": "How small can a black hole be?", "hr": "Koliko mala crna rupa moze biti?" },
+      "back": {
+        "en": "A stellar black hole can pack several Suns into a region just kilometers across — a whole star squeezed into the size of a city.",
+        "hr": "Zvjezdana crna rupa moze sabiti nekoliko Sunaca u podrucje siroko svega nekoliko kilometara — cijela zvijezda stisnuta na velicinu grada."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    }
+  ]
+}
