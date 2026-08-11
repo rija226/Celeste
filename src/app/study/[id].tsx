@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Stack, useLocalSearchParams } from 'expo-router';
+import { Image } from 'expo-image';
 import { useTranslation } from 'react-i18next';
 import { Button, H3, Paragraph, Spinner, XStack, YStack } from 'tamagui';
 
@@ -8,9 +9,11 @@ import { RatingButton } from '@/components/RatingButton';
 import { ScreenBackdrop } from '@/components/ScreenBackdrop';
 import {
   ensureSession,
+  getCardImageUrl,
   getCardProgress,
   getCardProgressForCards,
   getCardsForDeck,
+  getDeck,
   insertReviewLog,
   upsertCardProgress,
 } from '@/db';
@@ -18,6 +21,7 @@ import { pickLocalized } from '@/lib/localized';
 import { Rating, scheduleReview } from '@/srs';
 import { useStudySessionStore } from '@/store/studySession';
 import { palette } from '@/theme/palette';
+import type { Deck } from '@/types/models';
 
 export default function StudyScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -25,8 +29,10 @@ export default function StudyScreen() {
 
   const { queue, index, isFlipped, start, flip, advance } = useStudySessionStore();
   const [userId, setUserId] = useState<string | null>(null);
+  const [deck, setDeck] = useState<Deck | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [failedImageIds, setFailedImageIds] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     (async () => {
@@ -34,7 +40,8 @@ export default function StudyScreen() {
         const uid = await ensureSession();
         setUserId(uid);
 
-        const cards = await getCardsForDeck(id);
+        const [deckData, cards] = await Promise.all([getDeck(id), getCardsForDeck(id)]);
+        setDeck(deckData);
         const progress = await getCardProgressForCards(
           uid,
           cards.map((card) => card.id),
@@ -85,7 +92,19 @@ export default function StudyScreen() {
               <FlipCard
                 flipped={isFlipped}
                 onPress={flip}
-                front={<H3 textAlign="center">{pickLocalized(currentCard.front, i18n.language)}</H3>}
+                front={
+                  <>
+                    {currentCard.imageUrl && deck && !failedImageIds.has(currentCard.id) && (
+                      <Image
+                        source={{ uri: getCardImageUrl(deck.slug, currentCard.imageUrl) }}
+                        style={{ width: 220, height: 220, borderRadius: 16 }}
+                        contentFit="cover"
+                        onError={() => setFailedImageIds((prev) => new Set(prev).add(currentCard.id))}
+                      />
+                    )}
+                    <H3 textAlign="center">{pickLocalized(currentCard.front, i18n.language)}</H3>
+                  </>
+                }
                 back={
                   <>
                     <H3 textAlign="center">{pickLocalized(currentCard.back, i18n.language)}</H3>

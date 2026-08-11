@@ -9,6 +9,7 @@ export {
 export { getCardBySlug, getCardsBySlugs, getCardsForDeck } from './cards';
 export { getConstellations } from './constellations';
 export { getDeck, getDecks } from './decks';
+export { getCardImageUrl } from './images';
 export {
   getCardProgress,
   getCardProgressForCards,
