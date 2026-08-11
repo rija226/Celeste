@@ -8,7 +8,7 @@ import { palette } from '@/theme/palette';
 import type { Deck } from '@/types/models';
 
 const NODE_SIZE = 84;
-const ROW_HEIGHT = 160;
+const ROW_HEIGHT = 180;
 const AMPLITUDE = 70;
 const TOP_FADE_HEIGHT = 120;
 const PATH_WIDTH = NODE_SIZE + AMPLITUDE * 2 + 40;
@@ -75,6 +75,7 @@ export function LevelPath({ decks, totalXp }: { decks: Deck[]; totalXp: number }
             state={point.state}
             x={point.x}
             y={point.y}
+            xpProgress={point.state === 'current' ? { current: totalXp, total: point.deck.xpRequired } : undefined}
             onPress={() => router.push(`/deck/${point.deck.id}`)}
           />
         ))}

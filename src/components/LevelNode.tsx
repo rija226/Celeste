@@ -15,15 +15,17 @@ export function LevelNode({
   state,
   x,
   y,
+  xpProgress,
   onPress,
 }: {
   deck: Deck;
   state: LevelNodeState;
   x: number;
   y: number;
+  xpProgress?: { current: number; total: number };
   onPress: () => void;
 }) {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const locked = state === 'locked';
 
   return (
@@ -74,6 +76,21 @@ export function LevelNode({
         opacity={locked ? 0.5 : 1}>
         {pickLocalized(deck.name, i18n.language)}
       </Paragraph>
+      {xpProgress && (
+        <YStack width={NODE_SIZE} gap="$1" alignItems="center">
+          <YStack height={5} width="100%" borderRadius={999} backgroundColor={palette.nebulaDeep} overflow="hidden">
+            <YStack
+              height={5}
+              width={`${Math.min(100, Math.round((xpProgress.current / Math.max(xpProgress.total, 1)) * 100))}%`}
+              borderRadius={999}
+              backgroundColor={palette.nebula}
+            />
+          </YStack>
+          <Paragraph fontSize="$1" color="$color11" textAlign="center">
+            {t('home.xpProgress', { current: xpProgress.current, total: xpProgress.total })}
+          </Paragraph>
+        </YStack>
+      )}
     </YStack>
   );
 }
