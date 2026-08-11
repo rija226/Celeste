@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { Image } from 'expo-image';
 import { useTranslation } from 'react-i18next';
 import { Button, H3, Paragraph, Spinner, XStack, YStack } from 'tamagui';
@@ -28,6 +28,7 @@ import type { Deck } from '@/types/models';
 export default function StudyScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { t, i18n } = useTranslation();
+  const router = useRouter();
 
   const { queue, index, isFlipped, start, flip, advance } = useStudySessionStore();
   const [userId, setUserId] = useState<string | null>(null);
@@ -94,8 +95,13 @@ export default function StudyScreen() {
         {error && <Paragraph color="$red10">{error}</Paragraph>}
         {loading && <Spinner size="large" />}
         {!loading && !error && !currentCard && (
-          <YStack f={1} ai="center" jc="center">
-            <Paragraph fontSize="$6">{queue.length === 0 ? t('study.empty') : t('study.done')}</Paragraph>
+          <YStack f={1} ai="center" jc="center" gap="$5">
+            <Paragraph fontSize="$6" textAlign="center">
+              {queue.length === 0 ? t('study.empty') : t('study.done')}
+            </Paragraph>
+            <Button theme="blue" onPress={() => router.back()}>
+              {t('study.back')}
+            </Button>
           </YStack>
         )}
 

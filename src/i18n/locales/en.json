@@ -122,7 +122,8 @@
     "good": "Good",
     "easy": "Easy",
     "done": "All done for today!",
-    "empty": "No cards due right now."
+    "empty": "No cards due right now.",
+    "back": "Back"
   },
   "common": {
     "switchLanguage": "Hrvatski"

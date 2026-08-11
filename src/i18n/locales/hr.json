@@ -122,7 +122,8 @@
     "good": "Dobro",
     "easy": "Lako",
     "done": "Gotovo za danas!",
-    "empty": "Nema kartica za ponoviti sada."
+    "empty": "Nema kartica za ponoviti sada.",
+    "back": "Nazad"
   },
   "common": {
     "switchLanguage": "English"
