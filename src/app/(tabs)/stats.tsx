@@ -3,6 +3,7 @@ import { ScrollView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { H2, Paragraph, Spinner, XStack, YStack } from 'tamagui';
 
+import { ActivityChart } from '@/components/ActivityChart';
 import { ScreenBackdrop } from '@/components/ScreenBackdrop';
 import { StatTile } from '@/components/StatTile';
 import { StreakHero } from '@/components/StreakHero';
@@ -101,6 +102,8 @@ export default function StatsScreen() {
                   color={palette.comet}
                 />
               </XStack>
+
+              <ActivityChart activity={stats.activity} />
             </>
           )}
         </YStack>
