@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { ScrollView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Button, H2, Paragraph, Spinner, XStack, YStack } from 'tamagui';
 
@@ -127,103 +128,105 @@ export default function QuizScreen() {
 
   return (
     <ScreenBackdrop>
-      <YStack f={1} pt="$8" px="$4" gap="$4">
-        <H2 color="$color">{t('quiz.title')}</H2>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <YStack f={1} pt="$8" px="$4" pb="$8" gap="$4">
+          <H2 color="$color">{t('quiz.title')}</H2>
 
-        <XStack gap="$2">
-          <Button f={1} theme={mode === 'practice' ? 'blue' : undefined} onPress={() => setMode('practice')}>
-            {t('quiz.practice')}
-          </Button>
-          <Button f={1} theme={mode === 'daily' ? 'blue' : undefined} onPress={() => setMode('daily')}>
-            {t('quiz.dailyChallenge')}
-          </Button>
-        </XStack>
+          <XStack gap="$2">
+            <Button f={1} theme={mode === 'practice' ? 'blue' : undefined} onPress={() => setMode('practice')}>
+              {t('quiz.practice')}
+            </Button>
+            <Button f={1} theme={mode === 'daily' ? 'blue' : undefined} onPress={() => setMode('daily')}>
+              {t('quiz.dailyChallenge')}
+            </Button>
+          </XStack>
 
-        {error && <Paragraph color="$red10">{error}</Paragraph>}
-        {!pool && !error && <Spinner size="large" />}
+          {error && <Paragraph color="$red10">{error}</Paragraph>}
+          {!pool && !error && <Spinner size="large" />}
 
-        {pool && mode === 'practice' && (
-          <>
-            <XStack gap="$2">
-              {DIFFICULTY_TIERS.map((tier) => (
-                <Button
-                  key={tier}
-                  f={1}
-                  size="$3"
-                  theme={difficulty === tier ? 'blue' : undefined}
-                  onPress={() => selectDifficulty(tier)}>
-                  {t(`quiz.difficulty.${tier}`)}
-                </Button>
-              ))}
-            </XStack>
+          {pool && mode === 'practice' && (
+            <>
+              <XStack gap="$2">
+                {DIFFICULTY_TIERS.map((tier) => (
+                  <Button
+                    key={tier}
+                    f={1}
+                    size="$3"
+                    theme={difficulty === tier ? 'blue' : undefined}
+                    onPress={() => selectDifficulty(tier)}>
+                    {t(`quiz.difficulty.${tier}`)}
+                  </Button>
+                ))}
+              </XStack>
 
-            <Paragraph fontFamily="$heading" color="$blue10">
-              {t('quiz.points', { count: practiceScore.points })} · {practiceScore.correct}/{practiceScore.total}
-            </Paragraph>
+              <Paragraph fontFamily="$heading" color="$blue10">
+                {t('quiz.points', { count: practiceScore.points })} · {practiceScore.correct}/{practiceScore.total}
+              </Paragraph>
 
-            {practiceQuestion && (
-              <>
-                <Paragraph color="$color11">{t('quiz.prompt')}</Paragraph>
-                <QuizQuestionCard
-                  question={practiceQuestion}
-                  selectedId={practiceSelectedId}
-                  onSelect={handlePracticeSelect}
-                />
-                {practiceSelectedId && (
-                  <>
-                    <Paragraph color="$color11">
-                      {pickLocalized(practiceQuestion.answer.facts, i18n.language)}
-                    </Paragraph>
-                    <Button theme="blue" onPress={handlePracticeNext}>
-                      {t('quiz.next')}
-                    </Button>
-                  </>
-                )}
-              </>
-            )}
-          </>
-        )}
+              {practiceQuestion && (
+                <>
+                  <Paragraph color="$color11">{t('quiz.prompt')}</Paragraph>
+                  <QuizQuestionCard
+                    question={practiceQuestion}
+                    selectedId={practiceSelectedId}
+                    onSelect={handlePracticeSelect}
+                  />
+                  {practiceSelectedId && (
+                    <>
+                      <Paragraph color="$color11">
+                        {pickLocalized(practiceQuestion.answer.facts, i18n.language)}
+                      </Paragraph>
+                      <Button theme="blue" onPress={handlePracticeNext}>
+                        {t('quiz.next')}
+                      </Button>
+                    </>
+                  )}
+                </>
+              )}
+            </>
+          )}
 
-        {pool && mode === 'daily' && (
-          <>
-            {dailyResult === undefined && <Spinner size="large" />}
+          {pool && mode === 'daily' && (
+            <>
+              {dailyResult === undefined && <Spinner size="large" />}
 
-            {dailyResult && (
-              <YStack ai="center" gap="$2" py="$6">
-                <Paragraph fontFamily="$heading" fontSize="$8" color="$blue10">
-                  {t('quiz.dailyScore', { correct: dailyResult.correct, total: dailyResult.total })}
-                </Paragraph>
-                <Paragraph color="$color11">{t('quiz.dailyDone')}</Paragraph>
-                <Paragraph color="$color11">{t('quiz.dailyComeBack')}</Paragraph>
-              </YStack>
-            )}
+              {dailyResult && (
+                <YStack ai="center" gap="$2" py="$6">
+                  <Paragraph fontFamily="$heading" fontSize="$8" color="$blue10">
+                    {t('quiz.dailyScore', { correct: dailyResult.correct, total: dailyResult.total })}
+                  </Paragraph>
+                  <Paragraph color="$color11">{t('quiz.dailyDone')}</Paragraph>
+                  <Paragraph color="$color11">{t('quiz.dailyComeBack')}</Paragraph>
+                </YStack>
+              )}
 
-            {dailyResult === null && dailyQuestions && (
-              <>
-                <Paragraph fontFamily="$heading" color="$blue10">
-                  {t('quiz.dailyProgress', { current: dailyIndex + 1, total: dailyQuestions.length })}
-                </Paragraph>
-                <Paragraph color="$color11">{t('quiz.prompt')}</Paragraph>
-                <QuizQuestionCard
-                  question={dailyQuestions[dailyIndex]}
-                  selectedId={dailySelectedId}
-                  onSelect={handleDailySelect}
-                />
-                {dailySelectedId && (
-                  <>
-                    <Paragraph color="$color11">
-                      {pickLocalized(dailyQuestions[dailyIndex].answer.facts, i18n.language)}
-                    </Paragraph>
-                    <Button theme="blue" onPress={handleDailyNext}>
-                      {dailyIndex === dailyQuestions.length - 1 ? t('quiz.finish') : t('quiz.next')}
-                    </Button>
-                  </>
-                )}
-              </>
-            )}
-          </>
-        )}
-      </YStack>
+              {dailyResult === null && dailyQuestions && (
+                <>
+                  <Paragraph fontFamily="$heading" color="$blue10">
+                    {t('quiz.dailyProgress', { current: dailyIndex + 1, total: dailyQuestions.length })}
+                  </Paragraph>
+                  <Paragraph color="$color11">{t('quiz.prompt')}</Paragraph>
+                  <QuizQuestionCard
+                    question={dailyQuestions[dailyIndex]}
+                    selectedId={dailySelectedId}
+                    onSelect={handleDailySelect}
+                  />
+                  {dailySelectedId && (
+                    <>
+                      <Paragraph color="$color11">
+                        {pickLocalized(dailyQuestions[dailyIndex].answer.facts, i18n.language)}
+                      </Paragraph>
+                      <Button theme="blue" onPress={handleDailyNext}>
+                        {dailyIndex === dailyQuestions.length - 1 ? t('quiz.finish') : t('quiz.next')}
+                      </Button>
+                    </>
+                  )}
+                </>
+              )}
+            </>
+          )}
+        </YStack>
+      </ScrollView>
     </ScreenBackdrop>
   );
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { ScrollView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Paragraph, Spinner, YStack } from 'tamagui';
 
@@ -52,34 +53,36 @@ export default function StatsScreen() {
 
   return (
     <ScreenBackdrop>
-      <YStack f={1} gap="$3" pt="$8" px="$4">
-        {error && <Paragraph color="$red10">{error}</Paragraph>}
-        {!stats && !error && <Spinner size="large" />}
-        {stats && (
-          <>
-            <GlassCard>
-              <Paragraph fontFamily="$heading" fontSize="$7" color="$blue10">
-                {t('stats.totalReviews', { count: stats.totalReviews })}
-              </Paragraph>
-            </GlassCard>
-            <GlassCard>
-              <Paragraph fontFamily="$heading" fontSize="$7" color="$green10">
-                {t('stats.learnedCards', { count: stats.learnedCards })}
-              </Paragraph>
-            </GlassCard>
-            <GlassCard>
-              <Paragraph fontFamily="$heading" fontSize="$7" color="$purple10">
-                {t('stats.quizPoints', { count: stats.quizPoints })}
-              </Paragraph>
-            </GlassCard>
-            <GlassCard>
-              <Paragraph fontFamily="$heading" fontSize="$7" color="$color">
-                {t('stats.streak', { count: stats.streak })}
-              </Paragraph>
-            </GlassCard>
-          </>
-        )}
-      </YStack>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <YStack f={1} gap="$3" pt="$8" px="$4" pb="$8">
+          {error && <Paragraph color="$red10">{error}</Paragraph>}
+          {!stats && !error && <Spinner size="large" />}
+          {stats && (
+            <>
+              <GlassCard>
+                <Paragraph fontFamily="$heading" fontSize="$7" color="$blue10">
+                  {t('stats.totalReviews', { count: stats.totalReviews })}
+                </Paragraph>
+              </GlassCard>
+              <GlassCard>
+                <Paragraph fontFamily="$heading" fontSize="$7" color="$green10">
+                  {t('stats.learnedCards', { count: stats.learnedCards })}
+                </Paragraph>
+              </GlassCard>
+              <GlassCard>
+                <Paragraph fontFamily="$heading" fontSize="$7" color="$purple10">
+                  {t('stats.quizPoints', { count: stats.quizPoints })}
+                </Paragraph>
+              </GlassCard>
+              <GlassCard>
+                <Paragraph fontFamily="$heading" fontSize="$7" color="$color">
+                  {t('stats.streak', { count: stats.streak })}
+                </Paragraph>
+              </GlassCard>
+            </>
+          )}
+        </YStack>
+      </ScrollView>
     </ScreenBackdrop>
   );
 }
