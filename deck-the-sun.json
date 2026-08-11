@@ -1,0 +1,203 @@
+{
+  "deck": {
+    "id": "the-sun-003",
+    "slug": "the-sun",
+    "category": "basics",
+    "level": 3,
+    "xp_required": 12,
+    "emoji": "☀️",
+    "is_premium": false,
+    "name": {
+      "en": "The Sun",
+      "hr": "Sunce"
+    },
+    "description": {
+      "en": "Our own star — the roaring nuclear furnace that lights our days, drives our weather, and makes life on Earth possible.",
+      "hr": "Nasa vlastita zvijezda — bucna nuklearna pec koja obasjava nase dane, pokrece vrijeme i cini zivot na Zemlji mogucim."
+    }
+  },
+  "cards": [
+    {
+      "id": "sun-001",
+      "style": "qa",
+      "front": {
+        "en": "What is the Sun, exactly?",
+        "hr": "Sta je Sunce, tacno?"
+      },
+      "back": {
+        "en": "A star — a giant ball of hot plasma. It only looks special because it's the closest star to us.",
+        "hr": "Zvijezda — ogromna kugla vruce plazme. Izgleda posebno samo zato sto nam je najbliza zvijezda."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "sun-002",
+      "style": "fact",
+      "front": {
+        "en": "How hot is the Sun's core?",
+        "hr": "Koliko je vruce jezgro Sunca?"
+      },
+      "back": {
+        "en": "About 15 million °C. The surface is 'only' around 5,500 °C — cooler, but still enough to vaporize anything we know.",
+        "hr": "Oko 15 miliona °C. Povrsina je 'samo' oko 5.500 °C — hladnija, ali dovoljna da ispari sve sto poznajemo."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "sun-003",
+      "style": "term",
+      "front": {
+        "en": "Nuclear fusion",
+        "hr": "Nuklearna fuzija"
+      },
+      "back": {
+        "en": "The process powering the Sun: hydrogen nuclei fuse into helium, releasing enormous energy. It's why the Sun shines.",
+        "hr": "Proces koji pokrece Sunce: jezgre vodika se spajaju u helij, oslobadjajuci ogromnu energiju. Zato Sunce sija."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "sun-004",
+      "style": "scale",
+      "front": {
+        "en": "How much of the Solar System's mass is the Sun?",
+        "hr": "Koliki dio mase Suncevog sistema cini Sunce?"
+      },
+      "back": {
+        "en": "About 99.8%. Everything else — all planets, moons, asteroids — shares the leftover 0.2%.",
+        "hr": "Oko 99,8%. Sve ostalo — sve planete, mjeseci, asteroidi — dijeli preostalih 0,2%."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "sun-005",
+      "style": "fact",
+      "front": {
+        "en": "How long does light take to leave the Sun's core?",
+        "hr": "Koliko svjetlosti treba da napusti jezgro Sunca?"
+      },
+      "back": {
+        "en": "Up to 100,000 years to reach the surface, bouncing around inside — then just 8 minutes to reach Earth.",
+        "hr": "I do 100.000 godina da dodje do povrsine, odbijajuci se unutra — pa onda samo 8 minuta do Zemlje."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "sun-006",
+      "style": "term",
+      "front": {
+        "en": "Solar flare",
+        "hr": "Sunceva baklja"
+      },
+      "back": {
+        "en": "A sudden burst of energy from the Sun's surface. Strong ones can disrupt satellites, radio and power grids on Earth.",
+        "hr": "Nagli izljev energije s povrsine Sunca. Jaki mogu poremetiti satelite, radio i elektromreze na Zemlji."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "sun-007",
+      "style": "qa",
+      "front": {
+        "en": "What color is the Sun really?",
+        "hr": "Koje je boje Sunce zapravo?"
+      },
+      "back": {
+        "en": "White. It emits all colors together. Our atmosphere scatters blue light away, making it look yellow from the ground.",
+        "hr": "Bijelo. Emituje sve boje zajedno. Nasa atmosfera rasprsuje plavu svjetlost, pa nam izgleda zuto s tla."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "sun-008",
+      "style": "fact",
+      "front": {
+        "en": "What are sunspots?",
+        "hr": "Sta su Suncove pjege?"
+      },
+      "back": {
+        "en": "Cooler, darker patches on the Sun's surface caused by magnetic activity. Some are larger than the entire Earth.",
+        "hr": "Hladnije, tamnije mrlje na povrsini Sunca uzrokovane magnetskom aktivnoscu. Neke su vece od cijele Zemlje."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "sun-009",
+      "style": "qa",
+      "front": {
+        "en": "How long will the Sun keep shining?",
+        "hr": "Koliko ce Sunce jos sijati?"
+      },
+      "back": {
+        "en": "About another 5 billion years. Then it will swell into a red giant and eventually shed its layers, leaving a white dwarf.",
+        "hr": "Jos oko 5 milijardi godina. Onda ce nabujati u crvenog diva i naposljetku odbaciti slojeve, ostavljajuci bijelog patuljka."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "sun-010",
+      "style": "scale",
+      "front": {
+        "en": "How many Earths would fit across the Sun?",
+        "hr": "Koliko bi Zemalja stalo preko Sunca?"
+      },
+      "back": {
+        "en": "About 109 Earths in a row would span its diameter. It's the biggest thing in our sky by far.",
+        "hr": "Oko 109 Zemalja u nizu prekrilo bi njegov promjer. Daleko najveca stvar na nasem nebu."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "sun-011",
+      "style": "term",
+      "front": {
+        "en": "Solar wind",
+        "hr": "Suncev vjetar"
+      },
+      "back": {
+        "en": "A constant stream of charged particles flowing from the Sun across the Solar System. It shapes comet tails and sparks auroras.",
+        "hr": "Stalni tok nabijenih cestica koji struji sa Sunca kroz Suncev sistem. Oblikuje repove kometa i pali polarnu svjetlost."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "sun-012",
+      "style": "fact",
+      "front": {
+        "en": "How long does the Sun take to rotate?",
+        "hr": "Koliko Suncu treba da se okrene?"
+      },
+      "back": {
+        "en": "It's not solid, so it spins unevenly — about 25 days at its equator but 35 near its poles.",
+        "hr": "Nije cvrsto, pa se vrti neravnomjerno — oko 25 dana na ekvatoru, ali 35 blizu polova."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "sun-013",
+      "style": "qa",
+      "front": {
+        "en": "Why should you never look directly at the Sun?",
+        "hr": "Zasto nikad ne treba gledati direktno u Sunce?"
+      },
+      "back": {
+        "en": "Its light can permanently damage your retina within seconds — even during a partial eclipse. Always use proper solar filters.",
+        "hr": "Njegova svjetlost moze trajno ostetiti mreznicu za nekoliko sekundi — cak i tokom djelimicnog pomracenja. Uvijek koristi prave solarne filtere."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    }
+  ]
+}

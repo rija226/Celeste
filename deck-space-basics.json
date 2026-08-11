@@ -3,6 +3,9 @@
     "id": "space-basics-001",
     "slug": "space-basics",
     "category": "basics",
+    "level": 1,
+    "xp_required": 0,
+    "emoji": "🚀",
     "is_premium": false,
     "name": {
       "en": "Space Basics",

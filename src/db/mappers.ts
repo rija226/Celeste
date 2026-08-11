@@ -18,6 +18,9 @@ export type DeckRow = {
   slug: string;
   category: string;
   is_premium: boolean;
+  level: number | null;
+  xp_required: number;
+  emoji: string | null;
   name: LocalizedText;
   description: LocalizedText;
   created_at: string;
@@ -68,6 +71,9 @@ export function mapDeckRow(row: DeckRow): Deck {
     slug: row.slug,
     category: row.category,
     isPremium: row.is_premium,
+    level: row.level,
+    xpRequired: row.xp_required,
+    emoji: row.emoji,
     name: row.name,
     description: row.description,
     createdAt: row.created_at,

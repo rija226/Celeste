@@ -10,6 +10,9 @@ export type Deck = {
   slug: string;
   category: string;
   isPremium: boolean;
+  level: number | null;
+  xpRequired: number;
+  emoji: string | null;
   name: LocalizedText;
   description: LocalizedText;
   createdAt: string;

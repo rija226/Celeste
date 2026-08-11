@@ -1,0 +1,189 @@
+{
+  "deck": {
+    "id": "earth-moon-002",
+    "slug": "earth-moon",
+    "category": "basics",
+    "level": 2,
+    "xp_required": 10,
+    "emoji": "🌍",
+    "is_premium": false,
+    "name": {
+      "en": "Earth & Moon",
+      "hr": "Zemlja i Mjesec"
+    },
+    "description": {
+      "en": "Our home and its faithful companion — the world beneath your feet and the Moon that shapes our nights and tides.",
+      "hr": "Nas dom i njegov vjerni pratilac — svijet pod tvojim nogama i Mjesec koji oblikuje nase noci i plime."
+    }
+  },
+  "cards": [
+    {
+      "id": "em-001",
+      "style": "fact",
+      "front": {
+        "en": "How old is the Earth?",
+        "hr": "Koliko je stara Zemlja?"
+      },
+      "back": {
+        "en": "About 4.5 billion years old — formed from the same cloud of dust and gas as the rest of the Solar System.",
+        "hr": "Oko 4,5 milijardi godina — nastala iz istog oblaka prasine i plina kao i ostatak Suncevog sistema."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "em-002",
+      "style": "qa",
+      "front": {
+        "en": "Why is the sky blue?",
+        "hr": "Zasto je nebo plavo?"
+      },
+      "back": {
+        "en": "Sunlight scatters off air molecules, and blue light scatters the most. The same effect turns sunsets red.",
+        "hr": "Sunceva svjetlost se rasprsuje na molekulama zraka, a plava se rasprsuje najvise. Isti efekt cini zalaske crvenim."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "em-003",
+      "style": "term",
+      "front": {
+        "en": "Giant-impact hypothesis",
+        "hr": "Hipoteza velikog sudara"
+      },
+      "back": {
+        "en": "The leading theory of the Moon's origin: a Mars-sized body slammed into the young Earth, and the debris coalesced into the Moon.",
+        "hr": "Vodeca teorija o nastanku Mjeseca: tijelo velicine Marsa se sudarilo s mladom Zemljom, a otpaci su se spojili u Mjesec."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "em-004",
+      "style": "term",
+      "front": {
+        "en": "Tides",
+        "hr": "Plima i oseka"
+      },
+      "back": {
+        "en": "The rise and fall of ocean water, caused mainly by the Moon's gravity pulling on Earth's seas as it orbits.",
+        "hr": "Dizanje i spustanje razine mora, uzrokovano uglavnom gravitacijom Mjeseca koja povlaci Zemljine oceane dok kruzi oko nje."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "em-005",
+      "style": "scale",
+      "front": {
+        "en": "How big is the Moon compared to Earth?",
+        "hr": "Koliko je Mjesec velik u odnosu na Zemlju?"
+      },
+      "back": {
+        "en": "About one quarter of Earth's diameter — unusually large for a moon, which is why it can cause total solar eclipses.",
+        "hr": "Oko cetvrtine Zemljinog promjera — neobicno velik za mjesec, zato moze uzrokovati potpuna pomracenja Sunca."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "em-006",
+      "style": "fact",
+      "front": {
+        "en": "Is the Moon moving?",
+        "hr": "Da li se Mjesec pomjera?"
+      },
+      "back": {
+        "en": "Yes — it drifts away from Earth by about 3.8 cm every year, roughly the speed your fingernails grow.",
+        "hr": "Da — udaljava se od Zemlje oko 3,8 cm godisnje, otprilike brzinom kojom rastu nokti."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "em-007",
+      "style": "term",
+      "front": {
+        "en": "Atmosphere",
+        "hr": "Atmosfera"
+      },
+      "back": {
+        "en": "The layers of gas surrounding Earth. It shields us from radiation, burns up meteors, and keeps our climate livable.",
+        "hr": "Slojevi plinova koji okruzuju Zemlju. Stite nas od zracenja, spaljuju meteore i odrzavaju nasu klimu zivom."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "em-008",
+      "style": "qa",
+      "front": {
+        "en": "Why does the Moon look bigger near the horizon?",
+        "hr": "Zasto Mjesec izgleda veci blizu horizonta?"
+      },
+      "back": {
+        "en": "It's an optical illusion — the Moon isn't actually closer or larger. Your brain just judges its size differently near landmarks.",
+        "hr": "To je opticka iluzija — Mjesec zapravo nije ni blizi ni veci. Tvoj mozak samo drugacije procjenjuje njegovu velicinu blizu orijentira."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "em-009",
+      "style": "term",
+      "front": {
+        "en": "Earth's magnetic field",
+        "hr": "Zemljino magnetsko polje"
+      },
+      "back": {
+        "en": "An invisible shield generated by Earth's molten core. It deflects solar wind and dangerous cosmic radiation.",
+        "hr": "Nevidljivi stit koji stvara Zemljina rastopljena jezgra. Odbija Suncev vjetar i opasno kosmicko zracenje."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "em-010",
+      "style": "fact",
+      "front": {
+        "en": "How long does the Moon take to orbit Earth?",
+        "hr": "Koliko Mjesecu treba da obidje Zemlju?"
+      },
+      "back": {
+        "en": "About 27.3 days to complete one orbit, but 29.5 days between full moons — Earth moves too, so the Moon has to catch up.",
+        "hr": "Oko 27,3 dana za jedan krug, ali 29,5 dana izmedju punih mjeseci — Zemlja se takodjer krece, pa Mjesec mora sustici."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "em-011",
+      "style": "fact",
+      "front": {
+        "en": "How long will the Apollo footprints last on the Moon?",
+        "hr": "Koliko ce dugo trajati Apollo otisci na Mjesecu?"
+      },
+      "back": {
+        "en": "Possibly millions of years — with no wind or water to erode them, only rare micrometeorite impacts slowly wear them away.",
+        "hr": "Mozda milionima godina — bez vjetra i vode koji bi ih izbrisali, samo ih rijetki udari mikrometeorita polako trose."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    },
+    {
+      "id": "em-012",
+      "style": "qa",
+      "front": {
+        "en": "How fast is Earth spinning, and why don't we feel it?",
+        "hr": "Kojom brzinom se Zemlja vrti i zasto to ne osjecamo?"
+      },
+      "back": {
+        "en": "About 1,670 km/h at the equator. You don't feel it because everything moves with you — atmosphere included.",
+        "hr": "Oko 1.670 km/h na ekvatoru. Ne osjecas to jer se sve krece s tobom — ukljucujuci atmosferu."
+      },
+      "explanation": null,
+      "media": { "image": null, "audio": null }
+    }
+  ]
+}
