@@ -1,4 +1,4 @@
-# CLAUDE.md — Astro Learn
+# CLAUDE.md — Celeste
 
 Pravila i tehnicke konvencije za rad na ovom projektu. Drzi se ovoga kroz cijeli razvoj. Ako nesto nije jasno ili neka odluka nije pokrivena ovdje, pitaj prije nego pretpostavis.
 

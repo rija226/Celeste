@@ -1,0 +1,40 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialGradient id="sky" cx="50%" cy="35%" r="80%">
+<stop offset="0%" stop-color="#3b3a7a"/>
+<stop offset="55%" stop-color="#232152"/>
+<stop offset="100%" stop-color="#12102e"/>
+</radialGradient>
+<linearGradient id="planet" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0%" stop-color="#f4c8a0"/>
+<stop offset="55%" stop-color="#e59a6c"/>
+<stop offset="100%" stop-color="#c96f52"/>
+</linearGradient>
+<clipPath id="ringfront"><rect x="0" y="540" width="1024" height="484"/></clipPath>
+</defs>
+
+<rect x="0" y="0" width="1024" height="1024" fill="url(#sky)"/>
+
+<circle cx="205" cy="185" r="4.2" fill="#fff" opacity="0.9"/>
+<circle cx="330" cy="140" r="3" fill="#fff" opacity="0.7"/>
+<circle cx="800" cy="200" r="4.8" fill="#fff" opacity="0.95"/>
+<circle cx="745" cy="320" r="3" fill="#fff" opacity="0.6"/>
+<circle cx="150" cy="470" r="3.6" fill="#fff" opacity="0.8"/>
+<circle cx="880" cy="560" r="3.9" fill="#fff" opacity="0.75"/>
+<circle cx="360" cy="800" r="3.3" fill="#fff" opacity="0.7"/>
+<circle cx="640" cy="860" r="3" fill="#fff" opacity="0.6"/>
+<circle cx="470" cy="180" r="2.7" fill="#cbd5ff" opacity="0.7"/>
+<circle cx="170" cy="720" r="2.7" fill="#cbd5ff" opacity="0.6"/>
+<circle cx="860" cy="800" r="3" fill="#fff" opacity="0.65"/>
+<circle cx="560" cy="120" r="2.4" fill="#fff" opacity="0.6"/>
+
+<g opacity="0.95"><path d="M765 160 l7 15 15 7 -15 7 -7 15 -7 -15 -15 -7 15 -7 z" fill="#fff"/></g>
+<g opacity="0.8"><path d="M250 620 l5.4 11 11 5.4 -11 5.4 -5.4 11 -5.4 -11 -11 -5.4 11 -5.4 z" fill="#fff"/></g>
+
+<ellipse cx="512" cy="540" rx="330" ry="86" fill="none" stroke="#f0d9b8" stroke-width="30" opacity="0.55" transform="rotate(-18 512 540)"/>
+<circle cx="512" cy="512" r="200" fill="url(#planet)"/>
+<ellipse cx="435" cy="450" rx="70" ry="44" fill="#fff" opacity="0.18"/>
+<circle cx="580" cy="555" r="30" fill="#b9603f" opacity="0.35"/>
+<circle cx="470" cy="590" r="17" fill="#b9603f" opacity="0.3"/>
+<ellipse cx="512" cy="540" rx="330" ry="86" fill="none" stroke="#f0d9b8" stroke-width="30" opacity="0.9" transform="rotate(-18 512 540)" clip-path="url(#ringfront)"/>
+</svg>

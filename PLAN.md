@@ -1,4 +1,4 @@
-# Astro Learn — Plan projekta
+# Celeste — Plan projekta
 
 Mobilna aplikacija za ucenje o svemiru i astronomiji. Flashcards sa spaced repetition, kviz prepoznavanja sazvijezdja, i pregled "sta je veceras na nebu". Cilj: aplikacija za trziste (App Store / Google Play) s premium monetizacijom (model se definise kasnije).
 

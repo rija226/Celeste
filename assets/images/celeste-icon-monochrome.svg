@@ -1,0 +1,8 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<clipPath id="ringfront"><rect x="0" y="540" width="1024" height="484"/></clipPath>
+</defs>
+<ellipse cx="512" cy="540" rx="330" ry="86" fill="none" stroke="#ffffff" stroke-width="30" transform="rotate(-18 512 540)"/>
+<circle cx="512" cy="512" r="200" fill="#ffffff"/>
+<ellipse cx="512" cy="540" rx="330" ry="86" fill="none" stroke="#ffffff" stroke-width="30" transform="rotate(-18 512 540)" clip-path="url(#ringfront)"/>
+</svg>
