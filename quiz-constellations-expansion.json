@@ -1,0 +1,42 @@
+{
+  "note": "Samo stvarno nova sazvijezdja (10 od 12 iz originalnog prijedloga vec postoji u bazi pod istim slug-om). stars/lines su stilizovani oblici (0-100 normalizovane koordinate), isti pristup kao za postojecih 12 -- ne precizni astronomski podaci.",
+  "constellations": [
+    {
+      "slug": "canis-major",
+      "difficulty": "easy",
+      "name": { "en": "Canis Major", "hr": "Veliki pas" },
+      "facts": {
+        "en": "The Great Dog, following at Orion's heel. Home to Sirius — the brightest star in the entire night sky.",
+        "hr": "Veliki pas, koji prati Oriona po peti. Dom Sirijusa — najsjajnije zvijezde na cijelom nocnom nebu."
+      },
+      "stars": [
+        { "x": 50, "y": 10 },
+        { "x": 55, "y": 30 },
+        { "x": 30, "y": 35 },
+        { "x": 60, "y": 50 },
+        { "x": 75, "y": 55 },
+        { "x": 45, "y": 65 },
+        { "x": 65, "y": 80 }
+      ],
+      "lines": [[0, 1], [1, 6], [1, 2], [1, 3], [3, 4], [3, 5], [3, 6]]
+    },
+    {
+      "slug": "andromeda",
+      "difficulty": "hard",
+      "name": { "en": "Andromeda", "hr": "Andromeda" },
+      "facts": {
+        "en": "Home to the Andromeda Galaxy — the most distant object visible to the naked eye, 2.5 million light-years away.",
+        "hr": "Dom Andromedine galaksije — najudaljenijeg objekta vidljivog golim okom, 2,5 miliona svjetlosnih godina daleko."
+      },
+      "stars": [
+        { "x": 15, "y": 20 },
+        { "x": 35, "y": 35 },
+        { "x": 55, "y": 45 },
+        { "x": 75, "y": 35 },
+        { "x": 60, "y": 65 },
+        { "x": 40, "y": 75 }
+      ],
+      "lines": [[0, 1], [1, 2], [2, 3], [2, 4], [4, 5]]
+    }
+  ]
+}
