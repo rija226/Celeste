@@ -120,6 +120,7 @@ export default function StudyScreen() {
                         source={{ uri: getCardImageUrl(deck.slug, currentCard.imageUrl) }}
                         style={{ width: 220, height: 220, borderRadius: 16 }}
                         contentFit="cover"
+                        transition={300}
                         onError={() => setFailedImageIds((prev) => new Set(prev).add(currentCard.id))}
                       />
                     )}
