@@ -61,7 +61,9 @@
       "venus": "Venus",
       "mars": "Mars",
       "jupiter": "Jupiter",
-      "saturn": "Saturn"
+      "saturn": "Saturn",
+      "sun": "Sun",
+      "moon": "Moon"
     },
     "meteorShowers": {
       "title": "Meteor Showers",
@@ -72,6 +74,11 @@
       "today": "today",
       "inDays_one": "in {{count}} day",
       "inDays_other": "in {{count}} days"
+    },
+    "map": {
+      "toggle": "Sky Map",
+      "listView": "List view",
+      "compassHint": "Looking {{direction}} · drag to look around"
     }
   },
   "settings": {

@@ -1,17 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ScrollView } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Button, H2, Paragraph, Spinner, YStack } from 'tamagui';
+import { Button, H2, Paragraph, Spinner, XStack, YStack } from 'tamagui';
 
 import { GlassCard } from '@/components/GlassCard';
 import { LinkedFact } from '@/components/LinkedFact';
 import { ScreenBackdrop } from '@/components/ScreenBackdrop';
+import { SkyMap, type SkyMapObject } from '@/components/SkyMap';
 import { getActiveShowers, getNextShower, type MeteorShower } from '@/data/meteorShowers';
 import { SKY_BODY_CARD_SLUG } from '@/data/skyObjectCards';
 import { getCardsBySlugs } from '@/db';
 import {
   azimuthToCompass,
   getMoonPhaseName,
+  getSunPosition,
   getTonightSky,
   type SkyBodyInfo,
   type SkyBodyKey,
@@ -19,7 +21,16 @@ import {
 } from '@/lib/astronomy';
 import { getCurrentCoordinates, type Coordinates } from '@/lib/location';
 import { pickLocalized } from '@/lib/localized';
+import { palette } from '@/theme/palette';
 import type { Card } from '@/types/models';
+
+const PLANET_COLORS: Partial<Record<SkyBodyKey, string>> = {
+  mercury: palette.haze,
+  venus: '#F4C542',
+  mars: palette.comet,
+  jupiter: '#E0B88A',
+  saturn: '#D8C48A',
+};
 
 function formatTime(date: Date | null): string {
   if (!date) return '—';
@@ -42,6 +53,27 @@ export default function TonightScreen() {
   const [coords, setCoords] = useState<Coordinates | null | undefined>(undefined);
   const [sky, setSky] = useState<TonightSky | null>(null);
   const [linkedCards, setLinkedCards] = useState<Partial<Record<SkyBodyKey, Card>>>({});
+  const [showMap, setShowMap] = useState(false);
+
+  const mapObjects: SkyMapObject[] = useMemo(() => {
+    if (!sky || !coords) return [];
+    const sun = getSunPosition(coords.latitude, coords.longitude);
+    const objects: SkyMapObject[] = [
+      { id: 'sun', azimuth: sun.azimuth, altitude: sun.altitude, label: t('tonight.bodies.sun'), color: '#FFD54F', radius: 10 },
+    ];
+    for (const body of sky.bodies) {
+      const isMoon = body.key === 'moon';
+      objects.push({
+        id: body.key,
+        azimuth: body.azimuth,
+        altitude: body.altitude,
+        label: t(`tonight.bodies.${body.key}`),
+        color: isMoon ? palette.starlight : (PLANET_COLORS[body.key] ?? palette.nebula),
+        radius: isMoon ? 8 : 5,
+      });
+    }
+    return objects;
+  }, [sky, coords, t]);
 
   async function loadLocation() {
     setCoords(undefined);
@@ -76,9 +108,14 @@ export default function TonightScreen() {
     <ScreenBackdrop>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <YStack f={1} pt="$8" px="$4" pb="$8" gap="$3">
-          <H2 color="$color">{t('tonight.title')}</H2>
-
-          <MeteorShowerSection />
+          <XStack ai="center" jc="space-between">
+            <H2 color="$color">{t('tonight.title')}</H2>
+            {coords && sky && (
+              <Button size="$3" theme={showMap ? 'blue' : undefined} onPress={() => setShowMap((v) => !v)}>
+                {showMap ? t('tonight.map.listView') : t('tonight.map.toggle')}
+              </Button>
+            )}
+          </XStack>
 
           {coords === undefined && <Spinner size="large" />}
 
@@ -91,8 +128,16 @@ export default function TonightScreen() {
             </GlassCard>
           )}
 
-          {coords && sky && (
+          {coords && sky && showMap && (
+            <YStack ai="center" py="$2">
+              <SkyMap objects={mapObjects} />
+            </YStack>
+          )}
+
+          {coords && sky && !showMap && (
             <>
+              <MeteorShowerSection />
+
               <GlassCard gap="$1">
                 <Paragraph fontFamily="$heading" fontSize="$5" color="$color">
                   {t('tonight.sunset', { time: formatTime(sky.sunset) })}

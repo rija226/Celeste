@@ -95,3 +95,50 @@ export function getTonightSky(latitude: number, longitude: number, date: Date = 
     bodies: SKY_BODY_KEYS.map((key) => computeBodyInfo(key, observer, date)),
   };
 }
+
+export type HorizontalPosition = { azimuth: number; altitude: number; isUp: boolean };
+
+// Sunceva pozicija na nebu -- getTonightSky namjerno ne racuna ovo (samo
+// izlazak/zalazak), za mapu neba (Faza A) treba i azimut/visina.
+export function getSunPosition(latitude: number, longitude: number, date: Date = new Date()): HorizontalPosition {
+  const observer = new Observer(latitude, longitude, 0);
+  const equator = Equator(Body.Sun, date, observer, true, true);
+  const horizontal = Horizon(date, observer, equator.ra, equator.dec, 'normal');
+  return { azimuth: horizontal.azimuth, altitude: horizontal.altitude, isUp: horizontal.altitude > 0 };
+}
+
+export type ConstellationSkyPosition = HorizontalPosition & { slug: string };
+
+// Priblizne (ne precizne IAU) koordinate centra svakog sazvijezdja iz opste
+// astronomske literature -- dovoljno tacno da se sazvijezdje pozicionira na
+// mapi neba u pravom opstem pravcu/visini. Za milimetarski precizno
+// poravnanje (bitno tek za Fazu C -- AR preko kamere) trebao bi pravi
+// katalog zvijezda po sazvijezdju, ne samo priblizan centar.
+const CONSTELLATION_CENTER_RADEC: Record<string, { raHours: number; decDeg: number }> = {
+  'ursa-major': { raHours: 11.0, decDeg: 50 },
+  orion: { raHours: 5.58, decDeg: -2 },
+  cassiopeia: { raHours: 1.0, decDeg: 60 },
+  'ursa-minor': { raHours: 15.0, decDeg: 75 },
+  scorpius: { raHours: 16.83, decDeg: -30 },
+  leo: { raHours: 10.5, decDeg: 15 },
+  cygnus: { raHours: 20.5, decDeg: 45 },
+  taurus: { raHours: 4.5, decDeg: 15 },
+  gemini: { raHours: 7.0, decDeg: 22 },
+  sagittarius: { raHours: 19.0, decDeg: -25 },
+  lyra: { raHours: 18.75, decDeg: 37 },
+  aquila: { raHours: 19.67, decDeg: 3 },
+  'canis-major': { raHours: 6.83, decDeg: -22 },
+  andromeda: { raHours: 1.0, decDeg: 38 },
+};
+
+export function getConstellationSkyPositions(
+  latitude: number,
+  longitude: number,
+  date: Date = new Date(),
+): ConstellationSkyPosition[] {
+  const observer = new Observer(latitude, longitude, 0);
+  return Object.entries(CONSTELLATION_CENTER_RADEC).map(([slug, { raHours, decDeg }]) => {
+    const horizontal = Horizon(date, observer, raHours, decDeg, 'normal');
+    return { slug, azimuth: horizontal.azimuth, altitude: horizontal.altitude, isUp: horizontal.altitude > 0 };
+  });
+}

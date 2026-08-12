@@ -61,7 +61,9 @@
       "venus": "Venera",
       "mars": "Mars",
       "jupiter": "Jupiter",
-      "saturn": "Saturn"
+      "saturn": "Saturn",
+      "sun": "Sunce",
+      "moon": "Mjesec"
     },
     "meteorShowers": {
       "title": "Meteorski rojevi",
@@ -72,6 +74,11 @@
       "today": "danas",
       "inDays_one": "za {{count}} dan",
       "inDays_other": "za {{count}} dana"
+    },
+    "map": {
+      "toggle": "Mapa neba",
+      "listView": "Prikaz liste",
+      "compassHint": "Gledaš prema {{direction}} · prevuci da se osvrneš"
     }
   },
   "settings": {
