@@ -37,11 +37,9 @@ export type SkyMapConstellation = {
 // izgleda.
 const TOUCH_TARGET_RADIUS = 18;
 
-const MAP_SIZE = 340;
-// AR treba da djeluje uronjeno (skoro cio ekran) -- obicna mapa ostaje
-// kompaktna kartica koja se lijepo uklapa u listu iznad/ispod nje.
-const AR_HORIZONTAL_PADDING = 16;
-const AR_HEIGHT_RATIO = 0.72;
+// Mapa i AR oboje djeluju uronjeno (skoro cio ekran) -- ista velicina za obje.
+const MAP_HORIZONTAL_PADDING = 16;
+const MAP_HEIGHT_RATIO = 0.72;
 // Sazvijezdje se crta kao mala ikona centrirana na svoju (priblizno) tacnu
 // poziciju -- stars su 0-100 normalizovane koordinate (isti format kao
 // kviz), pa se skaliraju oko svog sredista (50,50) na ovu velicinu u px.
@@ -106,10 +104,10 @@ export function SkyMap({
     [],
   );
 
-  const mapWidth = arMode ? Dimensions.get('window').width - AR_HORIZONTAL_PADDING * 2 : MAP_SIZE;
-  const mapHeight = arMode ? Dimensions.get('window').height * AR_HEIGHT_RATIO : MAP_SIZE;
+  const mapWidth = Dimensions.get('window').width - MAP_HORIZONTAL_PADDING * 2;
+  const mapHeight = Dimensions.get('window').height * MAP_HEIGHT_RATIO;
   // Vertikalni FOV se skalira proporcionalno sirini/visini da markeri ne
-  // izgledaju rastegnuti kad prikaz nije kvadratan (AR je visok pravougaonik).
+  // izgledaju rastegnuti kad prikaz nije kvadratan (visok pravougaonik).
   const fov: FieldOfView = { horizontalDeg: fovDeg, verticalDeg: fovDeg * (mapHeight / mapWidth) };
   const halfW = mapWidth / 2;
   const halfH = mapHeight / 2;
@@ -185,13 +183,22 @@ export function SkyMap({
           })}
         </Svg>
 
-        {sensorMode && deviceHeading && deviceHeading.accuracy !== null && deviceHeading.accuracy > POOR_ACCURACY_THRESHOLD_DEG && (
-          <YStack position="absolute" top="$2" left="$2" right="$2" ai="center" backgroundColor="rgba(255,107,94,0.85)" borderRadius="$4" py="$1.5" px="$2">
-            <Paragraph fontSize="$1" color={palette.void} fontWeight="600" textAlign="center">
-              {t('tonight.map.calibrationHint')}
+        <YStack position="absolute" top="$2" left="$2" right="$2" ai="center" gap="$1.5">
+          <YStack backgroundColor="rgba(6,7,13,0.75)" borderRadius="$4" py="$1.5" px="$3">
+            <Paragraph fontSize="$1" color={palette.starlight} textAlign="center">
+              {sensorMode
+                ? t('tonight.map.sensorHint', { direction: azimuthToCompass(effectiveView.azimuth) })
+                : t('tonight.map.compassHint', { direction: azimuthToCompass(effectiveView.azimuth) })}
             </Paragraph>
           </YStack>
-        )}
+          {sensorMode && deviceHeading && deviceHeading.accuracy !== null && deviceHeading.accuracy > POOR_ACCURACY_THRESHOLD_DEG && (
+            <YStack ai="center" backgroundColor="rgba(255,107,94,0.85)" borderRadius="$4" py="$1.5" px="$2">
+              <Paragraph fontSize="$1" color={palette.void} fontWeight="600" textAlign="center">
+                {t('tonight.map.calibrationHint')}
+              </Paragraph>
+            </YStack>
+          )}
+        </YStack>
 
         {!arMode && (
           <XStack position="absolute" bottom="$2" left="$2">
@@ -209,11 +216,6 @@ export function SkyMap({
           <MapButton icon="remove" onPress={() => zoom(ZOOM_STEP_DEG)} disabled={fovDeg >= MAX_FOV_DEG} />
         </XStack>
       </YStack>
-      <Paragraph fontSize="$2" color="$color11" textAlign="center">
-        {sensorMode
-          ? t('tonight.map.sensorHint', { direction: azimuthToCompass(effectiveView.azimuth) })
-          : t('tonight.map.compassHint', { direction: azimuthToCompass(effectiveView.azimuth) })}
-      </Paragraph>
     </YStack>
   );
 }
