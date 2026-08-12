@@ -6,12 +6,13 @@ import { Button, H2, Paragraph, Spinner, XStack, YStack } from 'tamagui';
 import { GlassCard } from '@/components/GlassCard';
 import { LinkedFact } from '@/components/LinkedFact';
 import { ScreenBackdrop } from '@/components/ScreenBackdrop';
-import { SkyMap, type SkyMapObject } from '@/components/SkyMap';
+import { SkyMap, type SkyMapConstellation, type SkyMapObject } from '@/components/SkyMap';
 import { getActiveShowers, getNextShower, type MeteorShower } from '@/data/meteorShowers';
 import { SKY_BODY_CARD_SLUG } from '@/data/skyObjectCards';
-import { getCardsBySlugs } from '@/db';
+import { getCardsBySlugs, getConstellations } from '@/db';
 import {
   azimuthToCompass,
+  getConstellationSkyPositions,
   getMoonPhaseName,
   getSunPosition,
   getTonightSky,
@@ -22,7 +23,7 @@ import {
 import { getCurrentCoordinates, type Coordinates } from '@/lib/location';
 import { pickLocalized } from '@/lib/localized';
 import { palette } from '@/theme/palette';
-import type { Card } from '@/types/models';
+import type { Card, Constellation } from '@/types/models';
 
 const PLANET_COLORS: Partial<Record<SkyBodyKey, string>> = {
   mercury: palette.haze,
@@ -49,10 +50,11 @@ function formatShowerDate(date: Date, language: string): string {
 }
 
 export default function TonightScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [coords, setCoords] = useState<Coordinates | null | undefined>(undefined);
   const [sky, setSky] = useState<TonightSky | null>(null);
   const [linkedCards, setLinkedCards] = useState<Partial<Record<SkyBodyKey, Card>>>({});
+  const [constellations, setConstellations] = useState<Constellation[]>([]);
   const [showMap, setShowMap] = useState(false);
 
   const mapObjects: SkyMapObject[] = useMemo(() => {
@@ -74,6 +76,27 @@ export default function TonightScreen() {
     }
     return objects;
   }, [sky, coords, t]);
+
+  const mapConstellations: SkyMapConstellation[] = useMemo(() => {
+    if (!coords || constellations.length === 0) return [];
+    const positionsBySlug = new Map(
+      getConstellationSkyPositions(coords.latitude, coords.longitude).map((p) => [p.slug, p]),
+    );
+    return constellations
+      .map((c) => {
+        const position = positionsBySlug.get(c.slug);
+        if (!position || !position.isUp) return null;
+        return {
+          slug: c.slug,
+          azimuth: position.azimuth,
+          altitude: position.altitude,
+          name: pickLocalized(c.name, i18n.language),
+          stars: c.stars,
+          lines: c.lines,
+        };
+      })
+      .filter((c): c is SkyMapConstellation => c !== null);
+  }, [constellations, coords, i18n.language]);
 
   async function loadLocation() {
     setCoords(undefined);
@@ -104,6 +127,12 @@ export default function TonightScreen() {
     })();
   }, []);
 
+  useEffect(() => {
+    getConstellations()
+      .then(setConstellations)
+      .catch(() => {});
+  }, []);
+
   return (
     <ScreenBackdrop>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -130,7 +159,7 @@ export default function TonightScreen() {
 
           {coords && sky && showMap && (
             <YStack ai="center" py="$2">
-              <SkyMap objects={mapObjects} />
+              <SkyMap objects={mapObjects} constellations={mapConstellations} />
             </YStack>
           )}
 

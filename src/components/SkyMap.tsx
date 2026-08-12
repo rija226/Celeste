@@ -2,12 +2,13 @@ import { useMemo, useRef, useState } from 'react';
 import { PanResponder } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
-import { Circle, G, Svg, Text as SvgText } from 'react-native-svg';
+import { Circle, G, Line, Svg, Text as SvgText } from 'react-native-svg';
 import { Paragraph, XStack, YStack } from 'tamagui';
 
 import { azimuthToCompass } from '@/lib/astronomy';
 import { projectToView, type FieldOfView, type ViewDirection } from '@/lib/skyProjection';
 import { palette } from '@/theme/palette';
+import type { ConstellationLine, ConstellationStar } from '@/types/models';
 
 export type SkyMapObject = {
   id: string;
@@ -18,7 +19,20 @@ export type SkyMapObject = {
   radius: number;
 };
 
+export type SkyMapConstellation = {
+  slug: string;
+  azimuth: number;
+  altitude: number;
+  name: string;
+  stars: ConstellationStar[];
+  lines: ConstellationLine[];
+};
+
 const MAP_SIZE = 340;
+// Sazvijezdje se crta kao mala ikona centrirana na svoju (priblizno) tacnu
+// poziciju -- stars su 0-100 normalizovane koordinate (isti format kao
+// kviz), pa se skaliraju oko svog sredista (50,50) na ovu velicinu u px.
+const CONSTELLATION_ICON_SIZE = 34;
 const DEFAULT_VIEW: ViewDirection = { azimuth: 180, altitude: 30 };
 const DEG_PER_PIXEL = 0.3;
 const DEFAULT_FOV_DEG = 80;
@@ -33,7 +47,13 @@ const ZOOM_STEP_DEG = 15;
 // stvarno ispravan i neophodan -- stabilna PanResponder instanca kroz
 // re-rendere je bitna za glatko prevlacenje (nestabilna instanca svaki
 // render prekida gest usred pokreta).
-export function SkyMap({ objects }: { objects: SkyMapObject[] }) {
+export function SkyMap({
+  objects,
+  constellations = [],
+}: {
+  objects: SkyMapObject[];
+  constellations?: SkyMapConstellation[];
+}) {
   'use no memo';
 
   const { t } = useTranslation();
@@ -81,6 +101,42 @@ export function SkyMap({ objects }: { objects: SkyMapObject[] }) {
         borderWidth={1}
         borderColor={palette.nebulaDeep}>
         <Svg width={MAP_SIZE} height={MAP_SIZE}>
+          {constellations.map((c) => {
+            const projected = projectToView(c.azimuth, c.altitude, view, fov);
+            if (!projected.visible) return null;
+            const cx = half + projected.x * half;
+            const cy = half + projected.y * half;
+            const scale = CONSTELLATION_ICON_SIZE / 100;
+            const starX = (star: ConstellationStar) => cx + (star.x - 50) * scale;
+            const starY = (star: ConstellationStar) => cy + (star.y - 50) * scale;
+            return (
+              <G key={c.slug}>
+                {c.lines.map(([a, b], index) => (
+                  <Line
+                    key={index}
+                    x1={starX(c.stars[a])}
+                    y1={starY(c.stars[a])}
+                    x2={starX(c.stars[b])}
+                    y2={starY(c.stars[b])}
+                    stroke={palette.haze}
+                    strokeWidth={1}
+                    strokeOpacity={0.8}
+                  />
+                ))}
+                {c.stars.map((star, index) => (
+                  <Circle key={index} cx={starX(star)} cy={starY(star)} r={1.4} fill={palette.starlight} />
+                ))}
+                <SvgText
+                  x={cx}
+                  y={cy + CONSTELLATION_ICON_SIZE / 2 + 12}
+                  fontSize={10}
+                  fill={palette.haze}
+                  textAnchor="middle">
+                  {c.name}
+                </SvgText>
+              </G>
+            );
+          })}
           {objects.map((obj) => {
             const projected = projectToView(obj.azimuth, obj.altitude, view, fov);
             if (!projected.visible) return null;
