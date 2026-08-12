@@ -6,6 +6,7 @@ import { Circle, G, Line, Svg, Text as SvgText } from 'react-native-svg';
 import { Paragraph, XStack, YStack } from 'tamagui';
 
 import { azimuthToCompass } from '@/lib/astronomy';
+import { useDeviceHeading } from '@/lib/deviceOrientation';
 import { projectToView, type FieldOfView, type ViewDirection } from '@/lib/skyProjection';
 import { palette } from '@/theme/palette';
 import type { ConstellationLine, ConstellationStar } from '@/types/models';
@@ -46,6 +47,9 @@ const DEFAULT_FOV_DEG = 80;
 const MIN_FOV_DEG = 30;
 const MAX_FOV_DEG = 120;
 const ZOOM_STEP_DEG = 15;
+// Kompas tacnost (stepeni moguce greske, iOS konvencija -- manje = bolje;
+// prvi pokusaj praga, ocekivano fino podesavanje nakon testiranja).
+const POOR_ACCURACY_THRESHOLD_DEG = 20;
 
 // "use no memo" -- PanResponder je eksterni imperativni API kojem se
 // callback-i predaju direktno; React Compiler ne moze staticki dokazati da
@@ -66,6 +70,9 @@ export function SkyMap({
   const { t } = useTranslation();
   const [view, setView] = useState<ViewDirection>(DEFAULT_VIEW);
   const [fovDeg, setFovDeg] = useState(DEFAULT_FOV_DEG);
+  const [sensorMode, setSensorMode] = useState(false);
+  const deviceHeading = useDeviceHeading(sensorMode);
+  const effectiveView = sensorMode && deviceHeading ? { azimuth: deviceHeading.azimuth, altitude: deviceHeading.altitude } : view;
 
   const viewRef = useRef(view);
   // eslint-disable-next-line react-hooks/refs -- vidi napomenu iznad funkcije
@@ -99,7 +106,7 @@ export function SkyMap({
   return (
     <YStack gap="$2">
       <YStack
-        {...panResponder.panHandlers}
+        {...(!sensorMode ? panResponder.panHandlers : {})}
         width={MAP_SIZE}
         height={MAP_SIZE}
         borderRadius="$6"
@@ -109,7 +116,7 @@ export function SkyMap({
         borderColor={palette.nebulaDeep}>
         <Svg width={MAP_SIZE} height={MAP_SIZE}>
           {constellations.map((c) => {
-            const projected = projectToView(c.azimuth, c.altitude, view, fov);
+            const projected = projectToView(c.azimuth, c.altitude, effectiveView, fov);
             if (!projected.visible) return null;
             const cx = half + projected.x * half;
             const cy = half + projected.y * half;
@@ -146,7 +153,7 @@ export function SkyMap({
             );
           })}
           {objects.map((obj) => {
-            const projected = projectToView(obj.azimuth, obj.altitude, view, fov);
+            const projected = projectToView(obj.azimuth, obj.altitude, effectiveView, fov);
             if (!projected.visible) return null;
             const cx = half + projected.x * half;
             const cy = half + projected.y * half;
@@ -162,26 +169,47 @@ export function SkyMap({
           })}
         </Svg>
 
+        {sensorMode && deviceHeading && deviceHeading.accuracy !== null && deviceHeading.accuracy > POOR_ACCURACY_THRESHOLD_DEG && (
+          <YStack position="absolute" top="$2" left="$2" right="$2" ai="center" backgroundColor="rgba(255,107,94,0.85)" borderRadius="$4" py="$1.5" px="$2">
+            <Paragraph fontSize="$1" color={palette.void} fontWeight="600" textAlign="center">
+              {t('tonight.map.calibrationHint')}
+            </Paragraph>
+          </YStack>
+        )}
+
+        <XStack position="absolute" bottom="$2" left="$2">
+          <MapButton
+            icon={sensorMode ? 'phone-portrait' : 'hand-left'}
+            onPress={() => setSensorMode((v) => !v)}
+            disabled={false}
+            active={sensorMode}
+          />
+        </XStack>
+
         <XStack position="absolute" bottom="$2" right="$2" gap="$2">
-          <ZoomButton icon="add" onPress={() => zoom(-ZOOM_STEP_DEG)} disabled={fovDeg <= MIN_FOV_DEG} />
-          <ZoomButton icon="remove" onPress={() => zoom(ZOOM_STEP_DEG)} disabled={fovDeg >= MAX_FOV_DEG} />
+          <MapButton icon="add" onPress={() => zoom(-ZOOM_STEP_DEG)} disabled={fovDeg <= MIN_FOV_DEG} />
+          <MapButton icon="remove" onPress={() => zoom(ZOOM_STEP_DEG)} disabled={fovDeg >= MAX_FOV_DEG} />
         </XStack>
       </YStack>
       <Paragraph fontSize="$2" color="$color11" textAlign="center">
-        {t('tonight.map.compassHint', { direction: azimuthToCompass(view.azimuth) })}
+        {sensorMode
+          ? t('tonight.map.sensorHint', { direction: azimuthToCompass(effectiveView.azimuth) })
+          : t('tonight.map.compassHint', { direction: azimuthToCompass(effectiveView.azimuth) })}
       </Paragraph>
     </YStack>
   );
 }
 
-function ZoomButton({
+function MapButton({
   icon,
   onPress,
   disabled,
+  active,
 }: {
-  icon: 'add' | 'remove';
+  icon: keyof typeof Ionicons.glyphMap;
   onPress: () => void;
   disabled: boolean;
+  active?: boolean;
 }) {
   return (
     <YStack
@@ -190,9 +218,9 @@ function ZoomButton({
       borderRadius={999}
       ai="center"
       jc="center"
-      backgroundColor="rgba(23,19,52,0.85)"
+      backgroundColor={active ? palette.nebula : 'rgba(23,19,52,0.85)'}
       borderWidth={1}
-      borderColor={palette.nebulaDeep}
+      borderColor={active ? palette.nebula : palette.nebulaDeep}
       opacity={disabled ? 0.4 : 1}
       onPress={disabled ? undefined : onPress}
       pressStyle={disabled ? undefined : { opacity: 0.7 }}>

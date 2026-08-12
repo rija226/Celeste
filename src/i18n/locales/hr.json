@@ -78,7 +78,9 @@
     "map": {
       "toggle": "Mapa neba",
       "listView": "Prikaz liste",
-      "compassHint": "Gledaš prema {{direction}} · prevuci da se osvrneš"
+      "compassHint": "Gledaš prema {{direction}} · prevuci da se osvrneš",
+      "sensorHint": "Gledaš prema {{direction}} · pomjeri telefon da se osvrneš",
+      "calibrationHint": "Kompas nije precizan — pomjeri telefon u obliku osmice"
     }
   },
   "settings": {

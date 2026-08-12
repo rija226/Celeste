@@ -78,7 +78,9 @@
     "map": {
       "toggle": "Sky Map",
       "listView": "List view",
-      "compassHint": "Looking {{direction}} · drag to look around"
+      "compassHint": "Looking {{direction}} · drag to look around",
+      "sensorHint": "Looking {{direction}} · move your phone to look around",
+      "calibrationHint": "Compass is inaccurate — move your phone in a figure-8 motion"
     }
   },
   "settings": {
