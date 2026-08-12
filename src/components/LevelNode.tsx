@@ -9,6 +9,10 @@ import type { Deck } from '@/types/models';
 export type LevelNodeState = 'completed' | 'current' | 'locked';
 
 const NODE_SIZE = 84;
+// Naziv nivoa ima siri prostor od samog kruga -- na 84px se dulje rijeci
+// (npr. "Unutrasnje") prelamaju usred rijeci umjesto na razmaku izmedju
+// rijeci. Krug ostaje NODE_SIZE, samo tekst dobija vise mjesta oko sebe.
+const LABEL_WIDTH = 112;
 
 export function LevelNode({
   deck,
@@ -29,7 +33,7 @@ export function LevelNode({
   const locked = state === 'locked';
 
   return (
-    <YStack position="absolute" left={x - NODE_SIZE / 2} top={y - NODE_SIZE / 2} width={NODE_SIZE} alignItems="center" gap="$2">
+    <YStack position="absolute" left={x - LABEL_WIDTH / 2} top={y - NODE_SIZE / 2} width={LABEL_WIDTH} alignItems="center" gap="$2">
       <YStack
         width={NODE_SIZE}
         height={NODE_SIZE}
