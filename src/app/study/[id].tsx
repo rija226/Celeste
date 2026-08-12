@@ -11,7 +11,6 @@ import { ScreenBackdrop } from '@/components/ScreenBackdrop';
 import {
   ensureSession,
   getCardImageUrl,
-  getCardProgress,
   getCardProgressForCards,
   getCardsForDeck,
   getDeck,
@@ -19,12 +18,20 @@ import {
   upsertCardProgress,
 } from '@/db';
 import { pickLocalized } from '@/lib/localized';
-import { Rating, scheduleReview } from '@/srs';
+import { formatIntervalFromMs, previewIntervals, Rating, scheduleReview, type IntervalUnit } from '@/srs';
 import { checkAndCelebrateStreak } from '@/lib/streakCelebration';
 import { useStudySessionStore } from '@/store/studySession';
 import { useCelebrationStore } from '@/store/celebration';
 import { palette } from '@/theme/palette';
-import type { Deck } from '@/types/models';
+import type { CardProgress, Deck } from '@/types/models';
+
+const INTERVAL_KEY: Record<IntervalUnit, string> = {
+  minutes: 'study.intervalMinutes',
+  hours: 'study.intervalHours',
+  days: 'study.intervalDays',
+  months: 'study.intervalMonths',
+  years: 'study.intervalYears',
+};
 
 export default function StudyScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -38,6 +45,7 @@ export default function StudyScreen() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [failedImageIds, setFailedImageIds] = useState<Set<string>>(new Set());
+  const [progressByCardId, setProgressByCardId] = useState<Map<string, CardProgress>>(new Map());
   const hadNewCardsRef = useRef(false);
   const sessionCelebratedRef = useRef(false);
 
@@ -53,11 +61,12 @@ export default function StudyScreen() {
           uid,
           cards.map((card) => card.id),
         );
-        const progressByCardId = new Map(progress.map((p) => [p.cardId, p]));
-        hadNewCardsRef.current = cards.some((card) => !progressByCardId.has(card.id));
+        const progressMap = new Map(progress.map((p) => [p.cardId, p]));
+        setProgressByCardId(progressMap);
+        hadNewCardsRef.current = cards.some((card) => !progressMap.has(card.id));
         const now = new Date();
         const due = cards.filter((card) => {
-          const p = progressByCardId.get(card.id);
+          const p = progressMap.get(card.id);
           return !p || new Date(p.due) <= now;
         });
 
@@ -82,12 +91,19 @@ export default function StudyScreen() {
 
   async function handleRate(rating: Rating.Again | Rating.Hard | Rating.Good | Rating.Easy) {
     if (!userId || !currentCard) return;
-    const existing = await getCardProgress(userId, currentCard.id);
+    const existing = progressByCardId.get(currentCard.id) ?? null;
     const { progress, reviewLog } = scheduleReview(existing, userId, currentCard.id, rating);
     await upsertCardProgress(progress);
     await insertReviewLog(reviewLog);
     advance();
   }
+
+  function intervalLabel(ms: number): string {
+    const { unit, value } = formatIntervalFromMs(ms);
+    return t(INTERVAL_KEY[unit], { count: value });
+  }
+
+  const intervalPreview = currentCard ? previewIntervals(progressByCardId.get(currentCard.id) ?? null) : null;
 
   return (
     <ScreenBackdrop>
@@ -149,24 +165,28 @@ export default function StudyScreen() {
                 <RatingButton
                   icon="refresh"
                   label={t('study.again')}
+                  interval={intervalPreview ? intervalLabel(intervalPreview[Rating.Again]) : undefined}
                   color={palette.comet}
                   onPress={() => handleRate(Rating.Again)}
                 />
                 <RatingButton
                   icon="walk-outline"
                   label={t('study.hard')}
-                  color={palette.haze}
+                  interval={intervalPreview ? intervalLabel(intervalPreview[Rating.Hard]) : undefined}
+                  color={palette.amber}
                   onPress={() => handleRate(Rating.Hard)}
                 />
                 <RatingButton
                   icon="checkmark-circle-outline"
                   label={t('study.good')}
+                  interval={intervalPreview ? intervalLabel(intervalPreview[Rating.Good]) : undefined}
                   color={palette.nebula}
                   onPress={() => handleRate(Rating.Good)}
                 />
                 <RatingButton
                   icon="rocket-outline"
                   label={t('study.easy')}
+                  interval={intervalPreview ? intervalLabel(intervalPreview[Rating.Easy]) : undefined}
                   color={palette.aurora}
                   onPress={() => handleRate(Rating.Easy)}
                 />

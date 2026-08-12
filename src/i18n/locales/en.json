@@ -157,7 +157,12 @@
     "easy": "Easy",
     "done": "All done for today!",
     "empty": "No cards due right now.",
-    "back": "Back"
+    "back": "Back",
+    "intervalMinutes": "{{count}}min",
+    "intervalHours": "{{count}}h",
+    "intervalDays": "{{count}}d",
+    "intervalMonths": "{{count}}mo",
+    "intervalYears": "{{count}}y"
   },
   "common": {
     "switchLanguage": "Hrvatski"

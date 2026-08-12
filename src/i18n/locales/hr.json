@@ -157,7 +157,12 @@
     "easy": "Lako",
     "done": "Gotovo za danas!",
     "empty": "Nema kartica za ponoviti sada.",
-    "back": "Nazad"
+    "back": "Nazad",
+    "intervalMinutes": "{{count}}min",
+    "intervalHours": "{{count}}h",
+    "intervalDays": "{{count}}d",
+    "intervalMonths": "{{count}}mj",
+    "intervalYears": "{{count}}g"
   },
   "common": {
     "switchLanguage": "English"

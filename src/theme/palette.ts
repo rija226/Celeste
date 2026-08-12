@@ -8,6 +8,7 @@ export const palette = {
   nebula: '#7C6CFF',
   aurora: '#33D6B0',
   comet: '#FF6B5E',
+  amber: '#FFA94D',
   starlight: '#F1EFFB',
   haze: '#8D8AAE',
 } as const;
