@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { Image } from 'expo-image';
 import { useTranslation } from 'react-i18next';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Button, H3, Paragraph, Spinner, XStack, YStack } from 'tamagui';
 
 import { FlipCard } from '@/components/FlipCard';
@@ -29,6 +30,7 @@ export default function StudyScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { t, i18n } = useTranslation();
   const router = useRouter();
+  const insets = useSafeAreaInsets();
 
   const { queue, index, isFlipped, start, flip, advance } = useStudySessionStore();
   const [userId, setUserId] = useState<string | null>(null);
@@ -89,7 +91,7 @@ export default function StudyScreen() {
 
   return (
     <ScreenBackdrop>
-      <YStack f={1} p="$4" jc="space-between">
+      <YStack f={1} pt="$4" px="$4" pb={insets.bottom + 16} jc="space-between">
         <Stack.Screen options={{ headerShown: true, title: '' }} />
 
         {error && <Paragraph color="$red10">{error}</Paragraph>}
