@@ -32,7 +32,23 @@
     "dailyProgress": "Pitanje {{current}}/{{total}}",
     "dailyDone": "Današnji izazov je gotov!",
     "dailyScore": "{{correct}}/{{total}} tačno",
-    "dailyComeBack": "Vrati se sutra za novi izazov."
+    "dailyComeBack": "Vrati se sutra za novi izazov.",
+    "promptPlanet": "Koja je ovo planeta?",
+    "noQuestions": "Nema pitanja za ovaj filter.",
+    "filter": {
+      "all": "Sve",
+      "constellation": "Sazviježđa",
+      "planet": "Planete",
+      "knowledge": "Znanje"
+    },
+    "timeAttack": {
+      "mode": "Izazov na vrijeme",
+      "intro": "Odgovori na što više pitanja za {{seconds}} sekundi.",
+      "start": "Kreni",
+      "timeLeft": "{{seconds}}s",
+      "result": "{{correct}}/{{total}} tačno",
+      "playAgain": "Igraj ponovo"
+    }
   },
   "tonight": {
     "title": "Večeras",

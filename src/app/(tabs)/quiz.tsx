@@ -5,7 +5,7 @@ import { Button, H2, Paragraph, Spinner, XStack, YStack } from 'tamagui';
 
 import { QuizQuestionCard } from '@/components/QuizQuestionCard';
 import { ScreenBackdrop } from '@/components/ScreenBackdrop';
-import { ensureSession, getConstellations, insertQuizResult } from '@/db';
+import { ensureSession, getConstellations, getQuizItems, insertQuizResult } from '@/db';
 import {
   buildDailyQuestions,
   getDailyChallengeResult,
@@ -14,22 +14,28 @@ import {
   type DailyChallengeResult,
 } from '@/lib/dailyChallenge';
 import { pickLocalized } from '@/lib/localized';
-import { pickQuestion, POINTS_BY_DIFFICULTY } from '@/lib/quiz';
+import { pickMixedQuestion, POINTS_BY_DIFFICULTY, type QuizQuestion } from '@/lib/quiz';
 import { checkAndCelebrateStreak } from '@/lib/streakCelebration';
-import type { Constellation, QuizDifficulty } from '@/types/models';
+import type { Constellation, QuizDifficulty, QuizItem, QuizItemType } from '@/types/models';
 
-type Mode = 'practice' | 'daily';
+type Mode = 'practice' | 'daily' | 'timeAttack';
+type TypeFilter = 'all' | 'constellation' | QuizItemType;
 
 const DIFFICULTY_TIERS: QuizDifficulty[] = ['easy', 'medium', 'hard'];
+const TYPE_FILTERS: TypeFilter[] = ['all', 'constellation', 'planet', 'knowledge'];
+const TIME_ATTACK_SECONDS = 60;
+const TIME_ATTACK_ADVANCE_DELAY_MS = 700;
 
 export default function QuizScreen() {
   const { t, i18n } = useTranslation();
   const [mode, setMode] = useState<Mode>('practice');
   const [pool, setPool] = useState<Constellation[] | null>(null);
+  const [itemPool, setItemPool] = useState<QuizItem[] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [userId, setUserId] = useState<string | null>(null);
 
   const [difficulty, setDifficulty] = useState<QuizDifficulty>('easy');
+  const [typeFilter, setTypeFilter] = useState<TypeFilter>('all');
   const [practiceRound, setPracticeRound] = useState(0);
   const [practiceSelectedId, setPracticeSelectedId] = useState<string | null>(null);
   const [practiceScore, setPracticeScore] = useState({ correct: 0, total: 0, points: 0 });
@@ -39,22 +45,51 @@ export default function QuizScreen() {
   const [dailySelectedId, setDailySelectedId] = useState<string | null>(null);
   const [dailyCorrect, setDailyCorrect] = useState(0);
 
+  const [taState, setTaState] = useState<'idle' | 'playing' | 'finished'>('idle');
+  const [taSecondsLeft, setTaSecondsLeft] = useState(TIME_ATTACK_SECONDS);
+  const [taQuestion, setTaQuestion] = useState<QuizQuestion | null>(null);
+  const [taSelectedId, setTaSelectedId] = useState<string | null>(null);
+  const [taScore, setTaScore] = useState({ correct: 0, total: 0, points: 0 });
+
   useEffect(() => {
     ensureSession().then(setUserId);
     getConstellations()
       .then(setPool)
       .catch((e: Error) => setError(e.message));
+    getQuizItems()
+      .then(setItemPool)
+      .catch((e: Error) => setError(e.message));
     getDailyChallengeResult().then(setDailyResult);
   }, []);
 
+  useEffect(() => {
+    if (taState !== 'playing') return;
+    const interval = setInterval(() => {
+      setTaSecondsLeft((s) => {
+        if (s <= 1) {
+          clearInterval(interval);
+          setTaState('finished');
+          return 0;
+        }
+        return s - 1;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [taState]);
+
   const practiceQuestion = useMemo(() => {
-    if (!pool) return null;
-    const tierPool = pool.filter((c) => c.difficulty === difficulty);
-    return pickQuestion(tierPool);
+    if (!pool || !itemPool) return null;
+    const constellationsForTier = typeFilter === 'planet' || typeFilter === 'knowledge' ? [] : pool.filter((c) => c.difficulty === difficulty);
+    const itemsForTier =
+      typeFilter === 'constellation'
+        ? []
+        : itemPool.filter((i) => i.difficulty === difficulty && (typeFilter === 'all' || i.quizType === typeFilter));
+    if (constellationsForTier.length + itemsForTier.length === 0) return null;
+    return pickMixedQuestion(constellationsForTier, itemsForTier);
     // practiceRound je namjerno u zavisnostima -- svaki klik na "Dalje" mora
-    // izvuci NOVO nasumicno pitanje, ne isto (pickQuestion nije cist).
+    // izvuci NOVO nasumicno pitanje, ne isto (pickMixedQuestion nije cist).
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pool, difficulty, practiceRound]);
+  }, [pool, itemPool, difficulty, typeFilter, practiceRound]);
 
   const dailyQuestions = useMemo(() => {
     if (!pool || dailyResult !== null) return null;
@@ -66,10 +101,15 @@ export default function QuizScreen() {
     setPracticeSelectedId(null);
   }
 
-  async function handlePracticeSelect(option: Constellation) {
+  function selectTypeFilter(filter: TypeFilter) {
+    setTypeFilter(filter);
+    setPracticeSelectedId(null);
+  }
+
+  async function handlePracticeSelect(optionId: string) {
     if (!practiceQuestion || practiceSelectedId) return;
-    setPracticeSelectedId(option.id);
-    const isCorrect = option.id === practiceQuestion.answer.id;
+    setPracticeSelectedId(optionId);
+    const isCorrect = optionId === practiceQuestion.correctOptionId;
     const points = isCorrect ? POINTS_BY_DIFFICULTY[difficulty] : 0;
     setPracticeScore((s) => ({
       correct: s.correct + (isCorrect ? 1 : 0),
@@ -79,9 +119,9 @@ export default function QuizScreen() {
     if (userId) {
       await insertQuizResult({
         userId,
-        quizType: 'constellation',
-        constellationId: practiceQuestion.answer.id,
-        quizItemId: null,
+        quizType: practiceQuestion.quizType,
+        constellationId: practiceQuestion.quizType === 'constellation' ? practiceQuestion.itemId : null,
+        quizItemId: practiceQuestion.quizType === 'constellation' ? null : practiceQuestion.itemId,
         mode: 'practice',
         difficulty,
         isCorrect,
@@ -96,11 +136,11 @@ export default function QuizScreen() {
     setPracticeRound((r) => r + 1);
   }
 
-  async function handleDailySelect(option: Constellation) {
+  async function handleDailySelect(optionId: string) {
     const question = dailyQuestions?.[dailyIndex];
     if (!question || dailySelectedId) return;
-    setDailySelectedId(option.id);
-    const isCorrect = option.id === question.answer.id;
+    setDailySelectedId(optionId);
+    const isCorrect = optionId === question.correctOptionId;
     if (isCorrect) {
       setDailyCorrect((c) => c + 1);
     }
@@ -108,12 +148,12 @@ export default function QuizScreen() {
       await insertQuizResult({
         userId,
         quizType: 'constellation',
-        constellationId: question.answer.id,
+        constellationId: question.itemId,
         quizItemId: null,
         mode: 'daily',
-        difficulty: question.answer.difficulty,
+        difficulty: question.difficulty,
         isCorrect,
-        points: isCorrect ? POINTS_BY_DIFFICULTY[question.answer.difficulty] : 0,
+        points: isCorrect ? POINTS_BY_DIFFICULTY[question.difficulty] : 0,
         answeredAt: new Date().toISOString(),
       });
     }
@@ -132,6 +172,44 @@ export default function QuizScreen() {
     }
   }
 
+  function startTimeAttack() {
+    if (!pool || !itemPool) return;
+    setTaScore({ correct: 0, total: 0, points: 0 });
+    setTaSecondsLeft(TIME_ATTACK_SECONDS);
+    setTaSelectedId(null);
+    setTaQuestion(pickMixedQuestion(pool, itemPool));
+    setTaState('playing');
+  }
+
+  function handleTimeAttackSelect(optionId: string) {
+    if (!taQuestion || taSelectedId || taState !== 'playing' || !pool || !itemPool) return;
+    setTaSelectedId(optionId);
+    const isCorrect = optionId === taQuestion.correctOptionId;
+    const points = isCorrect ? POINTS_BY_DIFFICULTY[taQuestion.difficulty] : 0;
+    setTaScore((s) => ({
+      correct: s.correct + (isCorrect ? 1 : 0),
+      total: s.total + 1,
+      points: s.points + points,
+    }));
+    if (userId) {
+      insertQuizResult({
+        userId,
+        quizType: taQuestion.quizType,
+        constellationId: taQuestion.quizType === 'constellation' ? taQuestion.itemId : null,
+        quizItemId: taQuestion.quizType === 'constellation' ? null : taQuestion.itemId,
+        mode: 'timeAttack',
+        difficulty: taQuestion.difficulty,
+        isCorrect,
+        points,
+        answeredAt: new Date().toISOString(),
+      });
+    }
+    setTimeout(() => {
+      setTaSelectedId(null);
+      setTaQuestion(pickMixedQuestion(pool, itemPool));
+    }, TIME_ATTACK_ADVANCE_DELAY_MS);
+  }
+
   return (
     <ScreenBackdrop>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
@@ -139,19 +217,34 @@ export default function QuizScreen() {
           <H2 color="$color">{t('quiz.title')}</H2>
 
           <XStack gap="$2">
-            <Button f={1} theme={mode === 'practice' ? 'blue' : undefined} onPress={() => setMode('practice')}>
+            <Button f={1} size="$3" theme={mode === 'practice' ? 'blue' : undefined} onPress={() => setMode('practice')}>
               {t('quiz.practice')}
             </Button>
-            <Button f={1} theme={mode === 'daily' ? 'blue' : undefined} onPress={() => setMode('daily')}>
+            <Button f={1} size="$3" theme={mode === 'daily' ? 'blue' : undefined} onPress={() => setMode('daily')}>
               {t('quiz.dailyChallenge')}
+            </Button>
+            <Button f={1} size="$3" theme={mode === 'timeAttack' ? 'blue' : undefined} onPress={() => setMode('timeAttack')}>
+              {t('quiz.timeAttack.mode')}
             </Button>
           </XStack>
 
           {error && <Paragraph color="$red10">{error}</Paragraph>}
-          {!pool && !error && <Spinner size="large" />}
+          {(!pool || !itemPool) && !error && <Spinner size="large" />}
 
-          {pool && mode === 'practice' && (
+          {pool && itemPool && mode === 'practice' && (
             <>
+              <XStack gap="$2" flexWrap="wrap">
+                {TYPE_FILTERS.map((filter) => (
+                  <Button
+                    key={filter}
+                    size="$2"
+                    theme={typeFilter === filter ? 'blue' : undefined}
+                    onPress={() => selectTypeFilter(filter)}>
+                    {t(`quiz.filter.${filter}`)}
+                  </Button>
+                ))}
+              </XStack>
+
               <XStack gap="$2">
                 {DIFFICULTY_TIERS.map((tier) => (
                   <Button
@@ -169,9 +262,15 @@ export default function QuizScreen() {
                 {t('quiz.points', { count: practiceScore.points })} · {practiceScore.correct}/{practiceScore.total}
               </Paragraph>
 
+              {!practiceQuestion && <Paragraph color="$color11">{t('quiz.noQuestions')}</Paragraph>}
+
               {practiceQuestion && (
                 <>
-                  <Paragraph color="$color11">{t('quiz.prompt')}</Paragraph>
+                  {practiceQuestion.quizType !== 'knowledge' && (
+                    <Paragraph color="$color11">
+                      {t(practiceQuestion.quizType === 'constellation' ? 'quiz.prompt' : 'quiz.promptPlanet')}
+                    </Paragraph>
+                  )}
                   <QuizQuestionCard
                     question={practiceQuestion}
                     selectedId={practiceSelectedId}
@@ -179,9 +278,11 @@ export default function QuizScreen() {
                   />
                   {practiceSelectedId && (
                     <>
-                      <Paragraph color="$color11">
-                        {pickLocalized(practiceQuestion.answer.facts, i18n.language)}
-                      </Paragraph>
+                      {practiceQuestion.explanation && (
+                        <Paragraph color="$color11">
+                          {pickLocalized(practiceQuestion.explanation, i18n.language)}
+                        </Paragraph>
+                      )}
                       <Button theme="blue" onPress={handlePracticeNext}>
                         {t('quiz.next')}
                       </Button>
@@ -219,15 +320,60 @@ export default function QuizScreen() {
                   />
                   {dailySelectedId && (
                     <>
-                      <Paragraph color="$color11">
-                        {pickLocalized(dailyQuestions[dailyIndex].answer.facts, i18n.language)}
-                      </Paragraph>
+                      {dailyQuestions[dailyIndex].explanation && (
+                        <Paragraph color="$color11">
+                          {pickLocalized(dailyQuestions[dailyIndex].explanation!, i18n.language)}
+                        </Paragraph>
+                      )}
                       <Button theme="blue" onPress={handleDailyNext}>
                         {dailyIndex === dailyQuestions.length - 1 ? t('quiz.finish') : t('quiz.next')}
                       </Button>
                     </>
                   )}
                 </>
+              )}
+            </>
+          )}
+
+          {pool && itemPool && mode === 'timeAttack' && (
+            <>
+              {taState === 'idle' && (
+                <YStack ai="center" gap="$3" py="$6">
+                  <Paragraph color="$color11" textAlign="center">
+                    {t('quiz.timeAttack.intro', { seconds: TIME_ATTACK_SECONDS })}
+                  </Paragraph>
+                  <Button theme="blue" onPress={startTimeAttack}>
+                    {t('quiz.timeAttack.start')}
+                  </Button>
+                </YStack>
+              )}
+
+              {taState === 'playing' && taQuestion && (
+                <>
+                  <XStack jc="space-between" ai="center">
+                    <Paragraph fontFamily="$heading" color="$blue10">
+                      {t('quiz.timeAttack.timeLeft', { seconds: taSecondsLeft })}
+                    </Paragraph>
+                    <Paragraph fontFamily="$heading" color="$blue10">
+                      {t('quiz.points', { count: taScore.points })}
+                    </Paragraph>
+                  </XStack>
+                  <QuizQuestionCard question={taQuestion} selectedId={taSelectedId} onSelect={handleTimeAttackSelect} />
+                </>
+              )}
+
+              {taState === 'finished' && (
+                <YStack ai="center" gap="$2" py="$6">
+                  <Paragraph fontFamily="$heading" fontSize="$8" color="$blue10">
+                    {t('quiz.points', { count: taScore.points })}
+                  </Paragraph>
+                  <Paragraph color="$color11">
+                    {t('quiz.timeAttack.result', { correct: taScore.correct, total: taScore.total })}
+                  </Paragraph>
+                  <Button theme="blue" onPress={startTimeAttack}>
+                    {t('quiz.timeAttack.playAgain')}
+                  </Button>
+                </YStack>
               )}
             </>
           )}

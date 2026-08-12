@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import type { Constellation } from '@/types/models';
 
-import type { QuizQuestion } from './quiz';
+import { constellationQuestion, type QuizQuestion } from './quiz';
 
 export const DAILY_CHALLENGE_LENGTH = 5;
 
@@ -57,8 +57,7 @@ export function buildDailyQuestions(pool: Constellation[], dateKey: string): Qui
   return chosen.map((answer, index) => {
     const others = pool.filter((c) => c.id !== answer.id);
     const wrongOptions = seededShuffle(others, seed + index + 1).slice(0, 3);
-    const options = seededShuffle([answer, ...wrongOptions], seed + index + 100);
-    return { answer, options };
+    return constellationQuestion(answer, wrongOptions, (items) => seededShuffle(items, seed + index + 100));
   });
 }
 
