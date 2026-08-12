@@ -31,6 +31,12 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 120
         }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Celeste koristi kameru za AR pogled na noćno nebo."
+        }
       ]
     ],
     "experiments": {

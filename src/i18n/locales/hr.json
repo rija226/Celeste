@@ -80,7 +80,9 @@
       "listView": "Prikaz liste",
       "compassHint": "Gledaš prema {{direction}} · prevuci da se osvrneš",
       "sensorHint": "Gledaš prema {{direction}} · pomjeri telefon da se osvrneš",
-      "calibrationHint": "Kompas nije precizan — pomjeri telefon u obliku osmice"
+      "calibrationHint": "Kompas nije precizan — pomjeri telefon u obliku osmice",
+      "cameraPermissionMessage": "Treba nam pristup kameri da prikažemo AR pogled na nebo.",
+      "enableCamera": "Uključi kameru"
     }
   },
   "settings": {

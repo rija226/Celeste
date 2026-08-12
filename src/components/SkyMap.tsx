@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState } from 'react';
-import { PanResponder } from 'react-native';
+import { PanResponder, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { CameraView } from 'expo-camera';
 import { Ionicons } from '@expo/vector-icons';
 import { Circle, G, Line, Svg, Text as SvgText } from 'react-native-svg';
 import { Paragraph, XStack, YStack } from 'tamagui';
@@ -61,16 +62,21 @@ const POOR_ACCURACY_THRESHOLD_DEG = 20;
 export function SkyMap({
   objects,
   constellations = [],
+  arMode = false,
 }: {
   objects: SkyMapObject[];
   constellations?: SkyMapConstellation[];
+  // AR pogled -- kamera kao pozadina, senzori su jedini nacin gledanja
+  // (rucno prevlacenje nema smisla kad stvarno gledas kroz kameru).
+  arMode?: boolean;
 }) {
   'use no memo';
 
   const { t } = useTranslation();
   const [view, setView] = useState<ViewDirection>(DEFAULT_VIEW);
   const [fovDeg, setFovDeg] = useState(DEFAULT_FOV_DEG);
-  const [sensorMode, setSensorMode] = useState(false);
+  const [manualSensorMode, setManualSensorMode] = useState(false);
+  const sensorMode = arMode || manualSensorMode;
   const deviceHeading = useDeviceHeading(sensorMode);
   const effectiveView = sensorMode && deviceHeading ? { azimuth: deviceHeading.azimuth, altitude: deviceHeading.altitude } : view;
 
@@ -111,10 +117,11 @@ export function SkyMap({
         height={MAP_SIZE}
         borderRadius="$6"
         overflow="hidden"
-        backgroundColor={palette.void}
+        backgroundColor={arMode ? 'transparent' : palette.void}
         borderWidth={1}
         borderColor={palette.nebulaDeep}>
-        <Svg width={MAP_SIZE} height={MAP_SIZE}>
+        {arMode && <CameraView style={StyleSheet.absoluteFill} facing="back" />}
+        <Svg width={MAP_SIZE} height={MAP_SIZE} style={arMode ? StyleSheet.absoluteFill : undefined}>
           {constellations.map((c) => {
             const projected = projectToView(c.azimuth, c.altitude, effectiveView, fov);
             if (!projected.visible) return null;
@@ -177,14 +184,16 @@ export function SkyMap({
           </YStack>
         )}
 
-        <XStack position="absolute" bottom="$2" left="$2">
-          <MapButton
-            icon={sensorMode ? 'phone-portrait' : 'hand-left'}
-            onPress={() => setSensorMode((v) => !v)}
-            disabled={false}
-            active={sensorMode}
-          />
-        </XStack>
+        {!arMode && (
+          <XStack position="absolute" bottom="$2" left="$2">
+            <MapButton
+              icon={sensorMode ? 'phone-portrait' : 'hand-left'}
+              onPress={() => setManualSensorMode((v) => !v)}
+              disabled={false}
+              active={sensorMode}
+            />
+          </XStack>
+        )}
 
         <XStack position="absolute" bottom="$2" right="$2" gap="$2">
           <MapButton icon="add" onPress={() => zoom(-ZOOM_STEP_DEG)} disabled={fovDeg <= MIN_FOV_DEG} />

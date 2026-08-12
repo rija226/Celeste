@@ -80,7 +80,9 @@
       "listView": "List view",
       "compassHint": "Looking {{direction}} · drag to look around",
       "sensorHint": "Looking {{direction}} · move your phone to look around",
-      "calibrationHint": "Compass is inaccurate — move your phone in a figure-8 motion"
+      "calibrationHint": "Compass is inaccurate — move your phone in a figure-8 motion",
+      "cameraPermissionMessage": "We need camera access to show the AR sky view.",
+      "enableCamera": "Enable camera"
     }
   },
   "settings": {

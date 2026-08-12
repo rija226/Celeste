@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useCameraPermissions } from 'expo-camera';
 import { useTranslation } from 'react-i18next';
 import { Button, H2, H3, Paragraph, Spinner, XStack, YStack } from 'tamagui';
 
@@ -42,6 +43,7 @@ function formatTime(date: Date | null): string {
 }
 
 type SelectedInfo = { title: string; description?: string; card?: Card };
+type ViewMode = 'list' | 'map' | 'ar';
 
 const EN_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -58,8 +60,9 @@ export default function TonightScreen() {
   const [sky, setSky] = useState<TonightSky | null>(null);
   const [linkedCards, setLinkedCards] = useState<Partial<Record<SkyBodyKey, Card>>>({});
   const [constellations, setConstellations] = useState<Constellation[]>([]);
-  const [showMap, setShowMap] = useState(false);
+  const [viewMode, setViewMode] = useState<ViewMode>('list');
   const [selectedInfo, setSelectedInfo] = useState<SelectedInfo | null>(null);
+  const [cameraPermission, requestCameraPermission] = useCameraPermissions();
 
   const mapObjects: SkyMapObject[] = useMemo(() => {
     if (!sky || !coords) return [];
@@ -156,15 +159,33 @@ export default function TonightScreen() {
           <XStack ai="center" jc="space-between">
             <H2 color="$color">{t('tonight.title')}</H2>
             {coords && sky && (
-              <Button
-                size="$3"
-                theme={showMap ? 'blue' : undefined}
-                onPress={() => {
-                  setShowMap((v) => !v);
-                  setSelectedInfo(null);
-                }}>
-                {showMap ? t('tonight.map.listView') : t('tonight.map.toggle')}
-              </Button>
+              <XStack gap="$1.5">
+                <ViewModeButton
+                  active={viewMode === 'list'}
+                  onPress={() => {
+                    setViewMode('list');
+                    setSelectedInfo(null);
+                  }}
+                  icon="list"
+                />
+                <ViewModeButton
+                  active={viewMode === 'map'}
+                  onPress={() => {
+                    setViewMode('map');
+                    setSelectedInfo(null);
+                  }}
+                  icon="planet-outline"
+                />
+                <ViewModeButton
+                  active={viewMode === 'ar'}
+                  onPress={async () => {
+                    if (!cameraPermission?.granted) await requestCameraPermission();
+                    setViewMode('ar');
+                    setSelectedInfo(null);
+                  }}
+                  icon="camera-outline"
+                />
+              </XStack>
             )}
           </XStack>
 
@@ -179,27 +200,30 @@ export default function TonightScreen() {
             </GlassCard>
           )}
 
-          {coords && sky && showMap && (
+          {coords && sky && viewMode === 'map' && (
             <YStack ai="center" py="$2" gap="$3">
               <SkyMap objects={mapObjects} constellations={mapConstellations} />
-              {selectedInfo && (
-                <GlassCard gap="$2" width="100%">
-                  <XStack ai="center" jc="space-between">
-                    <H3 fontFamily="$heading" color="$color">
-                      {selectedInfo.title}
-                    </H3>
-                    <YStack onPress={() => setSelectedInfo(null)} pressStyle={{ opacity: 0.7 }} p="$1">
-                      <Ionicons name="close" size={20} color={palette.haze} />
-                    </YStack>
-                  </XStack>
-                  {selectedInfo.description && <Paragraph color="$color11">{selectedInfo.description}</Paragraph>}
-                  {selectedInfo.card && <LinkedFact card={selectedInfo.card} />}
-                </GlassCard>
-              )}
+              <SelectedInfoPanel info={selectedInfo} onClose={() => setSelectedInfo(null)} />
             </YStack>
           )}
 
-          {coords && sky && !showMap && (
+          {coords && sky && viewMode === 'ar' && (
+            <YStack ai="center" py="$2" gap="$3">
+              {cameraPermission?.granted ? (
+                <SkyMap objects={mapObjects} constellations={mapConstellations} arMode />
+              ) : (
+                <GlassCard gap="$3" width="100%">
+                  <Paragraph color="$color11">{t('tonight.map.cameraPermissionMessage')}</Paragraph>
+                  <Button theme="blue" onPress={requestCameraPermission}>
+                    {t('tonight.map.enableCamera')}
+                  </Button>
+                </GlassCard>
+              )}
+              <SelectedInfoPanel info={selectedInfo} onClose={() => setSelectedInfo(null)} />
+            </YStack>
+          )}
+
+          {coords && sky && viewMode === 'list' && (
             <>
               <MeteorShowerSection />
 
@@ -230,6 +254,50 @@ export default function TonightScreen() {
         </YStack>
       </ScrollView>
     </ScreenBackdrop>
+  );
+}
+
+function SelectedInfoPanel({ info, onClose }: { info: SelectedInfo | null; onClose: () => void }) {
+  if (!info) return null;
+  return (
+    <GlassCard gap="$2" width="100%">
+      <XStack ai="center" jc="space-between">
+        <H3 fontFamily="$heading" color="$color">
+          {info.title}
+        </H3>
+        <YStack onPress={onClose} pressStyle={{ opacity: 0.7 }} p="$1">
+          <Ionicons name="close" size={20} color={palette.haze} />
+        </YStack>
+      </XStack>
+      {info.description && <Paragraph color="$color11">{info.description}</Paragraph>}
+      {info.card && <LinkedFact card={info.card} />}
+    </GlassCard>
+  );
+}
+
+function ViewModeButton({
+  active,
+  onPress,
+  icon,
+}: {
+  active: boolean;
+  onPress: () => void;
+  icon: keyof typeof Ionicons.glyphMap;
+}) {
+  return (
+    <YStack
+      width={38}
+      height={38}
+      borderRadius={999}
+      ai="center"
+      jc="center"
+      backgroundColor={active ? palette.nebula : 'rgba(43,37,96,0.9)'}
+      borderWidth={1}
+      borderColor={active ? palette.nebula : 'rgba(124,108,255,0.5)'}
+      onPress={onPress}
+      pressStyle={{ opacity: 0.8 }}>
+      <Ionicons name={icon} size={18} color={palette.starlight} />
+    </YStack>
   );
 }
 

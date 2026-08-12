@@ -14,6 +14,7 @@
     "@tamagui/metro-plugin": "^1.144.4",
     "astronomy-engine": "^2.1.19",
     "expo": "~57.0.11",
+    "expo-camera": "~57.0.3",
     "expo-constants": "~57.0.9",
     "expo-font": "~57.0.1",
     "expo-image": "~57.0.2",
