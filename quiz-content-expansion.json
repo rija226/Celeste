@@ -1,0 +1,167 @@
+{
+  "note": "Prosirenje kviza: novi tipovi pitanja pored sazvijezdja. Dva nova pool-a: 'planet' (prepoznavanje planeta iz slike) i 'knowledge' (pitanja iz flashcards gradiva, visestruki izbor). Bodovanje isto (easy=1, medium=2, hard=3).",
+  "planet_questions": [
+    {
+      "slug": "identify-mercury",
+      "difficulty": "medium",
+      "image": "mercury_full_disk",
+      "deck_slug": "inner-planets",
+      "answer": { "en": "Mercury", "hr": "Merkur" },
+      "distractors": { "en": ["Mars", "Moon", "Venus"], "hr": ["Mars", "Mjesec", "Venera"] }
+    },
+    {
+      "slug": "identify-venus",
+      "difficulty": "medium",
+      "image": "venus_full_disk",
+      "deck_slug": "inner-planets",
+      "answer": { "en": "Venus", "hr": "Venera" },
+      "distractors": { "en": ["Mars", "Jupiter", "Mercury"], "hr": ["Mars", "Jupiter", "Merkur"] }
+    },
+    {
+      "slug": "identify-earth",
+      "difficulty": "easy",
+      "image": "earth_blue_marble",
+      "deck_slug": "inner-planets",
+      "answer": { "en": "Earth", "hr": "Zemlja" },
+      "distractors": { "en": ["Neptune", "Venus", "Mars"], "hr": ["Neptun", "Venera", "Mars"] }
+    },
+    {
+      "slug": "identify-mars",
+      "difficulty": "easy",
+      "image": "mars_full_disk",
+      "deck_slug": "inner-planets",
+      "answer": { "en": "Mars", "hr": "Mars" },
+      "distractors": { "en": ["Mercury", "Jupiter", "Venus"], "hr": ["Merkur", "Jupiter", "Venera"] }
+    },
+    {
+      "slug": "identify-jupiter",
+      "difficulty": "easy",
+      "image": "jupiter_full_disk",
+      "deck_slug": "outer-planets",
+      "answer": { "en": "Jupiter", "hr": "Jupiter" },
+      "distractors": { "en": ["Saturn", "Neptune", "Mars"], "hr": ["Saturn", "Neptun", "Mars"] }
+    },
+    {
+      "slug": "identify-saturn",
+      "difficulty": "easy",
+      "image": "saturn_rings",
+      "deck_slug": "outer-planets",
+      "answer": { "en": "Saturn", "hr": "Saturn" },
+      "distractors": { "en": ["Jupiter", "Uranus", "Neptune"], "hr": ["Jupiter", "Uran", "Neptun"] }
+    },
+    {
+      "slug": "identify-uranus",
+      "difficulty": "hard",
+      "image": "uranus_full_disk",
+      "deck_slug": "outer-planets",
+      "answer": { "en": "Uranus", "hr": "Uran" },
+      "distractors": { "en": ["Neptune", "Venus", "Saturn"], "hr": ["Neptun", "Venera", "Saturn"] }
+    },
+    {
+      "slug": "identify-neptune",
+      "difficulty": "hard",
+      "image": "neptune_full_disk",
+      "deck_slug": "outer-planets",
+      "answer": { "en": "Neptune", "hr": "Neptun" },
+      "distractors": { "en": ["Uranus", "Earth", "Jupiter"], "hr": ["Uran", "Zemlja", "Jupiter"] }
+    }
+  ],
+  "knowledge_questions": [
+    {
+      "slug": "k-hottest-planet",
+      "difficulty": "medium",
+      "topic": "planets",
+      "question": { "en": "Which is the hottest planet in the Solar System?", "hr": "Koja je najtoplija planeta Suncevog sistema?" },
+      "answer": { "en": "Venus", "hr": "Venera" },
+      "distractors": { "en": ["Mercury", "Mars", "Jupiter"], "hr": ["Merkur", "Mars", "Jupiter"] }
+    },
+    {
+      "slug": "k-largest-planet",
+      "difficulty": "easy",
+      "topic": "planets",
+      "question": { "en": "What is the largest planet?", "hr": "Koja je najveca planeta?" },
+      "answer": { "en": "Jupiter", "hr": "Jupiter" },
+      "distractors": { "en": ["Saturn", "Neptune", "Earth"], "hr": ["Saturn", "Neptun", "Zemlja"] }
+    },
+    {
+      "slug": "k-sunlight-time",
+      "difficulty": "medium",
+      "topic": "sun",
+      "question": { "en": "How long does sunlight take to reach Earth?", "hr": "Koliko svjetlost sa Sunca putuje do Zemlje?" },
+      "answer": { "en": "About 8 minutes", "hr": "Oko 8 minuta" },
+      "distractors": { "en": ["Instantly", "About 1 hour", "About 1 second"], "hr": ["Trenutno", "Oko 1 sat", "Oko 1 sekunde"] }
+    },
+    {
+      "slug": "k-galaxy-name",
+      "difficulty": "easy",
+      "topic": "galaxies",
+      "question": { "en": "What galaxy do we live in?", "hr": "U kojoj galaksiji zivimo?" },
+      "answer": { "en": "The Milky Way", "hr": "Mlijecni put" },
+      "distractors": { "en": ["Andromeda", "Whirlpool", "Sombrero"], "hr": ["Andromeda", "Vrtlog", "Sombrero"] }
+    },
+    {
+      "slug": "k-event-horizon",
+      "difficulty": "hard",
+      "topic": "black-holes",
+      "question": { "en": "What is the 'point of no return' around a black hole called?", "hr": "Kako se zove 'tacka bez povratka' oko crne rupe?" },
+      "answer": { "en": "Event horizon", "hr": "Horizont dogadjaja" },
+      "distractors": { "en": ["Singularity", "Photon ring", "Accretion disk"], "hr": ["Singularitet", "Fotonski prsten", "Akrecijski disk"] }
+    },
+    {
+      "slug": "k-universe-age",
+      "difficulty": "medium",
+      "topic": "cosmology",
+      "question": { "en": "How old is the universe?", "hr": "Koliko je star svemir?" },
+      "answer": { "en": "About 13.8 billion years", "hr": "Oko 13,8 milijardi godina" },
+      "distractors": { "en": ["About 6 billion years", "About 100 billion years", "About 1 billion years"], "hr": ["Oko 6 milijardi godina", "Oko 100 milijardi godina", "Oko 1 milijardu godina"] }
+    },
+    {
+      "slug": "k-floats-water",
+      "difficulty": "medium",
+      "topic": "planets",
+      "question": { "en": "Which planet could float on water?", "hr": "Koja bi planeta plutala na vodi?" },
+      "answer": { "en": "Saturn", "hr": "Saturn" },
+      "distractors": { "en": ["Jupiter", "Neptune", "Mars"], "hr": ["Jupiter", "Neptun", "Mars"] }
+    },
+    {
+      "slug": "k-brightest-star",
+      "difficulty": "hard",
+      "topic": "stars",
+      "question": { "en": "What is the brightest star in our night sky?", "hr": "Koja je najsjajnija zvijezda na nasem nocnom nebu?" },
+      "answer": { "en": "Sirius", "hr": "Sirijus" },
+      "distractors": { "en": ["Polaris", "Betelgeuse", "Vega"], "hr": ["Polaris", "Betelgez", "Vega"] }
+    },
+    {
+      "slug": "k-red-planet",
+      "difficulty": "easy",
+      "topic": "planets",
+      "question": { "en": "Which planet is known as the Red Planet?", "hr": "Koja planeta je poznata kao Crvena planeta?" },
+      "answer": { "en": "Mars", "hr": "Mars" },
+      "distractors": { "en": ["Venus", "Mercury", "Jupiter"], "hr": ["Venera", "Merkur", "Jupiter"] }
+    },
+    {
+      "slug": "k-nearest-star",
+      "difficulty": "hard",
+      "topic": "stars",
+      "question": { "en": "What is the closest star to our Sun?", "hr": "Koja je najbliza zvijezda nasem Suncu?" },
+      "answer": { "en": "Proxima Centauri", "hr": "Proksima Kentauri" },
+      "distractors": { "en": ["Sirius", "Alpha Centauri A", "Barnard's Star"], "hr": ["Sirijus", "Alfa Kentaura A", "Barnardova zvijezda"] }
+    },
+    {
+      "slug": "k-dark-energy",
+      "difficulty": "hard",
+      "topic": "cosmology",
+      "question": { "en": "What makes up about 68% of the universe?", "hr": "Sta cini oko 68% svemira?" },
+      "answer": { "en": "Dark energy", "hr": "Tamna energija" },
+      "distractors": { "en": ["Dark matter", "Ordinary matter", "Black holes"], "hr": ["Tamna materija", "Obicna materija", "Crne rupe"] }
+    },
+    {
+      "slug": "k-moon-same-face",
+      "difficulty": "medium",
+      "topic": "earth-moon",
+      "question": { "en": "Why does the Moon always show the same face?", "hr": "Zasto nam Mjesec uvijek pokazuje isto lice?" },
+      "answer": { "en": "Tidal locking", "hr": "Plimno zakljucavanje" },
+      "distractors": { "en": ["It doesn't rotate", "It spins very fast", "Earth's shadow"], "hr": ["Ne rotira se", "Vrti se vrlo brzo", "Zemljina sjena"] }
+    }
+  ]
+}

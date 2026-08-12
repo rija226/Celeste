@@ -79,7 +79,9 @@ export default function QuizScreen() {
     if (userId) {
       await insertQuizResult({
         userId,
+        quizType: 'constellation',
         constellationId: practiceQuestion.answer.id,
+        quizItemId: null,
         mode: 'practice',
         difficulty,
         isCorrect,
@@ -105,7 +107,9 @@ export default function QuizScreen() {
     if (userId) {
       await insertQuizResult({
         userId,
+        quizType: 'constellation',
         constellationId: question.answer.id,
+        quizItemId: null,
         mode: 'daily',
         difficulty: question.answer.difficulty,
         isCorrect,

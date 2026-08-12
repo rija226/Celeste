@@ -5,7 +5,9 @@ import { supabase } from './supabase';
 export async function insertQuizResult(result: Omit<QuizResult, 'id'>): Promise<void> {
   const row = {
     user_id: result.userId,
+    quiz_type: result.quizType,
     constellation_id: result.constellationId,
+    quiz_item_id: result.quizItemId,
     mode: result.mode,
     difficulty: result.difficulty,
     is_correct: result.isCorrect,

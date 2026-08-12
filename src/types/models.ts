@@ -72,15 +72,37 @@ export type Constellation = {
   lines: ConstellationLine[];
 };
 
-export type QuizMode = 'practice' | 'daily';
+export type QuizMode = 'practice' | 'daily' | 'timeAttack';
+
+// Tri izvora kviz pitanja -- constellation ostaje kako je bilo (facts +
+// stars/lines shape), planet/knowledge dijele generican quiz_items model
+// (id je constellation.id ILI quiz_item.id, zavisno od quizType).
+export type QuizResultKind = 'constellation' | 'planet' | 'knowledge';
 
 export type QuizResult = {
   id: string;
   userId: string;
-  constellationId: string;
+  quizType: QuizResultKind;
+  constellationId: string | null;
+  quizItemId: string | null;
   mode: QuizMode;
   difficulty: QuizDifficulty;
   isCorrect: boolean;
   points: number;
   answeredAt: string;
+};
+
+export type QuizItemType = 'planet' | 'knowledge';
+
+export type QuizItem = {
+  id: string;
+  slug: string;
+  quizType: QuizItemType;
+  difficulty: QuizDifficulty;
+  topic: string | null;
+  question: LocalizedText | null;
+  answer: LocalizedText;
+  distractors: { en: string[]; hr: string[] };
+  imageName: string | null;
+  deckSlug: string | null;
 };

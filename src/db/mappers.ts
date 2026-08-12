@@ -8,8 +8,11 @@ import type {
   Deck,
   LocalizedText,
   QuizDifficulty,
+  QuizItem,
+  QuizItemType,
   QuizMode,
   QuizResult,
+  QuizResultKind,
   ReviewLog,
 } from '@/types/models';
 
@@ -150,7 +153,9 @@ export function mapConstellationRow(row: ConstellationRow): Constellation {
 export type QuizResultRow = {
   id: string;
   user_id: string;
-  constellation_id: string;
+  quiz_type: QuizResultKind;
+  constellation_id: string | null;
+  quiz_item_id: string | null;
   mode: QuizMode;
   difficulty: QuizDifficulty;
   is_correct: boolean;
@@ -162,11 +167,41 @@ export function mapQuizResultRow(row: QuizResultRow): QuizResult {
   return {
     id: row.id,
     userId: row.user_id,
+    quizType: row.quiz_type,
     constellationId: row.constellation_id,
+    quizItemId: row.quiz_item_id,
     mode: row.mode,
     difficulty: row.difficulty,
     isCorrect: row.is_correct,
     points: row.points,
     answeredAt: row.answered_at,
+  };
+}
+
+export type QuizItemRow = {
+  id: string;
+  slug: string;
+  quiz_type: QuizItemType;
+  difficulty: QuizDifficulty;
+  topic: string | null;
+  question: LocalizedText | null;
+  answer: LocalizedText;
+  distractors: { en: string[]; hr: string[] };
+  image_name: string | null;
+  deck_slug: string | null;
+};
+
+export function mapQuizItemRow(row: QuizItemRow): QuizItem {
+  return {
+    id: row.id,
+    slug: row.slug,
+    quizType: row.quiz_type,
+    difficulty: row.difficulty,
+    topic: row.topic,
+    question: row.question,
+    answer: row.answer,
+    distractors: row.distractors,
+    imageName: row.image_name,
+    deckSlug: row.deck_slug,
   };
 }
