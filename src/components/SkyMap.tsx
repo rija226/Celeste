@@ -17,6 +17,7 @@ export type SkyMapObject = {
   label: string;
   color: string;
   radius: number;
+  onPress?: () => void;
 };
 
 export type SkyMapConstellation = {
@@ -26,7 +27,13 @@ export type SkyMapConstellation = {
   name: string;
   stars: ConstellationStar[];
   lines: ConstellationLine[];
+  onPress?: () => void;
 };
+
+// Vidljivi markeri su cesto premali za pouzdan tap (npr. planeta r=5px) --
+// nevidljiv veci krug preko njih daje ugodniji touch target bez mijenjanja
+// izgleda.
+const TOUCH_TARGET_RADIUS = 18;
 
 const MAP_SIZE = 340;
 // Sazvijezdje se crta kao mala ikona centrirana na svoju (priblizno) tacnu
@@ -110,7 +117,7 @@ export function SkyMap({
             const starX = (star: ConstellationStar) => cx + (star.x - 50) * scale;
             const starY = (star: ConstellationStar) => cy + (star.y - 50) * scale;
             return (
-              <G key={c.slug}>
+              <G key={c.slug} onPress={c.onPress}>
                 {c.lines.map(([a, b], index) => (
                   <Line
                     key={index}
@@ -134,6 +141,7 @@ export function SkyMap({
                   textAnchor="middle">
                   {c.name}
                 </SvgText>
+                <Circle cx={cx} cy={cy} r={TOUCH_TARGET_RADIUS} fill="transparent" />
               </G>
             );
           })}
@@ -143,11 +151,12 @@ export function SkyMap({
             const cx = half + projected.x * half;
             const cy = half + projected.y * half;
             return (
-              <G key={obj.id}>
+              <G key={obj.id} onPress={obj.onPress}>
                 <Circle cx={cx} cy={cy} r={obj.radius} fill={obj.color} />
                 <SvgText x={cx} y={cy + obj.radius + 12} fontSize={11} fill={palette.starlight} textAnchor="middle">
                   {obj.label}
                 </SvgText>
+                <Circle cx={cx} cy={cy} r={TOUCH_TARGET_RADIUS} fill="transparent" />
               </G>
             );
           })}

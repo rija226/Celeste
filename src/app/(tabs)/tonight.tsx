@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ScrollView } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
-import { Button, H2, Paragraph, Spinner, XStack, YStack } from 'tamagui';
+import { Button, H2, H3, Paragraph, Spinner, XStack, YStack } from 'tamagui';
 
 import { GlassCard } from '@/components/GlassCard';
 import { LinkedFact } from '@/components/LinkedFact';
@@ -40,6 +41,8 @@ function formatTime(date: Date | null): string {
   return `${hours}:${minutes}`;
 }
 
+type SelectedInfo = { title: string; description?: string; card?: Card };
+
 const EN_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 function formatShowerDate(date: Date, language: string): string {
@@ -56,15 +59,25 @@ export default function TonightScreen() {
   const [linkedCards, setLinkedCards] = useState<Partial<Record<SkyBodyKey, Card>>>({});
   const [constellations, setConstellations] = useState<Constellation[]>([]);
   const [showMap, setShowMap] = useState(false);
+  const [selectedInfo, setSelectedInfo] = useState<SelectedInfo | null>(null);
 
   const mapObjects: SkyMapObject[] = useMemo(() => {
     if (!sky || !coords) return [];
     const sun = getSunPosition(coords.latitude, coords.longitude);
     const objects: SkyMapObject[] = [
-      { id: 'sun', azimuth: sun.azimuth, altitude: sun.altitude, label: t('tonight.bodies.sun'), color: '#FFD54F', radius: 10 },
+      {
+        id: 'sun',
+        azimuth: sun.azimuth,
+        altitude: sun.altitude,
+        label: t('tonight.bodies.sun'),
+        color: '#FFD54F',
+        radius: 10,
+        onPress: () => setSelectedInfo({ title: t('tonight.bodies.sun') }),
+      },
     ];
     for (const body of sky.bodies) {
       const isMoon = body.key === 'moon';
+      const linkedCard = linkedCards[body.key];
       objects.push({
         id: body.key,
         azimuth: body.azimuth,
@@ -72,10 +85,11 @@ export default function TonightScreen() {
         label: t(`tonight.bodies.${body.key}`),
         color: isMoon ? palette.starlight : (PLANET_COLORS[body.key] ?? palette.nebula),
         radius: isMoon ? 8 : 5,
+        onPress: () => setSelectedInfo({ title: t(`tonight.bodies.${body.key}`), card: linkedCard }),
       });
     }
     return objects;
-  }, [sky, coords, t]);
+  }, [sky, coords, t, linkedCards]);
 
   const mapConstellations: SkyMapConstellation[] = useMemo(() => {
     if (!coords || constellations.length === 0) return [];
@@ -83,16 +97,18 @@ export default function TonightScreen() {
       getConstellationSkyPositions(coords.latitude, coords.longitude).map((p) => [p.slug, p]),
     );
     return constellations
-      .map((c) => {
+      .map((c): SkyMapConstellation | null => {
         const position = positionsBySlug.get(c.slug);
         if (!position || !position.isUp) return null;
+        const name = pickLocalized(c.name, i18n.language);
         return {
           slug: c.slug,
           azimuth: position.azimuth,
           altitude: position.altitude,
-          name: pickLocalized(c.name, i18n.language),
+          name,
           stars: c.stars,
           lines: c.lines,
+          onPress: () => setSelectedInfo({ title: name, description: pickLocalized(c.facts, i18n.language) }),
         };
       })
       .filter((c): c is SkyMapConstellation => c !== null);
@@ -140,7 +156,13 @@ export default function TonightScreen() {
           <XStack ai="center" jc="space-between">
             <H2 color="$color">{t('tonight.title')}</H2>
             {coords && sky && (
-              <Button size="$3" theme={showMap ? 'blue' : undefined} onPress={() => setShowMap((v) => !v)}>
+              <Button
+                size="$3"
+                theme={showMap ? 'blue' : undefined}
+                onPress={() => {
+                  setShowMap((v) => !v);
+                  setSelectedInfo(null);
+                }}>
                 {showMap ? t('tonight.map.listView') : t('tonight.map.toggle')}
               </Button>
             )}
@@ -158,8 +180,22 @@ export default function TonightScreen() {
           )}
 
           {coords && sky && showMap && (
-            <YStack ai="center" py="$2">
+            <YStack ai="center" py="$2" gap="$3">
               <SkyMap objects={mapObjects} constellations={mapConstellations} />
+              {selectedInfo && (
+                <GlassCard gap="$2" width="100%">
+                  <XStack ai="center" jc="space-between">
+                    <H3 fontFamily="$heading" color="$color">
+                      {selectedInfo.title}
+                    </H3>
+                    <YStack onPress={() => setSelectedInfo(null)} pressStyle={{ opacity: 0.7 }} p="$1">
+                      <Ionicons name="close" size={20} color={palette.haze} />
+                    </YStack>
+                  </XStack>
+                  {selectedInfo.description && <Paragraph color="$color11">{selectedInfo.description}</Paragraph>}
+                  {selectedInfo.card && <LinkedFact card={selectedInfo.card} />}
+                </GlassCard>
+              )}
             </YStack>
           )}
 
