@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { Text } from 'react-native';
 import { Paragraph, XStack, YStack } from 'tamagui';
 
 import { GlassCard } from '@/components/GlassCard';
@@ -10,7 +11,9 @@ export function StreakHero({ streak, activity }: { streak: number; activity: Dai
 
   return (
     <GlassCard ai="center" gap="$2" py="$5">
-      <Paragraph fontSize={40}>🔥</Paragraph>
+      {/* Obican RN Text, ne Tamagui Paragraph -- custom font (Inter) zna
+          sprijeciti ispravan fallback na sistemski emoji font na Androidu. */}
+      <Text style={{ fontSize: 40 }}>🔥</Text>
       {streak > 0 ? (
         <>
           <Paragraph fontFamily="$heading" fontSize="$10" color={palette.starlight} lineHeight="$10">

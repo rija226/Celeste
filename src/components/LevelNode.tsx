@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
+import { Text } from 'react-native';
 import { Paragraph, YStack } from 'tamagui';
 
 import { pickLocalized } from '@/lib/localized';
@@ -52,7 +53,11 @@ export function LevelNode({
         {locked ? (
           <Ionicons name="lock-closed" size={28} color={palette.haze} />
         ) : (
-          <Paragraph fontSize={36}>{deck.emoji ?? '⭐'}</Paragraph>
+          // Obican RN Text bez custom fontFamily -- Tamagui Paragraph
+          // nasljedjuje Inter (ucitan Google Font), a na Androidu custom
+          // fontFamily zna sprijeciti ispravan fallback na sistemski emoji
+          // font, pa se emoji renderuje krivo/deformisano.
+          <Text style={{ fontSize: 36 }}>{deck.emoji ?? '⭐'}</Text>
         )}
         {state === 'completed' && (
           <YStack
