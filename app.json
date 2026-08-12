@@ -15,6 +15,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
+      "edgeToEdgeEnabled": true,
       "package": "com.aleksandar226.celeste"
     },
     "web": {
