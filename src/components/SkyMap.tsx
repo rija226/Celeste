@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from 'react';
-import { PanResponder, StyleSheet } from 'react-native';
+import { Dimensions, PanResponder, StyleSheet } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { CameraView } from 'expo-camera';
 import { Ionicons } from '@expo/vector-icons';
@@ -38,6 +38,10 @@ export type SkyMapConstellation = {
 const TOUCH_TARGET_RADIUS = 18;
 
 const MAP_SIZE = 340;
+// AR treba da djeluje uronjeno (skoro cio ekran) -- obicna mapa ostaje
+// kompaktna kartica koja se lijepo uklapa u listu iznad/ispod nje.
+const AR_HORIZONTAL_PADDING = 16;
+const AR_HEIGHT_RATIO = 0.72;
 // Sazvijezdje se crta kao mala ikona centrirana na svoju (priblizno) tacnu
 // poziciju -- stars su 0-100 normalizovane koordinate (isti format kao
 // kviz), pa se skaliraju oko svog sredista (50,50) na ovu velicinu u px.
@@ -102,8 +106,13 @@ export function SkyMap({
     [],
   );
 
-  const fov: FieldOfView = { horizontalDeg: fovDeg, verticalDeg: fovDeg };
-  const half = MAP_SIZE / 2;
+  const mapWidth = arMode ? Dimensions.get('window').width - AR_HORIZONTAL_PADDING * 2 : MAP_SIZE;
+  const mapHeight = arMode ? Dimensions.get('window').height * AR_HEIGHT_RATIO : MAP_SIZE;
+  // Vertikalni FOV se skalira proporcionalno sirini/visini da markeri ne
+  // izgledaju rastegnuti kad prikaz nije kvadratan (AR je visok pravougaonik).
+  const fov: FieldOfView = { horizontalDeg: fovDeg, verticalDeg: fovDeg * (mapHeight / mapWidth) };
+  const halfW = mapWidth / 2;
+  const halfH = mapHeight / 2;
 
   function zoom(deltaDeg: number) {
     setFovDeg((prev) => Math.max(MIN_FOV_DEG, Math.min(MAX_FOV_DEG, prev + deltaDeg)));
@@ -113,20 +122,20 @@ export function SkyMap({
     <YStack gap="$2">
       <YStack
         {...(!sensorMode ? panResponder.panHandlers : {})}
-        width={MAP_SIZE}
-        height={MAP_SIZE}
+        width={mapWidth}
+        height={mapHeight}
         borderRadius="$6"
         overflow="hidden"
         backgroundColor={arMode ? 'transparent' : palette.void}
         borderWidth={1}
         borderColor={palette.nebulaDeep}>
         {arMode && <CameraView style={StyleSheet.absoluteFill} facing="back" />}
-        <Svg width={MAP_SIZE} height={MAP_SIZE} style={arMode ? StyleSheet.absoluteFill : undefined}>
+        <Svg width={mapWidth} height={mapHeight} style={arMode ? StyleSheet.absoluteFill : undefined}>
           {constellations.map((c) => {
             const projected = projectToView(c.azimuth, c.altitude, effectiveView, fov);
             if (!projected.visible) return null;
-            const cx = half + projected.x * half;
-            const cy = half + projected.y * half;
+            const cx = halfW + projected.x * halfW;
+            const cy = halfH + projected.y * halfH;
             const scale = CONSTELLATION_ICON_SIZE / 100;
             const starX = (star: ConstellationStar) => cx + (star.x - 50) * scale;
             const starY = (star: ConstellationStar) => cy + (star.y - 50) * scale;
@@ -162,8 +171,8 @@ export function SkyMap({
           {objects.map((obj) => {
             const projected = projectToView(obj.azimuth, obj.altitude, effectiveView, fov);
             if (!projected.visible) return null;
-            const cx = half + projected.x * half;
-            const cy = half + projected.y * half;
+            const cx = halfW + projected.x * halfW;
+            const cy = halfH + projected.y * halfH;
             return (
               <G key={obj.id} onPress={obj.onPress}>
                 <Circle cx={cx} cy={cy} r={obj.radius} fill={obj.color} />
