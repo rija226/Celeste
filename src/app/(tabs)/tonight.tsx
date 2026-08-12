@@ -24,6 +24,7 @@ import {
 } from '@/lib/astronomy';
 import { getCurrentCoordinates, type Coordinates } from '@/lib/location';
 import { pickLocalized } from '@/lib/localized';
+import { useAmbientSound } from '@/lib/sound';
 import { palette } from '@/theme/palette';
 import type { Card, Constellation } from '@/types/models';
 
@@ -63,6 +64,8 @@ export default function TonightScreen() {
   const [viewMode, setViewMode] = useState<ViewMode>('list');
   const [selectedInfo, setSelectedInfo] = useState<SelectedInfo | null>(null);
   const [cameraPermission, requestCameraPermission] = useCameraPermissions();
+
+  useAmbientSound();
 
   const mapObjects: SkyMapObject[] = useMemo(() => {
     if (!sky || !coords) return [];

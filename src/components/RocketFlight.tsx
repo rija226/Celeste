@@ -13,6 +13,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { Line } from 'react-native-svg';
 
+import { playSfx } from '@/lib/sound';
 import { palette } from '@/theme/palette';
 
 const AnimatedLine = Animated.createAnimatedComponent(Line);
@@ -31,6 +32,7 @@ export function useUnlockFlight(active: boolean, reducedMotion: boolean, onCompl
 
   useEffect(() => {
     if (!active) return;
+    playSfx('rocketLaunch');
     const flightDuration = reducedMotion ? 0 : FLIGHT_DURATION;
     progress.value = withTiming(1, { duration: flightDuration, easing: Easing.out(Easing.quad) });
     flash.value = withDelay(

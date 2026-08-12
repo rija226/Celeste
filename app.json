@@ -37,7 +37,8 @@
         {
           "cameraPermission": "Celeste koristi kameru za AR pogled na noćno nebo."
         }
-      ]
+      ],
+      "expo-audio"
     ],
     "experiments": {
       "typedRoutes": true,

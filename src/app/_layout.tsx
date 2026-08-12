@@ -8,7 +8,9 @@ import { SpaceBackdrop } from '@/components/SpaceBackdrop';
 import { WelcomeModal } from '@/components/WelcomeModal';
 import { ensureSession } from '@/db';
 import { initI18n } from '@/i18n';
+import { configureAudioMode, preloadSounds } from '@/lib/sound';
 import { hasSeenWelcome, markWelcomeSeen } from '@/lib/welcome';
+import { useSoundStore } from '@/store/sound';
 import { palette } from '@/theme/palette';
 import { tamaguiConfig } from '@/theme/tamagui.config';
 import { useAppFonts } from '@/theme/fonts';
@@ -19,8 +21,10 @@ export default function RootLayout() {
   const [showWelcome, setShowWelcome] = useState(false);
 
   useEffect(() => {
-    Promise.all([initI18n(), ensureSession()]).then(() => setDataReady(true));
+    Promise.all([initI18n(), ensureSession(), useSoundStore.getState().hydrate()]).then(() => setDataReady(true));
     hasSeenWelcome().then((seen) => setShowWelcome(!seen));
+    configureAudioMode();
+    preloadSounds();
   }, []);
 
   if (!fontsLoaded || !dataReady) {

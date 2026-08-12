@@ -18,6 +18,7 @@ import {
   upsertCardProgress,
 } from '@/db';
 import { pickLocalized } from '@/lib/localized';
+import { playSfx, useAmbientSound } from '@/lib/sound';
 import { formatIntervalFromMs, previewIntervals, Rating, scheduleReview, type IntervalUnit } from '@/srs';
 import { checkAndCelebrateStreak } from '@/lib/streakCelebration';
 import { useStudySessionStore } from '@/store/studySession';
@@ -48,6 +49,8 @@ export default function StudyScreen() {
   const [progressByCardId, setProgressByCardId] = useState<Map<string, CardProgress>>(new Map());
   const hadNewCardsRef = useRef(false);
   const sessionCelebratedRef = useRef(false);
+
+  useAmbientSound();
 
   useEffect(() => {
     (async () => {
@@ -91,6 +94,7 @@ export default function StudyScreen() {
 
   async function handleRate(rating: Rating.Again | Rating.Hard | Rating.Good | Rating.Easy) {
     if (!userId || !currentCard) return;
+    playSfx('ratingConfirm');
     const existing = progressByCardId.get(currentCard.id) ?? null;
     const { progress, reviewLog } = scheduleReview(existing, userId, currentCard.id, rating);
     await upsertCardProgress(progress);

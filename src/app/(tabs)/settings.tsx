@@ -8,11 +8,16 @@ import { ScreenBackdrop } from '@/components/ScreenBackdrop';
 import { Toggle } from '@/components/Toggle';
 import { changeLanguage } from '@/i18n';
 import { isDailyReminderEnabled, setDailyReminderEnabled } from '@/lib/notifications';
+import { useSoundStore } from '@/store/sound';
 
 export default function SettingsScreen() {
   const { t, i18n } = useTranslation();
   const [reminderEnabled, setReminderEnabled] = useState(false);
   const [permissionDenied, setPermissionDenied] = useState(false);
+  const sfxEnabled = useSoundStore((s) => s.sfxEnabled);
+  const ambientEnabled = useSoundStore((s) => s.ambientEnabled);
+  const setSfxEnabled = useSoundStore((s) => s.setSfxEnabled);
+  const setAmbientEnabled = useSoundStore((s) => s.setAmbientEnabled);
 
   useEffect(() => {
     isDailyReminderEnabled().then(setReminderEnabled);
@@ -69,6 +74,18 @@ export default function SettingsScreen() {
                 {t('settings.dailyReminderDeniedNote')}
               </Paragraph>
             ) : null}
+          </YStack>
+
+          <YStack gap="$2">
+            <Paragraph color="$color11">{t('settings.sound.title')}</Paragraph>
+            <XStack ai="center" jc="space-between">
+              <Paragraph color="$color">{t('settings.sound.sfx')}</Paragraph>
+              <Toggle value={sfxEnabled} onValueChange={setSfxEnabled} />
+            </XStack>
+            <XStack ai="center" jc="space-between">
+              <Paragraph color="$color">{t('settings.sound.ambient')}</Paragraph>
+              <Toggle value={ambientEnabled} onValueChange={setAmbientEnabled} />
+            </XStack>
           </YStack>
 
           <AccountSection />

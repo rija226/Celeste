@@ -108,6 +108,11 @@
     "dailyReminderTime": "Svaki dan u 19:00",
     "dailyReminderWebNote": "Dostupno na mobilnim uređajima",
     "dailyReminderDeniedNote": "Dozvola za notifikacije je odbijena — uključi je u sistemskim podešavanjima",
+    "sound": {
+      "title": "Zvuk",
+      "sfx": "Zvučni efekti",
+      "ambient": "Ambijentalna pozadina"
+    },
     "account": {
       "title": "Nalog",
       "guestLabel": "Koristiš gost-nalog — tvoj napredak je sačuvan samo na ovom uređaju.",

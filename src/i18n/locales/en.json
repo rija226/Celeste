@@ -108,6 +108,11 @@
     "dailyReminderTime": "Every day at 19:00",
     "dailyReminderWebNote": "Available on mobile devices",
     "dailyReminderDeniedNote": "Notification permission was denied — enable it in system settings",
+    "sound": {
+      "title": "Sound",
+      "sfx": "Sound effects",
+      "ambient": "Ambient background"
+    },
     "account": {
       "title": "Account",
       "guestLabel": "You're using a guest account — your progress is saved on this device only.",

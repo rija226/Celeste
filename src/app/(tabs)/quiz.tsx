@@ -15,6 +15,7 @@ import {
 } from '@/lib/dailyChallenge';
 import { pickLocalized } from '@/lib/localized';
 import { pickMixedQuestion, POINTS_BY_DIFFICULTY, type QuizQuestion } from '@/lib/quiz';
+import { playSfx } from '@/lib/sound';
 import { checkAndCelebrateStreak } from '@/lib/streakCelebration';
 import type { Constellation, QuizDifficulty, QuizItem, QuizItemType } from '@/types/models';
 
@@ -110,6 +111,7 @@ export default function QuizScreen() {
     if (!practiceQuestion || practiceSelectedId) return;
     setPracticeSelectedId(optionId);
     const isCorrect = optionId === practiceQuestion.correctOptionId;
+    playSfx(isCorrect ? 'quizCorrect' : 'quizIncorrect');
     const points = isCorrect ? POINTS_BY_DIFFICULTY[difficulty] : 0;
     setPracticeScore((s) => ({
       correct: s.correct + (isCorrect ? 1 : 0),
@@ -141,6 +143,7 @@ export default function QuizScreen() {
     if (!question || dailySelectedId) return;
     setDailySelectedId(optionId);
     const isCorrect = optionId === question.correctOptionId;
+    playSfx(isCorrect ? 'quizCorrect' : 'quizIncorrect');
     if (isCorrect) {
       setDailyCorrect((c) => c + 1);
     }
@@ -185,6 +188,7 @@ export default function QuizScreen() {
     if (!taQuestion || taSelectedId || taState !== 'playing' || !pool || !itemPool) return;
     setTaSelectedId(optionId);
     const isCorrect = optionId === taQuestion.correctOptionId;
+    playSfx(isCorrect ? 'quizCorrect' : 'quizIncorrect');
     const points = isCorrect ? POINTS_BY_DIFFICULTY[taQuestion.difficulty] : 0;
     setTaScore((s) => ({
       correct: s.correct + (isCorrect ? 1 : 0),

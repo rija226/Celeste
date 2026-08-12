@@ -5,6 +5,7 @@ import { AnimatePresence, Paragraph, YStack } from 'tamagui';
 
 import { GlassCard } from '@/components/GlassCard';
 import { useReducedMotion } from '@/lib/motion';
+import { playSfx } from '@/lib/sound';
 import { useCelebrationStore, type Celebration } from '@/store/celebration';
 
 const AUTO_DISMISS_MS = 3500;
@@ -50,6 +51,7 @@ export function CelebrationToast() {
 
   useEffect(() => {
     if (!active) return;
+    playSfx('celebration');
     const timer = setTimeout(dismiss, AUTO_DISMISS_MS);
     return () => clearTimeout(timer);
   }, [active, dismiss]);
