@@ -21,7 +21,7 @@ import { computeStreak } from '@/lib/stats';
 import { palette } from '@/theme/palette';
 import type { Deck } from '@/types/models';
 
-const DOCK_SCRIM_HEIGHT = 130;
+const DOCK_SCRIM_HEIGHT = 64;
 
 export default function HomeScreen() {
   const router = useRouter();
