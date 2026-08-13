@@ -43,6 +43,7 @@
     "dailyComeBack": "Come back tomorrow for a new one.",
     "promptPlanet": "Which planet is this?",
     "noQuestions": "No questions for this filter yet.",
+    "identify": "Identify",
     "filter": {
       "all": "All",
       "constellation": "Constellations",
@@ -53,7 +54,9 @@
       "mode": "Time Attack",
       "intro": "Answer as many questions as you can in {{seconds}} seconds.",
       "start": "Start",
-      "timeLeft": "{{seconds}}s",
+      "secondsLeft": "Seconds left",
+      "keepGoing": "Keep going!",
+      "correct": "correct",
       "result": "{{correct}}/{{total}} correct",
       "playAgain": "Play again"
     }

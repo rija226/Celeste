@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ScrollView } from 'react-native';
+import { Pressable, ScrollView } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
-import { Button, H2, Paragraph, Spinner, XStack, YStack } from 'tamagui';
+import { H2, Paragraph, Spinner, XStack, YStack } from 'tamagui';
 
 import { QuizQuestionCard } from '@/components/QuizQuestionCard';
 import { ScreenBackdrop } from '@/components/ScreenBackdrop';
+import { XpRing } from '@/components/XpRing';
 import { ensureSession, getConstellations, getQuizItems, insertQuizResult } from '@/db';
 import {
   buildDailyQuestions,
@@ -17,6 +19,7 @@ import { pickLocalized } from '@/lib/localized';
 import { pickMixedQuestion, POINTS_BY_DIFFICULTY, type QuizQuestion } from '@/lib/quiz';
 import { playSfx } from '@/lib/sound';
 import { checkAndCelebrateStreak } from '@/lib/streakCelebration';
+import { palette } from '@/theme/palette';
 import type { Constellation, QuizDifficulty, QuizItem, QuizItemType } from '@/types/models';
 
 type Mode = 'practice' | 'daily' | 'timeAttack';
@@ -26,6 +29,44 @@ const DIFFICULTY_TIERS: QuizDifficulty[] = ['easy', 'medium', 'hard'];
 const TYPE_FILTERS: TypeFilter[] = ['all', 'constellation', 'planet', 'knowledge'];
 const TIME_ATTACK_SECONDS = 60;
 const TIME_ATTACK_ADVANCE_DELAY_MS = 700;
+
+const DIFFICULTY_COLOR: Record<QuizDifficulty, string> = {
+  easy: palette.aurora,
+  medium: palette.amber,
+  hard: palette.comet,
+};
+
+const MODE_TABS: { key: Mode; labelKey: string }[] = [
+  { key: 'practice', labelKey: 'quiz.practice' },
+  { key: 'daily', labelKey: 'quiz.dailyChallenge' },
+  { key: 'timeAttack', labelKey: 'quiz.timeAttack.mode' },
+];
+
+const PROMPT_CAPTION = '#A5A5A5';
+
+function PillButton({
+  label,
+  icon,
+  color,
+  onPress,
+}: {
+  label: string;
+  icon?: keyof typeof Ionicons.glyphMap;
+  color: string;
+  onPress: () => void;
+}) {
+  const textColor = color === palette.amber ? palette.void : palette.starlight;
+  return (
+    <Pressable onPress={onPress}>
+      <XStack height={50} borderRadius={999} backgroundColor={color} ai="center" jc="center" gap="$2">
+        <Paragraph fontWeight="700" fontSize={15} color={textColor}>
+          {label}
+        </Paragraph>
+        {icon && <Ionicons name={icon} size={16} color={textColor} />}
+      </XStack>
+    </Pressable>
+  );
+}
 
 export default function QuizScreen() {
   const { t, i18n } = useTranslation();
@@ -214,22 +255,47 @@ export default function QuizScreen() {
     }, TIME_ATTACK_ADVANCE_DELAY_MS);
   }
 
+  const headerPoints = mode === 'practice' ? practiceScore.points : mode === 'timeAttack' ? taScore.points : null;
+
   return (
     <ScreenBackdrop>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <YStack f={1} pt="$8" px="$4" pb="$8" gap="$4">
-          <H2 color="$color">{t('quiz.title')}</H2>
+        <YStack f={1} pt="$8" px="$4" pb="$8" gap="$3.5">
+          <XStack ai="center" jc="space-between">
+            <H2 color="$color">{t('quiz.title')}</H2>
+            {headerPoints !== null && (
+              <XStack
+                ai="center"
+                gap={6}
+                px={12}
+                py={6}
+                borderRadius={999}
+                backgroundColor="rgba(255,169,77,0.14)"
+                borderWidth={1}
+                borderColor="rgba(255,169,77,0.5)">
+                <Ionicons name="sparkles" size={14} color={palette.amber} />
+                <Paragraph fontFamily="$heading" fontSize={14} fontWeight="700" color={palette.amber}>
+                  {t('quiz.points', { count: headerPoints })}
+                </Paragraph>
+              </XStack>
+            )}
+          </XStack>
 
-          <XStack gap="$2">
-            <Button f={1} size="$3" theme={mode === 'practice' ? 'blue' : undefined} onPress={() => setMode('practice')}>
-              {t('quiz.practice')}
-            </Button>
-            <Button f={1} size="$3" theme={mode === 'daily' ? 'blue' : undefined} onPress={() => setMode('daily')}>
-              {t('quiz.dailyChallenge')}
-            </Button>
-            <Button f={1} size="$3" theme={mode === 'timeAttack' ? 'blue' : undefined} onPress={() => setMode('timeAttack')}>
-              {t('quiz.timeAttack.mode')}
-            </Button>
+          <XStack p={4} gap={4} borderRadius={14} backgroundColor="rgba(6,7,13,0.5)" borderWidth={1} borderColor="rgba(124,108,255,0.25)">
+            {MODE_TABS.map((tab) => {
+              const active = mode === tab.key;
+              const activeColor = tab.key === 'timeAttack' ? palette.amber : palette.nebula;
+              const activeTextColor = tab.key === 'timeAttack' ? palette.void : palette.starlight;
+              return (
+                <Pressable key={tab.key} style={{ flex: 1 }} onPress={() => setMode(tab.key)}>
+                  <YStack height={38} borderRadius={10} ai="center" jc="center" backgroundColor={active ? activeColor : 'transparent'}>
+                    <Paragraph fontSize={13} fontWeight={active ? '600' : '500'} color={active ? activeTextColor : palette.haze}>
+                      {t(tab.labelKey)}
+                    </Paragraph>
+                  </YStack>
+                </Pressable>
+              );
+            })}
           </XStack>
 
           {error && <Paragraph color="$red10">{error}</Paragraph>}
@@ -237,59 +303,78 @@ export default function QuizScreen() {
 
           {pool && itemPool && mode === 'practice' && (
             <>
-              <XStack gap="$2" flexWrap="wrap">
-                {TYPE_FILTERS.map((filter) => (
-                  <Button
-                    key={filter}
-                    size="$2"
-                    theme={typeFilter === filter ? 'blue' : undefined}
-                    onPress={() => selectTypeFilter(filter)}>
-                    {t(`quiz.filter.${filter}`)}
-                  </Button>
-                ))}
+              <XStack gap={7} flexWrap="wrap">
+                {TYPE_FILTERS.map((filter) => {
+                  const active = typeFilter === filter;
+                  return (
+                    <Pressable key={filter} onPress={() => selectTypeFilter(filter)}>
+                      <XStack
+                        px={13}
+                        py={6}
+                        borderRadius={999}
+                        backgroundColor={active ? 'rgba(124,108,255,0.22)' : 'transparent'}
+                        borderWidth={1}
+                        borderColor={active ? palette.nebula : 'rgba(141,138,174,0.4)'}>
+                        <Paragraph fontSize={12} fontWeight={active ? '600' : '400'} color={active ? palette.starlight : palette.haze}>
+                          {t(`quiz.filter.${filter}`)}
+                        </Paragraph>
+                      </XStack>
+                    </Pressable>
+                  );
+                })}
               </XStack>
 
-              <XStack gap="$2">
-                {DIFFICULTY_TIERS.map((tier) => (
-                  <Button
-                    key={tier}
-                    f={1}
-                    size="$3"
-                    theme={difficulty === tier ? 'blue' : undefined}
-                    onPress={() => selectDifficulty(tier)}>
-                    {t(`quiz.difficulty.${tier}`)}
-                  </Button>
-                ))}
+              <XStack gap={6}>
+                {DIFFICULTY_TIERS.map((tier) => {
+                  const active = difficulty === tier;
+                  const color = DIFFICULTY_COLOR[tier];
+                  return (
+                    <Pressable key={tier} style={{ flex: 1 }} onPress={() => selectDifficulty(tier)}>
+                      <YStack
+                        height={32}
+                        borderRadius={8}
+                        ai="center"
+                        jc="center"
+                        backgroundColor={active ? `${color}2E` : 'transparent'}
+                        borderWidth={1}
+                        borderColor={active ? color : 'rgba(141,138,174,0.4)'}>
+                        <Paragraph fontSize={12} fontWeight={active ? '600' : '400'} color={active ? color : palette.haze}>
+                          {t(`quiz.difficulty.${tier}`)} · {POINTS_BY_DIFFICULTY[tier]}
+                        </Paragraph>
+                      </YStack>
+                    </Pressable>
+                  );
+                })}
               </XStack>
-
-              <Paragraph fontFamily="$heading" color="$blue10">
-                {t('quiz.points', { count: practiceScore.points })} · {practiceScore.correct}/{practiceScore.total}
-              </Paragraph>
 
               {!practiceQuestion && <Paragraph color="$color11">{t('quiz.noQuestions')}</Paragraph>}
 
               {practiceQuestion && (
                 <>
                   {practiceQuestion.quizType !== 'knowledge' && (
-                    <Paragraph color="$color11">
+                    <Paragraph fontSize={14} color={PROMPT_CAPTION}>
                       {t(practiceQuestion.quizType === 'constellation' ? 'quiz.prompt' : 'quiz.promptPlanet')}
                     </Paragraph>
                   )}
-                  <QuizQuestionCard
-                    question={practiceQuestion}
-                    selectedId={practiceSelectedId}
-                    onSelect={handlePracticeSelect}
-                  />
+                  <QuizQuestionCard question={practiceQuestion} selectedId={practiceSelectedId} onSelect={handlePracticeSelect} />
                   {practiceSelectedId && (
                     <>
                       {practiceQuestion.explanation && (
-                        <Paragraph color="$color11">
-                          {pickLocalized(practiceQuestion.explanation, i18n.language)}
-                        </Paragraph>
+                        <XStack
+                          gap={10}
+                          ai="center"
+                          p={12}
+                          borderRadius={15}
+                          backgroundColor="rgba(51,214,176,0.1)"
+                          borderWidth={1}
+                          borderColor="rgba(51,214,176,0.35)">
+                          <Ionicons name="bulb-outline" size={18} color={palette.aurora} />
+                          <Paragraph f={1} fontSize={13} lineHeight={19} color="#C9E9DF">
+                            {pickLocalized(practiceQuestion.explanation, i18n.language)}
+                          </Paragraph>
+                        </XStack>
                       )}
-                      <Button theme="blue" onPress={handlePracticeNext}>
-                        {t('quiz.next')}
-                      </Button>
+                      <PillButton label={t('quiz.next')} icon="arrow-forward" color={palette.nebula} onPress={handlePracticeNext} />
                     </>
                   )}
                 </>
@@ -303,7 +388,7 @@ export default function QuizScreen() {
 
               {dailyResult && (
                 <YStack ai="center" gap="$2" py="$6">
-                  <Paragraph fontFamily="$heading" fontSize="$8" color="$blue10">
+                  <Paragraph fontFamily="$heading" fontSize="$8" color={palette.amber}>
                     {t('quiz.dailyScore', { correct: dailyResult.correct, total: dailyResult.total })}
                   </Paragraph>
                   <Paragraph color="$color11">{t('quiz.dailyDone')}</Paragraph>
@@ -313,25 +398,36 @@ export default function QuizScreen() {
 
               {dailyResult === null && dailyQuestions && (
                 <>
-                  <Paragraph fontFamily="$heading" color="$blue10">
+                  <Paragraph fontFamily="$heading" color={palette.nebula}>
                     {t('quiz.dailyProgress', { current: dailyIndex + 1, total: dailyQuestions.length })}
                   </Paragraph>
-                  <Paragraph color="$color11">{t('quiz.prompt')}</Paragraph>
-                  <QuizQuestionCard
-                    question={dailyQuestions[dailyIndex]}
-                    selectedId={dailySelectedId}
-                    onSelect={handleDailySelect}
-                  />
+                  <Paragraph fontSize={14} color={PROMPT_CAPTION}>
+                    {t('quiz.prompt')}
+                  </Paragraph>
+                  <QuizQuestionCard question={dailyQuestions[dailyIndex]} selectedId={dailySelectedId} onSelect={handleDailySelect} />
                   {dailySelectedId && (
                     <>
                       {dailyQuestions[dailyIndex].explanation && (
-                        <Paragraph color="$color11">
-                          {pickLocalized(dailyQuestions[dailyIndex].explanation!, i18n.language)}
-                        </Paragraph>
+                        <XStack
+                          gap={10}
+                          ai="center"
+                          p={12}
+                          borderRadius={15}
+                          backgroundColor="rgba(51,214,176,0.1)"
+                          borderWidth={1}
+                          borderColor="rgba(51,214,176,0.35)">
+                          <Ionicons name="bulb-outline" size={18} color={palette.aurora} />
+                          <Paragraph f={1} fontSize={13} lineHeight={19} color="#C9E9DF">
+                            {pickLocalized(dailyQuestions[dailyIndex].explanation!, i18n.language)}
+                          </Paragraph>
+                        </XStack>
                       )}
-                      <Button theme="blue" onPress={handleDailyNext}>
-                        {dailyIndex === dailyQuestions.length - 1 ? t('quiz.finish') : t('quiz.next')}
-                      </Button>
+                      <PillButton
+                        label={dailyIndex === dailyQuestions.length - 1 ? t('quiz.finish') : t('quiz.next')}
+                        icon="arrow-forward"
+                        color={palette.nebula}
+                        onPress={handleDailyNext}
+                      />
                     </>
                   )}
                 </>
@@ -346,37 +442,77 @@ export default function QuizScreen() {
                   <Paragraph color="$color11" textAlign="center">
                     {t('quiz.timeAttack.intro', { seconds: TIME_ATTACK_SECONDS })}
                   </Paragraph>
-                  <Button theme="blue" onPress={startTimeAttack}>
-                    {t('quiz.timeAttack.start')}
-                  </Button>
+                  <YStack width="100%">
+                    <PillButton label={t('quiz.timeAttack.start')} color={palette.amber} onPress={startTimeAttack} />
+                  </YStack>
                 </YStack>
               )}
 
               {taState === 'playing' && taQuestion && (
                 <>
-                  <XStack jc="space-between" ai="center">
-                    <Paragraph fontFamily="$heading" color="$blue10">
-                      {t('quiz.timeAttack.timeLeft', { seconds: taSecondsLeft })}
-                    </Paragraph>
-                    <Paragraph fontFamily="$heading" color="$blue10">
-                      {t('quiz.points', { count: taScore.points })}
-                    </Paragraph>
+                  <XStack
+                    ai="center"
+                    gap={14}
+                    p={14}
+                    borderRadius={18}
+                    backgroundColor="rgba(43,37,96,0.6)"
+                    borderWidth={1}
+                    borderColor="rgba(255,169,77,0.4)">
+                    <YStack width={60} height={60} ai="center" jc="center">
+                      <YStack position="absolute" width={57} height={57}>
+                        <XpRing
+                          size={57}
+                          strokeWidth={5}
+                          fraction={taSecondsLeft / TIME_ATTACK_SECONDS}
+                          color={palette.amber}
+                          trackColor="rgba(255,255,255,0.1)"
+                        />
+                      </YStack>
+                      <Paragraph fontFamily="$heading" fontSize={18} fontWeight="700" color={palette.amber}>
+                        {taSecondsLeft}
+                      </Paragraph>
+                    </YStack>
+                    <YStack f={1} gap={2}>
+                      <Paragraph fontSize={12} letterSpacing={0.6} textTransform="uppercase" color={palette.haze}>
+                        {t('quiz.timeAttack.secondsLeft')}
+                      </Paragraph>
+                      <Paragraph fontFamily="$heading" fontSize={18} fontWeight="600" color={palette.starlight}>
+                        {t('quiz.timeAttack.keepGoing')}
+                      </Paragraph>
+                    </YStack>
+                    <YStack ai="flex-end">
+                      <Paragraph fontFamily="$heading" fontSize={22} fontWeight="700" color={palette.aurora}>
+                        {taScore.correct}
+                      </Paragraph>
+                      <Paragraph fontSize={11} color={palette.haze}>
+                        {t('quiz.timeAttack.correct')}
+                      </Paragraph>
+                    </YStack>
                   </XStack>
-                  <QuizQuestionCard question={taQuestion} selectedId={taSelectedId} onSelect={handleTimeAttackSelect} />
+
+                  {taQuestion.quizType !== 'knowledge' && (
+                    <Paragraph fontSize={14} color={PROMPT_CAPTION}>
+                      {t(taQuestion.quizType === 'constellation' ? 'quiz.prompt' : 'quiz.promptPlanet')}
+                    </Paragraph>
+                  )}
+                  <QuizQuestionCard
+                    question={taQuestion}
+                    selectedId={taSelectedId}
+                    onSelect={handleTimeAttackSelect}
+                    panelHeight={220}
+                  />
                 </>
               )}
 
               {taState === 'finished' && (
                 <YStack ai="center" gap="$2" py="$6">
-                  <Paragraph fontFamily="$heading" fontSize="$8" color="$blue10">
+                  <Paragraph fontFamily="$heading" fontSize="$8" color={palette.amber}>
                     {t('quiz.points', { count: taScore.points })}
                   </Paragraph>
-                  <Paragraph color="$color11">
-                    {t('quiz.timeAttack.result', { correct: taScore.correct, total: taScore.total })}
-                  </Paragraph>
-                  <Button theme="blue" onPress={startTimeAttack}>
-                    {t('quiz.timeAttack.playAgain')}
-                  </Button>
+                  <Paragraph color="$color11">{t('quiz.timeAttack.result', { correct: taScore.correct, total: taScore.total })}</Paragraph>
+                  <YStack width="100%" pt="$2">
+                    <PillButton label={t('quiz.timeAttack.playAgain')} color={palette.amber} onPress={startTimeAttack} />
+                  </YStack>
                 </YStack>
               )}
             </>

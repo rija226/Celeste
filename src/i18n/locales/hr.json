@@ -43,6 +43,7 @@
     "dailyComeBack": "Vrati se sutra za novi izazov.",
     "promptPlanet": "Koja je ovo planeta?",
     "noQuestions": "Nema pitanja za ovaj filter.",
+    "identify": "Prepoznaj",
     "filter": {
       "all": "Sve",
       "constellation": "Sazviježđa",
@@ -53,7 +54,9 @@
       "mode": "Izazov na vrijeme",
       "intro": "Odgovori na što više pitanja za {{seconds}} sekundi.",
       "start": "Kreni",
-      "timeLeft": "{{seconds}}s",
+      "secondsLeft": "Preostalo sekundi",
+      "keepGoing": "Nastavi dalje!",
+      "correct": "tačno",
       "result": "{{correct}}/{{total}} tačno",
       "playAgain": "Igraj ponovo"
     }
