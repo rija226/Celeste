@@ -160,6 +160,7 @@
     "streakLabel_other": "dana zaredom",
     "streakEmpty": "Počni svoj niz danas!",
     "activityTitle": "Zadnjih 7 dana",
+    "activityTotal": "{{count}} ukupno",
     "activityEmpty": "Tvoja aktivnost će se pojaviti ovdje",
     "activityReviews": "Ponavljanja",
     "activityQuiz": "Kviz"

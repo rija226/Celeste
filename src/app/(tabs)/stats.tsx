@@ -46,7 +46,6 @@ export default function StatsScreen() {
           getQuizResultDates(userId),
           getDecks(),
         ]);
-        // Jedinstven "niz" -- flashcards i kviz obje racunaju kao aktivnost dana.
         const totalXp = totalReviews + quizPoints;
         const leveledDecks = decks.filter((deck) => deck.level !== null);
         const unlockedLevels = leveledDecks.filter((deck) => totalXp >= deck.xpRequired).length;
@@ -69,7 +68,7 @@ export default function StatsScreen() {
   return (
     <ScreenBackdrop>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <YStack f={1} gap="$3" pt="$8" px="$4" pb="$8">
+        <YStack f={1} gap={14} pt="$8" px="$4" pb="$8">
           <H2 color="$color">{t('stats.title')}</H2>
 
           {error && <Paragraph color="$red10">{error}</Paragraph>}
@@ -79,7 +78,7 @@ export default function StatsScreen() {
             <>
               <StreakHero streak={stats.streak} activity={stats.activity} />
 
-              <XStack gap="$3">
+              <XStack gap={12}>
                 <StatTile icon="repeat" value={stats.totalReviews} label={t('stats.totalReviews')} color="#4FA8FF" />
                 <StatTile
                   icon="school"
@@ -88,7 +87,7 @@ export default function StatsScreen() {
                   color={palette.aurora}
                 />
               </XStack>
-              <XStack gap="$3">
+              <XStack gap={12}>
                 <StatTile
                   icon="trophy"
                   value={stats.quizPoints}
@@ -97,7 +96,8 @@ export default function StatsScreen() {
                 />
                 <StatTile
                   icon="rocket"
-                  value={`${stats.unlockedLevels}/${stats.totalLevels}`}
+                  value={stats.unlockedLevels}
+                  valueSuffix={`/${stats.totalLevels}`}
                   label={t('stats.unlockedLevels')}
                   color={palette.comet}
                 />

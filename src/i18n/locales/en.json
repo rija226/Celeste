@@ -160,6 +160,7 @@
     "streakLabel_other": "day streak",
     "streakEmpty": "Start your streak today!",
     "activityTitle": "Last 7 days",
+    "activityTotal": "{{count}} total",
     "activityEmpty": "Your activity will show up here",
     "activityReviews": "Reviews",
     "activityQuiz": "Quiz"
