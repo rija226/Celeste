@@ -5,7 +5,7 @@ import { Button, Paragraph, Spinner, YStack } from 'tamagui';
 
 import { GlassCard } from '@/components/GlassCard';
 import { ScreenBackdrop } from '@/components/ScreenBackdrop';
-import { ensureSession, getCardProgressForCards, getCardsForDeck, getDeck } from '@/db';
+import { ensureSession, getCardsForDeck, getDeck, getDueCount } from '@/db';
 import { pickLocalized } from '@/lib/localized';
 import type { Card, Deck } from '@/types/models';
 
@@ -24,20 +24,14 @@ export default function DeckScreen() {
       try {
         const userId = await ensureSession();
         const [deckData, cardsData] = await Promise.all([getDeck(id), getCardsForDeck(id)]);
-        const progress = await getCardProgressForCards(
+        const due = await getDueCount(
           userId,
           cardsData.map((card) => card.id),
         );
-        const progressByCardId = new Map(progress.map((p) => [p.cardId, p]));
-        const now = new Date();
-        const due = cardsData.filter((card) => {
-          const p = progressByCardId.get(card.id);
-          return !p || new Date(p.due) <= now;
-        });
 
         setDeck(deckData);
         setCards(cardsData);
-        setDueCount(due.length);
+        setDueCount(due);
       } catch (e) {
         setError((e as Error).message);
       }

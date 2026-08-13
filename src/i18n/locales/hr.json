@@ -14,7 +14,15 @@
     "title": "Početna",
     "level": "Nivo {{level}}",
     "xpProgress": "{{current}}/{{total}} XP",
-    "pathContinues": "✨ Ostatak kosmosa te čeka ✨"
+    "pathContinues": "✨ Ostatak kosmosa te čeka ✨",
+    "levelBadge": "L{{level}}",
+    "levelProgress": "Nivo {{level}} · {{xp}} XP do sljedećeg",
+    "resumeContinue": "Nastavi: {{name}}",
+    "greeting": {
+      "morning": "Dobro jutro",
+      "afternoon": "Dobar dan",
+      "evening": "Dobro veče"
+    }
   },
   "quiz": {
     "title": "Kviz",

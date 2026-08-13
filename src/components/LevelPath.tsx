@@ -73,6 +73,7 @@ export function LevelPath({ decks, totalXp }: { decks: Deck[]; totalXp: number }
   return (
     <ScrollView
       ref={scrollRef}
+      f={1}
       onContentSizeChange={() => scrollRef.current?.scrollToEnd({ animated: false })}
       contentContainerStyle={{ alignItems: 'center', paddingBottom: 48 }}>
       <Paragraph color="$color11" fontSize="$2" mt="$4" mb="$2" opacity={0.6}>
@@ -82,7 +83,8 @@ export function LevelPath({ decks, totalXp }: { decks: Deck[]; totalXp: number }
         <Svg width={PATH_WIDTH} height={totalHeight} style={{ position: 'absolute' }}>
           {positions.slice(0, -1).map((point, index) => {
             const next = positions[index + 1];
-            const active = point.state === 'completed';
+            const completed = point.state === 'completed';
+            const intoLocked = next.state === 'locked';
             return (
               <Line
                 key={point.deck.id}
@@ -90,10 +92,11 @@ export function LevelPath({ decks, totalXp }: { decks: Deck[]; totalXp: number }
                 y1={point.y}
                 x2={next.x}
                 y2={next.y}
-                stroke={active ? palette.aurora : palette.nebulaDeep}
+                stroke={completed ? palette.aurora : intoLocked ? palette.haze : palette.nebulaDeep}
                 strokeWidth={5}
                 strokeLinecap="round"
-                strokeOpacity={active ? 0.9 : 0.6}
+                strokeOpacity={completed ? 0.9 : intoLocked ? 0.35 : 0.6}
+                strokeDasharray={intoLocked ? '2 12' : undefined}
               />
             );
           })}

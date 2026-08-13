@@ -13,6 +13,7 @@ export { getCardImageUrl } from './images';
 export {
   getCardProgress,
   getCardProgressForCards,
+  getDueCount,
   getLearnedCardCount,
   getReviewLogDates,
   getTotalReviewCount,

@@ -70,6 +70,18 @@ export async function insertReviewLog(log: Omit<ReviewLog, 'id'>): Promise<void>
   if (error) throw error;
 }
 
+// Koliko od datih kartica je due (bez progresa ili due <= sada).
+export async function getDueCount(userId: string, cardIds: string[]): Promise<number> {
+  if (cardIds.length === 0) return 0;
+  const progress = await getCardProgressForCards(userId, cardIds);
+  const progressByCardId = new Map(progress.map((p) => [p.cardId, p]));
+  const now = new Date();
+  return cardIds.filter((id) => {
+    const p = progressByCardId.get(id);
+    return !p || new Date(p.due) <= now;
+  }).length;
+}
+
 export async function getTotalReviewCount(userId: string): Promise<number> {
   const { count, error } = await supabase
     .from('review_logs')

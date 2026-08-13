@@ -6,17 +6,33 @@ import { supabase } from './supabase';
  * card_progress/review_logs. U Fazi 4 se ovaj nalog moze upgrade-ovati na
  * pravi (linkIdentity) bez gubitka podataka.
  */
-export async function ensureSession(): Promise<string> {
-  const { data: existing } = await supabase.auth.getSession();
-  if (existing.session) {
-    return existing.session.user.id;
-  }
+let pendingSession: Promise<string> | null = null;
 
-  const { data, error } = await supabase.auth.signInAnonymously();
-  if (error || !data.session) {
-    throw error ?? new Error('Anonymous sign-in failed');
+// Vise ekrana/efekata poziva ensureSession() na hladnom startu (root layout
+// + svaki ekran). Bez dedupe-a, konkurentni pozivi prije nego sesija postoji
+// svaki vide "nema sesije" i svaki pokusa signInAnonymously() -- dupli
+// signup zna izazvati neobjasnjivu gresku. Dijeli isti in-flight promise.
+export async function ensureSession(): Promise<string> {
+  if (pendingSession) return pendingSession;
+
+  pendingSession = (async () => {
+    const { data: existing } = await supabase.auth.getSession();
+    if (existing.session) {
+      return existing.session.user.id;
+    }
+
+    const { data, error } = await supabase.auth.signInAnonymously();
+    if (error || !data.session) {
+      throw error ?? new Error('Anonymous sign-in failed');
+    }
+    return data.session.user.id;
+  })();
+
+  try {
+    return await pendingSession;
+  } finally {
+    pendingSession = null;
   }
-  return data.session.user.id;
 }
 
 export type AuthUser = {
