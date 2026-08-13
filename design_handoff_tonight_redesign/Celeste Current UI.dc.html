@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@7.4.0/dist/ionicons/ionicons.esm.js"></script>
+<style>
+  body { margin: 0; background: #0B0A12; font-family: Inter, sans-serif; }
+  a { color: #52A9FF; text-decoration: none; }
+  a:hover { color: #8FC7FF; }
+  ion-icon { visibility: visible; }
+</style>
+</helmet>
+
+<section style="padding: 56px 56px 40px; display: flex; flex-direction: column; gap: 32px;">
+  <div style="display: flex; flex-direction: column; gap: 8px;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <span style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; color: #33D6B0; border: 1px solid rgba(51,214,176,0.5); border-radius: 999px; padding: 4px 10px;">TURN 5</span>
+      <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 30px; font-weight: 700; color: #F1EFFB;">Tonight — redesign</h1>
+    </div>
+    <p style="margin: 0; font-family: Inter, sans-serif; font-size: 14px; color: #A5A5A5; max-width: 760px; text-wrap: pretty;">Same list data from <code style="font-family: ui-monospace, monospace; color: #52A9FF;">tonight.tsx</code>, but the stack of identical glass cards becomes a scannable sky report: a highlighted meteor banner, a real Moon-phase disc, a horizon sunset/sunrise strip, and planet rows with a visibility pill, an altitude gauge, and a tappable fun-fact. View-mode toggle (List/Map/AR) kept. <a href="#5a">5a</a>.</p>
+  </div>
+
+  <div id="5a" style="display: flex; flex-direction: column; gap: 10px;">
+    <div style="display: flex; align-items: baseline; gap: 10px;">
+      <span style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; color: #33D6B0; border: 1px solid rgba(51,214,176,0.5); border-radius: 999px; padding: 3px 9px;">5A</span>
+      <span style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: #F1EFFB;">List view · sky report</span>
+    </div>
+    <div data-screen-label="Tonight 5a" style="position: relative; width: 390px; height: 844px; overflow: hidden; border-radius: 40px; background: radial-gradient(120% 80% at 50% -10%, #241a52 0%, #0d0b21 45%, #06070D 100%); box-shadow: 0 24px 60px rgba(0,0,0,0.5);">
+      {{ starfield }}
+      <div style="position: absolute; inset: 0; display: flex; flex-direction: column;">
+        <div style="flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding: 44px 16px 0;">
+
+          <div style="flex: none; display: flex; align-items: center; justify-content: space-between;">
+            <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; color: #F1EFFB;">Tonight</h2>
+            <div style="display: flex; gap: 6px;">
+              <div style="width: 38px; height: 38px; border-radius: 999px; background: #7C6CFF; border: 1px solid #7C6CFF; display: flex; align-items: center; justify-content: center;"><ion-icon name="list" style="font-size: 18px; color: #F1EFFB;"></ion-icon></div>
+              <div style="width: 38px; height: 38px; border-radius: 999px; background: rgba(43,37,96,0.9); border: 1px solid rgba(124,108,255,0.5); display: flex; align-items: center; justify-content: center;"><ion-icon name="planet-outline" style="font-size: 18px; color: #F1EFFB;"></ion-icon></div>
+              <div style="width: 38px; height: 38px; border-radius: 999px; background: rgba(43,37,96,0.9); border: 1px solid rgba(124,108,255,0.5); display: flex; align-items: center; justify-content: center;"><ion-icon name="camera-outline" style="font-size: 18px; color: #F1EFFB;"></ion-icon></div>
+            </div>
+          </div>
+
+          <div style="flex: none; position: relative; border-radius: 20px; padding: 16px; overflow: hidden; background: linear-gradient(135deg, rgba(124,108,255,0.35) 0%, rgba(43,37,96,0.92) 55%); border: 1px solid rgba(124,108,255,0.6); box-shadow: 0 8px 24px rgba(124,108,255,0.28);">
+            <svg width="120" height="120" viewBox="0 0 120 120" style="position: absolute; top: -10px; right: -6px; opacity: 0.9;">
+              <defs><linearGradient id="mtr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F1EFFB" stop-opacity="0"></stop><stop offset="1" stop-color="#F1EFFB" stop-opacity="0.9"></stop></linearGradient></defs>
+              <line x1="20" y1="18" x2="86" y2="84" stroke="url(#mtr)" stroke-width="2.5" stroke-linecap="round"></line>
+              <circle cx="86" cy="84" r="3" fill="#F1EFFB"></circle>
+              <line x1="48" y1="8" x2="82" y2="42" stroke="url(#mtr)" stroke-width="1.5" stroke-linecap="round" opacity="0.6"></line>
+            </svg>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+              <ion-icon name="sparkles" style="font-size: 16px; color: #FFA94D;"></ion-icon>
+              <span style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; color: #F1EFFB;">Meteor Showers</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="padding: 3px 9px; border-radius: 999px; background: rgba(51,214,176,0.2); border: 1px solid #33D6B0; font-family: Inter, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #33D6B0;">Active now</div>
+                <div style="flex: 1; min-width: 0;">
+                  <div style="font-family: Inter, sans-serif; font-weight: 600; font-size: 14px; color: #F1EFFB;">Delta Aquariids</div>
+                  <div style="font-family: Inter, sans-serif; font-size: 12px; color: #C9C4EC;">Peak Jul 30 · Radiant Aquarius</div>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="padding: 3px 9px; border-radius: 999px; background: rgba(51,214,176,0.2); border: 1px solid #33D6B0; font-family: Inter, sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: #33D6B0;">Active now</div>
+                <div style="flex: 1; min-width: 0;">
+                  <div style="font-family: Inter, sans-serif; font-weight: 600; font-size: 14px; color: #F1EFFB;">Perseids</div>
+                  <div style="font-family: Inter, sans-serif; font-size: 12px; color: #C9C4EC;">Peak Aug 12 · Radiant Perseus</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="flex: none; display: flex; gap: 12px;">
+            <div style="flex: 1; display: flex; align-items: center; gap: 10px; padding: 14px; border-radius: 18px; background: rgba(43,37,96,0.85); border: 1px solid rgba(124,108,255,0.4);">
+              <ion-icon name="arrow-down-outline" style="font-size: 20px; color: #FFA94D;"></ion-icon>
+              <div><div style="font-family: Inter, sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: #8D8AAE;">Sunset</div><div style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #F1EFFB;">20:14</div></div>
+            </div>
+            <div style="flex: 1; display: flex; align-items: center; gap: 10px; padding: 14px; border-radius: 18px; background: rgba(43,37,96,0.85); border: 1px solid rgba(124,108,255,0.4);">
+              <ion-icon name="arrow-up-outline" style="font-size: 20px; color: #52A9FF;"></ion-icon>
+              <div><div style="font-family: Inter, sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: #8D8AAE;">Sunrise</div><div style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #F1EFFB;">05:47</div></div>
+            </div>
+          </div>
+
+          <div style="flex: none; display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 18px; background: rgba(43,37,96,0.85); border: 1px solid rgba(124,108,255,0.4);">
+            <div style="flex: none;">{{ moonDisc }}</div>
+            <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 600; color: #F1EFFB;">Waning Crescent</div>
+              <div style="font-family: Inter, sans-serif; font-size: 13px; color: #A5A5A5;">31% illuminated</div>
+              <div style="display: flex; align-items: center; gap: 4px; margin-top: 3px;"><ion-icon name="bulb-outline" style="font-size: 13px; color: #33D6B0;"></ion-icon><span style="font-family: Inter, sans-serif; font-size: 12px; font-weight: 600; color: #33D6B0;">Fun fact</span><ion-icon name="chevron-down" style="font-size: 13px; color: #33D6B0;"></ion-icon></div>
+            </div>
+          </div>
+
+          <div style="flex: none; font-family: Inter, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #8D8AAE; margin-top: 2px;">Planets</div>
+
+          <div style="flex: none; display: flex; align-items: center; gap: 12px; padding: 13px 14px; border-radius: 16px; background: rgba(43,37,96,0.7); border: 1px solid rgba(51,214,176,0.35);">
+            <div style="width: 12px; height: 12px; border-radius: 999px; background: #F4C542; flex: none; box-shadow: 0 0 8px rgba(244,197,66,0.7);"></div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="display: flex; align-items: center; gap: 8px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; color: #F1EFFB;">Venus</span><span style="padding: 2px 8px; border-radius: 999px; background: rgba(51,214,176,0.18); font-family: Inter, sans-serif; font-size: 10px; font-weight: 700; color: #33D6B0;">VISIBLE</span></div>
+              <div style="font-family: Inter, sans-serif; font-size: 12px; color: #A5A5A5;">W · 12° · sets 22:03</div>
+            </div>
+            {{ venusGauge }}
+            <ion-icon name="chevron-forward" style="font-size: 18px; color: #8D8AAE;"></ion-icon>
+          </div>
+
+          <div style="flex: none; display: flex; align-items: center; gap: 12px; padding: 13px 14px; border-radius: 16px; background: rgba(43,37,96,0.7); border: 1px solid rgba(51,214,176,0.35);">
+            <div style="width: 12px; height: 12px; border-radius: 999px; background: #FF6B5E; flex: none; box-shadow: 0 0 8px rgba(255,107,94,0.7);"></div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="display: flex; align-items: center; gap: 8px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; color: #F1EFFB;">Mars</span><span style="padding: 2px 8px; border-radius: 999px; background: rgba(51,214,176,0.18); font-family: Inter, sans-serif; font-size: 10px; font-weight: 700; color: #33D6B0;">VISIBLE</span></div>
+              <div style="font-family: Inter, sans-serif; font-size: 12px; color: #A5A5A5;">SE · 30° · rises 20:41</div>
+            </div>
+            {{ marsGauge }}
+            <ion-icon name="chevron-forward" style="font-size: 18px; color: #8D8AAE;"></ion-icon>
+          </div>
+
+          <div style="flex: none; display: flex; align-items: center; gap: 12px; padding: 13px 14px; border-radius: 16px; background: rgba(43,37,96,0.7); border: 1px solid rgba(51,214,176,0.35);">
+            <div style="width: 12px; height: 12px; border-radius: 999px; background: #D8C48A; flex: none; box-shadow: 0 0 8px rgba(216,196,138,0.7);"></div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="display: flex; align-items: center; gap: 8px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; color: #F1EFFB;">Saturn</span><span style="padding: 2px 8px; border-radius: 999px; background: rgba(51,214,176,0.18); font-family: Inter, sans-serif; font-size: 10px; font-weight: 700; color: #33D6B0;">VISIBLE</span></div>
+              <div style="font-family: Inter, sans-serif; font-size: 12px; color: #A5A5A5;">SE · 24° · rises 21:38</div>
+            </div>
+            {{ saturnGauge }}
+            <ion-icon name="chevron-forward" style="font-size: 18px; color: #8D8AAE;"></ion-icon>
+          </div>
+
+          <div style="flex: none; display: flex; align-items: center; gap: 12px; padding: 13px 14px; border-radius: 16px; background: rgba(23,19,52,0.55); border: 1px solid rgba(141,138,174,0.25); opacity: 0.75;">
+            <div style="width: 12px; height: 12px; border-radius: 999px; background: #8D8AAE; flex: none;"></div>
+            <div style="flex: 1; min-width: 0;">
+              <div style="display: flex; align-items: center; gap: 8px;"><span style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; color: #C9C4EC;">Mercury</span><span style="padding: 2px 8px; border-radius: 999px; border: 1px solid rgba(141,138,174,0.5); font-family: Inter, sans-serif; font-size: 10px; font-weight: 700; color: #8D8AAE;">BELOW</span></div>
+              <div style="font-family: Inter, sans-serif; font-size: 12px; color: #A5A5A5;">Rises 04:31 · sets 19:52</div>
+            </div>
+            <ion-icon name="chevron-forward" style="font-size: 18px; color: #8D8AAE;"></ion-icon>
+          </div>
+          <div style="height: 8px; flex: none;"></div>
+        </div>
+
+        <div style="display: flex; background: rgba(23,19,52,0.92); border-top: 1px solid #171334; height: 92px; padding: 8px 0 42px; box-sizing: border-box;">
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="home-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Home</span></div>
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="help-circle-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Quiz</span></div>
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="telescope" style="font-size: 22px; color: #7C6CFF;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #7C6CFF;">Tonight</span></div>
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="stats-chart-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Stats</span></div>
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="settings-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Settings</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding: 56px 56px 40px; display: flex; flex-direction: column; gap: 32px;">
+  <div style="display: flex; flex-direction: column; gap: 8px;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <span style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; color: #52A9FF; border: 1px solid rgba(82,169,255,0.5); border-radius: 999px; padding: 4px 10px;">TURN 4</span>
+      <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 30px; font-weight: 700; color: #F1EFFB;">Quiz — redesign</h1>
+    </div>
+    <p style="margin: 0; font-family: Inter, sans-serif; font-size: 14px; color: #A5A5A5; max-width: 760px; text-wrap: pretty;">Covers all three modes now in <code style="font-family: ui-monospace, monospace; color: #52A9FF;">quiz.tsx</code> (Practice / Daily / Time Attack) + type filters. Drops the off-palette Tamagui blue for a proper segmented control, puts the constellation on a glowing sky panel, and gives answers real correct/wrong feedback. <a href="#4a">4a</a> = practice answered, <a href="#4b">4b</a> = time attack.</p>
+  </div>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 40px 32px;">
+
+    <!-- 4A PRACTICE -->
+    <div id="4a" style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="display: flex; align-items: baseline; gap: 10px;">
+        <span style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; color: #52A9FF; border: 1px solid rgba(82,169,255,0.5); border-radius: 999px; padding: 3px 9px;">4A</span>
+        <span style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: #F1EFFB;">Practice · answered</span>
+      </div>
+      <div data-screen-label="Quiz 4a" style="position: relative; width: 390px; height: 844px; overflow: hidden; border-radius: 40px; background: radial-gradient(120% 80% at 50% -10%, #241a52 0%, #0d0b21 45%, #06070D 100%); box-shadow: 0 24px 60px rgba(0,0,0,0.5);">
+        {{ starfield }}
+        <div style="position: absolute; inset: 0; display: flex; flex-direction: column;">
+          <div style="flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; padding: 44px 16px 0;">
+
+            <div style="flex: none; display: flex; align-items: center; justify-content: space-between;">
+              <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; color: #F1EFFB;">Quiz</h2>
+              <div style="display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; background: rgba(255,169,77,0.14); border: 1px solid rgba(255,169,77,0.5);">
+                <ion-icon name="sparkles" style="font-size: 14px; color: #FFA94D;"></ion-icon>
+                <span style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; color: #FFA94D;">3 pts</span>
+              </div>
+            </div>
+
+            <div style="flex: none; display: flex; padding: 4px; gap: 4px; border-radius: 14px; background: rgba(6,7,13,0.5); border: 1px solid rgba(124,108,255,0.25);">
+              <div style="flex: 1; height: 38px; border-radius: 10px; background: #7C6CFF; display: flex; align-items: center; justify-content: center; font-family: Inter, sans-serif; font-weight: 600; font-size: 13px; color: #F1EFFB;">Practice</div>
+              <div style="flex: 1; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: Inter, sans-serif; font-weight: 500; font-size: 13px; color: #8D8AAE;">Daily</div>
+              <div style="flex: 1; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: Inter, sans-serif; font-weight: 500; font-size: 13px; color: #8D8AAE;">Time Attack</div>
+            </div>
+
+            <div style="display: flex; gap: 7px;">
+              <div style="padding: 6px 13px; border-radius: 999px; background: rgba(124,108,255,0.22); border: 1px solid #7C6CFF; font-family: Inter, sans-serif; font-size: 12px; font-weight: 600; color: #F1EFFB;">All</div>
+              <div style="padding: 6px 13px; border-radius: 999px; border: 1px solid rgba(141,138,174,0.4); font-family: Inter, sans-serif; font-size: 12px; color: #8D8AAE;">Constellations</div>
+              <div style="padding: 6px 13px; border-radius: 999px; border: 1px solid rgba(141,138,174,0.4); font-family: Inter, sans-serif; font-size: 12px; color: #8D8AAE;">Planets</div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div style="display: flex; gap: 6px; flex: 1;">
+                <div style="flex: 1; height: 32px; border-radius: 8px; background: rgba(51,214,176,0.18); border: 1px solid #33D6B0; display: flex; align-items: center; justify-content: center; font-family: Inter, sans-serif; font-size: 12px; font-weight: 600; color: #33D6B0;">Easy · 1</div>
+                <div style="flex: 1; height: 32px; border-radius: 8px; border: 1px solid rgba(141,138,174,0.4); display: flex; align-items: center; justify-content: center; font-family: Inter, sans-serif; font-size: 12px; color: #8D8AAE;">Medium · 2</div>
+                <div style="flex: 1; height: 32px; border-radius: 8px; border: 1px solid rgba(141,138,174,0.4); display: flex; align-items: center; justify-content: center; font-family: Inter, sans-serif; font-size: 12px; color: #8D8AAE;">Hard · 3</div>
+              </div>
+            </div>
+
+            <div style="font-family: Inter, sans-serif; font-size: 14px; color: #A5A5A5;">Which constellation is this?</div>
+
+            <div style="position: relative; flex: none; height: 210px; border-radius: 22px; background: radial-gradient(circle at 50% 40%, rgba(43,37,96,0.95) 0%, rgba(13,11,33,0.95) 100%); border: 1px solid rgba(124,108,255,0.4); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+              <div style="position: absolute; top: 12px; left: 14px; font-family: Inter, sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #8D8AAE;">Identify</div>
+              {{ orionGlow }}
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: flex; align-items: center; gap: 10px; border: 1px solid #33D6B0; background: rgba(51,214,176,0.16); border-radius: 15px; padding: 13px;">
+                <ion-icon name="checkmark-circle" style="font-size: 20px; color: #33D6B0;"></ion-icon>
+                <span style="flex: 1; font-family: Inter, sans-serif; font-weight: 600; font-size: 14px; color: #33D6B0;">Orion</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px; border: 1px solid rgba(124,108,255,0.5); background: rgba(124,108,255,0.1); border-radius: 15px; padding: 13px;">
+                <span style="flex: 1; font-family: Inter, sans-serif; font-weight: 600; font-size: 14px; color: #C9C4EC;">Cygnus</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px; border: 1px solid rgba(124,108,255,0.5); background: rgba(124,108,255,0.1); border-radius: 15px; padding: 13px;">
+                <span style="flex: 1; font-family: Inter, sans-serif; font-weight: 600; font-size: 14px; color: #C9C4EC;">Cassiopeia</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px; border: 1px solid rgba(124,108,255,0.5); background: rgba(124,108,255,0.1); border-radius: 15px; padding: 13px;">
+                <span style="flex: 1; font-family: Inter, sans-serif; font-weight: 600; font-size: 14px; color: #C9C4EC;">Ursa Major</span>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; align-items: center; padding: 12px; border-radius: 15px; background: rgba(51,214,176,0.1); border: 1px solid rgba(51,214,176,0.35);">
+              <ion-icon name="bulb-outline" style="font-size: 18px; color: #33D6B0; flex: none;"></ion-icon>
+              <span style="font-family: Inter, sans-serif; font-size: 13px; line-height: 1.45; color: #C9E9DF; text-wrap: pretty;">Orion's three belt stars line up almost perfectly — the easiest star pattern to spot in winter skies.</span>
+            </div>
+
+            <div style="height: 50px; border-radius: 999px; background: #7C6CFF; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 2px;">
+              <span style="font-family: Inter, sans-serif; font-weight: 700; font-size: 15px; color: #F1EFFB;">Next question</span>
+              <ion-icon name="arrow-forward" style="font-size: 16px; color: #F1EFFB;"></ion-icon>
+            </div>
+            <div style="height: 8px;"></div>
+          </div>
+
+          <div style="display: flex; background: rgba(23,19,52,0.92); border-top: 1px solid #171334; height: 92px; padding: 8px 0 42px; box-sizing: border-box;">
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="home-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Home</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="help-circle" style="font-size: 22px; color: #7C6CFF;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #7C6CFF;">Quiz</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="telescope-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Tonight</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="stats-chart-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Stats</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="settings-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Settings</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4B TIME ATTACK -->
+    <div id="4b" style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="display: flex; align-items: baseline; gap: 10px;">
+        <span style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; color: #52A9FF; border: 1px solid rgba(82,169,255,0.5); border-radius: 999px; padding: 3px 9px;">4B</span>
+        <span style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: #F1EFFB;">Time Attack · playing</span>
+      </div>
+      <div data-screen-label="Quiz 4b" style="position: relative; width: 390px; height: 844px; overflow: hidden; border-radius: 40px; background: radial-gradient(120% 80% at 50% -10%, #241a52 0%, #0d0b21 45%, #06070D 100%); box-shadow: 0 24px 60px rgba(0,0,0,0.5);">
+        {{ starfield }}
+        <div style="position: absolute; inset: 0; display: flex; flex-direction: column;">
+          <div style="flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; padding: 44px 16px 0;">
+
+            <div style="flex: none; display: flex; align-items: center; justify-content: space-between;">
+              <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; color: #F1EFFB;">Quiz</h2>
+              <div style="display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; background: rgba(255,169,77,0.14); border: 1px solid rgba(255,169,77,0.5);">
+                <ion-icon name="sparkles" style="font-size: 14px; color: #FFA94D;"></ion-icon>
+                <span style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; color: #FFA94D;">7 pts</span>
+              </div>
+            </div>
+
+            <div style="display: flex; padding: 4px; gap: 4px; border-radius: 14px; background: rgba(6,7,13,0.5); border: 1px solid rgba(124,108,255,0.25);">
+              <div style="flex: 1; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: Inter, sans-serif; font-weight: 500; font-size: 13px; color: #8D8AAE;">Practice</div>
+              <div style="flex: 1; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: Inter, sans-serif; font-weight: 500; font-size: 13px; color: #8D8AAE;">Daily</div>
+              <div style="flex: 1; height: 38px; border-radius: 10px; background: #FFA94D; display: flex; align-items: center; justify-content: center; font-family: Inter, sans-serif; font-weight: 600; font-size: 13px; color: #06070D;">Time Attack</div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 18px; background: rgba(43,37,96,0.6); border: 1px solid rgba(255,169,77,0.4);">
+              <div style="position: relative; width: 60px; height: 60px; flex: none; display: flex; align-items: center; justify-content: center;">
+                {{ taRing }}
+                <span style="position: absolute; font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; color: #FFA94D;">41</span>
+              </div>
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 2px;">
+                <div style="font-family: Inter, sans-serif; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #8D8AAE;">Seconds left</div>
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 600; color: #F1EFFB;">Keep going!</div>
+              </div>
+              <div style="text-align: right;">
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; color: #33D6B0;">6</div>
+                <div style="font-family: Inter, sans-serif; font-size: 11px; color: #8D8AAE;">correct</div>
+              </div>
+            </div>
+
+            <div style="font-family: Inter, sans-serif; font-size: 14px; color: #A5A5A5;">Which planet is this?</div>
+
+            <div style="position: relative; flex: none; height: 220px; border-radius: 22px; background: radial-gradient(circle at 50% 40%, rgba(43,37,96,0.95) 0%, rgba(13,11,33,0.95) 100%); border: 1px solid rgba(124,108,255,0.4); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+              <div style="width: 180px; height: 180px; border-radius: 999px; background: radial-gradient(circle at 38% 32%, #E8956B 0%, #C4562F 45%, #7a2e18 100%); box-shadow: inset -18px -14px 40px rgba(0,0,0,0.55), 0 0 40px rgba(196,86,47,0.4);"></div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div style="border: 1px solid rgba(124,108,255,0.5); background: rgba(124,108,255,0.1); border-radius: 15px; padding: 13px; font-family: Inter, sans-serif; font-weight: 600; font-size: 14px; color: #C9C4EC;">Venus</div>
+              <div style="border: 1px solid rgba(124,108,255,0.5); background: rgba(124,108,255,0.1); border-radius: 15px; padding: 13px; font-family: Inter, sans-serif; font-weight: 600; font-size: 14px; color: #C9C4EC;">Mars</div>
+              <div style="border: 1px solid rgba(124,108,255,0.5); background: rgba(124,108,255,0.1); border-radius: 15px; padding: 13px; font-family: Inter, sans-serif; font-weight: 600; font-size: 14px; color: #C9C4EC;">Jupiter</div>
+              <div style="border: 1px solid rgba(124,108,255,0.5); background: rgba(124,108,255,0.1); border-radius: 15px; padding: 13px; font-family: Inter, sans-serif; font-weight: 600; font-size: 14px; color: #C9C4EC;">Mercury</div>
+            </div>
+          </div>
+
+          <div style="display: flex; background: rgba(23,19,52,0.92); border-top: 1px solid #171334; height: 92px; padding: 8px 0 42px; box-sizing: border-box;">
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="home-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Home</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="help-circle" style="font-size: 22px; color: #7C6CFF;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #7C6CFF;">Quiz</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="telescope-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Tonight</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="stats-chart-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Stats</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="settings-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Settings</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section style="padding: 56px 56px 40px; display: flex; flex-direction: column; gap: 32px;">
+  <div style="display: flex; flex-direction: column; gap: 8px;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <span style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; color: #FFA94D; border: 1px solid rgba(255,169,77,0.5); border-radius: 999px; padding: 4px 10px;">TURN 3</span>
+      <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 30px; font-weight: 700; color: #F1EFFB;">Home — redesign</h1>
+    </div>
+    <p style="margin: 0; font-family: Inter, sans-serif; font-size: 14px; color: #A5A5A5; max-width: 760px; text-wrap: pretty;">Keeps the level-path identity but adds a real status header (level, XP-to-next as a ring, streak), richer nodes, and a persistent resume dock. Same palette and data model as <code style="font-family: ui-monospace, monospace; color: #52A9FF;">LevelPath.tsx</code>.</p>
+  </div>
+
+  <div id="3a" style="display: flex; flex-direction: column; gap: 10px;">
+    <div style="display: flex; align-items: baseline; gap: 10px;">
+      <span style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; color: #FFA94D; border: 1px solid rgba(255,169,77,0.5); border-radius: 999px; padding: 3px 9px;">3A</span>
+      <span style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: #F1EFFB;">Guided path, refined</span>
+    </div>
+    <div data-screen-label="Home 3a" style="position: relative; width: 390px; height: 844px; overflow: hidden; border-radius: 40px; background: radial-gradient(120% 80% at 50% -10%, #241a52 0%, #0d0b21 45%, #06070D 100%); box-shadow: 0 24px 60px rgba(0,0,0,0.5);">
+      {{ starfield }}
+      <div style="position: absolute; inset: 0; display: flex; flex-direction: column;">
+
+        <div style="padding: 44px 18px 14px; display: flex; align-items: center; gap: 14px;">
+          <div style="position: relative; width: 60px; height: 60px; flex: none;">
+            <div style="width: 60px; height: 60px; border-radius: 999px; background: conic-gradient(#FFA94D 0deg 309deg, rgba(255,255,255,0.08) 309deg 360deg); padding: 4px; box-sizing: border-box;">
+              <div style="width: 100%; height: 100%; border-radius: 999px; background: #120f2e; display: flex; align-items: center; justify-content: center;">
+                <span style="font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: #FFA94D;">L4</span>
+              </div>
+            </div>
+          </div>
+          <div style="flex: 1; display: flex; flex-direction: column; gap: 2px;">
+            <div style="font-family: Inter, sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #8D8AAE;">Level 4 · 2 XP to next</div>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; color: #F1EFFB;">Good evening</div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 6px; padding: 8px 12px; border-radius: 999px; background: rgba(255,107,94,0.14); border: 1px solid rgba(255,107,94,0.55);">
+            <ion-icon name="flame" style="font-size: 16px; color: #FF6B5E;"></ion-icon>
+            <span style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: #FF6B5E;">5</span>
+          </div>
+        </div>
+
+        <div style="flex: 1; min-height: 0; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; align-items: center;">
+          <div style="position: relative; width: 264px; height: 1020px; margin-top: -170px;">
+            {{ pathLinesV3 }}
+
+            <div style="position: absolute; left: 20px; top: 758px; width: 84px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+              <div style="position: relative; width: 84px; height: 84px; border-radius: 999px; background: #33D6B0; display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 38px; line-height: 1;">🚀</span>
+                <div style="position: absolute; top: -6px; right: -6px; width: 26px; height: 26px; border-radius: 999px; background: #FF6B5E; display: flex; align-items: center; justify-content: center; border: 2px solid #06070D;"><ion-icon name="star" style="font-size: 14px; color: #F1EFFB;"></ion-icon></div>
+              </div>
+              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; text-align: center; color: #F1EFFB;">Space Basics</div>
+            </div>
+
+            <div style="position: absolute; left: 160px; top: 578px; width: 84px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+              <div style="position: relative; width: 84px; height: 84px; border-radius: 999px; background: #33D6B0; display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 38px; line-height: 1;">🌍</span>
+                <div style="position: absolute; top: -6px; right: -6px; width: 26px; height: 26px; border-radius: 999px; background: #FF6B5E; display: flex; align-items: center; justify-content: center; border: 2px solid #06070D;"><ion-icon name="star" style="font-size: 14px; color: #F1EFFB;"></ion-icon></div>
+              </div>
+              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; text-align: center; color: #F1EFFB;">Earth &amp; Moon</div>
+            </div>
+
+            <div style="position: absolute; left: 20px; top: 398px; width: 84px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+              <div style="position: relative; width: 84px; height: 84px; border-radius: 999px; background: #33D6B0; display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 38px; line-height: 1;">☀️</span>
+                <div style="position: absolute; top: -6px; right: -6px; width: 26px; height: 26px; border-radius: 999px; background: #FF6B5E; display: flex; align-items: center; justify-content: center; border: 2px solid #06070D;"><ion-icon name="star" style="font-size: 14px; color: #F1EFFB;"></ion-icon></div>
+              </div>
+              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; text-align: center; color: #F1EFFB;">The Sun</div>
+            </div>
+
+            <div style="position: absolute; left: 145px; top: 205px; width: 114px; display: flex; flex-direction: column; align-items: center; gap: 9px;">
+              <div style="position: relative; width: 108px; height: 108px;">
+                <div style="position: absolute; inset: 0; border-radius: 999px; background: radial-gradient(circle, rgba(124,108,255,0.45) 0%, rgba(124,108,255,0) 70%);"></div>
+                <div style="position: absolute; inset: 4px; border-radius: 999px; background: conic-gradient(#7C6CFF 0deg 309deg, rgba(23,19,52,0.9) 309deg 360deg); padding: 5px; box-sizing: border-box;">
+                  <div style="width: 100%; height: 100%; border-radius: 999px; background: #2B2560; border: 2px solid #F1EFFB; display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 40px; line-height: 1;">🌋</span>
+                  </div>
+                </div>
+              </div>
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 2px;">
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; text-align: center; color: #F1EFFB;">Inner Planets</div>
+                <div style="font-family: Inter, sans-serif; font-size: 11px; font-weight: 600; color: #7C6CFF;">12 / 14 XP</div>
+              </div>
+            </div>
+
+            <div style="position: absolute; left: 20px; top: 44px; width: 84px; display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0.5;">
+              <div style="width: 84px; height: 84px; border-radius: 999px; background: #171334; border: 1px solid #8D8AAE; display: flex; align-items: center; justify-content: center;"><ion-icon name="lock-closed" style="font-size: 28px; color: #8D8AAE;"></ion-icon></div>
+              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; text-align: center; color: #A5A5A5;">Outer Planets</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding: 0 14px 12px; display: flex; flex-direction: column; gap: 10px; background: linear-gradient(to top, #06070D 55%, rgba(6,7,13,0));">
+          <div style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 22px; background: rgba(43,37,96,0.94); border: 1px solid rgba(124,108,255,0.55); box-shadow: 0 10px 28px rgba(124,108,255,0.3);">
+            <div style="width: 48px; height: 48px; border-radius: 15px; background: rgba(124,108,255,0.22); display: flex; align-items: center; justify-content: center; font-size: 26px; flex: none;">🌋</div>
+            <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
+              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: #F1EFFB;">Continue: Inner Planets</div>
+              <div style="height: 6px; border-radius: 999px; background: rgba(6,7,13,0.5); overflow: hidden;"><div style="height: 6px; width: 86%; border-radius: 999px; background: linear-gradient(90deg,#7C6CFF,#33D6B0);"></div></div>
+              <div style="font-family: Inter, sans-serif; font-size: 12px; color: #A5A5A5;">6 cards due today</div>
+            </div>
+            <div style="width: 46px; height: 46px; border-radius: 999px; background: #33D6B0; display: flex; align-items: center; justify-content: center; flex: none;"><ion-icon name="play" style="font-size: 20px; color: #06070D;"></ion-icon></div>
+          </div>
+        </div>
+
+        <div style="display: flex; background: rgba(23,19,52,0.92); border-top: 1px solid #171334; height: 92px; padding: 8px 0 42px; box-sizing: border-box;">
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="home" style="font-size: 22px; color: #7C6CFF;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #7C6CFF;">Home</span></div>
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="help-circle-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Quiz</span></div>
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="telescope-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Tonight</span></div>
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="stats-chart-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Stats</span></div>
+          <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="settings-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Settings</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding: 56px 56px 40px; display: flex; flex-direction: column; gap: 32px;">
+  <div style="display: flex; flex-direction: column; gap: 8px;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <span style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; color: #33D6B0; border: 1px solid rgba(51,214,176,0.5); border-radius: 999px; padding: 4px 10px;">TURN 2</span>
+      <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 30px; font-weight: 700; color: #F1EFFB;">Home — two directions</h1>
+    </div>
+    <p style="margin: 0; font-family: Inter, sans-serif; font-size: 14px; color: #A5A5A5; max-width: 760px; text-wrap: pretty;">Same data, same palette. <a href="#2a">2a</a> keeps the level path and adds orientation + a resume action. <a href="#2b">2b</a> leads with the action and turns the path into a readable journey list.</p>
+  </div>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 40px 32px;">
+
+    <!-- 2A -->
+    <div id="2a" style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="display: flex; align-items: baseline; gap: 10px;">
+        <span style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; color: #33D6B0; border: 1px solid rgba(51,214,176,0.5); border-radius: 999px; padding: 3px 9px;">2A</span>
+        <span style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: #F1EFFB;">Guided path</span>
+        <span style="font-family: Inter, sans-serif; font-size: 13px; color: #8D8AAE;">status header · progress ring · resume bar</span>
+      </div>
+      <div data-screen-label="Home 2a" style="position: relative; width: 390px; height: 844px; overflow: hidden; border-radius: 40px; background: linear-gradient(145deg, #06070D 0%, #171334 50%, #06070D 100%); box-shadow: 0 24px 60px rgba(0,0,0,0.5);">
+        {{ starfield }}
+        <div style="position: absolute; inset: 0; display: flex; flex-direction: column;">
+
+          <div style="padding: 44px 16px 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+            <div style="display: flex; flex-direction: column; gap: 2px;">
+              <div style="font-family: Inter, sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: #8D8AAE;">Level 4</div>
+              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; color: #F1EFFB;">Inner Planets</div>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <div style="display: flex; align-items: center; gap: 5px; padding: 7px 11px; border-radius: 999px; background: rgba(43,37,96,0.9); border: 1px solid rgba(124,108,255,0.5);">
+                <ion-icon name="flash" style="font-size: 14px; color: #7C6CFF;"></ion-icon>
+                <span style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: #F1EFFB;">12</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 5px; padding: 7px 11px; border-radius: 999px; background: rgba(255,107,94,0.15); border: 1px solid rgba(255,107,94,0.6);">
+                <ion-icon name="flame" style="font-size: 14px; color: #FF6B5E;"></ion-icon>
+                <span style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: #FF6B5E;">5</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="flex: 1; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; align-items: center;">
+            <div style="position: relative; width: 264px; height: 1020px; margin-top: -190px;">
+              {{ pathLinesV2 }}
+
+              <div style="position: absolute; left: 20px; top: 758px; width: 84px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                <div style="position: relative; width: 84px; height: 84px; border-radius: 999px; background: #33D6B0; border: 1px solid #7C6CFF; display: flex; align-items: center; justify-content: center;">
+                  <span style="font-size: 36px; line-height: 1;">🚀</span>
+                  <div style="position: absolute; top: -6px; right: -6px; width: 26px; height: 26px; border-radius: 999px; background: #FF6B5E; display: flex; align-items: center; justify-content: center; border: 2px solid #06070D;">
+                    <ion-icon name="star" style="font-size: 14px; color: #F1EFFB;"></ion-icon>
+                  </div>
+                </div>
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; text-align: center; color: #F1EFFB;">Space Basics</div>
+              </div>
+
+              <div style="position: absolute; left: 160px; top: 578px; width: 84px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                <div style="position: relative; width: 84px; height: 84px; border-radius: 999px; background: #33D6B0; border: 1px solid #7C6CFF; display: flex; align-items: center; justify-content: center;">
+                  <span style="font-size: 36px; line-height: 1;">🌍</span>
+                  <div style="position: absolute; top: -6px; right: -6px; width: 26px; height: 26px; border-radius: 999px; background: #FF6B5E; display: flex; align-items: center; justify-content: center; border: 2px solid #06070D;">
+                    <ion-icon name="star" style="font-size: 14px; color: #F1EFFB;"></ion-icon>
+                  </div>
+                </div>
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; text-align: center; color: #F1EFFB;">Earth &amp; Moon</div>
+              </div>
+
+              <div style="position: absolute; left: 20px; top: 398px; width: 84px; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                <div style="position: relative; width: 84px; height: 84px; border-radius: 999px; background: #33D6B0; border: 1px solid #7C6CFF; display: flex; align-items: center; justify-content: center;">
+                  <span style="font-size: 36px; line-height: 1;">☀️</span>
+                  <div style="position: absolute; top: -6px; right: -6px; width: 26px; height: 26px; border-radius: 999px; background: #FF6B5E; display: flex; align-items: center; justify-content: center; border: 2px solid #06070D;">
+                    <ion-icon name="star" style="font-size: 14px; color: #F1EFFB;"></ion-icon>
+                  </div>
+                </div>
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; text-align: center; color: #F1EFFB;">The Sun</div>
+              </div>
+
+              <div style="position: absolute; left: 152px; top: 210px; width: 100px; display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                <div style="width: 100px; height: 100px; border-radius: 999px; background: conic-gradient(#7C6CFF 0deg 309deg, rgba(23,19,52,0.9) 309deg 360deg); padding: 6px; box-shadow: 0 0 26px rgba(124,108,255,0.55); box-sizing: border-box;">
+                  <div style="width: 100%; height: 100%; border-radius: 999px; background: #2B2560; border: 2px solid #F1EFFB; display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 36px; line-height: 1;">🌋</span>
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 2px;">
+                  <div style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; text-align: center; color: #F1EFFB;">Inner Planets</div>
+                  <div style="font-family: Inter, sans-serif; font-size: 11px; font-weight: 500; color: #7C6CFF;">12 / 14 XP</div>
+                </div>
+              </div>
+
+              <div style="position: absolute; left: 20px; top: 38px; width: 84px; display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0.45;">
+                <div style="width: 84px; height: 84px; border-radius: 999px; background: #171334; border: 1px solid #8D8AAE; display: flex; align-items: center; justify-content: center;">
+                  <ion-icon name="lock-closed" style="font-size: 28px; color: #8D8AAE;"></ion-icon>
+                </div>
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; text-align: center; color: #A5A5A5;">Outer Planets</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding: 0 16px 12px; display: flex; flex-direction: column; gap: 10px; background: linear-gradient(to top, rgba(6,7,13,0.95) 40%, rgba(6,7,13,0));">
+            <div style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 20px; background: rgba(43,37,96,0.92); border: 1px solid rgba(124,108,255,0.5); box-shadow: 0 8px 24px rgba(124,108,255,0.28);">
+              <div style="width: 46px; height: 46px; border-radius: 14px; background: rgba(124,108,255,0.22); display: flex; align-items: center; justify-content: center; font-size: 24px;">🌋</div>
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 2px;">
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: #F1EFFB;">Inner Planets</div>
+                <div style="font-family: Inter, sans-serif; font-size: 12px; color: #A5A5A5;">6 cards due today</div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 6px; height: 40px; padding: 0 16px; border-radius: 999px; background: #7C6CFF;">
+                <span style="font-family: Inter, sans-serif; font-size: 14px; font-weight: 600; color: #F1EFFB;">Continue</span>
+                <ion-icon name="arrow-forward" style="font-size: 16px; color: #F1EFFB;"></ion-icon>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; background: rgba(23,19,52,0.92); border-top: 1px solid #171334; height: 92px; padding: 8px 0 42px; box-sizing: border-box;">
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="home" style="font-size: 22px; color: #7C6CFF;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #7C6CFF;">Home</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="help-circle-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Quiz</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="telescope-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Tonight</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="stats-chart-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Stats</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="settings-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Settings</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2B -->
+    <div id="2b" style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="display: flex; align-items: baseline; gap: 10px;">
+        <span style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; color: #33D6B0; border: 1px solid rgba(51,214,176,0.5); border-radius: 999px; padding: 3px 9px;">2B</span>
+        <span style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: #F1EFFB;">Action first</span>
+        <span style="font-family: Inter, sans-serif; font-size: 13px; color: #8D8AAE;">hero card · journey list</span>
+      </div>
+      <div data-screen-label="Home 2b" style="position: relative; width: 390px; height: 844px; overflow: hidden; border-radius: 40px; background: linear-gradient(145deg, #06070D 0%, #171334 50%, #06070D 100%); box-shadow: 0 24px 60px rgba(0,0,0,0.5);">
+        {{ starfield }}
+        <div style="position: absolute; inset: 0; display: flex; flex-direction: column;">
+
+          <div style="padding: 44px 16px 0; display: flex; align-items: center; justify-content: space-between;">
+            <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; color: #F1EFFB;">Home</h2>
+            <div style="display: flex; align-items: center; gap: 5px; padding: 7px 11px; border-radius: 999px; background: rgba(255,107,94,0.15); border: 1px solid rgba(255,107,94,0.6);">
+              <ion-icon name="flame" style="font-size: 14px; color: #FF6B5E;"></ion-icon>
+              <span style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: #FF6B5E;">5 days</span>
+            </div>
+          </div>
+
+          <div style="margin: 8px 16px; padding: 16px; border-radius: 24px; background: linear-gradient(150deg, rgba(43,37,96,0.95) 0%, rgba(124,108,255,0.32) 100%); border: 1px solid rgba(124,108,255,0.6); box-shadow: 0 10px 30px rgba(124,108,255,0.3); display: flex; flex-direction: column; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <div style="width: 60px; height: 60px; border-radius: 18px; background: rgba(6,7,13,0.45); border: 1px solid rgba(124,108,255,0.5); display: flex; align-items: center; justify-content: center; font-size: 32px;">🌋</div>
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 3px;">
+                <div style="font-family: Inter, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #33D6B0;">Level 4 · in progress</div>
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; color: #F1EFFB;">Inner Planets</div>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <div style="height: 8px; border-radius: 999px; background: rgba(6,7,13,0.5); overflow: hidden;">
+                <div style="height: 8px; width: 86%; border-radius: 999px; background: linear-gradient(90deg, #7C6CFF, #33D6B0);"></div>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span style="font-family: Inter, sans-serif; font-size: 12px; color: #F1EFFB;">12 / 14 XP</span>
+                <span style="font-family: Inter, sans-serif; font-size: 12px; color: #A5A5A5;">6 due today</span>
+              </div>
+            </div>
+            <div style="height: 44px; border-radius: 999px; background: #33D6B0; display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <ion-icon name="play" style="font-size: 16px; color: #06070D;"></ion-icon>
+              <span style="font-family: Inter, sans-serif; font-size: 15px; font-weight: 700; color: #06070D;">Continue studying</span>
+            </div>
+          </div>
+
+          <div style="flex: 1; min-height: 0; padding: 0 16px 12px; display: flex; flex-direction: column; gap: 8px; overflow: hidden;">
+            <div style="font-family: Inter, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #8D8AAE;">Your journey</div>
+
+            <div style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 16px; background: rgba(43,37,96,0.55); border: 1px solid rgba(124,108,255,0.28);">
+              <div style="width: 44px; height: 44px; border-radius: 999px; background: #33D6B0; display: flex; align-items: center; justify-content: center; font-size: 22px;">🚀</div>
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 2px;">
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: #F1EFFB;">Space Basics</div>
+                <div style="font-family: Inter, sans-serif; font-size: 12px; color: #A5A5A5;">Level 1 · 40 cards</div>
+              </div>
+              <ion-icon name="checkmark-circle" style="font-size: 22px; color: #33D6B0;"></ion-icon>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 16px; background: rgba(43,37,96,0.55); border: 1px solid rgba(124,108,255,0.28);">
+              <div style="width: 44px; height: 44px; border-radius: 999px; background: #33D6B0; display: flex; align-items: center; justify-content: center; font-size: 22px;">🌍</div>
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 2px;">
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: #F1EFFB;">Earth &amp; Moon</div>
+                <div style="font-family: Inter, sans-serif; font-size: 12px; color: #A5A5A5;">Level 2 · 14 cards</div>
+              </div>
+              <ion-icon name="checkmark-circle" style="font-size: 22px; color: #33D6B0;"></ion-icon>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 16px; background: rgba(43,37,96,0.55); border: 1px solid rgba(124,108,255,0.28);">
+              <div style="width: 44px; height: 44px; border-radius: 999px; background: #33D6B0; display: flex; align-items: center; justify-content: center; font-size: 22px;">☀️</div>
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 2px;">
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: #F1EFFB;">The Sun</div>
+                <div style="font-family: Inter, sans-serif; font-size: 12px; color: #A5A5A5;">Level 3 · 14 cards</div>
+              </div>
+              <ion-icon name="checkmark-circle" style="font-size: 22px; color: #33D6B0;"></ion-icon>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 16px; background: rgba(124,108,255,0.18); border: 1px solid #7C6CFF;">
+              <div style="width: 44px; height: 44px; border-radius: 999px; background: #7C6CFF; display: flex; align-items: center; justify-content: center; font-size: 22px;">🌋</div>
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: #F1EFFB;">Inner Planets</div>
+                <div style="height: 5px; border-radius: 999px; background: rgba(6,7,13,0.5); overflow: hidden;">
+                  <div style="height: 5px; width: 86%; border-radius: 999px; background: #7C6CFF;"></div>
+                </div>
+              </div>
+              <span style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: #7C6CFF;">86%</span>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 16px; background: rgba(23,19,52,0.6); border: 1px solid rgba(141,138,174,0.3); opacity: 0.55;">
+              <div style="width: 44px; height: 44px; border-radius: 999px; background: #171334; border: 1px solid #8D8AAE; display: flex; align-items: center; justify-content: center;">
+                <ion-icon name="lock-closed" style="font-size: 20px; color: #8D8AAE;"></ion-icon>
+              </div>
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 2px;">
+                <div style="font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: #F1EFFB;">Outer Planets</div>
+                <div style="font-family: Inter, sans-serif; font-size: 12px; color: #A5A5A5;">Unlocks at 14 XP</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; background: rgba(23,19,52,0.92); border-top: 1px solid #171334; height: 92px; padding: 8px 0 42px; box-sizing: border-box;">
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="home" style="font-size: 22px; color: #7C6CFF;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #7C6CFF;">Home</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="help-circle-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Quiz</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="telescope-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Tonight</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="stats-chart-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Stats</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="settings-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Settings</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section style="padding: 16px 56px 96px; display: flex; flex-direction: column; gap: 32px;">
+  <div id="1a" style="display: flex; flex-direction: column; gap: 8px;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <span style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.12em; color: #7C6CFF; border: 1px solid rgba(124,108,255,0.5); border-radius: 999px; padding: 4px 10px;">1A</span>
+      <h1 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 30px; font-weight: 700; color: #F1EFFB;">Celeste — current UI</h1>
+    </div>
+    <p style="margin: 0; font-family: Inter, sans-serif; font-size: 14px; color: #A5A5A5; max-width: 720px; text-wrap: pretty;">Every screen in the Expo app as it renders today, rebuilt from <code style="font-family: ui-monospace, monospace; color: #52A9FF;">src/app</code> and <code style="font-family: ui-monospace, monospace; color: #52A9FF;">src/components</code>. Language: English.</p>
+  </div>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 40px 32px;">
+
+    <!-- HOME / LEVEL PATH -->
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: #8D8AAE;">Home · (tabs)/index.tsx</div>
+      <div data-screen-label="Home" style="position: relative; width: 390px; height: 844px; overflow: hidden; border-radius: 40px; background: linear-gradient(145deg, #06070D 0%, #171334 50%, #06070D 100%); box-shadow: 0 24px 60px rgba(0,0,0,0.5);">
+        {{ starfield }}
+        <div style="position: absolute; inset: 0; display: flex; flex-direction: column; padding-top: 34px;">
+          <h2 style="margin: 0 16px 11px; font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 700; color: #F1EFFB;">Home</h2>
+          <div style="flex: 1; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; padding-bottom: 48px;">
+            <div style="position: relative; width: 264px; height: 1020px; margin-top: -325px;">
+              {{ pathLines }}
+              <sc-for list="{{ pathNodes }}" as="node" hint-placeholder-count="5">
+                <div style="position: absolute; width: 84px; display: flex; flex-direction: column; align-items: center; gap: 8px; left: {{ node.left }}; top: {{ node.top }};">
+                  <div style="position: relative; width: 84px; height: 84px; border-radius: 999px; display: flex; align-items: center; justify-content: center; background: {{ node.bg }}; border: {{ node.border }}; opacity: {{ node.opacity }}; box-shadow: {{ node.glow }};">
+                    <span style="font-size: 36px; line-height: 1;">{{ node.emoji }}</span>
+                    <sc-if value="{{ node.locked }}" hint-placeholder-val="{{ false }}">
+                      <ion-icon name="lock-closed" style="font-size: 28px; color: #8D8AAE;"></ion-icon>
+                    </sc-if>
+                    <sc-if value="{{ node.completed }}" hint-placeholder-val="{{ false }}">
+                      <div style="position: absolute; top: -6px; right: -6px; width: 26px; height: 26px; border-radius: 999px; background: #FF6B5E; display: flex; align-items: center; justify-content: center; border: 2px solid #06070D;">
+                        <ion-icon name="star" style="font-size: 14px; color: #F1EFFB;"></ion-icon>
+                      </div>
+                    </sc-if>
+                  </div>
+                  <div style="font-family: 'Space Grotesk', sans-serif; font-size: 12px; text-align: center; color: {{ node.labelColor }}; opacity: {{ node.opacity }};">{{ node.name }}</div>
+                  <sc-if value="{{ node.showXp }}" hint-placeholder-val="{{ false }}">
+                    <div style="width: 84px; display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                      <div style="height: 5px; width: 100%; border-radius: 999px; background: #171334; overflow: hidden;">
+                        <div style="height: 5px; border-radius: 999px; background: #7C6CFF; width: {{ node.xpPercent }};"></div>
+                      </div>
+                      <div style="font-family: Inter, sans-serif; font-size: 11px; color: #A5A5A5; text-align: center;">12/14 XP</div>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+              <div style="position: absolute; top: 60px; left: 0; right: 0; text-align: center; font-family: Inter, sans-serif; font-size: 12px; color: #A5A5A5; opacity: 0.6;">✨ More of the cosmos awaits ✨</div>
+            </div>
+          </div>
+          <div style="display: flex; background: rgba(23,19,52,0.92); border-top: 1px solid #171334; height: 92px; padding: 8px 0 42px; box-sizing: border-box;">
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="home" style="font-size: 22px; color: #7C6CFF;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #7C6CFF;">Home</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="help-circle-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Quiz</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="telescope-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Tonight</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="stats-chart-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Stats</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="settings-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Settings</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUIZ PRACTICE -->
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: #8D8AAE;">Quiz · practice, answered</div>
+      <div data-screen-label="Quiz practice" style="position: relative; width: 390px; height: 844px; overflow: hidden; border-radius: 40px; background: linear-gradient(145deg, #06070D 0%, #171334 50%, #06070D 100%); box-shadow: 0 24px 60px rgba(0,0,0,0.5);">
+        {{ starfield }}
+        <div style="position: absolute; inset: 0; display: flex; flex-direction: column;">
+          <div style="flex: 1; display: flex; flex-direction: column; gap: 16px; padding: 34px 16px 0;">
+            <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 700; color: #F1EFFB;">Quiz</h2>
+            <div style="display: flex; gap: 8px;">
+              <div style="flex: 1; height: 44px; border-radius: 9px; background: #10243E; border: 1px solid #205D9E; display: flex; align-items: center; justify-content: center; font-family: Inter, sans-serif; font-weight: 500; font-size: 14px; color: #52A9FF;">Practice</div>
+              <div style="flex: 1; height: 44px; border-radius: 9px; background: #1B1B1F; border: 1px solid #2A2A2E; display: flex; align-items: center; justify-content: center; font-family: Inter, sans-serif; font-weight: 500; font-size: 14px; color: #F1EFFB;">Daily Challenge</div>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <div style="flex: 1; height: 36px; border-radius: 7px; background: #10243E; border: 1px solid #205D9E; display: flex; align-items: center; justify-content: center; font-family: Inter, sans-serif; font-size: 13px; color: #52A9FF;">Easy</div>
+              <div style="flex: 1; height: 36px; border-radius: 7px; background: #1B1B1F; border: 1px solid #2A2A2E; display: flex; align-items: center; justify-content: center; font-family: Inter, sans-serif; font-size: 13px; color: #F1EFFB;">Medium</div>
+              <div style="flex: 1; height: 36px; border-radius: 7px; background: #1B1B1F; border: 1px solid #2A2A2E; display: flex; align-items: center; justify-content: center; font-family: Inter, sans-serif; font-size: 13px; color: #F1EFFB;">Hard</div>
+            </div>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-size: 14px; color: #0091FF;">3 pts · 3/4</div>
+            <div style="font-family: Inter, sans-serif; font-size: 14px; color: #A5A5A5;">Which constellation is this?</div>
+            <div style="background: rgba(43,37,96,0.9); border: 1px solid rgba(124,108,255,0.5); border-radius: 16px; padding: 20px 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px rgba(124,108,255,0.25);">
+              {{ orionSvg }}
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div style="border: 1px solid #33D6B0; background: rgba(51,214,176,0.15); border-radius: 16px; padding: 11px; font-family: Inter, sans-serif; font-weight: 600; font-size: 14px; color: #33D6B0;">Orion</div>
+              <div style="border: 1px solid #FF6B5E; background: rgba(255,107,94,0.15); border-radius: 16px; padding: 11px; font-family: Inter, sans-serif; font-weight: 600; font-size: 14px; color: #FF6B5E;">Cygnus</div>
+              <div style="border: 1px solid #7C6CFF; background: rgba(124,108,255,0.15); border-radius: 16px; padding: 11px; font-family: Inter, sans-serif; font-weight: 600; font-size: 14px; color: #7C6CFF;">Cassiopeia</div>
+              <div style="border: 1px solid #7C6CFF; background: rgba(124,108,255,0.15); border-radius: 16px; padding: 11px; font-family: Inter, sans-serif; font-weight: 600; font-size: 14px; color: #7C6CFF;">Ursa Major</div>
+            </div>
+          </div>
+          <div style="display: flex; background: rgba(23,19,52,0.92); border-top: 1px solid #171334; height: 92px; padding: 8px 0 42px; box-sizing: border-box;">
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="home-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Home</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="help-circle" style="font-size: 22px; color: #7C6CFF;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #7C6CFF;">Quiz</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="telescope-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Tonight</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="stats-chart-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Stats</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="settings-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Settings</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TONIGHT -->
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: #8D8AAE;">Tonight · (tabs)/tonight.tsx</div>
+      <div data-screen-label="Tonight" style="position: relative; width: 390px; height: 844px; overflow: hidden; border-radius: 40px; background: linear-gradient(145deg, #06070D 0%, #171334 50%, #06070D 100%); box-shadow: 0 24px 60px rgba(0,0,0,0.5);">
+        {{ starfield }}
+        <div style="position: absolute; inset: 0; display: flex; flex-direction: column;">
+          <div style="flex: 1; display: flex; flex-direction: column; gap: 11px; padding: 34px 16px 0; overflow: hidden;">
+            <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 700; color: #F1EFFB;">Tonight</h2>
+
+            <div style="background: rgba(43,37,96,0.9); border: 1px solid rgba(124,108,255,0.5); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 6px 16px rgba(124,108,255,0.25);">
+              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; color: #F1EFFB;">Meteor Showers</div>
+              <div style="display: flex; flex-direction: column; gap: 2px;">
+                <div style="font-family: Inter, sans-serif; font-weight: 600; font-size: 14px; color: #0091FF;">Delta Aquariids · Active now</div>
+                <div style="font-family: Inter, sans-serif; font-size: 12px; color: #A5A5A5;">Peak Jul 30 · Radiant: Aquarius</div>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 2px;">
+                <div style="font-family: Inter, sans-serif; font-weight: 600; font-size: 14px; color: #0091FF;">Perseids · Active now</div>
+                <div style="font-family: Inter, sans-serif; font-size: 12px; color: #A5A5A5;">Peak Aug 12 · Radiant: Perseus</div>
+              </div>
+            </div>
+
+            <div style="background: rgba(43,37,96,0.9); border: 1px solid rgba(124,108,255,0.5); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 5px; box-shadow: 0 6px 16px rgba(124,108,255,0.25);">
+              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; color: #F1EFFB;">Sunset 20:14</div>
+              <div style="font-family: Inter, sans-serif; font-size: 14px; color: #A5A5A5;">Sunrise 05:47</div>
+            </div>
+
+            <div style="background: rgba(43,37,96,0.9); border: 1px solid rgba(124,108,255,0.5); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 5px; box-shadow: 0 6px 16px rgba(124,108,255,0.25);">
+              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; color: #0091FF;">Waning Crescent</div>
+              <div style="font-family: Inter, sans-serif; font-size: 14px; color: #A5A5A5;">31% illuminated</div>
+              <div style="font-family: Inter, sans-serif; font-weight: 600; font-size: 12px; color: #0091FF;">Fun fact</div>
+            </div>
+
+            <div style="background: rgba(43,37,96,0.9); border: 1px solid rgba(124,108,255,0.5); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 5px; box-shadow: 0 6px 16px rgba(124,108,255,0.25);">
+              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; color: #A5A5A5;">Mercury</div>
+              <div style="font-family: Inter, sans-serif; font-size: 14px; color: #A5A5A5;">Not visible right now</div>
+              <div style="font-family: Inter, sans-serif; font-size: 14px; color: #A5A5A5;">Rises 04:31</div>
+              <div style="font-family: Inter, sans-serif; font-size: 14px; color: #A5A5A5;">Sets 19:52</div>
+              <div style="font-family: Inter, sans-serif; font-weight: 600; font-size: 12px; color: #0091FF;">Fun fact</div>
+            </div>
+
+            <div style="background: rgba(43,37,96,0.9); border: 1px solid rgba(124,108,255,0.5); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 5px; box-shadow: 0 6px 16px rgba(124,108,255,0.25);">
+              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; color: #30A46C;">Saturn</div>
+              <div style="font-family: Inter, sans-serif; font-size: 14px; color: #A5A5A5;">Visible now · SE, 24°</div>
+              <div style="font-family: Inter, sans-serif; font-size: 14px; color: #A5A5A5;">Rises 21:38</div>
+              <div style="font-family: Inter, sans-serif; font-weight: 600; font-size: 12px; color: #0091FF;">Fun fact</div>
+            </div>
+          </div>
+          <div style="display: flex; background: rgba(23,19,52,0.92); border-top: 1px solid #171334; height: 92px; padding: 8px 0 42px; box-sizing: border-box;">
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="home-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Home</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="help-circle-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Quiz</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="telescope" style="font-size: 22px; color: #7C6CFF;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #7C6CFF;">Tonight</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="stats-chart-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Stats</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="settings-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Settings</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: #8D8AAE;">Stats · (tabs)/stats.tsx</div>
+      <div data-screen-label="Stats" style="position: relative; width: 390px; height: 844px; overflow: hidden; border-radius: 40px; background: linear-gradient(145deg, #06070D 0%, #171334 50%, #06070D 100%); box-shadow: 0 24px 60px rgba(0,0,0,0.5);">
+        {{ starfield }}
+        <div style="position: absolute; inset: 0; display: flex; flex-direction: column;">
+          <div style="flex: 1; display: flex; flex-direction: column; gap: 11px; padding: 34px 16px 0;">
+            <div style="background: rgba(43,37,96,0.9); border: 1px solid rgba(124,108,255,0.5); border-radius: 16px; padding: 16px; box-shadow: 0 6px 16px rgba(124,108,255,0.25); font-family: 'Space Grotesk', sans-serif; font-size: 22px; color: #0091FF;">Total reviews: 46</div>
+            <div style="background: rgba(43,37,96,0.9); border: 1px solid rgba(124,108,255,0.5); border-radius: 16px; padding: 16px; box-shadow: 0 6px 16px rgba(124,108,255,0.25); font-family: 'Space Grotesk', sans-serif; font-size: 22px; color: #30A46C;">Cards learned: 18</div>
+            <div style="background: rgba(43,37,96,0.9); border: 1px solid rgba(124,108,255,0.5); border-radius: 16px; padding: 16px; box-shadow: 0 6px 16px rgba(124,108,255,0.25); font-family: 'Space Grotesk', sans-serif; font-size: 22px; color: #8E4EC6;">Quiz points: 12</div>
+            <div style="background: rgba(43,37,96,0.9); border: 1px solid rgba(124,108,255,0.5); border-radius: 16px; padding: 16px; box-shadow: 0 6px 16px rgba(124,108,255,0.25); font-family: 'Space Grotesk', sans-serif; font-size: 22px; color: #F1EFFB;">Streak: 5 days</div>
+          </div>
+          <div style="display: flex; background: rgba(23,19,52,0.92); border-top: 1px solid #171334; height: 92px; padding: 8px 0 42px; box-sizing: border-box;">
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="home-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Home</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="help-circle-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Quiz</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="telescope-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Tonight</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="stats-chart" style="font-size: 22px; color: #7C6CFF;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #7C6CFF;">Stats</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="settings-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Settings</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: #8D8AAE;">Settings · (tabs)/settings.tsx</div>
+      <div data-screen-label="Settings" style="position: relative; width: 390px; height: 844px; overflow: hidden; border-radius: 40px; background: linear-gradient(145deg, #06070D 0%, #171334 50%, #06070D 100%); box-shadow: 0 24px 60px rgba(0,0,0,0.5);">
+        {{ starfield }}
+        <div style="position: absolute; inset: 0; display: flex; flex-direction: column;">
+          <div style="flex: 1; display: flex; flex-direction: column; gap: 16px; padding: 34px 16px 0;">
+            <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 700; color: #F1EFFB;">Settings</h2>
+
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div style="font-family: Inter, sans-serif; font-size: 14px; color: #A5A5A5;">Language</div>
+              <div style="display: flex; gap: 8px;">
+                <div style="flex: 1; height: 44px; border-radius: 9px; background: #10243E; border: 1px solid #205D9E; display: flex; align-items: center; justify-content: center; font-family: Inter, sans-serif; font-weight: 500; font-size: 14px; color: #52A9FF;">English</div>
+                <div style="flex: 1; height: 44px; border-radius: 9px; background: #1B1B1F; border: 1px solid #2A2A2E; display: flex; align-items: center; justify-content: center; font-family: Inter, sans-serif; font-weight: 500; font-size: 14px; color: #F1EFFB;">Hrvatski</div>
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div style="font-family: Inter, sans-serif; font-size: 14px; color: #A5A5A5;">Daily study reminder</div>
+                <div style="width: 52px; height: 30px; border-radius: 999px; border: 1px solid #7C6CFF; background: #7C6CFF; padding: 3px; display: flex; align-items: center; justify-content: flex-end;">
+                  <div style="width: 22px; height: 22px; border-radius: 999px; background: #F1EFFB;"></div>
+                </div>
+              </div>
+              <div style="font-family: Inter, sans-serif; font-size: 12px; color: #A5A5A5;">Every day at 19:00</div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div style="font-family: Inter, sans-serif; font-size: 14px; color: #A5A5A5;">Account</div>
+              <div style="font-family: Inter, sans-serif; font-size: 12px; color: #A5A5A5;">You're using a guest account — your progress is saved on this device only.</div>
+              <div style="height: 44px; border-radius: 9px; background: #151517; border: 1px solid #2A2A2E; display: flex; align-items: center; padding: 0 12px; font-family: Inter, sans-serif; font-size: 14px; color: #8D8AAE;">Email</div>
+              <div style="height: 44px; border-radius: 9px; background: #151517; border: 1px solid #2A2A2E; display: flex; align-items: center; padding: 0 12px; font-family: Inter, sans-serif; font-size: 14px; color: #8D8AAE;">Password</div>
+              <div style="height: 44px; border-radius: 9px; background: #151517; border: 1px solid #2A2A2E; display: flex; align-items: center; padding: 0 12px; font-family: Inter, sans-serif; font-size: 14px; color: #8D8AAE;">Confirm password</div>
+              <div style="height: 44px; border-radius: 9px; background: #10243E; border: 1px solid #205D9E; display: flex; align-items: center; justify-content: center; font-family: Inter, sans-serif; font-weight: 500; font-size: 14px; color: #52A9FF; opacity: 0.5;">Create account</div>
+              <div style="font-family: Inter, sans-serif; font-size: 12px; color: #0091FF;">Already have an account? Log in</div>
+            </div>
+          </div>
+          <div style="display: flex; background: rgba(23,19,52,0.92); border-top: 1px solid #171334; height: 92px; padding: 8px 0 42px; box-sizing: border-box;">
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="home-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Home</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="help-circle-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Quiz</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="telescope-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Tonight</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="stats-chart-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Stats</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="settings" style="font-size: 22px; color: #7C6CFF;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #7C6CFF;">Settings</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DECK -->
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: #8D8AAE;">Deck overview · deck/[id].tsx</div>
+      <div data-screen-label="Deck" style="position: relative; width: 390px; height: 844px; overflow: hidden; border-radius: 40px; background: linear-gradient(145deg, #06070D 0%, #171334 50%, #06070D 100%); box-shadow: 0 24px 60px rgba(0,0,0,0.5);">
+        {{ starfield }}
+        <div style="position: absolute; inset: 0; display: flex; flex-direction: column;">
+          <div style="height: 96px; box-sizing: border-box; background: #171334; display: flex; align-items: flex-end; padding: 0 8px 10px; gap: 4px;">
+            <ion-icon name="chevron-back" style="font-size: 28px; color: #F1EFFB;"></ion-icon>
+            <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px; color: #F1EFFB; padding-bottom: 3px;">Inner Planets</div>
+          </div>
+          <div style="flex: 1; display: flex; flex-direction: column; gap: 16px; padding: 34px 16px 0;">
+            <div style="background: rgba(43,37,96,0.9); border: 1px solid rgba(124,108,255,0.5); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 8px; box-shadow: 0 6px 16px rgba(124,108,255,0.25);">
+              <div style="font-family: Inter, sans-serif; font-size: 14px; color: #A5A5A5; text-wrap: pretty;">Mercury, Venus, Earth and Mars — the four rocky worlds closest to the Sun.</div>
+              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; color: #F1EFFB;">14 cards</div>
+              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 16px; color: #0091FF;">6 due today</div>
+            </div>
+            <div style="height: 52px; border-radius: 9px; background: #10243E; border: 1px solid #205D9E; display: flex; align-items: center; justify-content: center; font-family: Inter, sans-serif; font-weight: 500; font-size: 16px; color: #52A9FF;">Start studying</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STUDY FRONT -->
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: #8D8AAE;">Study · card front</div>
+      <div data-screen-label="Study front" style="position: relative; width: 390px; height: 844px; overflow: hidden; border-radius: 40px; background: linear-gradient(145deg, #06070D 0%, #171334 50%, #06070D 100%); box-shadow: 0 24px 60px rgba(0,0,0,0.5);">
+        {{ starfield }}
+        <div style="position: absolute; inset: 0; display: flex; flex-direction: column;">
+          <div style="height: 96px; box-sizing: border-box; background: #171334; display: flex; align-items: flex-end; padding: 0 8px 10px;">
+            <ion-icon name="chevron-back" style="font-size: 28px; color: #F1EFFB;"></ion-icon>
+          </div>
+          <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 16px;">
+            <div style="flex: 1; background: rgba(43,37,96,0.9); border: 1px solid rgba(124,108,255,0.5); border-radius: 24px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;">
+              <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 24px; line-height: 1.25; color: #F1EFFB; text-align: center; text-wrap: pretty;">Why is Mars red?</div>
+            </div>
+            <div style="margin-top: 16px; height: 44px; border-radius: 9px; background: #10243E; border: 1px solid #205D9E; display: flex; align-items: center; justify-content: center; font-family: Inter, sans-serif; font-weight: 500; font-size: 14px; color: #52A9FF;">Show answer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STUDY BACK -->
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: #8D8AAE;">Study · flipped, rating</div>
+      <div data-screen-label="Study back" style="position: relative; width: 390px; height: 844px; overflow: hidden; border-radius: 40px; background: linear-gradient(145deg, #06070D 0%, #171334 50%, #06070D 100%); box-shadow: 0 24px 60px rgba(0,0,0,0.5);">
+        {{ starfield }}
+        <div style="position: absolute; inset: 0; display: flex; flex-direction: column;">
+          <div style="height: 96px; box-sizing: border-box; background: #171334; display: flex; align-items: flex-end; padding: 0 8px 10px;">
+            <ion-icon name="chevron-back" style="font-size: 28px; color: #F1EFFB;"></ion-icon>
+          </div>
+          <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 16px;">
+            <div style="flex: 1; background: rgba(43,37,96,0.9); border: 1px solid rgba(124,108,255,0.5); border-radius: 24px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;">
+              <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 24px; line-height: 1.25; color: #F1EFFB; text-align: center; text-wrap: pretty;">Iron oxide — rust</div>
+              <div style="font-family: Inter, sans-serif; font-size: 14px; line-height: 1.5; color: #A5A5A5; text-align: center; text-wrap: pretty;">The surface dust is rich in oxidised iron, the same compound that makes rust red on Earth.</div>
+            </div>
+            <div style="margin-top: 16px; display: flex; gap: 11px;">
+              <div style="flex: 1; border: 1px solid #FF6B5E; background: rgba(255,107,94,0.15); border-radius: 22px; padding: 11px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;">
+                <ion-icon name="refresh" style="font-size: 20px; color: #FF6B5E;"></ion-icon>
+                <span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 12px; color: #FF6B5E;">Again</span>
+              </div>
+              <div style="flex: 1; border: 1px solid #8D8AAE; background: rgba(141,138,174,0.15); border-radius: 22px; padding: 11px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;">
+                <ion-icon name="walk-outline" style="font-size: 20px; color: #8D8AAE;"></ion-icon>
+                <span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 12px; color: #8D8AAE;">Hard</span>
+              </div>
+              <div style="flex: 1; border: 1px solid #7C6CFF; background: rgba(124,108,255,0.15); border-radius: 22px; padding: 11px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;">
+                <ion-icon name="checkmark-circle-outline" style="font-size: 20px; color: #7C6CFF;"></ion-icon>
+                <span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 12px; color: #7C6CFF;">Good</span>
+              </div>
+              <div style="flex: 1; border: 1px solid #33D6B0; background: rgba(51,214,176,0.15); border-radius: 22px; padding: 11px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;">
+                <ion-icon name="rocket-outline" style="font-size: 20px; color: #33D6B0;"></ion-icon>
+                <span style="font-family: Inter, sans-serif; font-weight: 600; font-size: 12px; color: #33D6B0;">Easy</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAILY DONE -->
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <div style="font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; color: #8D8AAE;">Quiz · daily challenge done</div>
+      <div data-screen-label="Daily done" style="position: relative; width: 390px; height: 844px; overflow: hidden; border-radius: 40px; background: linear-gradient(145deg, #06070D 0%, #171334 50%, #06070D 100%); box-shadow: 0 24px 60px rgba(0,0,0,0.5);">
+        {{ starfield }}
+        <div style="position: absolute; inset: 0; display: flex; flex-direction: column;">
+          <div style="flex: 1; display: flex; flex-direction: column; gap: 16px; padding: 34px 16px 0;">
+            <h2 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 32px; font-weight: 700; color: #F1EFFB;">Quiz</h2>
+            <div style="display: flex; gap: 8px;">
+              <div style="flex: 1; height: 44px; border-radius: 9px; background: #1B1B1F; border: 1px solid #2A2A2E; display: flex; align-items: center; justify-content: center; font-family: Inter, sans-serif; font-weight: 500; font-size: 14px; color: #F1EFFB;">Practice</div>
+              <div style="flex: 1; height: 44px; border-radius: 9px; background: #10243E; border: 1px solid #205D9E; display: flex; align-items: center; justify-content: center; font-family: Inter, sans-serif; font-weight: 500; font-size: 14px; color: #52A9FF;">Daily Challenge</div>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 24px 0;">
+              <div style="font-family: 'Space Grotesk', sans-serif; font-size: 28px; color: #0091FF;">4/5 correct</div>
+              <div style="font-family: Inter, sans-serif; font-size: 14px; color: #A5A5A5;">Today's challenge is done!</div>
+              <div style="font-family: Inter, sans-serif; font-size: 14px; color: #A5A5A5;">Come back tomorrow for a new one.</div>
+            </div>
+          </div>
+          <div style="display: flex; background: rgba(23,19,52,0.92); border-top: 1px solid #171334; height: 92px; padding: 8px 0 42px; box-sizing: border-box;">
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="home-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Home</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="help-circle" style="font-size: 22px; color: #7C6CFF;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #7C6CFF;">Quiz</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="telescope-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Tonight</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="stats-chart-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Stats</span></div>
+            <div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;"><ion-icon name="settings-outline" style="font-size: 22px; color: #8D8AAE;"></ion-icon><span style="font-family: Inter, sans-serif; font-weight: 500; font-size: 11px; color: #8D8AAE;">Settings</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;totalXp&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:12,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:0,&quot;max&quot;:40,&quot;section&quot;:&quot;Home path&quot;}}">
+const PALETTE = {
+  void: '#06070D', nebulaDeep: '#171334', surface: '#2B2560', nebula: '#7C6CFF',
+  aurora: '#33D6B0', comet: '#FF6B5E', starlight: '#F1EFFB', haze: '#8D8AAE',
+};
+
+// Same seeded LCG as src/components/SpaceBackdrop.tsx (seed 42, 16807).
+function makeStars() {
+  let value = 42;
+  const random = () => { value = (value * 16807) % 2147483647; return (value - 1) / 2147483646; };
+  return Array.from({ length: 70 }, () => {
+    const left = random() * 100, top = random() * 100;
+    const size = random() < 0.85 ? 1 : 2;
+    const opacity = 0.25 + random() * 0.55;
+    return { left, top, size, opacity };
+  });
+}
+
+// LevelPath.tsx geometry
+const NODE_SIZE = 84, ROW_HEIGHT = 180, AMPLITUDE = 70, TOP_FADE = 120;
+const PATH_WIDTH = NODE_SIZE + AMPLITUDE * 2 + 40, CENTER_X = PATH_WIDTH / 2;
+
+const DECKS = [
+  { emoji: '🚀', name: 'Space Basics', xpRequired: 0 },
+  { emoji: '🌍', name: 'Earth & Moon', xpRequired: 10 },
+  { emoji: '☀️', name: 'The Sun', xpRequired: 12 },
+  { emoji: '🌋', name: 'Inner Planets', xpRequired: 14 },
+  { emoji: '🪐', name: 'Outer Planets', xpRequired: 14 },
+];
+
+const ORION = {
+  stars: [{x:30,y:10},{x:70,y:8},{x:40,y:45},{x:50,y:45},{x:60,y:45},{x:25,y:90},{x:68,y:88}],
+  lines: [[0,2],[1,4],[2,3],[3,4],[2,5],[4,6],[0,1]],
+};
+
+class Component extends DCLogic {
+  positions() {
+    const totalXp = this.props.totalXp ?? 12;
+    const currentIndex = DECKS.findIndex((d) => totalXp < d.xpRequired);
+    return DECKS.map((deck, index) => {
+      const rowFromTop = DECKS.length - 1 - index;
+      const state = currentIndex === -1 || index < currentIndex ? 'completed' : index === currentIndex ? 'current' : 'locked';
+      return {
+        deck, state,
+        x: CENTER_X + (index % 2 === 0 ? -AMPLITUDE : AMPLITUDE),
+        y: TOP_FADE + rowFromTop * ROW_HEIGHT + ROW_HEIGHT / 2,
+      };
+    });
+  }
+
+  renderVals() {
+    const stars = makeStars();
+    const starfield = React.createElement('div', { style: { position: 'absolute', inset: 0, pointerEvents: 'none' } },
+      stars.map((s, i) => React.createElement('div', {
+        key: i,
+        style: {
+          position: 'absolute', left: s.left.toFixed(2) + '%', top: s.top.toFixed(2) + '%',
+          width: s.size, height: s.size, borderRadius: s.size,
+          background: PALETTE.starlight, opacity: s.opacity,
+        },
+      })));
+
+    const pts = this.positions();
+    const totalHeight = TOP_FADE + DECKS.length * ROW_HEIGHT;
+    const pathLines = React.createElement('svg', {
+      width: PATH_WIDTH, height: totalHeight, style: { position: 'absolute', left: 0, top: 0 },
+    }, pts.slice(0, -1).map((p, i) => {
+      const next = pts[i + 1];
+      const active = p.state === 'completed';
+      return React.createElement('line', {
+        key: i, x1: p.x, y1: p.y, x2: next.x, y2: next.y,
+        stroke: active ? PALETTE.aurora : PALETTE.nebulaDeep,
+        strokeWidth: 5, strokeLinecap: 'round', strokeOpacity: active ? 0.9 : 0.6,
+      });
+    }));
+
+    const totalXp = this.props.totalXp ?? 12;
+    const pathNodes = pts.map((p) => {
+      const locked = p.state === 'locked';
+      const current = p.state === 'current';
+      return {
+        name: p.deck.name,
+        emoji: locked ? '' : p.deck.emoji,
+        locked,
+        left: (p.x - NODE_SIZE / 2) + 'px',
+        top: (p.y - NODE_SIZE / 2) + 'px',
+        bg: locked ? PALETTE.nebulaDeep : current ? PALETTE.nebula : PALETTE.aurora,
+        border: current ? '3px solid ' + PALETTE.starlight : locked ? '1px solid ' + PALETTE.haze : '1px solid ' + PALETTE.nebula,
+        opacity: locked ? 0.45 : 1,
+        glow: current ? '0 0 20px rgba(124,108,255,0.7)' : 'none',
+        labelColor: locked ? '#A5A5A5' : PALETTE.starlight,
+        completed: p.state === 'completed',
+        showXp: current,
+        xpPercent: Math.min(100, Math.round((totalXp / Math.max(p.deck.xpRequired, 1)) * 100)) + '%',
+      };
+    });
+
+    const orionGlow = React.createElement('svg', { width: 184, height: 184, viewBox: '-8 -8 116 116' }, [
+      ...ORION.lines.map(([a, b], i) => React.createElement('line', {
+        key: 'gl' + i, x1: ORION.stars[a].x, y1: ORION.stars[a].y, x2: ORION.stars[b].x, y2: ORION.stars[b].y,
+        stroke: PALETTE.nebula, strokeWidth: 1, strokeOpacity: 0.55,
+      })),
+      ...ORION.stars.map((s, i) => React.createElement('circle', { key: 'gg' + i, cx: s.x, cy: s.y, r: 5, fill: PALETTE.nebula, opacity: 0.25 })),
+      ...ORION.stars.map((s, i) => React.createElement('circle', { key: 'gc' + i, cx: s.x, cy: s.y, r: 2.2, fill: PALETTE.starlight })),
+    ]);
+
+    const orionSvg = React.createElement('svg', { width: 220, height: 220, viewBox: '0 0 100 100' }, [
+      ...ORION.lines.map(([a, b], i) => React.createElement('line', {
+        key: 'l' + i, x1: ORION.stars[a].x, y1: ORION.stars[a].y, x2: ORION.stars[b].x, y2: ORION.stars[b].y,
+        stroke: PALETTE.nebula, strokeWidth: 1.2, strokeOpacity: 0.8,
+      })),
+      ...ORION.stars.map((s, i) => React.createElement('circle', { key: 'c' + i, cx: s.x, cy: s.y, r: 2.4, fill: PALETTE.starlight })),
+    ]);
+
+    const V2 = [{ x: 62, y: 800 }, { x: 202, y: 620 }, { x: 62, y: 440 }, { x: 202, y: 260 }, { x: 62, y: 80 }];
+    const pathLinesV2 = React.createElement('svg', {
+      width: 264, height: 1020, style: { position: 'absolute', left: 0, top: 0 },
+    }, V2.slice(0, -1).map((p, i) => {
+      const next = V2[i + 1];
+      const done = i < 3;
+      return React.createElement('line', {
+        key: i, x1: p.x, y1: p.y, x2: next.x, y2: next.y,
+        stroke: done ? PALETTE.aurora : PALETTE.haze,
+        strokeWidth: 5, strokeLinecap: 'round',
+        strokeOpacity: done ? 0.9 : 0.35,
+        strokeDasharray: done ? undefined : '2 12',
+      });
+    }));
+
+    const V3 = [{ x: 62, y: 800 }, { x: 202, y: 620 }, { x: 62, y: 440 }, { x: 202, y: 259 }, { x: 62, y: 86 }];
+    const pathLinesV3 = React.createElement('svg', {
+      width: 264, height: 1020, style: { position: 'absolute', left: 0, top: 0 },
+    }, V3.slice(0, -1).map((p, i) => {
+      const next = V3[i + 1];
+      const done = i < 3;
+      return React.createElement('line', {
+        key: i, x1: p.x, y1: p.y, x2: next.x, y2: next.y,
+        stroke: done ? PALETTE.aurora : PALETTE.haze,
+        strokeWidth: 5, strokeLinecap: 'round',
+        strokeOpacity: done ? 0.9 : 0.35,
+        strokeDasharray: done ? undefined : '2 12',
+      });
+    }));
+
+    // Waning crescent ~31% illuminated: lit disc with an offset shadow carving a left crescent.
+    const moonDisc = React.createElement('svg', { width: 68, height: 68, viewBox: '0 0 68 68' }, [
+      React.createElement('defs', { key: 'd' },
+        React.createElement('clipPath', { id: 'moonClip' },
+          React.createElement('circle', { cx: 34, cy: 34, r: 30 }))),
+      React.createElement('circle', { key: 'base', cx: 34, cy: 34, r: 30, fill: '#20203a' }),
+      React.createElement('g', { key: 'lit', clipPath: 'url(#moonClip)' }, [
+        React.createElement('circle', { key: 'l', cx: 34, cy: 34, r: 30, fill: '#EDEAF7' }),
+        React.createElement('circle', { key: 's', cx: 50, cy: 34, r: 30, fill: '#20203a' }),
+      ]),
+      React.createElement('circle', { key: 'ring', cx: 34, cy: 34, r: 30, fill: 'none', stroke: 'rgba(241,239,251,0.25)', strokeWidth: 1 }),
+    ]);
+
+    // Small altitude gauge: quarter arc horizon with a dot at the given altitude (deg).
+    const altGauge = (deg, color) => React.createElement('svg', { width: 40, height: 26, viewBox: '0 0 40 26' }, [
+      React.createElement('line', { key: 'h', x1: 2, y1: 24, x2: 38, y2: 24, stroke: PALETTE.haze, strokeWidth: 1, strokeOpacity: 0.5 }),
+      React.createElement('path', { key: 'a', d: 'M4 24 A 16 16 0 0 1 36 24', fill: 'none', stroke: 'rgba(141,138,174,0.35)', strokeWidth: 1 }),
+      (() => { const t = Math.max(0, Math.min(90, deg)) / 90 * Math.PI; const cx = 20 - 16 * Math.cos(t); const cy = 24 - 16 * Math.sin(t); return React.createElement('circle', { key: 'd', cx, cy, r: 3, fill: color }); })(),
+    ]);
+    const saturnGauge = altGauge(24, '#D8C48A');
+    const marsGauge = altGauge(30, PALETTE.comet);
+    const venusGauge = altGauge(12, '#F4C542');
+
+    const taRing = React.createElement('svg', { width: 60, height: 60, viewBox: '0 0 60 60' }, [
+      React.createElement('circle', { key: 't', cx: 30, cy: 30, r: 26, fill: 'none', stroke: 'rgba(255,255,255,0.1)', strokeWidth: 5 }),
+      React.createElement('circle', {
+        key: 'p', cx: 30, cy: 30, r: 26, fill: 'none', stroke: PALETTE.amber, strokeWidth: 5, strokeLinecap: 'round',
+        strokeDasharray: 2 * Math.PI * 26, strokeDashoffset: 2 * Math.PI * 26 * (1 - 41 / 60),
+        transform: 'rotate(-90 30 30)',
+      }),
+    ]);
+
+    return { starfield, pathLines, pathNodes, orionSvg, orionGlow, pathLinesV2, pathLinesV3, taRing, moonDisc, saturnGauge, marsGauge, venusGauge };
+  }
+}
+
+</script>
+</body>
+</html>

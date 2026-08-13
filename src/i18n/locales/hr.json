@@ -65,14 +65,18 @@
     "title": "Večeras",
     "permissionMessage": "Treba nam tvoja lokacija da prikažemo šta je vidljivo na nebu večeras.",
     "enableLocation": "Uključi lokaciju",
-    "sunset": "Zalazak sunca {{time}}",
-    "sunrise": "Izlazak sunca {{time}}",
+    "sunsetLabel": "Zalazak sunca",
+    "sunriseLabel": "Izlazak sunca",
     "illuminated": "{{percent}}% osvijetljeno",
-    "visible": "Vidljivo sada · {{direction}}, {{altitude}}°",
-    "notVisible": "Trenutno nije vidljivo",
     "rises": "Izlazi {{time}}",
-    "sets": "Zalazi {{time}}",
+    "risesCompact": "izlazi {{time}}",
+    "setsCompact": "zalazi {{time}}",
     "funFact": "Zanimljivost",
+    "planetsLabel": "Planete",
+    "pill": {
+      "visible": "Vidljivo",
+      "below": "Ispod"
+    },
     "moonPhase": {
       "newMoon": "Mladi Mjesec",
       "waxingCrescent": "Mlađak",

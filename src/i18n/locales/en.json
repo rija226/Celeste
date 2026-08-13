@@ -65,14 +65,18 @@
     "title": "Tonight",
     "permissionMessage": "We need your location to show what's visible in tonight's sky.",
     "enableLocation": "Enable location",
-    "sunset": "Sunset {{time}}",
-    "sunrise": "Sunrise {{time}}",
+    "sunsetLabel": "Sunset",
+    "sunriseLabel": "Sunrise",
     "illuminated": "{{percent}}% illuminated",
-    "visible": "Visible now · {{direction}}, {{altitude}}°",
-    "notVisible": "Not visible right now",
     "rises": "Rises {{time}}",
-    "sets": "Sets {{time}}",
+    "risesCompact": "rises {{time}}",
+    "setsCompact": "sets {{time}}",
     "funFact": "Fun fact",
+    "planetsLabel": "Planets",
+    "pill": {
+      "visible": "Visible",
+      "below": "Below"
+    },
     "moonPhase": {
       "newMoon": "New Moon",
       "waxingCrescent": "Waxing Crescent",

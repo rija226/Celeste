@@ -24,7 +24,13 @@ function withFace<F extends { face?: Record<string, { normal?: string; italic?: 
 
 const fonts = {
   ...config.fonts,
-  heading: withFace(config.fonts.heading, headingFaceByWeight),
+  // Stock Tamagui headingFont baca textTransform:'uppercase' na manje
+  // size-indekse (vidi @tamagui/config/dist/.../fonts.js: transform: {6:
+  // 'uppercase', 7:'none'}) -- to se resolveuje i za literalni fontSize broj,
+  // ne samo "$N" token, pa je npr. "Good evening"/"New Moon" tiho izlazio
+  // velikim slovima bez ijednog eksplicitnog textTransform propa u kodu.
+  // Ovdje ga brisemo; gdje NAM treba uppercase, postavljamo ga eksplicitno.
+  heading: { ...withFace(config.fonts.heading, headingFaceByWeight), transform: {} },
   body: withFace(config.fonts.body, bodyFaceByWeight),
 };
 

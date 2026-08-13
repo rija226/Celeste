@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { H2, Paragraph, Spinner, XStack, YStack } from 'tamagui';
 
+import { PillButton } from '@/components/PillButton';
 import { QuizQuestionCard } from '@/components/QuizQuestionCard';
 import { ScreenBackdrop } from '@/components/ScreenBackdrop';
 import { XpRing } from '@/components/XpRing';
@@ -43,30 +44,6 @@ const MODE_TABS: { key: Mode; labelKey: string }[] = [
 ];
 
 const PROMPT_CAPTION = '#A5A5A5';
-
-function PillButton({
-  label,
-  icon,
-  color,
-  onPress,
-}: {
-  label: string;
-  icon?: keyof typeof Ionicons.glyphMap;
-  color: string;
-  onPress: () => void;
-}) {
-  const textColor = color === palette.amber ? palette.void : palette.starlight;
-  return (
-    <Pressable onPress={onPress}>
-      <XStack height={50} borderRadius={999} backgroundColor={color} ai="center" jc="center" gap="$2">
-        <Paragraph fontWeight="700" fontSize={15} color={textColor}>
-          {label}
-        </Paragraph>
-        {icon && <Ionicons name={icon} size={16} color={textColor} />}
-      </XStack>
-    </Pressable>
-  );
-}
 
 export default function QuizScreen() {
   const { t, i18n } = useTranslation();
