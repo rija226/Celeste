@@ -265,7 +265,7 @@ export default function QuizScreen() {
               const activeTextColor = tab.key === 'timeAttack' ? palette.void : palette.starlight;
               return (
                 <Pressable key={tab.key} style={{ flex: 1 }} onPress={() => setMode(tab.key)}>
-                  <YStack height={38} borderRadius={10} ai="center" jc="center" backgroundColor={active ? activeColor : 'transparent'}>
+                  <YStack height={38} borderRadius={10} overflow="hidden" ai="center" jc="center" backgroundColor={active ? activeColor : 'transparent'}>
                     <Paragraph fontSize={13} fontWeight={active ? '600' : '500'} color={active ? activeTextColor : palette.haze}>
                       {t(tab.labelKey)}
                     </Paragraph>
@@ -289,6 +289,7 @@ export default function QuizScreen() {
                         px={13}
                         py={6}
                         borderRadius={999}
+                        overflow="hidden"
                         backgroundColor={active ? 'rgba(124,108,255,0.22)' : 'transparent'}
                         borderWidth={1}
                         borderColor={active ? palette.nebula : 'rgba(141,138,174,0.4)'}>
@@ -310,6 +311,7 @@ export default function QuizScreen() {
                       <YStack
                         height={32}
                         borderRadius={8}
+                        overflow="hidden"
                         ai="center"
                         jc="center"
                         backgroundColor={active ? `${color}2E` : 'transparent'}

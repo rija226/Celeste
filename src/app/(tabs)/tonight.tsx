@@ -318,6 +318,7 @@ function ViewModeButton({
       width={38}
       height={38}
       borderRadius={999}
+      overflow="hidden"
       ai="center"
       jc="center"
       backgroundColor={active ? palette.nebula : 'rgba(43,37,96,0.9)'}
