@@ -6,8 +6,16 @@
     "dailyGoal": "Sve za danas gotovo! ✨"
   },
   "welcome": {
-    "title": "Dobrodošli u Celeste 🪐",
-    "body": "Tvoje putovanje kroz kosmos počinje ovdje. Uči o svemiru i astronomiji kroz kartice, testiraj znanje kvizom sazviježđa i pogledaj šta je večeras stvarno vidljivo na nebu — gdje god da si.",
+    "title": "Dobrodošli u Celeste",
+    "intro": "Tvoje putovanje kroz kosmos počinje ovdje.",
+    "features": {
+      "learnTitle": "Uči uz kartice",
+      "learnBody": "Svemir i astronomija, karticu po karticu.",
+      "quizTitle": "Provjeri znanje",
+      "quizBody": "Kvizovi sazviježđa i planeta.",
+      "skyTitle": "Pogledaj noćno nebo",
+      "skyBody": "Što je stvarno vidljivo — gdje god da si."
+    },
     "cta": "Započni"
   },
   "home": {
