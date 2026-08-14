@@ -195,6 +195,21 @@
     "start": "Počni učenje"
   },
   "study": {
+    "cardOf": "Kartica {{current}} od {{total}}",
+    "cardState": {
+      "new": "Novo",
+      "learning": "Učenje",
+      "review": "Ponavljanje"
+    },
+    "category": {
+      "basics": "Osnove",
+      "deepSpace": "Duboki svemir",
+      "planets": "Planete"
+    },
+    "question": "Pitanje",
+    "answer": "Odgovor",
+    "tapToFlip": "Dodirni karticu za okretanje",
+    "ratingCaption": "Koliko dobro si znao/la ovo?",
     "reveal": "Prikaži odgovor",
     "again": "Ponovo",
     "hard": "Teško",

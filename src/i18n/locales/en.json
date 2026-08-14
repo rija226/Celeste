@@ -195,6 +195,21 @@
     "start": "Start studying"
   },
   "study": {
+    "cardOf": "Card {{current}} of {{total}}",
+    "cardState": {
+      "new": "New",
+      "learning": "Learning",
+      "review": "Review"
+    },
+    "category": {
+      "basics": "Basics",
+      "deepSpace": "Deep Space",
+      "planets": "Planets"
+    },
+    "question": "Question",
+    "answer": "Answer",
+    "tapToFlip": "Tap card to flip",
+    "ratingCaption": "How well did you know it?",
     "reveal": "Show answer",
     "again": "Again",
     "hard": "Hard",

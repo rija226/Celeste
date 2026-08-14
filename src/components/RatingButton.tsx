@@ -18,19 +18,19 @@ export function RatingButton({ icon, label, interval, color, onPress }: RatingBu
         <YStack
           ai="center"
           jc="center"
-          gap="$1.5"
-          py="$3"
-          borderRadius="$8"
+          gap={5}
+          py={12}
+          borderRadius={20}
           borderWidth={1}
           borderColor={color}
           backgroundColor={`${color}26`}
           opacity={pressed ? 0.7 : 1}>
           <Ionicons name={icon} size={20} color={color} />
-          <Paragraph fontSize="$2" color={color} fontWeight="600">
+          <Paragraph fontSize={12} color={color} fontWeight="600">
             {label}
           </Paragraph>
           {interval && (
-            <Paragraph fontSize="$1" color={color} opacity={0.75}>
+            <Paragraph fontSize={10} color={color} opacity={0.8}>
               {interval}
             </Paragraph>
           )}
