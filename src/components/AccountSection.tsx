@@ -1,6 +1,7 @@
+import { Ionicons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Input, Paragraph, YStack } from 'tamagui';
+import { Input, Paragraph, XStack, YStack } from 'tamagui';
 
 import {
   ensureSession,
@@ -10,6 +11,7 @@ import {
   upgradeAnonymousAccount,
   type AuthUser,
 } from '@/db';
+import { palette } from '@/theme/palette';
 
 type Mode = 'create' | 'login';
 
@@ -76,35 +78,58 @@ export function AccountSection() {
     return null;
   }
 
+  const inputProps = {
+    backgroundColor: '#151517',
+    borderColor: '#2A2A2E',
+    borderWidth: 1,
+    borderRadius: 10,
+    height: 44,
+    fontSize: 14,
+    color: palette.starlight,
+    placeholderTextColor: palette.haze,
+  } as const;
+
   if (user && !user.isAnonymous) {
     return (
-      <YStack gap="$2">
-        <Paragraph color="$color11">{t('settings.account.title')}</Paragraph>
+      <YStack gap={10} p={16}>
         <Paragraph fontFamily="$heading" color="$color">
           {t('settings.account.signedInAs', { email: user.email })}
         </Paragraph>
-        <Button theme="red" disabled={submitting} onPress={handleSignOut}>
-          {t('settings.account.signOut')}
-        </Button>
+        <YStack
+          height={46}
+          borderRadius={10}
+          backgroundColor="rgba(255,107,94,0.15)"
+          borderWidth={1}
+          borderColor={palette.comet}
+          ai="center"
+          jc="center"
+          opacity={submitting ? 0.6 : 1}
+          onPress={submitting ? undefined : handleSignOut}
+          pressStyle={{ opacity: 0.8 }}>
+          <Paragraph fontWeight="600" fontSize={14} color={palette.comet}>
+            {t('settings.account.signOut')}
+          </Paragraph>
+        </YStack>
       </YStack>
     );
   }
 
   if (confirmSentTo) {
     return (
-      <YStack gap="$2">
-        <Paragraph color="$color11">{t('settings.account.title')}</Paragraph>
-        <Paragraph color="$green10">{t('settings.account.confirmEmailSent', { email: confirmSentTo })}</Paragraph>
+      <YStack gap={10} p={16}>
+        <Paragraph color={palette.aurora}>{t('settings.account.confirmEmailSent', { email: confirmSentTo })}</Paragraph>
       </YStack>
     );
   }
 
   return (
-    <YStack gap="$2">
-      <Paragraph color="$color11">{t('settings.account.title')}</Paragraph>
-      <Paragraph color="$color11" fontSize="$2">
-        {t('settings.account.guestLabel')}
-      </Paragraph>
+    <YStack gap={10} p={16}>
+      <XStack ai="center" gap={8}>
+        <Ionicons name="person-circle-outline" size={18} color={palette.haze} />
+        <Paragraph color="$color11" fontSize={13} f={1}>
+          {t('settings.account.guestLabel')}
+        </Paragraph>
+      </XStack>
 
       <Input
         placeholder={t('settings.account.email')}
@@ -112,12 +137,14 @@ export function AccountSection() {
         onChangeText={setEmail}
         autoCapitalize="none"
         keyboardType="email-address"
+        {...inputProps}
       />
       <Input
         placeholder={t('settings.account.password')}
         value={password}
         onChangeText={setPassword}
         secureTextEntry
+        {...inputProps}
       />
       {mode === 'create' && (
         <Input
@@ -125,6 +152,7 @@ export function AccountSection() {
           value={confirmPassword}
           onChangeText={setConfirmPassword}
           secureTextEntry
+          {...inputProps}
         />
       )}
 
@@ -133,18 +161,26 @@ export function AccountSection() {
           {t('settings.account.loginWarning')}
         </Paragraph>
       )}
-      {error && <Paragraph color="$red10">{error}</Paragraph>}
+      {error && <Paragraph color={palette.comet}>{error}</Paragraph>}
 
-      <Button
-        theme="blue"
-        disabled={submitting || !email || !password}
-        onPress={mode === 'create' ? handleCreate : handleLogin}>
-        {mode === 'create' ? t('settings.account.submitCreate') : t('settings.account.submitLogin')}
-      </Button>
+      <YStack
+        height={46}
+        borderRadius={10}
+        backgroundColor={palette.nebula}
+        ai="center"
+        jc="center"
+        opacity={submitting || !email || !password ? 0.5 : 1}
+        onPress={submitting || !email || !password ? undefined : mode === 'create' ? handleCreate : handleLogin}
+        pressStyle={{ opacity: 0.85 }}>
+        <Paragraph fontWeight="600" fontSize={14} color={palette.starlight}>
+          {mode === 'create' ? t('settings.account.submitCreate') : t('settings.account.submitLogin')}
+        </Paragraph>
+      </YStack>
 
       <Paragraph
-        color="$blue10"
-        fontSize="$2"
+        color="#52A9FF"
+        fontSize={13}
+        textAlign="center"
         onPress={() => {
           setMode(mode === 'create' ? 'login' : 'create');
           setError(null);

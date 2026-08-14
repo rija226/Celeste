@@ -123,6 +123,11 @@
     "dailyReminderTime": "Svaki dan u 19:00",
     "dailyReminderWebNote": "Dostupno na mobilnim uređajima",
     "dailyReminderDeniedNote": "Dozvola za notifikacije je odbijena — uključi je u sistemskim podešavanjima",
+    "sections": {
+      "preferences": "Opšte",
+      "sound": "Zvuk",
+      "account": "Nalog"
+    },
     "sound": {
       "title": "Zvuk",
       "sfx": "Zvučni efekti",
@@ -144,6 +149,25 @@
       "passwordTooShort": "Lozinka mora imati bar 6 znakova",
       "signedInAs": "Prijavljen/a kao {{email}}",
       "signOut": "Odjavi se"
+    }
+  },
+  "profile": {
+    "levelRank": "Nivo {{level}} · {{rank}}",
+    "explorerFallback": "Istraživač",
+    "unlockedLevels": "{{unlocked}}/{{total}}",
+    "editorTitle": "Tvoj istraživač",
+    "displayName": "Ime",
+    "namePlaceholder": "Istraživač",
+    "glyph": "Glif",
+    "accent": "Akcent",
+    "cancel": "Otkaži",
+    "save": "Sačuvaj",
+    "rank": {
+      "novice": "Početnik",
+      "explorer": "Istraživač",
+      "voyager": "Putnik",
+      "stargazer": "Zvjezdogledač",
+      "cosmonaut": "Kosmonaut"
     }
   },
   "notifications": {

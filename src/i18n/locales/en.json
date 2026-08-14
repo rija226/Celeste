@@ -123,6 +123,11 @@
     "dailyReminderTime": "Every day at 19:00",
     "dailyReminderWebNote": "Available on mobile devices",
     "dailyReminderDeniedNote": "Notification permission was denied — enable it in system settings",
+    "sections": {
+      "preferences": "Preferences",
+      "sound": "Sound",
+      "account": "Account"
+    },
     "sound": {
       "title": "Sound",
       "sfx": "Sound effects",
@@ -144,6 +149,25 @@
       "passwordTooShort": "Password must be at least 6 characters",
       "signedInAs": "Signed in as {{email}}",
       "signOut": "Sign out"
+    }
+  },
+  "profile": {
+    "levelRank": "Level {{level}} · {{rank}} rank",
+    "explorerFallback": "Explorer",
+    "unlockedLevels": "{{unlocked}}/{{total}}",
+    "editorTitle": "Your explorer",
+    "displayName": "Display name",
+    "namePlaceholder": "Explorer",
+    "glyph": "Glyph",
+    "accent": "Accent",
+    "cancel": "Cancel",
+    "save": "Save explorer",
+    "rank": {
+      "novice": "Novice",
+      "explorer": "Explorer",
+      "voyager": "Voyager",
+      "stargazer": "Stargazer",
+      "cosmonaut": "Cosmonaut"
     }
   },
   "notifications": {
