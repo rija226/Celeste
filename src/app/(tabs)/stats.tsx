@@ -67,10 +67,13 @@ export default function StatsScreen() {
 
   return (
     <ScreenBackdrop>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <YStack f={1} gap={14} pt="$8" px="$4" pb="$8">
-          <H2 color="$color">{t('stats.title')}</H2>
+      <YStack f={1} pt="$8">
+        <H2 color="$color" px="$4">
+          {t('stats.title')}
+        </H2>
 
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <YStack gap={14} px="$4" pt="$3.5" pb="$8">
           {error && <Paragraph color="$red10">{error}</Paragraph>}
           {!stats && !error && <Spinner size="large" />}
 
@@ -107,7 +110,8 @@ export default function StatsScreen() {
             </>
           )}
         </YStack>
-      </ScrollView>
+        </ScrollView>
+      </YStack>
     </ScreenBackdrop>
   );
 }

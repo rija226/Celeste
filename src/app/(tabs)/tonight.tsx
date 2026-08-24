@@ -165,41 +165,42 @@ export default function TonightScreen() {
 
   return (
     <ScreenBackdrop>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <YStack f={1} pt="$8" px="$4" pb="$8" gap="$3">
-          <XStack ai="center" jc="space-between">
-            <H2 color="$color">{t('tonight.title')}</H2>
-            {coords && sky && (
-              <XStack gap="$1.5">
-                <ViewModeButton
-                  active={viewMode === 'list'}
-                  onPress={() => {
-                    setViewMode('list');
-                    setSelectedInfo(null);
-                  }}
-                  icon="list"
-                />
-                <ViewModeButton
-                  active={viewMode === 'map'}
-                  onPress={() => {
-                    setViewMode('map');
-                    setSelectedInfo(null);
-                  }}
-                  icon="planet-outline"
-                />
-                <ViewModeButton
-                  active={viewMode === 'ar'}
-                  onPress={async () => {
-                    if (!cameraPermission?.granted) await requestCameraPermission();
-                    setViewMode('ar');
-                    setSelectedInfo(null);
-                  }}
-                  icon="camera-outline"
-                />
-              </XStack>
-            )}
-          </XStack>
+      <YStack f={1} pt="$8">
+        <XStack ai="center" jc="space-between" px="$4">
+          <H2 color="$color">{t('tonight.title')}</H2>
+          {coords && sky && (
+            <XStack gap="$1.5">
+              <ViewModeButton
+                active={viewMode === 'list'}
+                onPress={() => {
+                  setViewMode('list');
+                  setSelectedInfo(null);
+                }}
+                icon="list"
+              />
+              <ViewModeButton
+                active={viewMode === 'map'}
+                onPress={() => {
+                  setViewMode('map');
+                  setSelectedInfo(null);
+                }}
+                icon="planet-outline"
+              />
+              <ViewModeButton
+                active={viewMode === 'ar'}
+                onPress={async () => {
+                  if (!cameraPermission?.granted) await requestCameraPermission();
+                  setViewMode('ar');
+                  setSelectedInfo(null);
+                }}
+                icon="camera-outline"
+              />
+            </XStack>
+          )}
+        </XStack>
 
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <YStack px="$4" pt="$3" pb="$8" gap="$3">
           {coords === undefined && <Spinner size="large" />}
 
           {coords === null && (
@@ -281,7 +282,8 @@ export default function TonightScreen() {
             </>
           )}
         </YStack>
-      </ScrollView>
+        </ScrollView>
+      </YStack>
     </ScreenBackdrop>
   );
 }

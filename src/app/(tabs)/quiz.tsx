@@ -236,28 +236,29 @@ export default function QuizScreen() {
 
   return (
     <ScreenBackdrop>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <YStack f={1} pt="$8" px="$4" pb="$8" gap="$3.5">
-          <XStack ai="center" jc="space-between">
-            <H2 color="$color">{t('quiz.title')}</H2>
-            {headerPoints !== null && (
-              <XStack
-                ai="center"
-                gap={6}
-                px={12}
-                py={6}
-                borderRadius={999}
-                backgroundColor="rgba(255,169,77,0.14)"
-                borderWidth={1}
-                borderColor="rgba(255,169,77,0.5)">
-                <Ionicons name="sparkles" size={14} color={palette.amber} />
-                <Paragraph fontFamily="$heading" fontSize={14} fontWeight="700" color={palette.amber}>
-                  {t('quiz.points', { count: headerPoints })}
-                </Paragraph>
-              </XStack>
-            )}
-          </XStack>
+      <YStack f={1} pt="$8">
+        <XStack ai="center" jc="space-between" px="$4">
+          <H2 color="$color">{t('quiz.title')}</H2>
+          {headerPoints !== null && (
+            <XStack
+              ai="center"
+              gap={6}
+              px={12}
+              py={6}
+              borderRadius={999}
+              backgroundColor="rgba(255,169,77,0.14)"
+              borderWidth={1}
+              borderColor="rgba(255,169,77,0.5)">
+              <Ionicons name="sparkles" size={14} color={palette.amber} />
+              <Paragraph fontFamily="$heading" fontSize={14} fontWeight="700" color={palette.amber}>
+                {t('quiz.points', { count: headerPoints })}
+              </Paragraph>
+            </XStack>
+          )}
+        </XStack>
 
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <YStack px="$4" pt="$3.5" pb="$8" gap="$3.5">
           <XStack p={4} gap={4} borderRadius={14} backgroundColor="rgba(6,7,13,0.5)" borderWidth={1} borderColor="rgba(124,108,255,0.25)">
             {MODE_TABS.map((tab) => {
               const active = mode === tab.key;
@@ -497,7 +498,8 @@ export default function QuizScreen() {
             </>
           )}
         </YStack>
-      </ScrollView>
+        </ScrollView>
+      </YStack>
     </ScreenBackdrop>
   );
 }
