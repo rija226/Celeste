@@ -21,6 +21,12 @@ type FlipCardProps = {
   onPress: () => void;
 };
 
+// Trajanje flip animacije -- izlozeno da pozivalac (study ekran) moze tacno
+// pogoditi trenutak na pola okreta (vidi FLIP_HALFWAY_MS) kad zamjenjuje
+// sadrzaj kartice (npr. prelazi na sljedecu karticu u nizu).
+export const FLIP_DURATION_MS = 450;
+export const FLIP_HALFWAY_MS = FLIP_DURATION_MS / 2;
+
 // 3D flip: dva lica kartice rotiraju se oko Y ose, backfaceVisibility 'hidden'
 // sakriva naličje svakog lica dok prelazi kroz 90 stepeni -- klasicna
 // reanimated tehnika, bez potrebe za dodatnim opacity krosfejdom.
@@ -28,7 +34,7 @@ export function FlipCard({ flipped, front, back, onPress }: FlipCardProps) {
   const progress = useSharedValue(0);
 
   useEffect(() => {
-    progress.value = withTiming(flipped ? 1 : 0, { duration: 450 });
+    progress.value = withTiming(flipped ? 1 : 0, { duration: FLIP_DURATION_MS });
   }, [flipped, progress]);
 
   const frontStyle = useAnimatedStyle(() => ({

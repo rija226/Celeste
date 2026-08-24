@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Paragraph, Spinner, XStack, YStack } from 'tamagui';
 
-import { FlipCard } from '@/components/FlipCard';
+import { FLIP_HALFWAY_MS, FlipCard } from '@/components/FlipCard';
 import { RatingButton } from '@/components/RatingButton';
 import { ScreenBackdrop } from '@/components/ScreenBackdrop';
 import {
@@ -50,7 +50,14 @@ export default function StudyScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
 
-  const { queue, index, isFlipped, start, flip, advance } = useStudySessionStore();
+  const { queue, index, isFlipped, start, flip, unflip, advanceIndex } = useStudySessionStore();
+  const advanceTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (advanceTimeoutRef.current) clearTimeout(advanceTimeoutRef.current);
+    };
+  }, []);
   const [userId, setUserId] = useState<string | null>(null);
   const [deck, setDeck] = useState<Deck | null>(null);
   const [loading, setLoading] = useState(true);
@@ -109,7 +116,14 @@ export default function StudyScreen() {
     const { progress, reviewLog } = scheduleReview(existing, userId, currentCard.id, rating);
     await upsertCardProgress(progress);
     await insertReviewLog(reviewLog);
-    advance();
+    // Okreni nazad odmah (jos uvijek prikazuje UPRAVO OCIJENJENU karticu -- nije
+    // spojler), a sljedecu karticu ucitaj tek kad flip animacija stigne na pola
+    // okreta, gdje su obje strane kartice nevidljive (vidi FlipCard). Tako se
+    // odgovor SLJEDECE kartice nikad ne vidi dok se prethodna jos vidljivo okrece.
+    unflip();
+    advanceTimeoutRef.current = setTimeout(() => {
+      advanceIndex();
+    }, FLIP_HALFWAY_MS);
   }
 
   function intervalLabel(ms: number): string {
