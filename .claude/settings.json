@@ -8,7 +8,13 @@
       "Bash(grep -v \"tamagui\\\\]\\\\|babel\\\\|node_modules\\\\\\\\\\\\\\\\@babel\\\\|EBADENGINE\\\\|Node.js \\(v20\")",
       "Bash(npx tsx *)",
       "Bash(node --env-file=.env scripts/backfill-card-slugs.js)",
-      "Bash(node --env-file=.env tmp-diag.js)"
+      "Bash(node --env-file=.env tmp-diag.js)",
+      "Bash(node --env-file=.env scripts/import-seed.js deck-space-basics.json)",
+      "Bash(node --env-file=.env scripts/import-seed.js deck-earth-moon.json)",
+      "Bash(node --env-file=.env scripts/import-seed.js deck-the-sun.json)",
+      "Bash(echo \"EXIT CODE: $?\")",
+      "Bash(git commit -m ' *)",
+      "Bash(git rm *)"
     ]
   },
   "enabledPlugins": {

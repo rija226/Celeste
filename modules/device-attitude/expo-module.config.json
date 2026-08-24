@@ -1,0 +1,9 @@
+{
+  "platforms": ["apple", "android"],
+  "apple": {
+    "modules": ["DeviceAttitudeModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.deviceattitude.DeviceAttitudeModule"]
+  }
+}
