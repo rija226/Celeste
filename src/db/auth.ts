@@ -8,6 +8,19 @@ import { supabase } from './supabase';
  */
 let pendingSession: Promise<string> | null = null;
 
+async function trySignIn(): Promise<string> {
+  const { data: existing } = await supabase.auth.getSession();
+  if (existing.session) {
+    return existing.session.user.id;
+  }
+
+  const { data, error } = await supabase.auth.signInAnonymously();
+  if (error || !data.session) {
+    throw error ?? new Error('Anonymous sign-in failed');
+  }
+  return data.session.user.id;
+}
+
 // Vise ekrana/efekata poziva ensureSession() na hladnom startu (root layout
 // + svaki ekran). Bez dedupe-a, konkurentni pozivi prije nego sesija postoji
 // svaki vide "nema sesije" i svaki pokusa signInAnonymously() -- dupli
@@ -16,16 +29,18 @@ export async function ensureSession(): Promise<string> {
   if (pendingSession) return pendingSession;
 
   pendingSession = (async () => {
-    const { data: existing } = await supabase.auth.getSession();
-    if (existing.session) {
-      return existing.session.user.id;
+    try {
+      return await trySignIn();
+    } catch {
+      // Bas prvo pokretanje aplikacije (odmah nakon instalacije/paljenja
+      // telefona) zna imati prolaznu gresku ovdje -- mreza jos nije skroz
+      // spremna ili uredjajev sat/JWT provjera jos nije "sjela". Rucni
+      // izlazak/ulazak u app to rijesi jednostavno tako sto pokusa ponovo;
+      // jedan automatski pokusaj sa kratkom pauzom radi isto, bez da
+      // korisnik mora sam da to primijeti i uradi.
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      return await trySignIn();
     }
-
-    const { data, error } = await supabase.auth.signInAnonymously();
-    if (error || !data.session) {
-      throw error ?? new Error('Anonymous sign-in failed');
-    }
-    return data.session.user.id;
   })();
 
   try {
