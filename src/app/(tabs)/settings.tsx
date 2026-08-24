@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useEffect, useState, type ReactNode } from 'react';
-import { Platform, ScrollView } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { H2, Paragraph, XStack, YStack } from 'tamagui';
 
@@ -97,7 +97,11 @@ export default function SettingsScreen() {
 
   return (
     <ScreenBackdrop>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
         <YStack f={1} pt="$8" px="$4" pb="$8" gap={16}>
           <H2 color="$color">{t('settings.title')}</H2>
 
@@ -199,6 +203,7 @@ export default function SettingsScreen() {
           </SettingsGroup>
         </YStack>
       </ScrollView>
+      </KeyboardAvoidingView>
 
       <AvatarBuilderSheet visible={sheetVisible} onClose={() => setSheetVisible(false)} />
     </ScreenBackdrop>

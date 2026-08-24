@@ -22,6 +22,8 @@ export function AccountSection() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [confirmSentTo, setConfirmSentTo] = useState<string | null>(null);
@@ -139,21 +141,53 @@ export function AccountSection() {
         keyboardType="email-address"
         {...inputProps}
       />
-      <Input
-        placeholder={t('settings.account.password')}
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        {...inputProps}
-      />
-      {mode === 'create' && (
+      <YStack position="relative">
         <Input
-          placeholder={t('settings.account.confirmPassword')}
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-          secureTextEntry
+          placeholder={t('settings.account.password')}
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={!showPassword}
+          autoCapitalize="none"
+          pr={44}
           {...inputProps}
         />
+        <YStack
+          position="absolute"
+          right={0}
+          top={0}
+          bottom={0}
+          width={44}
+          ai="center"
+          jc="center"
+          onPress={() => setShowPassword((v) => !v)}
+          pressStyle={{ opacity: 0.7 }}>
+          <Ionicons name={showPassword ? 'eye-off-outline' : 'eye-outline'} size={18} color={palette.haze} />
+        </YStack>
+      </YStack>
+      {mode === 'create' && (
+        <YStack position="relative">
+          <Input
+            placeholder={t('settings.account.confirmPassword')}
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            secureTextEntry={!showConfirmPassword}
+            autoCapitalize="none"
+            pr={44}
+            {...inputProps}
+          />
+          <YStack
+            position="absolute"
+            right={0}
+            top={0}
+            bottom={0}
+            width={44}
+            ai="center"
+            jc="center"
+            onPress={() => setShowConfirmPassword((v) => !v)}
+            pressStyle={{ opacity: 0.7 }}>
+            <Ionicons name={showConfirmPassword ? 'eye-off-outline' : 'eye-outline'} size={18} color={palette.haze} />
+          </YStack>
+        </YStack>
       )}
 
       {mode === 'login' && (
