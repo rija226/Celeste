@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'expo-router';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Paragraph, Spinner, YStack } from 'tamagui';
+import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import { Paragraph, Spinner, YStack } from "tamagui";
 
-import { HomeHeader } from '@/components/HomeHeader';
-import { LevelPath } from '@/components/LevelPath';
-import { ResumeDock } from '@/components/ResumeDock';
-import { ScreenBackdrop } from '@/components/ScreenBackdrop';
+import { HomeHeader } from "@/components/HomeHeader";
+import { LevelPath } from "@/components/LevelPath";
+import { ResumeDock } from "@/components/ResumeDock";
+import { ScreenBackdrop } from "@/components/ScreenBackdrop";
 import {
   ensureSession,
   getCardsForDeck,
@@ -16,12 +16,12 @@ import {
   getQuizResultDates,
   getReviewLogDates,
   getTotalReviewCount,
-} from '@/db';
-import { computeStreak } from '@/lib/stats';
-import { palette } from '@/theme/palette';
-import type { Deck } from '@/types/models';
+} from "@/db";
+import { computeStreak } from "@/lib/stats";
+import { palette } from "@/theme/palette";
+import type { Deck } from "@/types/models";
 
-const DOCK_SCRIM_HEIGHT = 64;
+const DOCK_SCRIM_HEIGHT = 24;
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -39,12 +39,13 @@ export default function HomeScreen() {
     (async () => {
       try {
         const userId = await ensureSession();
-        const [totalReviews, quizPoints, reviewDates, quizDates] = await Promise.all([
-          getTotalReviewCount(userId),
-          getQuizPoints(userId),
-          getReviewLogDates(userId),
-          getQuizResultDates(userId),
-        ]);
+        const [totalReviews, quizPoints, reviewDates, quizDates] =
+          await Promise.all([
+            getTotalReviewCount(userId),
+            getQuizPoints(userId),
+            getReviewLogDates(userId),
+            getQuizResultDates(userId),
+          ]);
         setTotalXp(totalReviews + quizPoints);
         setStreak(computeStreak([...reviewDates, ...quizDates]));
       } catch (e) {
@@ -53,9 +54,18 @@ export default function HomeScreen() {
     })();
   }, []);
 
-  const sortedDecks = (decks ?? []).filter((deck) => deck.level !== null).sort((a, b) => (a.level ?? 0) - (b.level ?? 0));
-  const currentDeck = totalXp === null ? null : (sortedDecks.find((deck) => totalXp < deck.xpRequired) ?? sortedDecks.at(-1) ?? null);
-  const level = currentDeck ? sortedDecks.findIndex((deck) => deck.id === currentDeck.id) + 1 : 1;
+  const sortedDecks = (decks ?? [])
+    .filter((deck) => deck.level !== null)
+    .sort((a, b) => (a.level ?? 0) - (b.level ?? 0));
+  const currentDeck =
+    totalXp === null
+      ? null
+      : (sortedDecks.find((deck) => totalXp < deck.xpRequired) ??
+        sortedDecks.at(-1) ??
+        null);
+  const level = currentDeck
+    ? sortedDecks.findIndex((deck) => deck.id === currentDeck.id) + 1
+    : 1;
 
   useEffect(() => {
     if (!currentDeck) return;
@@ -63,7 +73,12 @@ export default function HomeScreen() {
       try {
         const userId = await ensureSession();
         const cards = await getCardsForDeck(currentDeck.id);
-        setDueCount(await getDueCount(userId, cards.map((card) => card.id)));
+        setDueCount(
+          await getDueCount(
+            userId,
+            cards.map((card) => card.id),
+          ),
+        );
       } catch (e) {
         setError((e as Error).message);
       }
@@ -96,18 +111,40 @@ export default function HomeScreen() {
 
         {ready && (
           <>
-            <HomeHeader level={level} totalXp={totalXp} xpRequired={currentDeck.xpRequired} streak={streak} />
+            <HomeHeader
+              level={level}
+              totalXp={totalXp}
+              xpRequired={currentDeck.xpRequired}
+              streak={streak}
+            />
             <LevelPath decks={decks} totalXp={totalXp} />
-            <YStack pt={DOCK_SCRIM_HEIGHT} px="$3.5" pb="$3" position="relative">
+            <YStack
+              pt={DOCK_SCRIM_HEIGHT}
+              px="$3.5"
+              pb="$3"
+              position="relative"
+            >
               <LinearGradient
-                colors={['transparent', palette.void]}
+                colors={["transparent", palette.void]}
                 locations={[0, 0.55]}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 0, y: 1 }}
                 pointerEvents="none"
-                style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                }}
               />
-              <ResumeDock deck={currentDeck} totalXp={totalXp} xpRequired={currentDeck.xpRequired} dueCount={dueCount} onPress={goToCurrentDeck} />
+              <ResumeDock
+                deck={currentDeck}
+                totalXp={totalXp}
+                xpRequired={currentDeck.xpRequired}
+                dueCount={dueCount}
+                onPress={goToCurrentDeck}
+              />
             </YStack>
           </>
         )}
