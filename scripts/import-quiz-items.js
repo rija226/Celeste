@@ -31,8 +31,27 @@ async function upsertQuizItems(rows) {
   return res.json();
 }
 
+// Baca gresku prije upisa ako neko pitanje nije ispravno -- quiz.ts racuna
+// na tacno 3 distraktora s en/hr parovima istim redom.
+function validate(questions) {
+  const errors = [];
+  const slugs = new Set();
+  for (const q of questions) {
+    const where = q.slug ?? JSON.stringify(q).slice(0, 60);
+    if (slugs.has(q.slug)) errors.push(`${where}: duplikat sluga`);
+    slugs.add(q.slug);
+    if (!['easy', 'medium', 'hard'].includes(q.difficulty)) errors.push(`${where}: nepoznata tezina "${q.difficulty}"`);
+    if (!q.answer?.en || !q.answer?.hr) errors.push(`${where}: odgovor nema en/hr`);
+    if (q.distractors?.en?.length !== 3 || q.distractors?.hr?.length !== 3) errors.push(`${where}: treba tacno 3 distraktora za en i hr`);
+    if (q.distractors?.en?.includes(q.answer?.en)) errors.push(`${where}: distraktor isti kao odgovor`);
+    if (/[Ѐ-ӿ]/.test(JSON.stringify(q))) errors.push(`${where}: cirilicna slova u tekstu`);
+  }
+  if (errors.length) throw new Error(`Neispravna pitanja:\n  ${errors.join('\n  ')}`);
+}
+
 async function importQuizItems(filePath) {
   const { planet_questions, knowledge_questions } = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  validate([...planet_questions, ...knowledge_questions]);
 
   const planetRows = planet_questions.map((q) => ({
     slug: q.slug,

@@ -1,6 +1,8 @@
 import { getCardImageUrl } from '@/db';
 import type { Constellation, LocalizedText, QuizDifficulty, QuizItem, QuizResultKind } from '@/types/models';
 
+import { createShuffleBag, shuffle } from './shuffleBag';
+
 export type QuizOption = { id: string; label: LocalizedText };
 
 export type QuizPrompt =
@@ -24,15 +26,6 @@ export const POINTS_BY_DIFFICULTY: Record<QuizDifficulty, number> = {
   hard: 3,
 };
 
-export function shuffle<T>(items: T[]): T[] {
-  const copy = [...items];
-  for (let i = copy.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j], copy[i]];
-  }
-  return copy;
-}
-
 // order je ubacen tako da isti graditelj mogu koristiti i pravi nasumicni
 // izbor (practice) i deterministicko seeded mijesanje (dnevni izazov).
 export function constellationQuestion(
@@ -52,22 +45,13 @@ export function constellationQuestion(
   };
 }
 
-// Pool mora imati bar 4 stavke (1 tacan + 3 pogresna odgovora) -- distraktori
-// se biraju od ostalih sazvijezdja u pool-u.
-export function pickConstellationQuestion(pool: Constellation[]): QuizQuestion {
-  const [answer, ...rest] = shuffle(pool);
-  const wrongOptions = shuffle(rest).slice(0, 3);
-  return constellationQuestion(answer, wrongOptions, shuffle);
-}
-
 function zipDistractors(distractors: QuizItem['distractors']): LocalizedText[] {
   return distractors.en.map((en, i) => ({ en, hr: distractors.hr[i] }));
 }
 
 // quiz_items nose sopstvene distraktore (nema potrebe za sibling entitetima
 // iz pool-a), pa je dovoljna 1 stavka za bilo koji filter tip/tezina.
-export function pickQuizItemQuestion(pool: QuizItem[]): QuizQuestion {
-  const item = shuffle(pool)[0];
+function quizItemQuestion(item: QuizItem): QuizQuestion {
   const answerOption: QuizOption = { id: item.answer.en, label: item.answer };
   const wrongOptions: QuizOption[] = zipDistractors(item.distractors).map((label) => ({ id: label.en, label }));
   const options = shuffle([answerOption, ...wrongOptions]);
@@ -86,9 +70,21 @@ export function pickQuizItemQuestion(pool: QuizItem[]): QuizQuestion {
   };
 }
 
-// Mesa sazvijezdja + quiz_items -- vjerovatnoca izvora je proporcionalna
-// velicini svakog (vec filtriranog) pool-a.
-export function pickMixedQuestion(constellations: Constellation[], items: QuizItem[]): QuizQuestion {
-  const index = Math.floor(Math.random() * (constellations.length + items.length));
-  return index < constellations.length ? pickConstellationQuestion(constellations) : pickQuizItemQuestion(items);
+type QuizEntry = { kind: 'constellation'; constellation: Constellation } | { kind: 'item'; item: QuizItem };
+
+// Mijesa sazvijezdja + quiz_items u jedan spil bez ponavljanja (vidi
+// createShuffleBag). Distraktori za sazvijezdje se biraju od ostalih
+// sazvijezdja u istom pool-u, pa pool sazvijezdja treba bar 4 stavke.
+export function createQuestionBag(constellations: Constellation[], items: QuizItem[]): () => QuizQuestion | null {
+  const next = createShuffleBag<QuizEntry>([
+    ...constellations.map((constellation) => ({ kind: 'constellation' as const, constellation })),
+    ...items.map((item) => ({ kind: 'item' as const, item })),
+  ]);
+  return () => {
+    const entry = next();
+    if (!entry) return null;
+    if (entry.kind === 'item') return quizItemQuestion(entry.item);
+    const wrongOptions = shuffle(constellations.filter((c) => c !== entry.constellation)).slice(0, 3);
+    return constellationQuestion(entry.constellation, wrongOptions, shuffle);
+  };
 }

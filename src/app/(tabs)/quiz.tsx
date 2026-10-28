@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Pressable, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
@@ -17,7 +17,7 @@ import {
   type DailyChallengeResult,
 } from '@/lib/dailyChallenge';
 import { pickLocalized } from '@/lib/localized';
-import { pickMixedQuestion, POINTS_BY_DIFFICULTY, type QuizQuestion } from '@/lib/quiz';
+import { createQuestionBag, POINTS_BY_DIFFICULTY, type QuizQuestion } from '@/lib/quiz';
 import { playSfx } from '@/lib/sound';
 import { checkAndCelebrateStreak } from '@/lib/streakCelebration';
 import { palette } from '@/theme/palette';
@@ -69,6 +69,7 @@ export default function QuizScreen() {
   const [taQuestion, setTaQuestion] = useState<QuizQuestion | null>(null);
   const [taSelectedId, setTaSelectedId] = useState<string | null>(null);
   const [taScore, setTaScore] = useState({ correct: 0, total: 0, points: 0 });
+  const taBagRef = useRef<(() => QuizQuestion | null) | null>(null);
 
   useEffect(() => {
     ensureSession().then(setUserId);
@@ -96,19 +97,25 @@ export default function QuizScreen() {
     return () => clearInterval(interval);
   }, [taState]);
 
-  const practiceQuestion = useMemo(() => {
+  // Novi spil kad se promijeni filter; unutar istog filtera se pitanja ne
+  // ponavljaju dok ne izadju sva.
+  const practiceBag = useMemo(() => {
     if (!pool || !itemPool) return null;
     const constellationsForTier = typeFilter === 'planet' || typeFilter === 'knowledge' ? [] : pool.filter((c) => c.difficulty === difficulty);
     const itemsForTier =
       typeFilter === 'constellation'
         ? []
         : itemPool.filter((i) => i.difficulty === difficulty && (typeFilter === 'all' || i.quizType === typeFilter));
-    if (constellationsForTier.length + itemsForTier.length === 0) return null;
-    return pickMixedQuestion(constellationsForTier, itemsForTier);
+    return createQuestionBag(constellationsForTier, itemsForTier);
+  }, [pool, itemPool, difficulty, typeFilter]);
+
+  const practiceQuestion = useMemo(
+    () => (practiceBag ? practiceBag() : null),
     // practiceRound je namjerno u zavisnostima -- svaki klik na "Dalje" mora
-    // izvuci NOVO nasumicno pitanje, ne isto (pickMixedQuestion nije cist).
+    // izvuci SLJEDECE pitanje iz spila (practiceBag nije cist).
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pool, itemPool, difficulty, typeFilter, practiceRound]);
+    [practiceBag, practiceRound]
+  );
 
   const dailyQuestions = useMemo(() => {
     if (!pool || dailyResult !== null) return null;
@@ -198,7 +205,8 @@ export default function QuizScreen() {
     setTaScore({ correct: 0, total: 0, points: 0 });
     setTaSecondsLeft(TIME_ATTACK_SECONDS);
     setTaSelectedId(null);
-    setTaQuestion(pickMixedQuestion(pool, itemPool));
+    taBagRef.current = createQuestionBag(pool, itemPool);
+    setTaQuestion(taBagRef.current());
     setTaState('playing');
   }
 
@@ -228,7 +236,7 @@ export default function QuizScreen() {
     }
     setTimeout(() => {
       setTaSelectedId(null);
-      setTaQuestion(pickMixedQuestion(pool, itemPool));
+      setTaQuestion(taBagRef.current?.() ?? null);
     }, TIME_ATTACK_ADVANCE_DELAY_MS);
   }
 

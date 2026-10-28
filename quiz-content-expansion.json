@@ -162,6 +162,462 @@
       "question": { "en": "Why does the Moon always show the same face?", "hr": "Zasto nam Mjesec uvijek pokazuje isto lice?" },
       "answer": { "en": "Tidal locking", "hr": "Plimno zakljucavanje" },
       "distractors": { "en": ["It doesn't rotate", "It spins very fast", "Earth's shadow"], "hr": ["Ne rotira se", "Vrti se vrlo brzo", "Zemljina sjena"] }
+    },
+    {
+      "slug": "k-closest-planet-sun",
+      "difficulty": "easy",
+      "topic": "planets",
+      "question": { "en": "Which planet is closest to the Sun?", "hr": "Koja je planeta najbliza Suncu?" },
+      "answer": { "en": "Mercury", "hr": "Merkur" },
+      "distractors": { "en": ["Venus", "Mars", "Earth"], "hr": ["Venera", "Mars", "Zemlja"] }
+    },
+    {
+      "slug": "k-smallest-planet",
+      "difficulty": "easy",
+      "topic": "planets",
+      "question": { "en": "Which is the smallest planet?", "hr": "Koja je najmanja planeta?" },
+      "answer": { "en": "Mercury", "hr": "Merkur" },
+      "distractors": { "en": ["Mars", "Venus", "Uranus"], "hr": ["Mars", "Venera", "Uran"] }
+    },
+    {
+      "slug": "k-earth-moons",
+      "difficulty": "easy",
+      "topic": "earth-moon",
+      "question": { "en": "How many permanent moons does Earth have?", "hr": "Koliko stalnih prirodnih satelita ima Zemlja?" },
+      "answer": { "en": "One", "hr": "Jedan" },
+      "distractors": { "en": ["Two", "None", "Three"], "hr": ["Dva", "Nijedan", "Tri"] }
+    },
+    {
+      "slug": "k-sound-space",
+      "difficulty": "easy",
+      "topic": "basics",
+      "question": { "en": "Can you hear sound in space?", "hr": "Moze li se u svemiru cuti zvuk?" },
+      "answer": { "en": "No, space is almost a vacuum", "hr": "Ne, svemir je gotovo vakuum" },
+      "distractors": { "en": ["Yes, but quieter", "Only near planets", "Only inside nebulae"], "hr": ["Da, ali tise", "Samo blizu planeta", "Samo unutar maglica"] }
+    },
+    {
+      "slug": "k-shooting-star",
+      "difficulty": "easy",
+      "topic": "basics",
+      "question": { "en": "What is a shooting star really?", "hr": "Sta je zapravo zvijezda padalica?" },
+      "answer": { "en": "A tiny rock burning up in the atmosphere", "hr": "Sitan kamencic koji izgara u atmosferi" },
+      "distractors": { "en": ["A star falling from the sky", "A comet's tail", "A distant supernova"], "hr": ["Zvijezda koja pada s neba", "Rep kometa", "Daleka supernova"] }
+    },
+    {
+      "slug": "k-solar-eclipse",
+      "difficulty": "easy",
+      "topic": "earth-moon",
+      "question": { "en": "What happens during a solar eclipse?", "hr": "Sta se desava tokom pomracenja Sunca?" },
+      "answer": { "en": "The Moon passes between the Sun and Earth", "hr": "Mjesec prolazi izmedju Sunca i Zemlje" },
+      "distractors": { "en": ["Earth passes between the Sun and Moon", "The Sun briefly goes out", "A planet blocks the Sun"], "hr": ["Zemlja prolazi izmedju Sunca i Mjeseca", "Sunce se nakratko ugasi", "Neka planeta zakloni Sunce"] }
+    },
+    {
+      "slug": "k-sun-is-star",
+      "difficulty": "easy",
+      "topic": "sun",
+      "question": { "en": "What is the Sun?", "hr": "Sta je Sunce?" },
+      "answer": { "en": "A star", "hr": "Zvijezda" },
+      "distractors": { "en": ["A planet", "A giant fire", "A comet"], "hr": ["Planeta", "Ogromna vatra", "Komet"] }
+    },
+    {
+      "slug": "k-comet-tail",
+      "difficulty": "easy",
+      "topic": "basics",
+      "question": { "en": "What grows a glowing tail as it nears the Sun?", "hr": "Sta dobija sjajni rep kad se priblizi Suncu?" },
+      "answer": { "en": "A comet", "hr": "Komet" },
+      "distractors": { "en": ["An asteroid", "A meteorite", "A moon"], "hr": ["Asteroid", "Meteorit", "Mjesec"] }
+    },
+    {
+      "slug": "k-brightest-rings",
+      "difficulty": "easy",
+      "topic": "planets",
+      "question": { "en": "Which planet has the brightest and widest rings?", "hr": "Koja planeta ima najsjajnije i najsire prstenove?" },
+      "answer": { "en": "Saturn", "hr": "Saturn" },
+      "distractors": { "en": ["Jupiter", "Uranus", "Neptune"], "hr": ["Jupiter", "Uran", "Neptun"] }
+    },
+    {
+      "slug": "k-tides-cause",
+      "difficulty": "easy",
+      "topic": "earth-moon",
+      "question": { "en": "What mainly causes ocean tides?", "hr": "Sta uglavnom uzrokuje plimu i oseku?" },
+      "answer": { "en": "The Moon's gravity", "hr": "Gravitacija Mjeseca" },
+      "distractors": { "en": ["Wind", "Earth's rotation alone", "The Sun's heat"], "hr": ["Vjetar", "Samo Zemljina rotacija", "Sunceva toplina"] }
+    },
+    {
+      "slug": "k-sky-blue",
+      "difficulty": "easy",
+      "topic": "earth-moon",
+      "question": { "en": "Why is the sky blue?", "hr": "Zasto je nebo plavo?" },
+      "answer": { "en": "Air scatters blue sunlight the most", "hr": "Zrak najvise rasprsuje plavu svjetlost" },
+      "distractors": { "en": ["It reflects the oceans", "Air itself is blue", "Ozone glows blue"], "hr": ["Odrazava oceane", "Zrak je sam po sebi plav", "Ozon svijetli plavo"] }
+    },
+    {
+      "slug": "k-gravity-orbit",
+      "difficulty": "easy",
+      "topic": "basics",
+      "question": { "en": "What holds the planets in orbit around the Sun?", "hr": "Sta drzi planete u orbiti oko Sunca?" },
+      "answer": { "en": "Gravity", "hr": "Gravitacija" },
+      "distractors": { "en": ["Magnetism", "Solar wind", "Light pressure"], "hr": ["Magnetizam", "Solarni vjetar", "Pritisak svjetlosti"] }
+    },
+    {
+      "slug": "k-nebula",
+      "difficulty": "easy",
+      "topic": "stars",
+      "question": { "en": "What is a nebula?", "hr": "Sta je maglica?" },
+      "answer": { "en": "A giant cloud of gas and dust", "hr": "Ogroman oblak plina i prasine" },
+      "distractors": { "en": ["A dying planet", "A small galaxy", "A group of comets"], "hr": ["Planeta koja umire", "Mala galaksija", "Grupa kometa"] }
+    },
+    {
+      "slug": "k-tallest-volcano",
+      "difficulty": "easy",
+      "topic": "planets",
+      "question": { "en": "Which planet has the tallest volcano in the Solar System?", "hr": "Koja planeta ima najvisi vulkan u Suncevom sistemu?" },
+      "answer": { "en": "Mars", "hr": "Mars" },
+      "distractors": { "en": ["Venus", "Earth", "Jupiter"], "hr": ["Venera", "Zemlja", "Jupiter"] }
+    },
+    {
+      "slug": "k-only-life",
+      "difficulty": "easy",
+      "topic": "planets",
+      "question": { "en": "Which is the only planet known to have life?", "hr": "Koja je jedina planeta za koju znamo da ima zivot?" },
+      "answer": { "en": "Earth", "hr": "Zemlja" },
+      "distractors": { "en": ["Mars", "Venus", "Jupiter"], "hr": ["Mars", "Venera", "Jupiter"] }
+    },
+    {
+      "slug": "k-iss",
+      "difficulty": "easy",
+      "topic": "basics",
+      "question": { "en": "What is the International Space Station?", "hr": "Sta je Medjunarodna svemirska stanica?" },
+      "answer": { "en": "A crewed lab orbiting Earth", "hr": "Laboratorij s posadom u orbiti oko Zemlje" },
+      "distractors": { "en": ["A telescope on the Moon", "A rover on Mars", "A probe leaving the Solar System"], "hr": ["Teleskop na Mjesecu", "Rover na Marsu", "Sonda koja napusta Suncev sistem"] }
+    },
+    {
+      "slug": "k-sun-safety",
+      "difficulty": "easy",
+      "topic": "sun",
+      "question": { "en": "Is it safe to look directly at the Sun?", "hr": "Je li sigurno gledati direktno u Sunce?" },
+      "answer": { "en": "No, it can damage your eyes in seconds", "hr": "Ne, moze ostetiti oci za nekoliko sekundi" },
+      "distractors": { "en": ["Yes, with sunglasses", "Yes, during a partial eclipse", "Yes, if you blink often"], "hr": ["Da, sa suncanim naocalama", "Da, tokom djelomicnog pomracenja", "Da, ako cesto trepces"] }
+    },
+    {
+      "slug": "k-constellation",
+      "difficulty": "easy",
+      "topic": "stars",
+      "question": { "en": "What is a constellation?", "hr": "Sta je sazvijezdje?" },
+      "answer": { "en": "A recognizable pattern of stars", "hr": "Prepoznatljiv uzorak zvijezda" },
+      "distractors": { "en": ["A cluster of planets", "A type of galaxy", "A belt of asteroids"], "hr": ["Skupina planeta", "Vrsta galaksije", "Pojas asteroida"] }
+    },
+    {
+      "slug": "k-sun-made-of",
+      "difficulty": "easy",
+      "topic": "sun",
+      "question": { "en": "What is the Sun mostly made of?", "hr": "Od cega je Sunce uglavnom sastavljeno?" },
+      "answer": { "en": "Hydrogen", "hr": "Vodik" },
+      "distractors": { "en": ["Oxygen", "Iron", "Carbon"], "hr": ["Kisik", "Zeljezo", "Ugljik"] }
+    },
+    {
+      "slug": "k-light-year",
+      "difficulty": "medium",
+      "topic": "basics",
+      "question": { "en": "What does a light-year measure?", "hr": "Sta mjeri svjetlosna godina?" },
+      "answer": { "en": "Distance", "hr": "Udaljenost" },
+      "distractors": { "en": ["Time", "Brightness", "Speed"], "hr": ["Vrijeme", "Sjaj", "Brzinu"] }
+    },
+    {
+      "slug": "k-moon-phases",
+      "difficulty": "medium",
+      "topic": "earth-moon",
+      "question": { "en": "What causes the Moon's phases?", "hr": "Sta uzrokuje Mjeseceve mijene?" },
+      "answer": { "en": "The changing angle between Sun, Earth and Moon", "hr": "Promjenjivi ugao izmedju Sunca, Zemlje i Mjeseca" },
+      "distractors": { "en": ["Earth's shadow on the Moon", "Clouds on the Moon", "The Moon changing size"], "hr": ["Zemljina sjena na Mjesecu", "Oblaci na Mjesecu", "Mjesec mijenja velicinu"] }
+    },
+    {
+      "slug": "k-moon-distance",
+      "difficulty": "medium",
+      "topic": "earth-moon",
+      "question": { "en": "How far is the Moon from Earth?", "hr": "Koliko je Mjesec udaljen od Zemlje?" },
+      "answer": { "en": "About 384,000 km", "hr": "Oko 384.000 km" },
+      "distractors": { "en": ["About 38,000 km", "About 3.8 million km", "About 150 million km"], "hr": ["Oko 38.000 km", "Oko 3,8 miliona km", "Oko 150 miliona km"] }
+    },
+    {
+      "slug": "k-stars-twinkle",
+      "difficulty": "medium",
+      "topic": "stars",
+      "question": { "en": "Why do stars twinkle?", "hr": "Zasto zvijezde trepere?" },
+      "answer": { "en": "Earth's moving atmosphere bends their light", "hr": "Zemljina pokretna atmosfera lomi njihovu svjetlost" },
+      "distractors": { "en": ["Their brightness pulses", "They spin very fast", "Space clouds block them"], "hr": ["Sjaj im pulsira", "Vrte se vrlo brzo", "Zaklanjaju ih svemirski oblaci"] }
+    },
+    {
+      "slug": "k-meteor-shower",
+      "difficulty": "medium",
+      "topic": "basics",
+      "question": { "en": "What causes a meteor shower?", "hr": "Sta uzrokuje meteorski roj?" },
+      "answer": { "en": "Earth passing through a comet's debris trail", "hr": "Zemlja prolazi kroz trag krhotina kometa" },
+      "distractors": { "en": ["A star exploding", "Asteroids colliding", "The Moon shedding rocks"], "hr": ["Eksplozija zvijezde", "Sudar asteroida", "Mjesec gubi kamenje"] }
+    },
+    {
+      "slug": "k-asteroid-belt",
+      "difficulty": "medium",
+      "topic": "basics",
+      "question": { "en": "Where is the main asteroid belt?", "hr": "Gdje se nalazi glavni asteroidni pojas?" },
+      "answer": { "en": "Between Mars and Jupiter", "hr": "Izmedju Marsa i Jupitera" },
+      "distractors": { "en": ["Between Earth and Mars", "Beyond Neptune", "Between Jupiter and Saturn"], "hr": ["Izmedju Zemlje i Marsa", "Iza Neptuna", "Izmedju Jupitera i Saturna"] }
+    },
+    {
+      "slug": "k-great-red-spot",
+      "difficulty": "medium",
+      "topic": "planets",
+      "question": { "en": "What is Jupiter's Great Red Spot?", "hr": "Sta je Jupiterova Velika crvena pjega?" },
+      "answer": { "en": "A giant storm", "hr": "Ogromna oluja" },
+      "distractors": { "en": ["A volcano", "A crater", "A frozen ocean"], "hr": ["Vulkan", "Krater", "Zaledjeni ocean"] }
+    },
+    {
+      "slug": "k-planet-on-side",
+      "difficulty": "medium",
+      "topic": "planets",
+      "question": { "en": "Which planet spins on its side?", "hr": "Koja se planeta okrece na boku?" },
+      "answer": { "en": "Uranus", "hr": "Uran" },
+      "distractors": { "en": ["Neptune", "Saturn", "Venus"], "hr": ["Neptun", "Saturn", "Venera"] }
+    },
+    {
+      "slug": "k-venus-day",
+      "difficulty": "medium",
+      "topic": "planets",
+      "question": { "en": "What is strange about a day on Venus?", "hr": "Sta je cudno kod dana na Veneri?" },
+      "answer": { "en": "It lasts longer than its year", "hr": "Traje duze od njene godine" },
+      "distractors": { "en": ["It lasts only 2 hours", "The Sun never sets", "It is exactly 24 hours like ours"], "hr": ["Traje samo 2 sata", "Sunce nikad ne zalazi", "Traje tacno 24 sata kao nas"] }
+    },
+    {
+      "slug": "k-sun-future",
+      "difficulty": "medium",
+      "topic": "sun",
+      "question": { "en": "What will the Sun become near the end of its life?", "hr": "Sta ce Sunce postati pred kraj zivota?" },
+      "answer": { "en": "A red giant", "hr": "Crveni div" },
+      "distractors": { "en": ["A black hole", "A neutron star", "A supernova"], "hr": ["Crna rupa", "Neutronska zvijezda", "Supernova"] }
+    },
+    {
+      "slug": "k-hottest-star-color",
+      "difficulty": "medium",
+      "topic": "stars",
+      "question": { "en": "What color are the hottest stars?", "hr": "Koje su boje najtoplije zvijezde?" },
+      "answer": { "en": "Blue", "hr": "Plave" },
+      "distractors": { "en": ["Red", "Yellow", "Orange"], "hr": ["Crvene", "Zute", "Narancaste"] }
+    },
+    {
+      "slug": "k-nearest-large-galaxy",
+      "difficulty": "medium",
+      "topic": "galaxies",
+      "question": { "en": "What is the nearest large galaxy to the Milky Way?", "hr": "Koja je najbliza velika galaksija Mlijecnom putu?" },
+      "answer": { "en": "Andromeda", "hr": "Andromeda" },
+      "distractors": { "en": ["Whirlpool", "Sombrero", "Pinwheel"], "hr": ["Vrtlog", "Sombrero", "Vjetrenjaca"] }
+    },
+    {
+      "slug": "k-europa-ocean",
+      "difficulty": "medium",
+      "topic": "planets",
+      "question": { "en": "Which moon may hide an ocean of liquid water under its ice?", "hr": "Koji mjesec mozda skriva ocean tekuce vode ispod leda?" },
+      "answer": { "en": "Europa", "hr": "Europa" },
+      "distractors": { "en": ["Phobos", "Our Moon", "Deimos"], "hr": ["Fobos", "Nas Mjesec", "Deimos"] }
+    },
+    {
+      "slug": "k-neptune-blue",
+      "difficulty": "medium",
+      "topic": "planets",
+      "question": { "en": "Why is Neptune blue?", "hr": "Zasto je Neptun plav?" },
+      "answer": { "en": "Methane absorbs red light", "hr": "Metan upija crvenu svjetlost" },
+      "distractors": { "en": ["It is covered in oceans", "It reflects Earth", "Its ice is blue"], "hr": ["Prekriven je oceanima", "Odrazava Zemlju", "Led na njemu je plav"] }
+    },
+    {
+      "slug": "k-sun-true-color",
+      "difficulty": "medium",
+      "topic": "sun",
+      "question": { "en": "What color is the Sun really?", "hr": "Koje je boje Sunce zapravo?" },
+      "answer": { "en": "White", "hr": "Bijele" },
+      "distractors": { "en": ["Yellow", "Orange", "Red"], "hr": ["Zute", "Narancaste", "Crvene"] }
+    },
+    {
+      "slug": "k-sunspots",
+      "difficulty": "medium",
+      "topic": "sun",
+      "question": { "en": "What are sunspots?", "hr": "Sta su Suncove pjege?" },
+      "answer": { "en": "Cooler, darker patches on the Sun", "hr": "Hladnije, tamnije mrlje na Suncu" },
+      "distractors": { "en": ["Holes in the Sun", "Planets passing in front of it", "Burned-out areas"], "hr": ["Rupe u Suncu", "Planete koje prolaze ispred njega", "Izgorjeli dijelovi"] }
+    },
+    {
+      "slug": "k-dwarf-planet",
+      "difficulty": "medium",
+      "topic": "planets",
+      "question": { "en": "Which of these is a dwarf planet?", "hr": "Koja je od ovih patuljasta planeta?" },
+      "answer": { "en": "Pluto", "hr": "Pluton" },
+      "distractors": { "en": ["Mercury", "Mars", "Europa"], "hr": ["Merkur", "Mars", "Europa"] }
+    },
+    {
+      "slug": "k-big-bang",
+      "difficulty": "medium",
+      "topic": "cosmology",
+      "question": { "en": "What was the Big Bang?", "hr": "Sta je bio Veliki prasak?" },
+      "answer": { "en": "The rapid expansion of space itself", "hr": "Naglo sirenje samog prostora" },
+      "distractors": { "en": ["A giant star exploding", "Two galaxies colliding", "The birth of the Sun"], "hr": ["Eksplozija ogromne zvijezde", "Sudar dvije galaksije", "Rodjenje Sunca"] }
+    },
+    {
+      "slug": "k-earth-age",
+      "difficulty": "medium",
+      "topic": "earth-moon",
+      "question": { "en": "How old is the Earth?", "hr": "Koliko je stara Zemlja?" },
+      "answer": { "en": "About 4.5 billion years", "hr": "Oko 4,5 milijardi godina" },
+      "distractors": { "en": ["About 13.8 billion years", "About 10,000 years", "About 1 million years"], "hr": ["Oko 13,8 milijardi godina", "Oko 10.000 godina", "Oko milion godina"] }
+    },
+    {
+      "slug": "k-galactic-center",
+      "difficulty": "hard",
+      "topic": "black-holes",
+      "question": { "en": "What is the black hole at the center of our galaxy called?", "hr": "Kako se zove crna rupa u sredistu nase galaksije?" },
+      "answer": { "en": "Sagittarius A*", "hr": "Strijelac A*" },
+      "distractors": { "en": ["Cygnus X-1", "M87*", "Proxima b"], "hr": ["Labud X-1", "M87*", "Proxima b"] }
+    },
+    {
+      "slug": "k-spaghettification",
+      "difficulty": "hard",
+      "topic": "black-holes",
+      "question": { "en": "What is it called when a black hole stretches you into a thin stream?", "hr": "Kako se zove kad te crna rupa rastegne u tanku nit?" },
+      "answer": { "en": "Spaghettification", "hr": "Spagetifikacija" },
+      "distractors": { "en": ["Time dilation", "Redshift", "Hawking radiation"], "hr": ["Dilatacija vremena", "Crveni pomak", "Hawkingovo zracenje"] }
+    },
+    {
+      "slug": "k-singularity",
+      "difficulty": "hard",
+      "topic": "black-holes",
+      "question": { "en": "What is the infinitely dense heart of a black hole called?", "hr": "Kako se zove beskonacno gusto srce crne rupe?" },
+      "answer": { "en": "Singularity", "hr": "Singularitet" },
+      "distractors": { "en": ["Event horizon", "Accretion disk", "Quasar"], "hr": ["Horizont dogadjaja", "Akrecijski disk", "Kvazar"] }
+    },
+    {
+      "slug": "k-black-hole-evaporation",
+      "difficulty": "hard",
+      "topic": "black-holes",
+      "question": { "en": "Who showed that black holes can slowly evaporate?", "hr": "Ko je pokazao da crne rupe mogu polako ispariti?" },
+      "answer": { "en": "Stephen Hawking", "hr": "Stephen Hawking" },
+      "distractors": { "en": ["Albert Einstein", "Edwin Hubble", "Carl Sagan"], "hr": ["Albert Einstein", "Edwin Hubble", "Carl Sagan"] }
+    },
+    {
+      "slug": "k-first-black-hole-image",
+      "difficulty": "hard",
+      "topic": "black-holes",
+      "question": { "en": "In which year was the first image of a black hole revealed?", "hr": "Koje je godine objavljena prva slika crne rupe?" },
+      "answer": { "en": "2019", "hr": "2019." },
+      "distractors": { "en": ["1969", "2001", "2012"], "hr": ["1969.", "2001.", "2012."] }
+    },
+    {
+      "slug": "k-dark-matter-share",
+      "difficulty": "hard",
+      "topic": "cosmology",
+      "question": { "en": "About how much of the universe is dark matter?", "hr": "Koliki dio svemira otprilike cini tamna materija?" },
+      "answer": { "en": "About 27%", "hr": "Oko 27%" },
+      "distractors": { "en": ["About 5%", "About 68%", "About 50%"], "hr": ["Oko 5%", "Oko 68%", "Oko 50%"] }
+    },
+    {
+      "slug": "k-ordinary-matter-share",
+      "difficulty": "hard",
+      "topic": "cosmology",
+      "question": { "en": "How much of the universe is ordinary matter, everything we can see?", "hr": "Koliki dio svemira cini obicna materija, sve sto mozemo vidjeti?" },
+      "answer": { "en": "About 5%", "hr": "Oko 5%" },
+      "distractors": { "en": ["About 27%", "About 50%", "About 95%"], "hr": ["Oko 27%", "Oko 50%", "Oko 95%"] }
+    },
+    {
+      "slug": "k-oldest-light",
+      "difficulty": "hard",
+      "topic": "cosmology",
+      "question": { "en": "What is the oldest light we can detect?", "hr": "Koja je najstarija svjetlost koju mozemo otkriti?" },
+      "answer": { "en": "The cosmic microwave background", "hr": "Kosmicko mikrovalno pozadinsko zracenje" },
+      "distractors": { "en": ["Light from the first stars", "Light from Andromeda", "Sunlight"], "hr": ["Svjetlost prvih zvijezda", "Svjetlost Andromede", "Sunceva svjetlost"] }
+    },
+    {
+      "slug": "k-first-stars",
+      "difficulty": "hard",
+      "topic": "cosmology",
+      "question": { "en": "When did the first stars appear?", "hr": "Kada su se pojavile prve zvijezde?" },
+      "answer": { "en": "About 100-200 million years after the Big Bang", "hr": "Oko 100-200 miliona godina nakon Velikog praska" },
+      "distractors": { "en": ["At the moment of the Big Bang", "About 5 billion years after", "About 10,000 years after"], "hr": ["U trenutku Velikog praska", "Oko 5 milijardi godina nakon", "Oko 10.000 godina nakon"] }
+    },
+    {
+      "slug": "k-big-freeze",
+      "difficulty": "hard",
+      "topic": "cosmology",
+      "question": { "en": "What is the 'Big Freeze'?", "hr": "Sta je 'Veliko smrzavanje'?" },
+      "answer": { "en": "A possible end where the universe cools and fades", "hr": "Moguci kraj u kojem se svemir ohladi i utrne" },
+      "distractors": { "en": ["An ice age on Earth", "Winter on Neptune", "The first second after the Big Bang"], "hr": ["Ledeno doba na Zemlji", "Zima na Neptunu", "Prva sekunda nakon Velikog praska"] }
+    },
+    {
+      "slug": "k-neutron-star",
+      "difficulty": "hard",
+      "topic": "stars",
+      "question": { "en": "What is left after a supernova, so dense a teaspoon weighs billions of tonnes?", "hr": "Sta ostaje nakon supernove, toliko gusto da kasicica tezi milijarde tona?" },
+      "answer": { "en": "A neutron star", "hr": "Neutronska zvijezda" },
+      "distractors": { "en": ["A white dwarf", "A red giant", "A nebula"], "hr": ["Bijeli patuljak", "Crveni div", "Maglica"] }
+    },
+    {
+      "slug": "k-largest-star",
+      "difficulty": "hard",
+      "topic": "stars",
+      "question": { "en": "Which is the largest known star?", "hr": "Koja je najveca poznata zvijezda?" },
+      "answer": { "en": "Stephenson 2-18", "hr": "Stephenson 2-18" },
+      "distractors": { "en": ["Betelgeuse", "Sirius", "Rigel"], "hr": ["Betelgez", "Sirijus", "Rigel"] }
+    },
+    {
+      "slug": "k-milky-way-size",
+      "difficulty": "hard",
+      "topic": "galaxies",
+      "question": { "en": "How wide is the Milky Way?", "hr": "Koliko je sirok Mlijecni put?" },
+      "answer": { "en": "About 100,000 light-years", "hr": "Oko 100.000 svjetlosnih godina" },
+      "distractors": { "en": ["About 1,000 light-years", "About 10 million light-years", "About 4 light-years"], "hr": ["Oko 1.000 svjetlosnih godina", "Oko 10 miliona svjetlosnih godina", "Oko 4 svjetlosne godine"] }
+    },
+    {
+      "slug": "k-andromeda-merger",
+      "difficulty": "hard",
+      "topic": "galaxies",
+      "question": { "en": "When will Andromeda merge with the Milky Way?", "hr": "Kada ce se Andromeda spojiti s Mlijecnim putem?" },
+      "answer": { "en": "In about 4.5 billion years", "hr": "Za oko 4,5 milijardi godina" },
+      "distractors": { "en": ["It already has", "In about 1 million years", "Never"], "hr": ["Vec se spojila", "Za oko milion godina", "Nikad"] }
+    },
+    {
+      "slug": "k-local-group",
+      "difficulty": "hard",
+      "topic": "galaxies",
+      "question": { "en": "What is the group of galaxies the Milky Way belongs to called?", "hr": "Kako se zove grupa galaksija kojoj pripada Mlijecni put?" },
+      "answer": { "en": "The Local Group", "hr": "Lokalna grupa" },
+      "distractors": { "en": ["The Virgo Cluster", "The Orion Arm", "The Great Attractor"], "hr": ["Skup u Djevici", "Orionov krak", "Veliki atraktor"] }
+    },
+    {
+      "slug": "k-sun-galactic-orbit",
+      "difficulty": "hard",
+      "topic": "galaxies",
+      "question": { "en": "How long does the Sun take to orbit the center of the Milky Way?", "hr": "Koliko Suncu treba da obidje srediste Mlijecnog puta?" },
+      "answer": { "en": "About 225 million years", "hr": "Oko 225 miliona godina" },
+      "distractors": { "en": ["About 1 year", "About 10,000 years", "About 13.8 billion years"], "hr": ["Oko 1 godinu", "Oko 10.000 godina", "Oko 13,8 milijardi godina"] }
+    },
+    {
+      "slug": "k-sun-core-temperature",
+      "difficulty": "hard",
+      "topic": "sun",
+      "question": { "en": "How hot is the Sun's core?", "hr": "Koliko je vruca jezgra Sunca?" },
+      "answer": { "en": "About 15 million °C", "hr": "Oko 15 miliona °C" },
+      "distractors": { "en": ["About 5,500 °C", "About 1 million °C", "About 1 billion °C"], "hr": ["Oko 5.500 °C", "Oko 1 milion °C", "Oko 1 milijardu °C"] }
+    },
+    {
+      "slug": "k-light-from-core",
+      "difficulty": "hard",
+      "topic": "sun",
+      "question": { "en": "How long can light take to get from the Sun's core to its surface?", "hr": "Koliko svjetlosti moze trebati od jezgre Sunca do njegove povrsine?" },
+      "answer": { "en": "Up to 100,000 years", "hr": "Do 100.000 godina" },
+      "distractors": { "en": ["About 8 minutes", "About 1 second", "About 1 day"], "hr": ["Oko 8 minuta", "Oko 1 sekundu", "Oko 1 dan"] }
+    },
+    {
+      "slug": "k-neptune-year",
+      "difficulty": "hard",
+      "topic": "planets",
+      "question": { "en": "How long is a year on Neptune?", "hr": "Koliko traje godina na Neptunu?" },
+      "answer": { "en": "About 165 Earth years", "hr": "Oko 165 zemaljskih godina" },
+      "distractors": { "en": ["About 12 Earth years", "About 84 Earth years", "About 29 Earth years"], "hr": ["Oko 12 zemaljskih godina", "Oko 84 zemaljske godine", "Oko 29 zemaljskih godina"] }
     }
   ]
 }
