@@ -115,11 +115,9 @@
       "inDays_other": "za {{count}} dana"
     },
     "map": {
-      "toggle": "Mapa neba",
-      "listView": "Prikaz liste",
-      "compassHint": "Gledaš prema {{direction}} · prevuci da se osvrneš",
       "sensorHint": "Gledaš prema {{direction}} · pomjeri telefon da se osvrneš",
       "calibrationHint": "Kompas nije precizan — pomjeri telefon u obliku osmice",
+      "sensorUnavailable": "Ovaj uređaj nema senzore pokreta potrebne za AR prikaz.",
       "cameraPermissionMessage": "Treba nam pristup kameri da prikažemo AR pogled na nebo.",
       "enableCamera": "Uključi kameru"
     }

@@ -115,11 +115,9 @@
       "inDays_other": "in {{count}} days"
     },
     "map": {
-      "toggle": "Sky Map",
-      "listView": "List view",
-      "compassHint": "Looking {{direction}} · drag to look around",
       "sensorHint": "Looking {{direction}} · move your phone to look around",
       "calibrationHint": "Compass is inaccurate — move your phone in a figure-8 motion",
+      "sensorUnavailable": "This device doesn't have the motion sensors needed for the AR view.",
       "cameraPermissionMessage": "We need camera access to show the AR sky view.",
       "enableCamera": "Enable camera"
     }

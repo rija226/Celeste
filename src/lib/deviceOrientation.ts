@@ -1,115 +1,82 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Platform } from 'react-native';
-import { DeviceMotion } from 'expo-sensors';
 import * as Location from 'expo-location';
+import { useSharedValue, type SharedValue } from 'react-native-reanimated';
 
-import DeviceAttitude from '../../modules/device-attitude';
+import DeviceAttitude, { type CameraFov } from '../../modules/device-attitude';
+import { createAttitudeFilter } from './skyProjection';
 
-export type DeviceHeading = {
-  azimuth: number;
-  altitude: number;
-  accuracy: number | null;
+const ATTITUDE_UPDATE_INTERVAL_MS = 16; // ~60Hz
+// Tipicna glavna kamera telefona u portretu -- dok (ili ako) native ne vrati pravi FOV.
+const FALLBACK_CAMERA_FOV: CameraFov = { horizontalDeg: 50, verticalDeg: 65 };
+// iOS: moguca greska kompasa u stepenima (manje = bolje).
+const POOR_ACCURACY_THRESHOLD_DEG = 20;
+
+export type DeviceAttitudeState = {
+  // Filtrirana device->world matrica (vidi DeviceAttitudeEvent), null dok ne
+  // stigne prvo ocitanje. Shared value -- AR prikaz je cita direktno na UI
+  // threadu, pa nema React re-rendera po ocitanju senzora.
+  matrix: SharedValue<number[] | null>;
+  // null dok se jos provjerava.
+  available: boolean | null;
+  poorCalibration: boolean;
+  cameraFov: CameraFov;
 };
 
-// Primarni put: native DeviceAttitude modul (vidi /modules/device-attitude)
-// cita OS-nivo fuzionisan attitude (CMDeviceMotion na iOS, TYPE_ROTATION_VECTOR
-// na Androidu -- zirokop+akcelerometar+kompas fuzionisani zajedno, isti
-// pristup koji koriste AR aplikacije za nebo poput Star Walk). To daje
-// azimut+visinu iz JEDNE geometrijski konzistentne (roll-kompenzovane)
-// orijentacije, umjesto da se azimut i visina racunaju odvojeno.
-//
-// Fallback (JS-only EMA + mrtva zona nad sirovim DeviceMotion/kompas
-// ocitanjima) ostaje za uredjaje bez fuzionisanog rotation-vector senzora ili
-// web, gdje native modul nije dostupan.
-const AZIMUTH_SMOOTHING = 0.15;
-const ALTITUDE_SMOOTHING = 0.25;
-const AZIMUTH_DEADBAND_DEG = 1.2;
-const ALTITUDE_DEADBAND_DEG = 0.8;
-const ATTITUDE_UPDATE_INTERVAL_MS = 33; // ~30Hz
+// expo-location daje razlicitu skalu tacnosti po platformi: Android 0-3
+// (nivo kalibracije, 3 = najbolje), iOS greska u stepenima (negativno = nevazece).
+function isPoorAccuracy(accuracy: number): boolean {
+  if (Platform.OS === 'android') return accuracy < 2;
+  return accuracy < 0 || accuracy > POOR_ACCURACY_THRESHOLD_DEG;
+}
 
-export function useDeviceHeading(enabled: boolean): DeviceHeading | null {
-  const [heading, setHeading] = useState<DeviceHeading | null>(null);
-  const smoothedAzimuthRef = useRef<number | null>(null);
-  const smoothedAltitudeRef = useRef<number | null>(null);
-  const accuracyRef = useRef<number | null>(null);
+// Orijentacija dolazi iz native DeviceAttitude modula (vidi
+// /modules/device-attitude) -- OS-nivo fuzija zirokopa, akcelerometra i
+// kompasa. Uredjaj bez toga (ili web) nema AR prikaz.
+export function useDeviceAttitude(): DeviceAttitudeState {
+  const matrix = useSharedValue<number[] | null>(null);
+  const [available, setAvailable] = useState<boolean | null>(null);
+  const [poorCalibration, setPoorCalibration] = useState(false);
+  const [cameraFov, setCameraFov] = useState(FALLBACK_CAMERA_FOV);
 
   useEffect(() => {
-    // Potrosac (SkyMap) vec ignorise deviceHeading kad enabled===false, pa
-    // nema potrebe eksplicitno resetovati state ovdje (izbjegava setState
-    // sinhrono u tijelu efekta).
-    if (!enabled || Platform.OS === 'web') {
-      return;
-    }
-
-    // Reset na pocetku svakog "enabled" ciklusa -- sprijecava da se koristi
-    // zastarjela zaglađena vrijednost iz prethodne sesije senzora.
-    smoothedAzimuthRef.current = null;
-    smoothedAltitudeRef.current = null;
-    accuracyRef.current = null;
-
-    let headingSubscription: { remove: () => void } | null = null;
-    let attitudeSubscription: { remove: () => void } | null = null;
-    let motionSubscription: { remove: () => void } | null = null;
     let cancelled = false;
+    let attitudeSubscription: { remove: () => void } | null = null;
+    let headingSubscription: { remove: () => void } | null = null;
+    const filter = createAttitudeFilter();
 
     (async () => {
-      const nativeAvailable = await DeviceAttitude.isAvailableAsync().catch(() => false);
+      const isAvailable = await DeviceAttitude.isAvailableAsync().catch(() => false);
+      if (cancelled) return;
+      setAvailable(isAvailable);
+      if (!isAvailable) return;
 
-      // Kompas API (expo-location) ostaje u oba slucaja pretplacen -- kad je
-      // native attitude dostupan, koristi se samo za headingAccuracy (banner
-      // "loša kalibracija" u SkyMap-u); kad nije, nosi i sam azimut (fallback).
-      headingSubscription = await Location.watchHeadingAsync((event) => {
-        if (cancelled) return;
-        accuracyRef.current = event.accuracy;
-        if (nativeAvailable) return;
+      DeviceAttitude.getCameraFovAsync()
+        .then((fov) => {
+          if (!cancelled && fov) setCameraFov(fov);
+        })
+        .catch(() => {});
 
-        const raw = event.trueHeading >= 0 ? event.trueHeading : event.magHeading;
-        if (smoothedAzimuthRef.current === null) {
-          smoothedAzimuthRef.current = raw;
-        } else {
-          // Najkraci ugaoni put -- sprijecava da EMA "obleti" dugi put kruga
-          // kad ocitanje predje granicu 0/360 (npr. 359 -> 1).
-          const delta = ((raw - smoothedAzimuthRef.current + 540) % 360) - 180;
-          if (Math.abs(delta) >= AZIMUTH_DEADBAND_DEG) {
-            smoothedAzimuthRef.current = (smoothedAzimuthRef.current + delta * AZIMUTH_SMOOTHING + 360) % 360;
-          }
-        }
+      await DeviceAttitude.setUpdateInterval(ATTITUDE_UPDATE_INTERVAL_MS);
+      if (cancelled) return;
+      attitudeSubscription = DeviceAttitude.addListener('onAttitudeUpdate', (event) => {
+        matrix.set(filter(event.matrix, event.timestamp));
       });
 
-      if (nativeAvailable) {
-        await DeviceAttitude.setUpdateInterval(ATTITUDE_UPDATE_INTERVAL_MS);
-        attitudeSubscription = DeviceAttitude.addListener('onAttitudeUpdate', (event) => {
-          if (cancelled) return;
-          setHeading({ azimuth: event.azimuth, altitude: event.altitude, accuracy: accuracyRef.current });
-        });
-        return;
-      }
-
-      DeviceMotion.setUpdateInterval(100);
-      motionSubscription = DeviceMotion.addListener((motion) => {
-        if (cancelled || !motion.rotation) return;
-        const betaDeg = (motion.rotation.beta * 180) / Math.PI;
-        const rawAltitude = Math.max(-10, Math.min(85, betaDeg - 90));
-        if (smoothedAltitudeRef.current === null) {
-          smoothedAltitudeRef.current = rawAltitude;
-        } else if (Math.abs(rawAltitude - smoothedAltitudeRef.current) >= ALTITUDE_DEADBAND_DEG) {
-          smoothedAltitudeRef.current += (rawAltitude - smoothedAltitudeRef.current) * ALTITUDE_SMOOTHING;
-        }
-        setHeading({
-          azimuth: smoothedAzimuthRef.current ?? 0,
-          altitude: smoothedAltitudeRef.current,
-          accuracy: accuracyRef.current,
-        });
+      // Kompas API (expo-location) samo za banner "loša kalibracija".
+      const subscription = await Location.watchHeadingAsync((event) => {
+        setPoorCalibration(isPoorAccuracy(event.accuracy));
       });
+      if (cancelled) subscription.remove();
+      else headingSubscription = subscription;
     })();
 
     return () => {
       cancelled = true;
-      headingSubscription?.remove();
       attitudeSubscription?.remove();
-      motionSubscription?.remove();
+      headingSubscription?.remove();
     };
-  }, [enabled]);
+  }, [matrix]);
 
-  return heading;
+  return { matrix, available, poorCalibration, cameraFov };
 }

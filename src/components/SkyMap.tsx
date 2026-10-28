@@ -1,14 +1,17 @@
-import { useMemo, useRef, useState } from 'react';
-import { Dimensions, PanResponder, StyleSheet } from 'react-native';
+import { useState, type ReactNode } from 'react';
+import { Modal, Pressable, StyleSheet, useWindowDimensions } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { CameraView } from 'expo-camera';
 import { Ionicons } from '@expo/vector-icons';
-import { Circle, G, Line, Svg, Text as SvgText } from 'react-native-svg';
-import { Paragraph, XStack, YStack } from 'tamagui';
+import Animated, { useAnimatedReaction, useAnimatedStyle, type SharedValue } from 'react-native-reanimated';
+import { scheduleOnRN } from 'react-native-worklets';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Circle, Line, Svg } from 'react-native-svg';
+import { Paragraph, YStack } from 'tamagui';
 
 import { azimuthToCompass } from '@/lib/astronomy';
-import { useDeviceHeading } from '@/lib/deviceOrientation';
-import { projectToView, type FieldOfView, type ViewDirection } from '@/lib/skyProjection';
+import { useDeviceAttitude, type DeviceAttitudeState } from '@/lib/deviceOrientation';
+import { cameraAzimuth, focalLengthPx, horizontalToVector, projectToScreen } from '@/lib/skyProjection';
 import { palette } from '@/theme/palette';
 import type { ConstellationLine, ConstellationStar } from '@/types/models';
 
@@ -32,205 +35,280 @@ export type SkyMapConstellation = {
   onPress?: () => void;
 };
 
-// Vidljivi markeri su cesto premali za pouzdan tap (npr. planeta r=5px) --
-// nevidljiv veci krug preko njih daje ugodniji touch target bez mijenjanja
-// izgleda.
-const TOUCH_TARGET_RADIUS = 18;
-
-// Mapa i AR oboje djeluju uronjeno (skoro cio ekran) -- ista velicina za obje.
+// Okvir AR prikaza kad nije preko cijelog ekrana.
 const MAP_HORIZONTAL_PADDING = 16;
 const MAP_HEIGHT_RATIO = 0.72;
 // Sazvijezdje se crta kao mala ikona centrirana na svoju (priblizno) tacnu
 // poziciju -- stars su 0-100 normalizovane koordinate (isti format kao
-// kviz), pa se skaliraju oko svog sredista (50,50) na ovu velicinu u px.
-const CONSTELLATION_ICON_SIZE = 34;
-const DEFAULT_VIEW: ViewDirection = { azimuth: 180, altitude: 30 };
-const DEG_PER_PIXEL = 0.3;
-const DEFAULT_FOV_DEG = 80;
-const MIN_FOV_DEG = 30;
-const MAX_FOV_DEG = 120;
-const ZOOM_STEP_DEG = 15;
-// Kompas tacnost (stepeni moguce greske, iOS konvencija -- manje = bolje;
-// prvi pokusaj praga, ocekivano fino podesavanje nakon testiranja).
-const POOR_ACCURACY_THRESHOLD_DEG = 20;
+// kviz), pa se skaliraju na ovu velicinu u px.
+const CONSTELLATION_ICON_SIZE = 64;
+// Mnozilac radijusa planeta/Mjeseca/Sunca na AR prikazu (radius dolazi iz ekrana).
+const OBJECT_MARKER_SCALE = 1.8;
+// Sirina kutije oznake (ikona + natpis ispod) -- ikona je horizontalno centrirana u njoj.
+const MARKER_WIDTH = 120;
+// Vidljivi markeri su cesto premali za pouzdan tap (npr. planeta r=5px).
+const MARKER_HIT_SLOP = 12;
+// Hintovi na vrhu su centrirani, s mjestom desno za dugme preko cijelog ekrana.
+const HINT_SIDE_MARGIN = 52;
+// Kalibracija: mnozilac fokalne duzine iz stvarnog FOV-a kamere. Ako se pri
+// okretanju telefona oznake pomjeraju BRZE od slike kamere -- smanji; ako
+// SPORIJE -- povecaj.
+const FOCAL_SCALE = 1.0;
 
-// "use no memo" -- PanResponder je eksterni imperativni API kojem se
-// callback-i predaju direktno; React Compiler ne moze staticki dokazati da
-// PanResponder.create ne poziva te callback-e odmah (iako ih samo cuva za
-// kasnije), pa odbija refs unutar njih. Ovdje je ref-baziran pristup
-// stvarno ispravan i neophodan -- stabilna PanResponder instanca kroz
-// re-rendere je bitna za glatko prevlacenje (nestabilna instanca svaki
-// render prekida gest usred pokreta).
+// AR pogled -- kamera kao pozadina, orijentacija telefona odredjuje sta se
+// vidi. Korisnik bira okvir unutar ekrana ili prikaz preko cijelog ekrana;
+// `children` (npr. panel s detaljima odabranog objekta) ide ispod okvira,
+// odnosno preko dna slike u prikazu preko cijelog ekrana.
 export function SkyMap({
   objects,
   constellations = [],
-  arMode = false,
+  children,
 }: {
   objects: SkyMapObject[];
   constellations?: SkyMapConstellation[];
-  // AR pogled -- kamera kao pozadina, senzori su jedini nacin gledanja
-  // (rucno prevlacenje nema smisla kad stvarno gledas kroz kameru).
-  arMode?: boolean;
+  children?: ReactNode;
 }) {
-  'use no memo';
+  const attitude = useDeviceAttitude();
+  const [fullscreen, setFullscreen] = useState(false);
+  const { width, height } = useWindowDimensions();
+  const insets = useSafeAreaInsets();
 
-  const { t } = useTranslation();
-  const [view, setView] = useState<ViewDirection>(DEFAULT_VIEW);
-  const [fovDeg, setFovDeg] = useState(DEFAULT_FOV_DEG);
-  const [manualSensorMode, setManualSensorMode] = useState(false);
-  const sensorMode = arMode || manualSensorMode;
-  const deviceHeading = useDeviceHeading(sensorMode);
-  const effectiveView = sensorMode && deviceHeading ? { azimuth: deviceHeading.azimuth, altitude: deviceHeading.altitude } : view;
-
-  const viewRef = useRef(view);
-  // eslint-disable-next-line react-hooks/refs -- vidi napomenu iznad funkcije
-  viewRef.current = view;
-  const dragStartRef = useRef(view);
-
-  const panResponder = useMemo(
-    () =>
-      // eslint-disable-next-line react-hooks/refs -- vidi napomenu iznad funkcije
-      PanResponder.create({
-        onStartShouldSetPanResponder: () => true,
-        onPanResponderGrant: () => {
-          dragStartRef.current = viewRef.current;
-        },
-        onPanResponderMove: (_evt, gesture) => {
-          const nextAzimuth = (dragStartRef.current.azimuth - gesture.dx * DEG_PER_PIXEL + 360) % 360;
-          const nextAltitude = Math.max(-10, Math.min(85, dragStartRef.current.altitude + gesture.dy * DEG_PER_PIXEL));
-          setView({ azimuth: nextAzimuth, altitude: nextAltitude });
-        },
-      }),
-    [],
+  const sky = (
+    <SkyView
+      objects={objects}
+      constellations={constellations}
+      attitude={attitude}
+      fullscreen={fullscreen}
+      onToggleFullscreen={() => setFullscreen((value) => !value)}
+      topInset={fullscreen ? insets.top : 0}
+    />
   );
 
-  const mapWidth = Dimensions.get('window').width - MAP_HORIZONTAL_PADDING * 2;
-  const mapHeight = Dimensions.get('window').height * MAP_HEIGHT_RATIO;
-  // Vertikalni FOV se skalira proporcionalno sirini/visini da markeri ne
-  // izgledaju rastegnuti kad prikaz nije kvadratan (visok pravougaonik).
-  const fov: FieldOfView = { horizontalDeg: fovDeg, verticalDeg: fovDeg * (mapHeight / mapWidth) };
-  const halfW = mapWidth / 2;
-  const halfH = mapHeight / 2;
-
-  function zoom(deltaDeg: number) {
-    setFovDeg((prev) => Math.max(MIN_FOV_DEG, Math.min(MAX_FOV_DEG, prev + deltaDeg)));
-  }
-
-  return (
-    <YStack gap="$2">
-      <YStack
-        {...(!sensorMode ? panResponder.panHandlers : {})}
-        width={mapWidth}
-        height={mapHeight}
-        borderRadius="$6"
-        overflow="hidden"
-        backgroundColor={arMode ? 'transparent' : palette.void}
-        borderWidth={1}
-        borderColor={palette.nebulaDeep}>
-        {arMode && <CameraView style={StyleSheet.absoluteFill} facing="back" />}
-        <Svg width={mapWidth} height={mapHeight} style={arMode ? StyleSheet.absoluteFill : undefined}>
-          {constellations.map((c) => {
-            const projected = projectToView(c.azimuth, c.altitude, effectiveView, fov);
-            if (!projected.visible) return null;
-            const cx = halfW + projected.x * halfW;
-            const cy = halfH + projected.y * halfH;
-            const scale = CONSTELLATION_ICON_SIZE / 100;
-            const starX = (star: ConstellationStar) => cx + (star.x - 50) * scale;
-            const starY = (star: ConstellationStar) => cy + (star.y - 50) * scale;
-            return (
-              <G key={c.slug} onPress={c.onPress}>
-                {c.lines.map(([a, b], index) => (
-                  <Line
-                    key={index}
-                    x1={starX(c.stars[a])}
-                    y1={starY(c.stars[a])}
-                    x2={starX(c.stars[b])}
-                    y2={starY(c.stars[b])}
-                    stroke={palette.haze}
-                    strokeWidth={1}
-                    strokeOpacity={0.8}
-                  />
-                ))}
-                {c.stars.map((star, index) => (
-                  <Circle key={index} cx={starX(star)} cy={starY(star)} r={1.4} fill={palette.starlight} />
-                ))}
-                <SvgText
-                  x={cx}
-                  y={cy + CONSTELLATION_ICON_SIZE / 2 + 12}
-                  fontSize={10}
-                  fill={palette.haze}
-                  textAnchor="middle">
-                  {c.name}
-                </SvgText>
-                <Circle cx={cx} cy={cy} r={TOUCH_TARGET_RADIUS} fill="transparent" />
-              </G>
-            );
-          })}
-          {objects.map((obj) => {
-            const projected = projectToView(obj.azimuth, obj.altitude, effectiveView, fov);
-            if (!projected.visible) return null;
-            const cx = halfW + projected.x * halfW;
-            const cy = halfH + projected.y * halfH;
-            return (
-              <G key={obj.id} onPress={obj.onPress}>
-                <Circle cx={cx} cy={cy} r={obj.radius} fill={obj.color} />
-                <SvgText x={cx} y={cy + obj.radius + 12} fontSize={11} fill={palette.starlight} textAnchor="middle">
-                  {obj.label}
-                </SvgText>
-                <Circle cx={cx} cy={cy} r={TOUCH_TARGET_RADIUS} fill="transparent" />
-              </G>
-            );
-          })}
-        </Svg>
-
-        <YStack position="absolute" top="$2" left="$2" right="$2" ai="center" gap="$1.5">
-          <YStack backgroundColor="rgba(6,7,13,0.75)" borderRadius="$4" py="$1.5" px="$3">
-            <Paragraph fontSize="$1" color={palette.starlight} textAlign="center">
-              {sensorMode
-                ? t('tonight.map.sensorHint', { direction: azimuthToCompass(effectiveView.azimuth) })
-                : t('tonight.map.compassHint', { direction: azimuthToCompass(effectiveView.azimuth) })}
-            </Paragraph>
-          </YStack>
-          {sensorMode && deviceHeading && deviceHeading.accuracy !== null && deviceHeading.accuracy > POOR_ACCURACY_THRESHOLD_DEG && (
-            <YStack ai="center" backgroundColor="rgba(255,107,94,0.85)" borderRadius="$4" py="$1.5" px="$2">
-              <Paragraph fontSize="$1" color={palette.void} fontWeight="600" textAlign="center">
-                {t('tonight.map.calibrationHint')}
-              </Paragraph>
+  if (fullscreen) {
+    return (
+      <Modal
+        visible
+        animationType="fade"
+        statusBarTranslucent
+        navigationBarTranslucent
+        onRequestClose={() => setFullscreen(false)}>
+        <YStack f={1} backgroundColor={palette.void}>
+          {sky}
+          {children && (
+            <YStack position="absolute" left="$4" right="$4" bottom={insets.bottom + 16}>
+              {children}
             </YStack>
           )}
         </YStack>
+      </Modal>
+    );
+  }
 
-        {!arMode && (
-          <XStack position="absolute" bottom="$2" left="$2">
-            <MapButton
-              icon={sensorMode ? 'phone-portrait' : 'hand-left'}
-              onPress={() => setManualSensorMode((v) => !v)}
-              disabled={false}
-              active={sensorMode}
+  return (
+    <YStack gap="$3" ai="center" width="100%">
+      <YStack
+        width={width - MAP_HORIZONTAL_PADDING * 2}
+        height={height * MAP_HEIGHT_RATIO}
+        borderRadius="$6"
+        overflow="hidden"
+        borderWidth={1}
+        borderColor={palette.nebulaDeep}>
+        {sky}
+      </YStack>
+      {children}
+    </YStack>
+  );
+}
+
+function SkyView({
+  objects,
+  constellations,
+  attitude,
+  fullscreen,
+  onToggleFullscreen,
+  topInset,
+}: {
+  objects: SkyMapObject[];
+  constellations: SkyMapConstellation[];
+  attitude: DeviceAttitudeState;
+  fullscreen: boolean;
+  onToggleFullscreen: () => void;
+  topInset: number;
+}) {
+  const { t } = useTranslation();
+  const [size, setSize] = useState({ width: 0, height: 0 });
+  const [compassIndex, setCompassIndex] = useState<number | null>(null);
+  const { matrix } = attitude;
+
+  // Hint "Gledas prema ..." se mijenja samo kad se promijeni strana svijeta,
+  // ne na svako ocitanje senzora -- inace bi opet bio React re-render po frame-u.
+  useAnimatedReaction(
+    () => {
+      const m = matrix.get();
+      return m ? Math.round(cameraAzimuth(m) / 45) % 8 : null;
+    },
+    (index, previous) => {
+      if (index !== previous) scheduleOnRN(setCompassIndex, index);
+    },
+  );
+
+  const focalPx = focalLengthPx(size.width, size.height, attitude.cameraFov) * FOCAL_SCALE;
+  const centerX = size.width / 2;
+  const centerY = size.height / 2;
+  const iconScale = CONSTELLATION_ICON_SIZE / 100;
+
+  return (
+    <YStack
+      f={1}
+      onLayout={(event) => setSize({ width: event.nativeEvent.layout.width, height: event.nativeEvent.layout.height })}>
+      <CameraView style={StyleSheet.absoluteFill} facing="back" />
+
+      {size.width > 0 &&
+        constellations.map((c) => (
+          <SkyMarker
+            key={c.slug}
+            azimuth={c.azimuth}
+            altitude={c.altitude}
+            matrix={matrix}
+            focalPx={focalPx}
+            centerX={centerX}
+            centerY={centerY}
+            anchorY={CONSTELLATION_ICON_SIZE / 2}
+            onPress={c.onPress}>
+            <Svg width={CONSTELLATION_ICON_SIZE} height={CONSTELLATION_ICON_SIZE}>
+              {c.lines.map(([a, b], index) => (
+                <Line
+                  key={index}
+                  x1={c.stars[a].x * iconScale}
+                  y1={c.stars[a].y * iconScale}
+                  x2={c.stars[b].x * iconScale}
+                  y2={c.stars[b].y * iconScale}
+                  stroke={palette.haze}
+                  strokeWidth={1.5}
+                  strokeOpacity={0.8}
+                />
+              ))}
+              {c.stars.map((star, index) => (
+                <Circle key={index} cx={star.x * iconScale} cy={star.y * iconScale} r={2.2} fill={palette.starlight} />
+              ))}
+            </Svg>
+            <Paragraph fontSize={12} lineHeight={16} color={palette.haze}>
+              {c.name}
+            </Paragraph>
+          </SkyMarker>
+        ))}
+
+      {size.width > 0 &&
+        objects.map((obj) => (
+          <SkyMarker
+            key={obj.id}
+            azimuth={obj.azimuth}
+            altitude={obj.altitude}
+            matrix={matrix}
+            focalPx={focalPx}
+            centerX={centerX}
+            centerY={centerY}
+            anchorY={obj.radius * OBJECT_MARKER_SCALE}
+            onPress={obj.onPress}>
+            <YStack
+              width={obj.radius * OBJECT_MARKER_SCALE * 2}
+              height={obj.radius * OBJECT_MARKER_SCALE * 2}
+              borderRadius={999}
+              backgroundColor={obj.color}
             />
-          </XStack>
-        )}
+            <Paragraph fontSize={13} lineHeight={17} color={palette.starlight}>
+              {obj.label}
+            </Paragraph>
+          </SkyMarker>
+        ))}
 
-        <XStack position="absolute" bottom="$2" right="$2" gap="$2">
-          <MapButton icon="add" onPress={() => zoom(-ZOOM_STEP_DEG)} disabled={fovDeg <= MIN_FOV_DEG} />
-          <MapButton icon="remove" onPress={() => zoom(ZOOM_STEP_DEG)} disabled={fovDeg >= MAX_FOV_DEG} />
-        </XStack>
+      <YStack
+        position="absolute"
+        top={topInset + 8}
+        left={HINT_SIDE_MARGIN}
+        right={HINT_SIDE_MARGIN}
+        ai="center"
+        gap="$1.5"
+        pointerEvents="none">
+        {compassIndex !== null && (
+          <YStack backgroundColor="rgba(6,7,13,0.75)" borderRadius="$4" py="$1.5" px="$3">
+            <Paragraph fontSize="$1" color={palette.starlight} textAlign="center">
+              {t('tonight.map.sensorHint', { direction: azimuthToCompass(compassIndex * 45) })}
+            </Paragraph>
+          </YStack>
+        )}
+        {attitude.available === false && (
+          <YStack backgroundColor="rgba(6,7,13,0.75)" borderRadius="$4" py="$1.5" px="$3">
+            <Paragraph fontSize="$1" color={palette.starlight} textAlign="center">
+              {t('tonight.map.sensorUnavailable')}
+            </Paragraph>
+          </YStack>
+        )}
+        {attitude.poorCalibration && (
+          <YStack ai="center" backgroundColor="rgba(255,107,94,0.85)" borderRadius="$4" py="$1.5" px="$2">
+            <Paragraph fontSize="$1" color={palette.void} fontWeight="600" textAlign="center">
+              {t('tonight.map.calibrationHint')}
+            </Paragraph>
+          </YStack>
+        )}
+      </YStack>
+
+      <YStack position="absolute" top={topInset + 8} right={8}>
+        <MapButton icon={fullscreen ? 'contract' : 'expand'} onPress={onToggleFullscreen} />
       </YStack>
     </YStack>
   );
 }
 
-function MapButton({
-  icon,
+// Oznaka koja prati svoju tacku neba. Pozicija se racuna na UI threadu iz
+// shared value orijentacije -- React se ne re-renderuje dok se telefon pomjera,
+// pa sadrzaj (SVG ikona, natpis) ostaje nepromijenjen a pomjera se samo kutija.
+function SkyMarker({
+  azimuth,
+  altitude,
+  matrix,
+  focalPx,
+  centerX,
+  centerY,
+  anchorY,
   onPress,
-  disabled,
-  active,
+  children,
 }: {
-  icon: keyof typeof Ionicons.glyphMap;
-  onPress: () => void;
-  disabled: boolean;
-  active?: boolean;
+  azimuth: number;
+  altitude: number;
+  matrix: SharedValue<number[] | null>;
+  focalPx: number;
+  centerX: number;
+  centerY: number;
+  // Udaljenost od vrha kutije do tacke koja treba lezati na poziciji objekta (centar ikone).
+  anchorY: number;
+  onPress?: () => void;
+  children: ReactNode;
 }) {
+  const vector = horizontalToVector(azimuth, altitude);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    const m = matrix.get();
+    const point = m ? projectToScreen(vector, m, focalPx) : null;
+    if (!point || !point.visible) {
+      // Iza kamere -- daleko van prikaza, da ne hvata dodire.
+      return { transform: [{ translateX: -10000 }, { translateY: 0 }] };
+    }
+    return {
+      transform: [{ translateX: centerX + point.x - MARKER_WIDTH / 2 }, { translateY: centerY + point.y - anchorY }],
+    };
+  });
+
+  return (
+    <Animated.View style={[styles.marker, animatedStyle]} pointerEvents="box-none">
+      <Pressable onPress={onPress} hitSlop={MARKER_HIT_SLOP} style={styles.markerContent}>
+        {children}
+      </Pressable>
+    </Animated.View>
+  );
+}
+
+function MapButton({ icon, onPress }: { icon: keyof typeof Ionicons.glyphMap; onPress: () => void }) {
   return (
     <YStack
       width={36}
@@ -238,13 +316,25 @@ function MapButton({
       borderRadius={999}
       ai="center"
       jc="center"
-      backgroundColor={active ? palette.nebula : 'rgba(23,19,52,0.85)'}
+      backgroundColor="rgba(23,19,52,0.85)"
       borderWidth={1}
-      borderColor={active ? palette.nebula : palette.nebulaDeep}
-      opacity={disabled ? 0.4 : 1}
-      onPress={disabled ? undefined : onPress}
-      pressStyle={disabled ? undefined : { opacity: 0.7 }}>
+      borderColor={palette.nebulaDeep}
+      onPress={onPress}
+      pressStyle={{ opacity: 0.7 }}>
       <Ionicons name={icon} size={18} color={palette.starlight} />
     </YStack>
   );
 }
+
+const styles = StyleSheet.create({
+  marker: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    width: MARKER_WIDTH,
+    alignItems: 'center',
+  },
+  markerContent: {
+    alignItems: 'center',
+  },
+});

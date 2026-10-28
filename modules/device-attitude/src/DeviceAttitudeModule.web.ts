@@ -1,6 +1,6 @@
 import { registerWebModule, NativeModule } from 'expo';
 
-import type { DeviceAttitudeModuleEvents } from './DeviceAttitude.types';
+import type { CameraFov, DeviceAttitudeModuleEvents } from './DeviceAttitude.types';
 
 // Nije podrzano na webu -- nema fuzionisanog attitude senzora u browseru.
 class DeviceAttitudeModule extends NativeModule<DeviceAttitudeModuleEvents> {
@@ -8,6 +8,9 @@ class DeviceAttitudeModule extends NativeModule<DeviceAttitudeModuleEvents> {
     return false;
   }
   async setUpdateInterval(_intervalMs: number): Promise<void> {}
+  async getCameraFovAsync(): Promise<CameraFov | null> {
+    return null;
+  }
 }
 
 export default registerWebModule(DeviceAttitudeModule, 'DeviceAttitudeModule');

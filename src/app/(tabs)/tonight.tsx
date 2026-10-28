@@ -25,7 +25,6 @@ import {
   getTonightSky,
   type SkyBodyInfo,
   type SkyBodyKey,
-  type TonightSky,
 } from '@/lib/astronomy';
 import { getCurrentCoordinates, type Coordinates } from '@/lib/location';
 import { pickLocalized } from '@/lib/localized';
@@ -41,6 +40,9 @@ const PLANET_COLORS: Partial<Record<SkyBodyKey, string>> = {
   saturn: '#D8C48A',
 };
 
+// Nebo se okrece ~0,25° u minuti -- bez osvjezavanja AR oznake polako odlutaju od pravog neba.
+const SKY_REFRESH_MS = 60_000;
+
 const CAPTION = '#A5A5A5';
 const SUB_INK = '#C9C4EC';
 
@@ -52,7 +54,7 @@ function formatTime(date: Date | null): string {
 }
 
 type SelectedInfo = { title: string; description?: string; card?: Card };
-type ViewMode = 'list' | 'map' | 'ar';
+type ViewMode = 'list' | 'ar';
 
 const EN_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -66,7 +68,7 @@ function formatShowerDate(date: Date, language: string): string {
 export default function TonightScreen() {
   const { t, i18n } = useTranslation();
   const [coords, setCoords] = useState<Coordinates | null | undefined>(undefined);
-  const [sky, setSky] = useState<TonightSky | null>(null);
+  const [skyTime, setSkyTime] = useState(() => new Date());
   const [linkedCards, setLinkedCards] = useState<Partial<Record<SkyBodyKey, Card>>>({});
   const [constellations, setConstellations] = useState<Constellation[]>([]);
   const [viewMode, setViewMode] = useState<ViewMode>('list');
@@ -75,9 +77,14 @@ export default function TonightScreen() {
 
   useAmbientSound();
 
+  const sky = useMemo(
+    () => (coords ? getTonightSky(coords.latitude, coords.longitude, skyTime) : null),
+    [coords, skyTime],
+  );
+
   const mapObjects: SkyMapObject[] = useMemo(() => {
     if (!sky || !coords) return [];
-    const sun = getSunPosition(coords.latitude, coords.longitude);
+    const sun = getSunPosition(coords.latitude, coords.longitude, skyTime);
     const objects: SkyMapObject[] = [
       {
         id: 'sun',
@@ -103,12 +110,12 @@ export default function TonightScreen() {
       });
     }
     return objects;
-  }, [sky, coords, t, linkedCards]);
+  }, [sky, coords, skyTime, t, linkedCards]);
 
   const mapConstellations: SkyMapConstellation[] = useMemo(() => {
     if (!coords || constellations.length === 0) return [];
     const positionsBySlug = new Map(
-      getConstellationSkyPositions(coords.latitude, coords.longitude).map((p) => [p.slug, p]),
+      getConstellationSkyPositions(coords.latitude, coords.longitude, skyTime).map((p) => [p.slug, p]),
     );
     return constellations
       .map((c): SkyMapConstellation | null => {
@@ -126,16 +133,19 @@ export default function TonightScreen() {
         };
       })
       .filter((c): c is SkyMapConstellation => c !== null);
-  }, [constellations, coords, i18n.language]);
+  }, [constellations, coords, skyTime, i18n.language]);
 
   async function loadLocation() {
     setCoords(undefined);
     const result = await getCurrentCoordinates();
+    setSkyTime(new Date());
     setCoords(result);
-    if (result) {
-      setSky(getTonightSky(result.latitude, result.longitude));
-    }
   }
+
+  useEffect(() => {
+    const id = setInterval(() => setSkyTime(new Date()), SKY_REFRESH_MS);
+    return () => clearInterval(id);
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -179,14 +189,6 @@ export default function TonightScreen() {
                 icon="list"
               />
               <ViewModeButton
-                active={viewMode === 'map'}
-                onPress={() => {
-                  setViewMode('map');
-                  setSelectedInfo(null);
-                }}
-                icon="planet-outline"
-              />
-              <ViewModeButton
                 active={viewMode === 'ar'}
                 onPress={async () => {
                   if (!cameraPermission?.granted) await requestCameraPermission();
@@ -210,24 +212,18 @@ export default function TonightScreen() {
             </GlassCard>
           )}
 
-          {coords && sky && viewMode === 'map' && (
-            <YStack ai="center" py="$2" gap="$3">
-              <SkyMap objects={mapObjects} constellations={mapConstellations} />
-              <SelectedInfoPanel info={selectedInfo} onClose={() => setSelectedInfo(null)} />
-            </YStack>
-          )}
-
           {coords && sky && viewMode === 'ar' && (
-            <YStack ai="center" py="$2" gap="$3">
+            <YStack ai="center" py="$2">
               {cameraPermission?.granted ? (
-                <SkyMap objects={mapObjects} constellations={mapConstellations} arMode />
+                <SkyMap objects={mapObjects} constellations={mapConstellations}>
+                  <SelectedInfoPanel info={selectedInfo} onClose={() => setSelectedInfo(null)} />
+                </SkyMap>
               ) : (
                 <GlassCard gap="$3" width="100%">
                   <Paragraph color="$color11">{t('tonight.map.cameraPermissionMessage')}</Paragraph>
                   <PillButton label={t('tonight.map.enableCamera')} color={palette.nebula} onPress={requestCameraPermission} />
                 </GlassCard>
               )}
-              <SelectedInfoPanel info={selectedInfo} onClose={() => setSelectedInfo(null)} />
             </YStack>
           )}
 
