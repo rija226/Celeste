@@ -193,7 +193,11 @@
       "passwordMismatch": "Lozinke se ne podudaraju",
       "passwordTooShort": "Lozinka mora imati barem 6 znakova",
       "signedInAs": "Prijavljen/a kao {{email}}",
-      "signOut": "Odjavi se"
+      "signOut": "Odjavi se",
+      "deleteAccount": "Obriši račun",
+      "deleteConfirm": "Ovo trajno briše tvoj račun i sav napredak (kartice, kviz, statistika). Ne može se poništiti.",
+      "deleteConfirmButton": "Obriši zauvijek",
+      "deleted": "Račun je obrisan."
     }
   },
   "profile": {

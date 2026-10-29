@@ -1,4 +1,5 @@
 export {
+  deleteAccount,
   ensureSession,
   getCurrentAuthUser,
   signInWithEmail,

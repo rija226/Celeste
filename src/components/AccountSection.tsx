@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Input, Paragraph, XStack, YStack } from 'tamagui';
 
 import {
+  deleteAccount,
   ensureSession,
   getCurrentAuthUser,
   signInWithEmail,
@@ -27,6 +28,8 @@ export function AccountSection() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [confirmSentTo, setConfirmSentTo] = useState<string | null>(null);
+  const [confirmingDelete, setConfirmingDelete] = useState(false);
+  const [deleted, setDeleted] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -76,6 +79,22 @@ export function AccountSection() {
     setSubmitting(false);
   }
 
+  async function handleDelete() {
+    setError(null);
+    setSubmitting(true);
+    try {
+      await deleteAccount();
+      await ensureSession();
+      setUser(await getCurrentAuthUser());
+      setConfirmingDelete(false);
+      setDeleted(true);
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   if (user === undefined) {
     return null;
   }
@@ -112,6 +131,54 @@ export function AccountSection() {
             {t('settings.account.signOut')}
           </Paragraph>
         </YStack>
+
+        {confirmingDelete ? (
+          <YStack gap={10}>
+            <Paragraph color="$color11" fontSize={13}>
+              {t('settings.account.deleteConfirm')}
+            </Paragraph>
+            <XStack gap={10}>
+              <YStack
+                f={1}
+                height={46}
+                borderRadius={10}
+                borderWidth={1}
+                borderColor="#2A2A2E"
+                ai="center"
+                jc="center"
+                onPress={submitting ? undefined : () => setConfirmingDelete(false)}
+                pressStyle={{ opacity: 0.8 }}>
+                <Paragraph fontWeight="600" fontSize={14} color={palette.starlight}>
+                  {t('profile.cancel')}
+                </Paragraph>
+              </YStack>
+              <YStack
+                f={1}
+                height={46}
+                borderRadius={10}
+                backgroundColor={palette.comet}
+                ai="center"
+                jc="center"
+                opacity={submitting ? 0.6 : 1}
+                onPress={submitting ? undefined : handleDelete}
+                pressStyle={{ opacity: 0.85 }}>
+                <Paragraph fontWeight="600" fontSize={14} color={palette.starlight}>
+                  {t('settings.account.deleteConfirmButton')}
+                </Paragraph>
+              </YStack>
+            </XStack>
+          </YStack>
+        ) : (
+          <Paragraph
+            color={palette.haze}
+            fontSize={13}
+            textAlign="center"
+            onPress={() => setConfirmingDelete(true)}
+            pressStyle={{ opacity: 0.7 }}>
+            {t('settings.account.deleteAccount')}
+          </Paragraph>
+        )}
+        {error && <Paragraph color={palette.comet}>{error}</Paragraph>}
       </YStack>
     );
   }
@@ -126,6 +193,7 @@ export function AccountSection() {
 
   return (
     <YStack gap={10} p={16}>
+      {deleted && <Paragraph color={palette.aurora}>{t('settings.account.deleted')}</Paragraph>}
       <XStack ai="center" gap={8}>
         <Ionicons name="person-circle-outline" size={18} color={palette.haze} />
         <Paragraph color="$color11" fontSize={13} f={1}>

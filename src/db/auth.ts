@@ -82,3 +82,12 @@ export async function signInWithEmail(email: string, password: string): Promise<
 export async function signOut(): Promise<void> {
   await supabase.auth.signOut();
 }
+
+// Trajno brise racun i sav napredak (SQL funkcija delete_my_account, security definer --
+// brise samo auth.uid()). Trazi ga Google Play i App Store za aplikacije s racunima.
+// Korisnik na serveru vise ne postoji, pa se sesija gasi samo lokalno.
+export async function deleteAccount(): Promise<void> {
+  const { error } = await supabase.rpc('delete_my_account');
+  if (error) throw error;
+  await supabase.auth.signOut({ scope: 'local' });
+}
