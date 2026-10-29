@@ -81,6 +81,21 @@
     "setsCompact": "zalazi {{time}}",
     "funFact": "Zanimljivost",
     "planetsLabel": "Planete",
+    "forecast": {
+      "title": "Promatranje večeras",
+      "rating": {
+        "excellent": "Odlično",
+        "good": "Dobro",
+        "fair": "Osrednje",
+        "poor": "Loše"
+      },
+      "bestWindow": "Najbolje od {{from}} do {{to}}",
+      "clouds": "{{percent}}% oblaka",
+      "moon": "Mjesec {{percent}}%",
+      "darkness": "Mrak {{from}}–{{to}}",
+      "unavailable": "Vremenska prognoza trenutno nije dostupna.",
+      "source": "Prognoza: MET Norway"
+    },
     "pill": {
       "visible": "Vidljivo",
       "below": "Ispod"

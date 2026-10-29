@@ -23,3 +23,4 @@ export {
 export { getQuizItems } from './quizItems';
 export { getQuizPoints, getQuizResultDates, insertQuizResult } from './quizResults';
 export { supabase } from './supabase';
+export { getCloudForecast, type CloudHour } from './weather';

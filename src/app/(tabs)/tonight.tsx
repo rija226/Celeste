@@ -16,7 +16,7 @@ import { ScreenBackdrop } from '@/components/ScreenBackdrop';
 import { SkyMap, type SkyMapConstellation, type SkyMapObject } from '@/components/SkyMap';
 import { getActiveShowers, getNextShower, type MeteorShower } from '@/data/meteorShowers';
 import { SKY_BODY_CARD_SLUG } from '@/data/skyObjectCards';
-import { getCardsBySlugs, getConstellations } from '@/db';
+import { getCardsBySlugs, getCloudForecast, getConstellations, type CloudHour } from '@/db';
 import {
   azimuthToCompass,
   getConstellationSkyPositions,
@@ -29,6 +29,7 @@ import {
 import { getCurrentCoordinates, type Coordinates } from '@/lib/location';
 import { pickLocalized } from '@/lib/localized';
 import { useAmbientSound } from '@/lib/sound';
+import { getRatingLevel, planTonight, type RatingLevel, type TonightPlan } from '@/lib/stargazing';
 import { palette } from '@/theme/palette';
 import type { Card, Constellation } from '@/types/models';
 
@@ -74,6 +75,8 @@ export default function TonightScreen() {
   const [viewMode, setViewMode] = useState<ViewMode>('list');
   const [selectedInfo, setSelectedInfo] = useState<SelectedInfo | null>(null);
   const [cameraPermission, requestCameraPermission] = useCameraPermissions();
+  // undefined = ucitava se, null = prognoza nije dostupna
+  const [forecast, setForecast] = useState<CloudHour[] | null | undefined>(undefined);
 
   useAmbientSound();
 
@@ -81,6 +84,19 @@ export default function TonightScreen() {
     () => (coords ? getTonightSky(coords.latitude, coords.longitude, skyTime) : null),
     [coords, skyTime],
   );
+
+  const plan = useMemo(
+    () =>
+      coords && sky ? planTonight(coords.latitude, coords.longitude, forecast ?? [], sky.moonPhaseFraction, skyTime) : null,
+    [coords, sky, forecast, skyTime],
+  );
+
+  useEffect(() => {
+    if (!coords) return;
+    getCloudForecast(coords.latitude, coords.longitude)
+      .then(setForecast)
+      .catch(() => setForecast(null));
+  }, [coords]);
 
   const mapObjects: SkyMapObject[] = useMemo(() => {
     if (!sky || !coords) return [];
@@ -229,6 +245,15 @@ export default function TonightScreen() {
 
           {coords && sky && viewMode === 'list' && (
             <>
+              {plan && (
+                <StargazingCard
+                  plan={plan}
+                  loading={forecast === undefined}
+                  moon={sky.bodies.find((body) => body.key === 'moon')}
+                  moonFraction={sky.moonPhaseFraction}
+                />
+              )}
+
               <MeteorShowerSection />
 
               <XStack gap="$3">
@@ -359,6 +384,98 @@ function HorizonCard({
           {time}
         </Paragraph>
       </YStack>
+    </XStack>
+  );
+}
+
+const RATING_COLORS: Record<RatingLevel, string> = {
+  excellent: palette.aurora,
+  good: palette.starlight,
+  fair: palette.amber,
+  poor: palette.comet,
+};
+
+function StargazingCard({
+  plan,
+  loading,
+  moon,
+  moonFraction,
+}: {
+  plan: TonightPlan;
+  loading: boolean;
+  moon: SkyBodyInfo | undefined;
+  moonFraction: number;
+}) {
+  const { t } = useTranslation();
+  const { rating, dark } = plan;
+  const level = rating ? getRatingLevel(rating.score) : null;
+  const moonTime = moon?.isUp
+    ? moon.setTime && t('tonight.setsCompact', { time: formatTime(moon.setTime) })
+    : moon?.riseTime && t('tonight.risesCompact', { time: formatTime(moon.riseTime) });
+
+  return (
+    <YStack
+      gap={8}
+      p={16}
+      borderRadius={18}
+      backgroundColor="rgba(43,37,96,0.85)"
+      borderWidth={1}
+      borderColor="rgba(124,108,255,0.4)">
+      <XStack ai="center" gap={8}>
+        <Ionicons name="telescope-outline" size={16} color={palette.haze} />
+        <Paragraph fontSize={11} fontWeight="600" letterSpacing={1.1} textTransform="uppercase" color={palette.haze}>
+          {t('tonight.forecast.title')}
+        </Paragraph>
+      </XStack>
+
+      {loading && <Spinner />}
+      {!loading && rating && level && (
+        <YStack>
+          <XStack ai="baseline" gap={6}>
+            <Paragraph fontFamily="$heading" fontSize={36} lineHeight={40} fontWeight="700" color={RATING_COLORS[level]}>
+              {rating.score}
+            </Paragraph>
+            <Paragraph fontSize={14} color={SUB_INK}>
+              /100 · {t(`tonight.forecast.rating.${level}`)}
+            </Paragraph>
+          </XStack>
+          <Paragraph fontSize={14} fontWeight="600" color={palette.starlight}>
+            {t('tonight.forecast.bestWindow', { from: formatTime(rating.best.start), to: formatTime(rating.best.end) })}
+          </Paragraph>
+        </YStack>
+      )}
+      {!loading && !rating && (
+        <Paragraph fontSize={13} color={CAPTION}>
+          {t('tonight.forecast.unavailable')}
+        </Paragraph>
+      )}
+
+      <XStack gap={14} rowGap={4} flexWrap="wrap">
+        {rating && <ForecastDetail icon="cloud-outline" text={t('tonight.forecast.clouds', { percent: rating.cloudCover })} />}
+        <ForecastDetail
+          icon="moon-outline"
+          text={[t('tonight.forecast.moon', { percent: Math.round(moonFraction * 100) }), moonTime].filter(Boolean).join(' · ')}
+        />
+        <ForecastDetail
+          icon="time-outline"
+          text={t('tonight.forecast.darkness', { from: formatTime(dark.start), to: formatTime(dark.end) })}
+        />
+      </XStack>
+
+      <Paragraph fontSize={10} color={palette.haze}>
+        {t('tonight.forecast.source')}
+      </Paragraph>
+    </YStack>
+  );
+}
+
+function ForecastDetail({ icon, text }: { icon: keyof typeof Ionicons.glyphMap; text: string }) {
+  return (
+    <XStack ai="center" gap={5}>
+      <Ionicons name={icon} size={14} color={palette.haze} />
+      <Paragraph fontSize={12} color={SUB_INK}>
+        {text}
+      </Paragraph>
     </XStack>
   );
 }

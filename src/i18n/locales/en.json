@@ -81,6 +81,21 @@
     "setsCompact": "sets {{time}}",
     "funFact": "Fun fact",
     "planetsLabel": "Planets",
+    "forecast": {
+      "title": "Stargazing tonight",
+      "rating": {
+        "excellent": "Excellent",
+        "good": "Good",
+        "fair": "Fair",
+        "poor": "Poor"
+      },
+      "bestWindow": "Best from {{from}} to {{to}}",
+      "clouds": "{{percent}}% clouds",
+      "moon": "Moon {{percent}}%",
+      "darkness": "Dark {{from}}–{{to}}",
+      "unavailable": "Weather forecast is unavailable right now.",
+      "source": "Forecast: MET Norway"
+    },
     "pill": {
       "visible": "Visible",
       "below": "Below"
