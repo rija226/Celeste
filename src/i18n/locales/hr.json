@@ -7,7 +7,7 @@
   },
   "welcome": {
     "title": "Dobrodošli u Celeste",
-    "intro": "Tvoje putovanje kroz kosmos počinje ovdje.",
+    "intro": "Tvoje putovanje kroz svemir počinje ovdje.",
     "features": {
       "learnTitle": "Uči uz kartice",
       "learnBody": "Svemir i astronomija, karticu po karticu.",
@@ -20,16 +20,16 @@
   },
   "home": {
     "title": "Početna",
-    "level": "Nivo {{level}}",
+    "level": "Razina {{level}}",
     "xpProgress": "{{current}}/{{total}} XP",
-    "pathContinues": "✨ Ostatak kosmosa te čeka ✨",
-    "levelBadge": "L{{level}}",
-    "levelProgress": "Nivo {{level}} · {{xp}} XP do sljedećeg",
+    "pathContinues": "✨ Ostatak svemira te čeka ✨",
+    "levelBadge": "R{{level}}",
+    "levelProgress": "Razina {{level}} · {{xp}} XP do sljedeće",
     "resumeContinue": "Nastavi: {{name}}",
     "greeting": {
       "morning": "Dobro jutro",
       "afternoon": "Dobar dan",
-      "evening": "Dobro veče"
+      "evening": "Dobra večer"
     }
   },
   "quiz": {
@@ -44,10 +44,10 @@
       "medium": "Srednje",
       "hard": "Teško"
     },
-    "points": "{{count}} poena",
+    "points": "{{count}} bodova",
     "dailyProgress": "Pitanje {{current}}/{{total}}",
     "dailyDone": "Današnji izazov je gotov!",
-    "dailyScore": "{{correct}}/{{total}} tačno",
+    "dailyScore": "{{correct}}/{{total}} točno",
     "dailyComeBack": "Vrati se sutra za novi izazov.",
     "promptPlanet": "Koja je ovo planeta?",
     "noQuestions": "Nema pitanja za ovaj filter.",
@@ -64,14 +64,14 @@
       "start": "Kreni",
       "secondsLeft": "Preostalo sekundi",
       "keepGoing": "Nastavi dalje!",
-      "correct": "tačno",
-      "result": "{{correct}}/{{total}} tačno",
-      "playAgain": "Igraj ponovo"
+      "correct": "točno",
+      "result": "{{correct}}/{{total}} točno",
+      "playAgain": "Igraj ponovno"
     }
   },
   "tonight": {
     "title": "Večeras",
-    "permissionMessage": "Treba nam tvoja lokacija da prikažemo šta je vidljivo na nebu večeras.",
+    "permissionMessage": "Treba nam tvoja lokacija da prikažemo što je vidljivo na nebu večeras.",
     "enableLocation": "Uključi lokaciju",
     "sunsetLabel": "Zalazak sunca",
     "sunriseLabel": "Izlazak sunca",
@@ -125,14 +125,14 @@
       "below": "Ispod"
     },
     "moonPhase": {
-      "newMoon": "Mladi Mjesec",
-      "waxingCrescent": "Mlađak",
+      "newMoon": "Mlađak",
+      "waxingCrescent": "Rastući srp",
       "firstQuarter": "Prva četvrt",
-      "waxingGibbous": "Rastuća mjesečina",
+      "waxingGibbous": "Rastući Mjesec",
       "fullMoon": "Pun Mjesec",
-      "waningGibbous": "Opadajuća mjesečina",
+      "waningGibbous": "Opadajući Mjesec",
       "lastQuarter": "Zadnja četvrt",
-      "waningCrescent": "Star Mjesec"
+      "waningCrescent": "Opadajući srp"
     },
     "bodies": {
       "mercury": "Merkur",
@@ -154,24 +154,24 @@
       "inDays_other": "za {{count}} dana"
     },
     "map": {
-      "sensorHint": "Gledaš prema {{direction}} · pomjeri telefon da se osvrneš",
-      "calibrationHint": "Kompas nije precizan — pomjeri telefon u obliku osmice",
+      "sensorHint": "Gledaš prema {{direction}} · pomakni telefon da se osvrneš",
+      "calibrationHint": "Kompas nije precizan — pomakni telefon u obliku osmice",
       "sensorUnavailable": "Ovaj uređaj nema senzore pokreta potrebne za AR prikaz.",
       "cameraPermissionMessage": "Treba nam pristup kameri da prikažemo AR pogled na nebo.",
       "enableCamera": "Uključi kameru"
     }
   },
   "settings": {
-    "title": "Podešavanja",
+    "title": "Postavke",
     "language": "Jezik",
     "dailyReminder": "Dnevni podsjetnik za učenje",
     "dailyReminderTime": "Svaki dan u 19:00",
     "dailyReminderWebNote": "Dostupno na mobilnim uređajima",
-    "dailyReminderDeniedNote": "Dozvola za notifikacije je odbijena — uključi je u sistemskim podešavanjima",
+    "dailyReminderDeniedNote": "Dozvola za obavijesti je odbijena — uključi je u postavkama sustava",
     "sections": {
-      "preferences": "Opšte",
+      "preferences": "Općenito",
       "sound": "Zvuk",
-      "account": "Nalog"
+      "account": "Račun"
     },
     "sound": {
       "title": "Zvuk",
@@ -179,25 +179,25 @@
       "ambient": "Ambijentalna pozadina"
     },
     "account": {
-      "title": "Nalog",
-      "guestLabel": "Koristiš gost-nalog — tvoj napredak je sačuvan samo na ovom uređaju.",
+      "title": "Račun",
+      "guestLabel": "Koristiš račun gosta — tvoj napredak je spremljen samo na ovom uređaju.",
       "email": "Email",
       "password": "Lozinka",
       "confirmPassword": "Potvrdi lozinku",
-      "submitCreate": "Napravi nalog",
+      "submitCreate": "Izradi račun",
       "submitLogin": "Prijavi se",
-      "switchToLogin": "Već imaš nalog? Prijavi se",
-      "switchToCreate": "Trebaš nalog? Napravi ga",
-      "loginWarning": "Prijava prebacuje na napredak tog naloga — tvoj trenutni gost-napredak se neće prenijeti.",
-      "confirmEmailSent": "Potvrdni email poslan na {{email}} — klikni link da završiš pravljenje naloga.",
-      "passwordMismatch": "Lozinke se ne poklapaju",
-      "passwordTooShort": "Lozinka mora imati bar 6 znakova",
+      "switchToLogin": "Već imaš račun? Prijavi se",
+      "switchToCreate": "Trebaš račun? Izradi ga",
+      "loginWarning": "Prijava prebacuje na napredak tog računa — tvoj trenutni napredak kao gosta neće se prenijeti.",
+      "confirmEmailSent": "Potvrdni email poslan je na {{email}} — klikni link da dovršiš izradu računa.",
+      "passwordMismatch": "Lozinke se ne podudaraju",
+      "passwordTooShort": "Lozinka mora imati barem 6 znakova",
       "signedInAs": "Prijavljen/a kao {{email}}",
       "signOut": "Odjavi se"
     }
   },
   "profile": {
-    "levelRank": "Nivo {{level}} · {{rank}}",
+    "levelRank": "Razina {{level}} · {{rank}}",
     "explorerFallback": "Istraživač",
     "unlockedLevels": "{{unlocked}}/{{total}}",
     "editorTitle": "Tvoj istraživač",
@@ -205,14 +205,14 @@
     "namePlaceholder": "Istraživač",
     "glyph": "Glif",
     "accent": "Akcent",
-    "cancel": "Otkaži",
-    "save": "Sačuvaj",
+    "cancel": "Odustani",
+    "save": "Spremi",
     "rank": {
       "novice": "Početnik",
       "explorer": "Istraživač",
       "voyager": "Putnik",
       "stargazer": "Zvjezdogledač",
-      "cosmonaut": "Kosmonaut"
+      "cosmonaut": "Kozmonaut"
     }
   },
   "notifications": {
@@ -223,8 +223,8 @@
     "title": "Statistika",
     "totalReviews": "Ukupno ponavljanja",
     "learnedCards": "Naučene kartice",
-    "quizPoints": "Poeni iz kviza",
-    "unlockedLevels": "Otključani nivoi",
+    "quizPoints": "Bodovi iz kviza",
+    "unlockedLevels": "Otključane razine",
     "streakLabel_one": "dan zaredom",
     "streakLabel_other": "dana zaredom",
     "streakEmpty": "Počni svoj niz danas!",
@@ -254,15 +254,15 @@
     "question": "Pitanje",
     "answer": "Odgovor",
     "tapToFlip": "Dodirni karticu za okretanje",
-    "ratingCaption": "Koliko dobro si znao/la ovo?",
+    "ratingCaption": "Koliko si dobro ovo znao/la?",
     "reveal": "Prikaži odgovor",
-    "again": "Ponovo",
+    "again": "Ponovno",
     "hard": "Teško",
     "good": "Dobro",
     "easy": "Lako",
     "done": "Gotovo za danas!",
     "empty": "Nema kartica za ponoviti sada.",
-    "back": "Nazad",
+    "back": "Natrag",
     "intervalMinutes": "{{count}}min",
     "intervalHours": "{{count}}h",
     "intervalDays": "{{count}}d",

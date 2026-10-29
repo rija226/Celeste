@@ -37,7 +37,7 @@ export const METEOR_SHOWERS: MeteorShower[] = [
   {
     slug: 'eta-aquariids',
     name: { en: 'Eta Aquariids', hr: 'Eta Akvaridi' },
-    radiant: { en: 'Aquarius', hr: 'Vodolija' },
+    radiant: { en: 'Aquarius', hr: 'Vodenjak' },
     zhr: 50,
     activeStart: { month: 4, day: 15 },
     activeEnd: { month: 5, day: 27 },
@@ -46,7 +46,7 @@ export const METEOR_SHOWERS: MeteorShower[] = [
   {
     slug: 'delta-aquariids',
     name: { en: 'Delta Aquariids', hr: 'Delta Akvaridi' },
-    radiant: { en: 'Aquarius', hr: 'Vodolija' },
+    radiant: { en: 'Aquarius', hr: 'Vodenjak' },
     zhr: 20,
     activeStart: { month: 7, day: 12 },
     activeEnd: { month: 8, day: 23 },
