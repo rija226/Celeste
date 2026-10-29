@@ -47,3 +47,6 @@ example
 modules/*/android/build/
 modules/*/android/.cxx/
 modules/*/ios/build/
+
+# lokalne Claude Code postavke (putanje, serijski broj uredjaja)
+.claude/settings.json
