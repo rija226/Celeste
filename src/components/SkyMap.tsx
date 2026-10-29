@@ -233,7 +233,7 @@ function SkyView({
         {compassIndex !== null && (
           <YStack backgroundColor="rgba(6,7,13,0.75)" borderRadius="$4" py="$1.5" px="$3">
             <Paragraph fontSize="$1" color={palette.starlight} textAlign="center">
-              {t('tonight.map.sensorHint', { direction: azimuthToCompass(compassIndex * 45) })}
+              {t('tonight.map.sensorHint', { direction: t(`tonight.compass.${azimuthToCompass(compassIndex * 45)}`) })}
             </Paragraph>
           </YStack>
         )}

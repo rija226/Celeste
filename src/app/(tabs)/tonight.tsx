@@ -16,7 +16,7 @@ import { ScreenBackdrop } from '@/components/ScreenBackdrop';
 import { SkyMap, type SkyMapConstellation, type SkyMapObject } from '@/components/SkyMap';
 import { getActiveShowers, getNextShower, type MeteorShower } from '@/data/meteorShowers';
 import { SKY_BODY_CARD_SLUG } from '@/data/skyObjectCards';
-import { getCardsBySlugs, getCloudForecast, getConstellations, type CloudHour } from '@/db';
+import { getCardsBySlugs, getCloudForecast, getConstellations, getIssTle, type CloudHour, type Tle } from '@/db';
 import {
   azimuthToCompass,
   getConstellationSkyPositions,
@@ -26,10 +26,19 @@ import {
   type SkyBodyInfo,
   type SkyBodyKey,
 } from '@/lib/astronomy';
+import { findIssPasses, type IssPass } from '@/lib/iss';
 import { getCurrentCoordinates, type Coordinates } from '@/lib/location';
 import { pickLocalized } from '@/lib/localized';
 import { useAmbientSound } from '@/lib/sound';
-import { getRatingLevel, planTonight, type RatingLevel, type TonightPlan } from '@/lib/stargazing';
+import {
+  getRatingLevel,
+  getViewingTargets,
+  getViewingWindow,
+  planTonight,
+  type RatingLevel,
+  type TonightPlan,
+  type ViewingTarget,
+} from '@/lib/stargazing';
 import { palette } from '@/theme/palette';
 import type { Card, Constellation } from '@/types/models';
 
@@ -77,6 +86,8 @@ export default function TonightScreen() {
   const [cameraPermission, requestCameraPermission] = useCameraPermissions();
   // undefined = ucitava se, null = prognoza nije dostupna
   const [forecast, setForecast] = useState<CloudHour[] | null | undefined>(undefined);
+  const [issTle, setIssTle] = useState<Tle | null | undefined>(undefined);
+  const [coordsTime, setCoordsTime] = useState(() => new Date());
 
   useAmbientSound();
 
@@ -90,6 +101,23 @@ export default function TonightScreen() {
       coords && sky ? planTonight(coords.latitude, coords.longitude, forecast ?? [], sky.moonPhaseFraction, skyTime) : null,
     [coords, sky, forecast, skyTime],
   );
+
+  const targets = useMemo(
+    () => (coords && plan ? getViewingTargets(coords.latitude, coords.longitude, getViewingWindow(plan, skyTime)) : []),
+    [coords, plan, skyTime],
+  );
+
+  // 24 h unaprijed od ucitavanja lokacije; prosli preleti se filtriraju pri prikazu.
+  const issPasses = useMemo(
+    () => (coords && issTle ? findIssPasses(issTle, coords.latitude, coords.longitude, coordsTime) : []),
+    [coords, issTle, coordsTime],
+  );
+
+  useEffect(() => {
+    getIssTle()
+      .then(setIssTle)
+      .catch(() => setIssTle(null));
+  }, []);
 
   useEffect(() => {
     if (!coords) return;
@@ -154,7 +182,9 @@ export default function TonightScreen() {
   async function loadLocation() {
     setCoords(undefined);
     const result = await getCurrentCoordinates();
-    setSkyTime(new Date());
+    const now = new Date();
+    setSkyTime(now);
+    setCoordsTime(now);
     setCoords(result);
   }
 
@@ -253,6 +283,17 @@ export default function TonightScreen() {
                   moonFraction={sky.moonPhaseFraction}
                 />
               )}
+
+              {plan && (
+                <ViewingTargetsSection targets={targets} linkedCards={linkedCards} constellations={constellations} />
+              )}
+
+              <IssSection
+                passes={issPasses.filter((pass) => pass.end > skyTime).slice(0, 3)}
+                loading={issTle === undefined}
+                unavailable={issTle === null}
+                now={skyTime}
+              />
 
               <MeteorShowerSection />
 
@@ -480,8 +521,188 @@ function ForecastDetail({ icon, text }: { icon: keyof typeof Ionicons.glyphMap; 
   );
 }
 
+function ViewingTargetsSection({
+  targets,
+  linkedCards,
+  constellations,
+}: {
+  targets: ViewingTarget[];
+  linkedCards: Partial<Record<SkyBodyKey, Card>>;
+  constellations: Constellation[];
+}) {
+  const { t, i18n } = useTranslation();
+  const constellationsBySlug = new Map(constellations.map((c) => [c.slug, c]));
+
+  return (
+    <YStack gap={8}>
+      <Paragraph fontSize={11} fontWeight="600" letterSpacing={1.1} textTransform="uppercase" color={palette.haze} mt="$0.5">
+        {t('tonight.targets.title')}
+      </Paragraph>
+      {targets.length === 0 && (
+        <Paragraph fontSize={13} color={CAPTION}>
+          {t('tonight.targets.empty')}
+        </Paragraph>
+      )}
+      {targets.map((target) => {
+        if (target.kind === 'body') {
+          const color = target.key === 'moon' ? palette.starlight : (PLANET_COLORS[target.key] ?? palette.nebula);
+          return (
+            <TargetRow
+              key={target.key}
+              name={t(`tonight.bodies.${target.key}`)}
+              color={color}
+              target={target}
+              card={linkedCards[target.key]}
+            />
+          );
+        }
+        const constellation = constellationsBySlug.get(target.slug);
+        if (!constellation) return null;
+        return (
+          <TargetRow
+            key={target.slug}
+            name={pickLocalized(constellation.name, i18n.language)}
+            color={palette.aurora}
+            target={target}
+            description={pickLocalized(constellation.facts, i18n.language)}
+          />
+        );
+      })}
+    </YStack>
+  );
+}
+
+function TargetRow({
+  name,
+  color,
+  target,
+  card,
+  description,
+}: {
+  name: string;
+  color: string;
+  target: ViewingTarget;
+  card?: Card;
+  description?: string;
+}) {
+  const { t } = useTranslation();
+  const [expanded, setExpanded] = useState(false);
+  const meta = [
+    t('tonight.targets.at', { time: formatTime(target.time) }),
+    t(`tonight.compass.${azimuthToCompass(target.azimuth)}`),
+    `${Math.round(target.altitude)}°`,
+  ].join(' · ');
+
+  return (
+    <XStack
+      ai="center"
+      gap={12}
+      py={12}
+      px={14}
+      borderRadius={16}
+      backgroundColor="rgba(43,37,96,0.7)"
+      borderWidth={1}
+      borderColor="rgba(51,214,176,0.35)"
+      onPress={description ? () => setExpanded((value) => !value) : undefined}
+      pressStyle={description ? { opacity: 0.8 } : undefined}>
+      <YStack
+        width={12}
+        height={12}
+        borderRadius={999}
+        backgroundColor={color}
+        shadowColor={color}
+        shadowOpacity={0.7}
+        shadowRadius={6}
+        shadowOffset={{ width: 0, height: 0 }}
+      />
+      <YStack f={1} gap="$1">
+        <Paragraph fontFamily="$heading" fontSize={16} fontWeight="600" color={palette.starlight}>
+          {name}
+        </Paragraph>
+        <Paragraph fontSize={12} color={CAPTION}>
+          {meta}
+        </Paragraph>
+        {card && <LinkedFact card={card} />}
+        {description && expanded && (
+          <Paragraph fontSize={13} color={CAPTION}>
+            {description}
+          </Paragraph>
+        )}
+      </YStack>
+      <AltitudeGauge altitude={target.altitude} color={color} />
+      {description && <Ionicons name={expanded ? 'chevron-up' : 'chevron-down'} size={18} color={palette.haze} />}
+    </XStack>
+  );
+}
+
+function IssSection({
+  passes,
+  loading,
+  unavailable,
+  now,
+}: {
+  passes: IssPass[];
+  loading: boolean;
+  unavailable: boolean;
+  now: Date;
+}) {
+  const { t } = useTranslation();
+  const compass = (azimuth: number) => t(`tonight.compass.${azimuthToCompass(azimuth)}`);
+
+  return (
+    <YStack gap={8}>
+      <Paragraph fontSize={11} fontWeight="600" letterSpacing={1.1} textTransform="uppercase" color={palette.haze} mt="$0.5">
+        {t('tonight.iss.title')}
+      </Paragraph>
+      {loading && <Spinner />}
+      {!loading && (unavailable || passes.length === 0) && (
+        <Paragraph fontSize={13} color={CAPTION}>
+          {unavailable ? t('tonight.iss.unavailable') : t('tonight.iss.none')}
+        </Paragraph>
+      )}
+      {passes.map((pass) => {
+        const tomorrow = pass.start.toDateString() !== now.toDateString();
+        return (
+          <XStack
+            key={pass.start.getTime()}
+            ai="center"
+            gap={12}
+            py={12}
+            px={14}
+            borderRadius={16}
+            backgroundColor="rgba(43,37,96,0.7)"
+            borderWidth={1}
+            borderColor="rgba(124,108,255,0.4)">
+            <Ionicons name="planet-outline" size={20} color={palette.starlight} />
+            <YStack f={1} gap="$1">
+              <Paragraph fontFamily="$heading" fontSize={16} fontWeight="600" color={palette.starlight}>
+                {formatTime(pass.start)}
+                {tomorrow ? ` · ${t('tonight.iss.tomorrow')}` : ''}
+              </Paragraph>
+              <Paragraph fontSize={12} color={CAPTION}>
+                {t('tonight.iss.path', {
+                  from: compass(pass.startAzimuth),
+                  to: compass(pass.endAzimuth),
+                  max: Math.round(pass.maxElevation),
+                  minutes: Math.max(1, Math.round((pass.end.getTime() - pass.start.getTime()) / 60000)),
+                })}
+              </Paragraph>
+            </YStack>
+            <AltitudeGauge altitude={pass.maxElevation} color={palette.starlight} />
+          </XStack>
+        );
+      })}
+      {passes.length > 0 && (
+        <Paragraph fontSize={12} color={CAPTION}>
+          {t('tonight.iss.name')} · {t('tonight.iss.hint')}
+        </Paragraph>
+      )}
+    </YStack>
+  );
+}
+
 function planetMetaLine(body: SkyBodyInfo, t: (key: string, opts?: Record<string, unknown>) => string): string {
-  const compass = azimuthToCompass(body.azimuth);
+  const compass = t(`tonight.compass.${azimuthToCompass(body.azimuth)}`);
   const alt = Math.round(body.altitude);
   if (body.isUp) {
     const timePart = body.setTime

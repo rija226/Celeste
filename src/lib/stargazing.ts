@@ -2,6 +2,8 @@ import { Body, Equator, Horizon, Observer, SearchAltitude } from 'astronomy-engi
 
 import type { CloudHour } from '@/db/weather';
 
+import { getBodyPosition, getConstellationSkyPositions, SKY_BODY_KEYS, type SkyBodyKey } from './astronomy';
+
 const HOUR_MS = 60 * 60 * 1000;
 
 export type TimeWindow = { start: Date; end: Date };
@@ -89,4 +91,52 @@ export function planTonight(
     .filter((hour) => hour.time.getTime() > remaining.start.getTime() - HOUR_MS && hour.time < dark.end)
     .map((hour) => ({ ...hour, moonAltitude: moonAltitude(observer, hour.time) }));
   return { dark, rating: rateNight(hours, moonFraction, remaining) };
+}
+
+// Termin za koji se pravi lista "sta gledati": najbolji termin, a bez prognoze ostatak mraka.
+export function getViewingWindow(plan: TonightPlan, now: Date = new Date()): TimeWindow {
+  return plan.rating?.best ?? { start: new Date(Math.max(plan.dark.start.getTime(), now.getTime())), end: plan.dark.end };
+}
+
+type Peak = { time: Date; azimuth: number; altitude: number };
+
+type BodyTarget = Peak & { kind: 'body'; key: SkyBodyKey; magnitude: number };
+type ConstellationTarget = Peak & { kind: 'constellation'; slug: string };
+export type ViewingTarget = BodyTarget | ConstellationTarget;
+
+const SAMPLE_MS = 30 * 60 * 1000;
+// Nisko iznad obzora gleda se kroz najvise zraka i izmaglice -- ispod ovoga ne preporucujemo.
+const MIN_ALTITUDE = 15;
+const MAX_CONSTELLATIONS = 4;
+
+// Sta gledati u terminu: za svaki objekt trenutak kad je najvise (uzorak svakih 30 min).
+// Redoslijed: planete po sjaju, Mjesec, pa do 4 najvisa sazvijezdja.
+export function getViewingTargets(latitude: number, longitude: number, window: TimeWindow): ViewingTarget[] {
+  const times: Date[] = [];
+  for (let t = window.start.getTime(); t <= window.end.getTime(); t += SAMPLE_MS) times.push(new Date(t));
+  if (times.length === 0) return [];
+
+  const bodies = SKY_BODY_KEYS.map((key): BodyTarget => {
+    const samples = times.map((time) => ({ time, ...getBodyPosition(key, latitude, longitude, time) }));
+    const peak = samples.reduce((a, b) => (b.altitude > a.altitude ? b : a));
+    return { kind: 'body', key, time: peak.time, azimuth: peak.azimuth, altitude: peak.altitude, magnitude: peak.magnitude };
+  });
+
+  const constellationPeaks = new Map<string, Peak>();
+  for (const time of times) {
+    for (const { slug, azimuth, altitude } of getConstellationSkyPositions(latitude, longitude, time)) {
+      const current = constellationPeaks.get(slug);
+      if (!current || altitude > current.altitude) constellationPeaks.set(slug, { time, azimuth, altitude });
+    }
+  }
+  const constellations = [...constellationPeaks]
+    .map(([slug, peak]): ConstellationTarget => ({ kind: 'constellation', slug, ...peak }))
+    .filter((target) => target.altitude >= MIN_ALTITUDE)
+    .sort((a, b) => b.altitude - a.altitude)
+    .slice(0, MAX_CONSTELLATIONS);
+
+  const visible = bodies.filter((target) => target.altitude >= MIN_ALTITUDE);
+  const planets = visible.filter((target) => target.key !== 'moon').sort((a, b) => a.magnitude - b.magnitude);
+  const moon = visible.filter((target) => target.key === 'moon');
+  return [...planets, ...moon, ...constellations];
 }

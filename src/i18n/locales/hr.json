@@ -96,6 +96,30 @@
       "unavailable": "Vremenska prognoza trenutno nije dostupna.",
       "source": "Prognoza: MET Norway"
     },
+    "targets": {
+      "title": "Što gledati",
+      "at": "oko {{time}}",
+      "empty": "U tom terminu ništa nije dovoljno visoko iznad obzora."
+    },
+    "iss": {
+      "title": "Preleti ISS-a",
+      "name": "Međunarodna svemirska postaja",
+      "tomorrow": "sutra",
+      "path": "{{from}} → {{to}} · najviše {{max}}° · {{minutes}} min",
+      "hint": "Izgleda kao sjajna zvijezda koja ravnomjerno klizi nebom, bez treptanja.",
+      "none": "U sljedeća 24 sata nema vidljivih preleta.",
+      "unavailable": "Podaci o ISS-u trenutno nisu dostupni."
+    },
+    "compass": {
+      "N": "S",
+      "NE": "SI",
+      "E": "I",
+      "SE": "JI",
+      "S": "J",
+      "SW": "JZ",
+      "W": "Z",
+      "NW": "SZ"
+    },
     "pill": {
       "visible": "Vidljivo",
       "below": "Ispod"

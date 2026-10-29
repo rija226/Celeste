@@ -65,10 +65,14 @@ export function azimuthToCompass(azimuth: number): (typeof COMPASS_POINTS)[numbe
   return COMPASS_POINTS[index];
 }
 
+function horizontalPosition(body: Body, observer: Observer, date: Date) {
+  const equator = Equator(body, date, observer, true, true);
+  return Horizon(date, observer, equator.ra, equator.dec, 'normal');
+}
+
 function computeBodyInfo(key: SkyBodyKey, observer: Observer, date: Date): SkyBodyInfo {
   const body = BODY_BY_KEY[key];
-  const equator = Equator(body, date, observer, true, true);
-  const horizontal = Horizon(date, observer, equator.ra, equator.dec, 'normal');
+  const horizontal = horizontalPosition(body, observer, date);
   const illumination = Illumination(body, date);
 
   return {
@@ -101,10 +105,25 @@ export type HorizontalPosition = { azimuth: number; altitude: number; isUp: bool
 // Sunceva pozicija na nebu -- getTonightSky namjerno ne racuna ovo (samo
 // izlazak/zalazak), za mapu neba (Faza A) treba i azimut/visina.
 export function getSunPosition(latitude: number, longitude: number, date: Date = new Date()): HorizontalPosition {
-  const observer = new Observer(latitude, longitude, 0);
-  const equator = Equator(Body.Sun, date, observer, true, true);
-  const horizontal = Horizon(date, observer, equator.ra, equator.dec, 'normal');
+  const horizontal = horizontalPosition(Body.Sun, new Observer(latitude, longitude, 0), date);
   return { azimuth: horizontal.azimuth, altitude: horizontal.altitude, isUp: horizontal.altitude > 0 };
+}
+
+// Pozicija bez izlaska/zalaska (SearchRiseSet je skup) -- za uzorkovanje kroz noc.
+export function getBodyPosition(
+  key: SkyBodyKey,
+  latitude: number,
+  longitude: number,
+  date: Date,
+): HorizontalPosition & { magnitude: number } {
+  const body = BODY_BY_KEY[key];
+  const horizontal = horizontalPosition(body, new Observer(latitude, longitude, 0), date);
+  return {
+    azimuth: horizontal.azimuth,
+    altitude: horizontal.altitude,
+    isUp: horizontal.altitude > 0,
+    magnitude: Illumination(body, date).mag,
+  };
 }
 
 export type ConstellationSkyPosition = HorizontalPosition & { slug: string };

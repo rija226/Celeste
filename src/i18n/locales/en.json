@@ -96,6 +96,30 @@
       "unavailable": "Weather forecast is unavailable right now.",
       "source": "Forecast: MET Norway"
     },
+    "targets": {
+      "title": "What to look at",
+      "at": "around {{time}}",
+      "empty": "Nothing high enough above the horizon at that time."
+    },
+    "iss": {
+      "title": "ISS passes",
+      "name": "International Space Station",
+      "tomorrow": "tomorrow",
+      "path": "{{from}} → {{to}} · up to {{max}}° · {{minutes}} min",
+      "hint": "Looks like a bright star gliding steadily across the sky, without blinking.",
+      "none": "No visible passes in the next 24 hours.",
+      "unavailable": "ISS data is unavailable right now."
+    },
+    "compass": {
+      "N": "N",
+      "NE": "NE",
+      "E": "E",
+      "SE": "SE",
+      "S": "S",
+      "SW": "SW",
+      "W": "W",
+      "NW": "NW"
+    },
     "pill": {
       "visible": "Visible",
       "below": "Below"
