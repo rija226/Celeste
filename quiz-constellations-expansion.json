@@ -7,7 +7,7 @@
       "name": { "en": "Canis Major", "hr": "Veliki pas" },
       "facts": {
         "en": "The Great Dog, following at Orion's heel. Home to Sirius — the brightest star in the entire night sky.",
-        "hr": "Veliki pas, koji prati Oriona po peti. Dom Sirijusa — najsjajnije zvijezde na cijelom nocnom nebu."
+        "hr": "Veliki pas, koji prati Oriona po peti. Dom Sirijusa — najsjajnije zvijezde na cijelom noćnom nebu."
       },
       "stars": [
         { "x": 50, "y": 10 },
@@ -26,7 +26,7 @@
       "name": { "en": "Andromeda", "hr": "Andromeda" },
       "facts": {
         "en": "Home to the Andromeda Galaxy — the most distant object visible to the naked eye, 2.5 million light-years away.",
-        "hr": "Dom Andromedine galaksije — najudaljenijeg objekta vidljivog golim okom, 2,5 miliona svjetlosnih godina daleko."
+        "hr": "Dom Andromedine galaksije — najudaljenijeg objekta vidljivog golim okom, 2,5 milijuna svjetlosnih godina daleko."
       },
       "stars": [
         { "x": 15, "y": 20 },

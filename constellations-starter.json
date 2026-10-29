@@ -44,7 +44,7 @@
       "name": { "en": "Cassiopeia", "hr": "Kasiopeja" },
       "facts": {
         "en": "Named after a vain queen in Greek mythology, this W-shaped constellation is visible year-round from most of the Northern Hemisphere.",
-        "hr": "Nazvano po taštoj kraljici iz grčke mitologije, ovo sazviježđe u obliku slova W vidljivo je tokom cijele godine sa većine sjeverne hemisfere."
+        "hr": "Nazvano po taštoj kraljici iz grčke mitologije, ovo sazviježđe u obliku slova W vidljivo je tijekom cijele godine sa većine sjeverne hemisfere."
       },
       "stars": [
         { "x": 10, "y": 50 },
@@ -61,7 +61,7 @@
       "name": { "en": "Ursa Minor", "hr": "Mali medvjed" },
       "facts": {
         "en": "The Little Dipper's handle ends at Polaris, the North Star, which barely moves in the sky as Earth rotates beneath it.",
-        "hr": "Drška Malih kola završava kod Sjevernjače, zvijezde koja se jedva pomjera na nebu dok se Zemlja okreće ispod nje."
+        "hr": "Drška Malih kola završava kod Sjevernjače, zvijezde koja se jedva pomiče na nebu dok se Zemlja okreće ispod nje."
       },
       "stars": [
         { "x": 10, "y": 10 },
@@ -77,7 +77,7 @@
     {
       "slug": "scorpius",
       "difficulty": "medium",
-      "name": { "en": "Scorpius", "hr": "Škorpija" },
+      "name": { "en": "Scorpius", "hr": "Škorpion" },
       "facts": {
         "en": "One of the few constellations that actually looks like its name — a curving tail ending in a stinger. Its heart is the red giant Antares.",
         "hr": "Jedno od rijetkih sazviježđa koje stvarno liči na svoje ime — zakrivljeni rep koji završava žaokom. Njegovo srce je crveni div Antares."
@@ -118,7 +118,7 @@
       "name": { "en": "Cygnus", "hr": "Labud" },
       "facts": {
         "en": "Also called the Northern Cross, this swan flies along the Milky Way with its tail marked by the bright star Deneb.",
-        "hr": "Poznato i kao Sjeverni krst, ovaj labud leti duž Mliječnog puta, a njegov rep obilježava sjajna zvijezda Deneb."
+        "hr": "Poznato i kao Sjeverni križ, ovaj labud leti duž Mliječnog puta, a njegov rep obilježava sjajna zvijezda Deneb."
       },
       "stars": [
         { "x": 50, "y": 10 },
@@ -136,7 +136,7 @@
       "name": { "en": "Taurus", "hr": "Bik" },
       "facts": {
         "en": "The bull's V-shaped face is the Hyades star cluster, with fiery Aldebaran glowing as its eye.",
-        "hr": "Bikovo lice u obliku slova V je zvjezdano jato Hijade, a vatreni Aldebaran sija kao njegovo oko."
+        "hr": "Bikovo lice u obliku slova V je zvjezdano jato Hijade, a vatreni Aldebaran sja kao njegovo oko."
       },
       "stars": [
         { "x": 50, "y": 60 },

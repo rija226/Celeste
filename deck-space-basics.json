@@ -13,7 +13,7 @@
     },
     "description": {
       "en": "Start your journey through the cosmos — the Sun, Moon, planets, stars and the wonders in between.",
-      "hr": "Pocetak putovanja kroz kosmos — Sunce, Mjesec, planete, zvijezde i cuda izmedju njih."
+      "hr": "Početak putovanja kroz svemir — Sunce, Mjesec, planete, zvijezde i čuda između njih."
     }
   },
   "cards": [
@@ -26,11 +26,11 @@
       },
       "back": {
         "en": "Saturn. It's so low in density it would float in a giant bathtub — it's less dense than water itself.",
-        "hr": "Saturn. Toliko je male gustoce da bi plutao u ogromnoj kadi — manje je gust od same vode."
+        "hr": "Saturn. Toliko je male gustoće da bi plutao u ogromnoj kadi — manje je gust od same vode."
       },
       "explanation": {
         "en": "Saturn's density is about 0.69 g/cm³, while water is 1 g/cm³.",
-        "hr": "Gustoca Saturna je oko 0,69 g/cm³, dok je voda 1 g/cm³."
+        "hr": "Gustoća Saturna je oko 0,69 g/cm³, dok je voda 1 g/cm³."
       },
       "media": { "image": null, "audio": null }
     },
@@ -43,7 +43,7 @@
       },
       "back": {
         "en": "About 8 minutes and 20 seconds. When you look at the Sun, you see it as it was 8 minutes ago.",
-        "hr": "Oko 8 minuta i 20 sekundi. Kad gledas Sunce, vidis ga kakvo je bilo prije 8 minuta."
+        "hr": "Oko 8 minuta i 20 sekundi. Kad gledaš Sunce, vidiš ga kakvo je bilo prije 8 minuta."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -57,11 +57,11 @@
       },
       "back": {
         "en": "The explosion of a massive star at the end of its life. Briefly shines brighter than an entire galaxy, and forges elements like gold and iron.",
-        "hr": "Eksplozija masivne zvijezde na kraju zivota. Nakratko zasja jace od cijele galaksije i stvara elemente poput zlata i zeljeza."
+        "hr": "Eksplozija masivne zvijezde na kraju života. Nakratko zasja jače od cijele galaksije i stvara elemente poput zlata i željeza."
       },
       "explanation": {
         "en": "The heavy elements in your body were made in supernovae — you're literally made of stardust.",
-        "hr": "Teski elementi u tvom tijelu nastali su u supernovama — doslovno si napravljen od zvjezdane prasine."
+        "hr": "Teški elementi u tvom tijelu nastali su u supernovama — doslovno si napravljen od zvjezdane prašine."
       },
       "media": { "image": null, "audio": null }
     },
@@ -74,7 +74,7 @@
       },
       "back": {
         "en": "About 1,300,000. The Sun makes up 99.8% of all the mass in the Solar System.",
-        "hr": "Oko 1.300.000. Sunce cini 99,8% ukupne mase Suncevog sistema."
+        "hr": "Oko 1.300.000. Sunce čini 99,8% ukupne mase Sunčevog sustava."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -84,7 +84,7 @@
       "style": "qa",
       "front": {
         "en": "What is the largest planet in the Solar System?",
-        "hr": "Koja je najveca planeta u Suncevom sistemu?"
+        "hr": "Koja je najveća planeta u Sunčevom sustavu?"
       },
       "back": {
         "en": "Jupiter. It's so big that all other planets combined would fit inside it — twice over.",
@@ -102,11 +102,11 @@
       },
       "back": {
         "en": "The distance light travels in one year — about 9.46 trillion km. It measures distance, not time.",
-        "hr": "Udaljenost koju svjetlost prijedje za godinu dana — oko 9,46 biliona km. Mjeri udaljenost, ne vrijeme."
+        "hr": "Udaljenost koju svjetlost prijeđe za godinu dana — oko 9,46 bilijuna km. Mjeri udaljenost, ne vrijeme."
       },
       "explanation": {
         "en": "The nearest star beyond the Sun, Proxima Centauri, is 4.2 light-years away.",
-        "hr": "Najbliza zvijezda poslije Sunca, Proksima Kentauri, udaljena je 4,2 svjetlosne godine."
+        "hr": "Najbliža zvijezda poslije Sunca, Proksima Kentauri, udaljena je 4,2 svjetlosne godine."
       },
       "media": { "image": null, "audio": null }
     },
@@ -115,15 +115,15 @@
       "style": "fact",
       "front": {
         "en": "Which planet spins on its side?",
-        "hr": "Koja se planeta okrece na boku?"
+        "hr": "Koja se planeta okreće na boku?"
       },
       "back": {
         "en": "Uranus. Its axis is tilted about 98°, so it essentially rolls around the Sun like a ball.",
-        "hr": "Uran. Osa mu je nagnuta oko 98°, pa se u biti kotrlja oko Sunca poput lopte."
+        "hr": "Uran. Os mu je nagnuta oko 98°, pa se u biti kotrlja oko Sunca poput lopte."
       },
       "explanation": {
         "en": "Likely caused by a massive collision early in its history.",
-        "hr": "Vjerovatno posljedica ogromnog sudara rano u njegovoj historiji."
+        "hr": "Vjerojatno posljedica ogromnog sudara rano u njegovoj povijesti."
       },
       "media": { "image": null, "audio": null }
     },
@@ -132,11 +132,11 @@
       "style": "qa",
       "front": {
         "en": "Why is Mars red?",
-        "hr": "Zasto je Mars crven?"
+        "hr": "Zašto je Mars crven?"
       },
       "back": {
         "en": "Iron oxide — rust. Its surface is covered in iron-rich dust that has literally rusted over billions of years.",
-        "hr": "Zeljezni oksid — hrdja. Povrsina je prekrivena prasinom bogatom zeljezom koja je doslovno zahrdala kroz milijarde godina."
+        "hr": "Željezni oksid — hrđa. Površina je prekrivena prašinom bogatom željezom koja je doslovno zahrdala kroz milijarde godina."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -150,11 +150,11 @@
       },
       "back": {
         "en": "A region where gravity is so strong that nothing — not even light — can escape once past the edge.",
-        "hr": "Podrucje gdje je gravitacija toliko jaka da nista — ni svjetlost — ne moze pobjeci jednom kad prijedje rub."
+        "hr": "Područje gdje je gravitacija toliko jaka da ništa — ni svjetlost — ne može pobjeći jednom kad prijeđe rub."
       },
       "explanation": {
         "en": "That edge is called the event horizon.",
-        "hr": "Taj rub se zove horizont dogadjaja."
+        "hr": "Taj rub se zove horizont događaja."
       },
       "media": { "image": null, "audio": null }
     },
@@ -167,7 +167,7 @@
       },
       "back": {
         "en": "A day on Venus is longer than its year. It rotates so slowly that one spin takes longer than one orbit around the Sun.",
-        "hr": "Dan na Veneri je duzi od njene godine. Rotira toliko sporo da joj jedan okret traje duze od jednog kruga oko Sunca."
+        "hr": "Dan na Veneri je duži od njene godine. Rotira toliko sporo da joj jedan okret traje duže od jednog kruga oko Sunca."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -177,11 +177,11 @@
       "style": "qa",
       "front": {
         "en": "What is the closest planet to the Sun?",
-        "hr": "Koja je planeta najbliza Suncu?"
+        "hr": "Koja je planeta najbliža Suncu?"
       },
       "back": {
         "en": "Mercury. Yet it's not the hottest planet — Venus is, thanks to its thick, heat-trapping atmosphere.",
-        "hr": "Merkur. Ipak nije najtoplija planeta — Venera jeste, zbog guste atmosfere koja zadrzava toplinu."
+        "hr": "Merkur. Ipak nije najtoplija planeta — Venera jeste, zbog guste atmosfere koja zadržava toplinu."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -195,7 +195,7 @@
       },
       "back": {
         "en": "A vast system of stars, gas, dust and dark matter bound by gravity. Our galaxy, the Milky Way, holds 100–400 billion stars.",
-        "hr": "Ogroman sistem zvijezda, plina, prasine i tamne materije povezan gravitacijom. Nasa galaksija, Mlijecni put, ima 100–400 milijardi zvijezda."
+        "hr": "Ogroman sustav zvijezda, plina, prašine i tamne materije povezan gravitacijom. Naša galaksija, Mliječni put, ima 100–400 milijardi zvijezda."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -205,11 +205,11 @@
       "style": "fact",
       "front": {
         "en": "Can you hear sound in space?",
-        "hr": "Cuje li se zvuk u svemiru?"
+        "hr": "Čuje li se zvuk u svemiru?"
       },
       "back": {
         "en": "No. Sound needs a medium like air to travel, and space is a near-perfect vacuum. Space is silent.",
-        "hr": "Ne. Zvuku treba sredina poput zraka da bi putovao, a svemir je gotovo savrsen vakuum. Svemir je tih."
+        "hr": "Ne. Zvuku treba sredina poput zraka da bi putovao, a svemir je gotovo savršen vakuum. Svemir je tih."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -219,11 +219,11 @@
       "style": "qa",
       "front": {
         "en": "What causes the Moon's phases?",
-        "hr": "Sta uzrokuje Mjeseceve mijene?"
+        "hr": "Što uzrokuje Mjeseceve mijene?"
       },
       "back": {
         "en": "The changing angle between the Sun, Earth and Moon. We see different portions of the Moon's lit half as it orbits us.",
-        "hr": "Promjenjivi ugao izmedju Sunca, Zemlje i Mjeseca. Vidimo razlicite dijelove osvijetljene polovine Mjeseca dok nas obilazi."
+        "hr": "Promjenjivi kut između Sunca, Zemlje i Mjeseca. Vidimo različite dijelove osvijetljene polovine Mjeseca dok nas obilazi."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -237,11 +237,11 @@
       },
       "back": {
         "en": "An icy body that grows a glowing tail as it nears the Sun and its ice turns to gas. Often called a 'dirty snowball'.",
-        "hr": "Ledeno tijelo koje dobija sjajni rep kako se priblizava Suncu i led mu prelazi u plin. Cesto zvan 'prljava grudva snijega'."
+        "hr": "Ledeno tijelo koje dobiva sjajni rep kako se približava Suncu i led mu prelazi u plin. Često zvan 'prljava grudva snijega'."
       },
       "explanation": {
         "en": "A comet's tail always points away from the Sun, pushed by solar wind.",
-        "hr": "Rep kometa uvijek pokazuje od Sunca, jer ga gura suncev vjetar."
+        "hr": "Rep kometa uvijek pokazuje od Sunca, jer ga gura Sunčev vjetar."
       },
       "media": { "image": null, "audio": null }
     },
@@ -254,7 +254,7 @@
       },
       "back": {
         "en": "About 384,000 km. All the other planets of the Solar System could fit in the gap between Earth and the Moon.",
-        "hr": "Oko 384.000 km. Sve ostale planete Suncevog sistema stale bi u razmak izmedju Zemlje i Mjeseca."
+        "hr": "Oko 384.000 km. Sve ostale planete Sunčevog sustava stale bi u razmak između Zemlje i Mjeseca."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -264,11 +264,11 @@
       "style": "qa",
       "front": {
         "en": "What is a shooting star, really?",
-        "hr": "Sta je zapravo zvijezda padalica?"
+        "hr": "Što je zapravo zvijezda padalica?"
       },
       "back": {
         "en": "Not a star at all — a tiny piece of rock or dust burning up as it enters Earth's atmosphere. Most are no bigger than a grain of sand.",
-        "hr": "Uopste nije zvijezda — sitni komadic stijene ili prasine koji izgara ulazeci u Zemljinu atmosferu. Vecina nije veca od zrna pijeska."
+        "hr": "Uopće nije zvijezda — sitni komadić stijene ili prašine koji izgara ulazeći u Zemljinu atmosferu. Većina nije veća od zrna pijeska."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -278,15 +278,15 @@
       "style": "term",
       "front": {
         "en": "Constellation",
-        "hr": "Sazvijezdje"
+        "hr": "Sazviježđe"
       },
       "back": {
         "en": "A recognizable pattern of stars in the night sky. There are 88 official constellations covering the whole sky.",
-        "hr": "Prepoznatljiv uzorak zvijezda na nocnom nebu. Postoji 88 sluzbenih sazvijezdja koja pokrivaju cijelo nebo."
+        "hr": "Prepoznatljiv uzorak zvijezda na noćnom nebu. Postoji 88 službenih sazviježđa koja pokrivaju cijelo nebo."
       },
       "explanation": {
         "en": "The stars in a constellation usually aren't close together — they just appear aligned from Earth.",
-        "hr": "Zvijezde u sazvijezdju obicno nisu blizu jedna drugoj — samo nam se cine poravnate sa Zemlje."
+        "hr": "Zvijezde u sazviježđu obično nisu blizu jedna drugoj — samo nam se čine poravnate sa Zemlje."
       },
       "media": { "image": null, "audio": null }
     },
@@ -295,11 +295,11 @@
       "style": "fact",
       "front": {
         "en": "What is the hottest planet in the Solar System?",
-        "hr": "Koja je najtoplija planeta Suncevog sistema?"
+        "hr": "Koja je najtoplija planeta Sunčevog sustava?"
       },
       "back": {
         "en": "Venus, around 465°C — hot enough to melt lead. Its thick CO₂ atmosphere traps heat in a runaway greenhouse effect.",
-        "hr": "Venera, oko 465°C — dovoljno vruce da otopi olovo. Gusta CO₂ atmosfera zarobljava toplinu u pobjeglom efektu staklenika."
+        "hr": "Venera, oko 465°C — dovoljno vruće da otopi olovo. Gusta CO₂ atmosfera zarobljava toplinu u pobjeglom efektu staklenika."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -327,7 +327,7 @@
       },
       "back": {
         "en": "A giant cloud of gas and dust in space — often a stellar nursery where new stars are born.",
-        "hr": "Ogroman oblak plina i prasine u svemiru — cesto 'rodiliste zvijezda' gdje nastaju nove zvijezde."
+        "hr": "Ogroman oblak plina i prašine u svemiru — često 'rodilište zvijezda' gdje nastaju nove zvijezde."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -337,11 +337,11 @@
       "style": "fact",
       "front": {
         "en": "Which planet has the biggest volcano?",
-        "hr": "Koja planeta ima najveci vulkan?"
+        "hr": "Koja planeta ima najveći vulkan?"
       },
       "back": {
         "en": "Mars. Olympus Mons is about 22 km tall — nearly three times the height of Mount Everest.",
-        "hr": "Mars. Olympus Mons je visok oko 22 km — gotovo tri puta visi od Mount Everesta."
+        "hr": "Mars. Olympus Mons je visok oko 22 km — gotovo tri puta viši od Mount Everesta."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -351,11 +351,11 @@
       "style": "qa",
       "front": {
         "en": "What is the Sun made of?",
-        "hr": "Od cega je Sunce sastavljeno?"
+        "hr": "Od čega je Sunce sastavljeno?"
       },
       "back": {
         "en": "Mostly hydrogen (about 74%) and helium (about 24%). It fuses hydrogen into helium, releasing the energy that lights our sky.",
-        "hr": "Uglavnom vodik (oko 74%) i helij (oko 24%). Spaja vodik u helij, oslobadjajuci energiju koja obasjava nase nebo."
+        "hr": "Uglavnom vodik (oko 74%) i helij (oko 24%). Spaja vodik u helij, oslobađajući energiju koja obasjava naše nebo."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -369,7 +369,7 @@
       },
       "back": {
         "en": "A rocky leftover from the formation of the Solar System. Most orbit the Sun in the asteroid belt between Mars and Jupiter.",
-        "hr": "Stjenoviti ostatak od nastanka Suncevog sistema. Vecina kruzi oko Sunca u asteroidnom pojasu izmedju Marsa i Jupitera."
+        "hr": "Stjenoviti ostatak od nastanka Sunčevog sustava. Većina kruži oko Sunca u asteroidnom pojasu između Marsa i Jupitera."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -379,11 +379,11 @@
       "style": "scale",
       "front": {
         "en": "How old is the Universe?",
-        "hr": "Koliko je star Univerzum?"
+        "hr": "Koliko je star svemir?"
       },
       "back": {
         "en": "About 13.8 billion years. If that were compressed into one year, humans would appear only in the last few minutes of December 31.",
-        "hr": "Oko 13,8 milijardi godina. Kad bi to sabili u jednu godinu, ljudi bi se pojavili tek u zadnjih par minuta 31. decembra."
+        "hr": "Oko 13,8 milijardi godina. Kad bi to sabili u jednu godinu, ljudi bi se pojavili tek u zadnjih par minuta 31. prosinca."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -393,11 +393,11 @@
       "style": "qa",
       "front": {
         "en": "Why do stars twinkle?",
-        "hr": "Zasto zvijezde trepere?"
+        "hr": "Zašto zvijezde trepere?"
       },
       "back": {
         "en": "Their light bends as it passes through Earth's moving atmosphere. Above the atmosphere, stars shine steadily. Planets twinkle far less.",
-        "hr": "Njihova svjetlost se lomi prolazeci kroz Zemljinu pokretnu atmosferu. Iznad atmosfere zvijezde sjaje mirno. Planete trepere puno manje."
+        "hr": "Njihova svjetlost se lomi prolazeći kroz Zemljinu pokretnu atmosferu. Iznad atmosfere zvijezde sjaje mirno. Planete trepere puno manje."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -421,11 +421,11 @@
       "style": "fact",
       "front": {
         "en": "What are Saturn's rings made of?",
-        "hr": "Od cega su Saturnovi prstenovi?"
+        "hr": "Od čega su Saturnovi prstenovi?"
       },
       "back": {
         "en": "Billions of pieces of ice and rock, from tiny grains to house-sized chunks. Despite their width, they're only about 10 metres thick on average.",
-        "hr": "Milijarde komada leda i stijene, od sitnih zrna do komada velicine kuce. Uprkos sirini, u prosjeku su debeli samo oko 10 metara."
+        "hr": "Milijarde komada leda i stijene, od sitnih zrna do komada veličine kuće. Unatoč širini, u prosjeku su debeli samo oko 10 metara."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -435,11 +435,11 @@
       "style": "qa",
       "front": {
         "en": "What is the Milky Way?",
-        "hr": "Sta je Mlijecni put?"
+        "hr": "Što je Mliječni put?"
       },
       "back": {
         "en": "Our home galaxy — a barred spiral of hundreds of billions of stars. On dark nights you can see its band arching across the sky.",
-        "hr": "Nasa domaca galaksija — spiralna s precagom, s stotinama milijardi zvijezda. Za tamnih noci vidis njen pojas kako se luči preko neba."
+        "hr": "Naša domaća galaksija — spiralna s prečagom, s stotinama milijardi zvijezda. Za tamnih noći vidiš njen pojas kako se luči preko neba."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -453,7 +453,7 @@
       },
       "back": {
         "en": "The force that pulls objects with mass toward each other. It holds planets in orbit, shapes galaxies, and keeps your feet on the ground.",
-        "hr": "Sila koja privlaci tijela s masom jedno prema drugom. Drzi planete u orbiti, oblikuje galaksije i drzi ti stopala na tlu."
+        "hr": "Sila koja privlači tijela s masom jedno prema drugom. Drži planete u orbiti, oblikuje galaksije i drži ti stopala na tlu."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -467,7 +467,7 @@
       },
       "back": {
         "en": "Mercury — barely larger than our Moon. A year there lasts just 88 Earth days.",
-        "hr": "Merkur — jedva veci od naseg Mjeseca. Godina tamo traje samo 88 zemaljskih dana."
+        "hr": "Merkur — jedva veći od našeg Mjeseca. Godina tamo traje samo 88 zemaljskih dana."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -477,11 +477,11 @@
       "style": "qa",
       "front": {
         "en": "What is the International Space Station?",
-        "hr": "Sta je Medjunarodna svemirska stanica?"
+        "hr": "Što je Međunarodna svemirska stanica?"
       },
       "back": {
         "en": "A crewed laboratory orbiting Earth at about 400 km, circling the planet roughly every 90 minutes — 16 sunrises a day.",
-        "hr": "Laboratorija s posadom koja kruzi oko Zemlje na oko 400 km, obilazi planetu otprilike svakih 90 minuta — 16 izlazaka sunca dnevno."
+        "hr": "Laboratorija s posadom koja kruži oko Zemlje na oko 400 km, obilazi planetu otprilike svakih 90 minuta — 16 izlazaka sunca dnevno."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -495,7 +495,7 @@
       },
       "back": {
         "en": "A world that orbits the Sun and is round, but hasn't cleared its orbital neighbourhood. Pluto is the most famous example.",
-        "hr": "Svijet koji kruzi oko Sunca i okrugao je, ali nije 'ocistio' svoju orbitu. Pluton je najpoznatiji primjer."
+        "hr": "Svijet koji kruži oko Sunca i okrugao je, ali nije 'očistio' svoju orbitu. Pluton je najpoznatiji primjer."
       },
       "explanation": {
         "en": "Pluto was reclassified from planet to dwarf planet in 2006.",
@@ -508,11 +508,11 @@
       "style": "fact",
       "front": {
         "en": "How many stars can you see with the naked eye?",
-        "hr": "Koliko zvijezda vidis golim okom?"
+        "hr": "Koliko zvijezda vidiš golim okom?"
       },
       "back": {
         "en": "Around 2,000–3,000 on a very dark night from one spot — a tiny fraction of the billions in our galaxy alone.",
-        "hr": "Oko 2.000–3.000 za jako tamne noci s jednog mjesta — sitni djelic milijardi u samo nasoj galaksiji."
+        "hr": "Oko 2.000–3.000 za jako tamne noći s jednog mjesta — sitni djelić milijardi u samo našoj galaksiji."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -522,11 +522,11 @@
       "style": "qa",
       "front": {
         "en": "Why does the Moon always show the same face?",
-        "hr": "Zasto nam Mjesec uvijek pokazuje isto lice?"
+        "hr": "Zašto nam Mjesec uvijek pokazuje isto lice?"
       },
       "back": {
         "en": "Tidal locking. The Moon rotates exactly once per orbit, so the same side always faces Earth. The 'far side' isn't dark — it just faces away.",
-        "hr": "Plimno zakljucavanje. Mjesec se okrene tacno jednom po orbiti, pa nam je uvijek okrenuta ista strana. 'Druga strana' nije tamna — samo je okrenuta od nas."
+        "hr": "Plimno zaključavanje. Mjesec se okrene točno jednom po orbiti, pa nam je uvijek okrenuta ista strana. 'Druga strana' nije tamna — samo je okrenuta od nas."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -536,15 +536,15 @@
       "style": "term",
       "front": {
         "en": "Solar eclipse",
-        "hr": "Pomracenje Sunca"
+        "hr": "Pomrčina Sunca"
       },
       "back": {
         "en": "When the Moon passes between the Sun and Earth, casting its shadow and briefly blocking the Sun.",
-        "hr": "Kad Mjesec prodje izmedju Sunca i Zemlje, bacajuci sjenu i nakratko zakrivajuci Sunce."
+        "hr": "Kad Mjesec prođe između Sunca i Zemlje, bacajući sjenu i nakratko zakrivajući Sunce."
       },
       "explanation": {
         "en": "By cosmic coincidence, the Sun and Moon appear almost the same size in our sky.",
-        "hr": "Kosmickom slucajnoscu, Sunce i Mjesec izgledaju gotovo iste velicine na nasem nebu."
+        "hr": "Kozmičkom slučajnošću, Sunce i Mjesec izgledaju gotovo iste veličine na našem nebu."
       },
       "media": { "image": null, "audio": null }
     },
@@ -553,11 +553,11 @@
       "style": "fact",
       "front": {
         "en": "What is the largest known star?",
-        "hr": "Koja je najveca poznata zvijezda?"
+        "hr": "Koja je najveća poznata zvijezda?"
       },
       "back": {
         "en": "Stephenson 2-18. If placed where our Sun is, it would swallow the orbit of Saturn. Our Sun is a dot beside it.",
-        "hr": "Stephenson 2-18. Kad bi bila na mjestu naseg Sunca, progutala bi orbitu Saturna. Nase Sunce je tackica pored nje."
+        "hr": "Stephenson 2-18. Kad bi bila na mjestu našeg Sunca, progutala bi orbitu Saturna. Naše Sunce je točkica pored nje."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -567,11 +567,11 @@
       "style": "qa",
       "front": {
         "en": "What holds the planets in orbit around the Sun?",
-        "hr": "Sta drzi planete u orbiti oko Sunca?"
+        "hr": "Što drži planete u orbiti oko Sunca?"
       },
       "back": {
         "en": "The Sun's immense gravity. Its mass bends space itself, and the planets travel along that curve.",
-        "hr": "Ogromna gravitacija Sunca. Njegova masa savija sam prostor, a planete putuju tom zakrivljenoscu."
+        "hr": "Ogromna gravitacija Sunca. Njegova masa savija sam prostor, a planete putuju tom zakrivljenošću."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
@@ -585,11 +585,11 @@
       },
       "back": {
         "en": "When Earth passes through the debris trail left by a comet, producing many shooting stars in one night.",
-        "hr": "Kad Zemlja prodje kroz trag krhotina koji je ostavio komet, stvarajuci mnogo zvijezda padalica u jednoj noci."
+        "hr": "Kad Zemlja prođe kroz trag krhotina koji je ostavio komet, stvarajući mnogo zvijezda padalica u jednoj noći."
       },
       "explanation": {
         "en": "The Perseids each August are one of the most reliable and popular showers.",
-        "hr": "Perseidi svakog avgusta su jedan od najpouzdanijih i najpopularnijih rojeva."
+        "hr": "Perseidi svakog kolovoza su jedan od najpouzdanijih i najpopularnijih rojeva."
       },
       "media": { "image": null, "audio": null }
     },
@@ -602,7 +602,7 @@
       },
       "back": {
         "en": "At highway speed (100 km/h), about 170 years non-stop. Space distances are almost impossible to grasp.",
-        "hr": "Brzinom autoceste (100 km/h), oko 170 godina bez zaustavljanja. Svemirske udaljenosti je gotovo nemoguce pojmiti."
+        "hr": "Brzinom autoceste (100 km/h), oko 170 godina bez zaustavljanja. Svemirske udaljenosti je gotovo nemoguće pojmiti."
       },
       "explanation": null,
       "media": { "image": null, "audio": null }
