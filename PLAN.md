@@ -17,7 +17,7 @@ Tehnicka pravila i stack su u `CLAUDE.md`. Ovaj dokument opisuje **sta gradimo i
 - **Kartice:** mix stilova (pitanje/odgovor, pojam/definicija, zanimljivost, skala) + mix medija (tekst/slika/zvuk, struktura spremna)
 - **Gamifikacija:** pozeljna ali nije prioritet — lagana (streak, bodovi) kad osnovno radi
 - **Korisnicko kreiranje kartica:** kasnije, ne u MVP-u
-- **Monetizacija:** jos neodlucena — arhitektura ostavlja prostor (premium deckovi)
+- **Monetizacija:** pretplata Celeste Plus (plan za veceras, dnevni izvjestaj, premium deckovi) preko RevenueCat + affiliate za teleskope — vidi Fazu 5
 - **Tempo:** bez roka, kvalitet ispred brzine
 
 ---
@@ -73,15 +73,36 @@ Zadaci:
 
 ---
 
-## FAZA 4 — Nalozi, monetizacija i offline
-Kad postoji stabilan proizvod i korisnici.
+### FAZA 4 — Plan za veceras (besplatno) + prva objava
+Ideja iz povratnih informacija testera: aplikacija napravi plan umjesto korisnika ako veceras ide gledati nebo. Besplatni dio pokazuje vrijednost, detaljni dio ide u Celeste Plus (Faza 5).
+
+Zadaci:
+1. Zavrsiti zapoceto: test popravke ponavljanja u kvizu na uredjaju, dijakritike u hr sadrzaju (kartice, kviz, sazvijezdja), `.claude/settings.json` van gita ako je repo javan
+2. Ocjena za veceras na ekranu Veceras (npr. "72/100, najbolje od 22:30 do 01:00"): oblacnost po satima + sjaj Mjeseca + astronomski sumrak
+   - Prognoza: MET Norway Locationforecast (besplatno, komercijalno dozvoljeno, uz navodjenje izvora, identifikacijski User-Agent i kesiranje). Obican `fetch` kroz data sloj, bez nove biblioteke.
+3. Plan za veceras: objekti po prioritetu (planete, Mjesec, sjajne zvijezde, sazvijezdja) s vremenom i smjerom; prolasci ISS-a; veza na kartice/kviz ("veceras se vidi Orion")
+4. Prva objava (App Store + Google Play), besplatna verzija, licni developer racuni
+   - Google licni racun: zatvoreno testiranje (min. testera / dana po aktualnim pravilima) prije produkcije
+
+### FAZA 5 — Nalozi i Celeste Plus (pretplata)
+Preduvjet: rijesen porezni status (razgovor s racunovodjom, npr. pausalni obrt) i svjesnost da se kao EU "trgovac" u trgovini javno prikazuju adresa/kontakt.
 
 Zadaci:
 1. Supabase Auth (email / social login)
-2. Premium deckovi i sadrzaj (paywall)
-3. In-app kupovina (RevenueCat ili expo-in-app-purchases)
-4. Offline podrska (lokalni cache + sync) — sad se isplati, data sloj je vec spreman
-5. Deljenje deckova / korisnicko kreiranje kartica (opcionalno)
+2. In-app pretplata preko RevenueCat (jedan API za App Store i Google Play, provjera pretplate, paywall). Apple/Google su prodavac, naplacuju PDV, zadrzavaju proviziju (~15% za male developere).
+3. Plus sadrzaj: detaljan plan po satima, premium deckovi
+4. Dnevni push izvjestaj: Supabase Edge Function (cron) racuna ocjenu po korisniku i salje push. Lokacija na serveru samo uz izricit pristanak + politika privatnosti.
+5. Svjetlosno zagadjenje: Bortle procjena iz unaprijed pripremljene karte (World Atlas / VIIRS) u Supabase Storageu — prvo provjeriti licencu podataka
+6. Prijedlog lokacije: najblize tamnije podrucje u krugu X km + oblacnost tamo, otvaranje u mapama preko linka
+
+Nezavisno (moze bilo kad, i besplatno): vodic za izbor teleskopa — par pitanja (budzet, balkon/izlet, planete/maglice) → preporuka iz liste u Supabaseu s affiliate linkovima.
+
+### FAZA 6 — Offline i korisnicki sadrzaj
+Kad postoji stabilan proizvod i korisnici.
+
+Zadaci:
+1. Offline podrska (lokalni cache + sync) — data sloj je vec spreman
+2. Deljenje deckova / korisnicko kreiranje kartica (opcionalno)
 
 ---
 
